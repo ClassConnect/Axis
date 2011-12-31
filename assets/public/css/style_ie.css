@@ -1,0 +1,48 @@
+/*
+	Version:      Internet explore (IE)
+*/
+/* content */
+div#content{
+	*padding:0 0 50px 0;/* IE7 and below */
+}
+/* search */
+input#search-field{
+    height:22px\9;/* IE8 and below */	
+	padding:2px 6px 0 8px\9;/* IE8 and below */
+	*padding:3px 6px 0 0px;/* IE7 and below */
+	*width:100px;/* IE7 and below */
+}
+/* contact */
+form#contactform .contact-input{
+	height:24px\9;/* IE8 and below */
+	padding:7px 0px 0 8px\9;/* IE8 and below */		
+}
+form#contactform .contact-textarea{
+	padding:7px 0px 0 8px\9;/* IE8 and below */
+	overflow:auto;	
+}
+/* blog */
+div.blog-box .readmore {
+	clear:both;
+}
+ul.sidebar-poppost li a.po-date{
+	*width:214px;/* IE7 and below */
+}
+/* footer */
+form#footer-form .footer-input{
+	height:26px\9;/* IE8 and below */
+	padding:6px 0px 0 4px\9;/* IE8 and below */
+	height:26px\9;/* IE8 and below */	
+}
+form#footer-form .footer-textarea{
+	padding:6px 0px 0 4px\9;/* IE8 and below */
+	overflow:auto;	
+}
+/* login */
+div#login-box .input-1{
+	height:26px\9;/* IE8 and below */
+	padding:8px 0px 0 4px\9;/* IE8 and below */	
+}
+div#header-slider-inner{
+	margin:51px 0 0 1px;
+}

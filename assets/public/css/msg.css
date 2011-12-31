@@ -1,0 +1,54 @@
+/* reset */
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote,
+pre, form, fieldset, table, th, td { margin: 0; padding: 0; }
+
+html{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#222;
+	line-height:22px;
+}
+body{
+	background:#fff;
+}
+a, 
+a:visited, 
+a:active{
+	color:#000;
+	text-decoration:underline;
+}
+a:hover{
+	text-decoration:none;
+}
+div#msg-send{
+	width:700px;
+	height:60px;
+	margin-top:100px;
+	margin-left:auto;
+	margin-right:auto;
+	background:#d0ffc4;
+	border:1px solid #64cf48;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+div#msg-error{
+	width:700px;
+	height:60px;
+	margin-top:100px;
+	margin-left:auto;
+	margin-right:auto;
+	background:#ffd3d3;
+	border:1px solid #ff8c8c;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+div#msg-send p,
+div#msg-error p{
+	float:left;
+	margin:18px 0px 0 10px;
+}
+div#msg-send img.loader,
+div#msg-error img.loader{
+	float:right;
+	margin:21px 10px 0 14px;
+}

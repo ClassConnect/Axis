@@ -1,0 +1,14 @@
+/* CSS Document */
+
+P-ITALIC {
+	font-family: Verdana;
+	font-style: italic;
+	font-weight: normal;
+	color: #666666;
+	display: block;
+	font-size: 12px;
+	margin-bottom: 10px;
+	line-height: 18px;
+	text-align: left;
+	letter-spacing: 0.5px;
+}
