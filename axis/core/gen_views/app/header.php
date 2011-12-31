@@ -49,7 +49,7 @@
 <div class="topbar">
       <div class="topbar-inner">
         <div class="container">
-          <a class="brand" href="/app/"><img src="/assets/app/img/logo.png" style="float:left;height:18px;margin-top:1px" /></a> 
+          <a class="brand" href="/"><img src="/assets/app/img/logo.png" style="float:left;height:18px;margin-top:1px" /></a> 
 
           <ul class="nav secondary-nav">
             <li class="dropdown">

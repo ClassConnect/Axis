@@ -159,8 +159,9 @@ function getCalEntries($start, $end, $personal, $courses, $colleagues, $networks
 	if (!isset($uid)) {
 		$uid = user('id');
 	}
-
 	global $mdb;
+	$start = (int) $start;
+	$end = (int) $end;
 
 	// select a collection (analogous to a relational database's table)
 	$collection = $mdb->calendar_entries;
@@ -184,7 +185,7 @@ function getCalEntries($start, $end, $personal, $courses, $colleagues, $networks
 		}
 	}
 
-	$params = array('$or' => $idArr);
+	$params = array('$or' => $idArr, "start" => array('$gte' => $start), "end" => array('$lte' => $end));
 	$data = $collection->find($params);
 
 	return $data;

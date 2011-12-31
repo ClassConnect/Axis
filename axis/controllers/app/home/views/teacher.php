@@ -2,7 +2,6 @@
   <div class="row">
 
 <?php
-require_once('axis/controllers/app/filebox/core/main.php');
 // check for colleague requests
 $totReqs = getReqs();
 if ($totReqs > 0) {
