@@ -43,8 +43,10 @@ if (in_array($ext, $imgTypes)) {
 	// if this has courses
 	if (($_POST['courses'] || $_POST['refCour']) && user('level') == 3) {
 		foreach ($_POST['courses'] as $courseID) {
-			good_query("UPDATE course_sections SET icon = '$encname' WHERE section_id = $courseID");
-			getSection($courseID, true);
+			if (authSection($courseID)) {
+				good_query("UPDATE course_sections SET icon = '$encname' WHERE section_id = $courseID");
+				getSection($courseID, true);
+			}
 		}
 		header('location:/app/course/' . $_POST['refCour']);
 

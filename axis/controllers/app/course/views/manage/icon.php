@@ -9,7 +9,7 @@
 
 
     <div style="font-weight:bolder;color:#666;margin-top:15px;margin-bottom:5px">Also set as the icon for...</div>
-    <?= buildCoursePicker(array($sectionID),0,'',''); ?>
+    <?= buildCoursePicker(array($sectionID),0,'','line-height:1.4em'); ?>
     <input type="hidden" name="refCour" value="<?= $sectionID; ?>" />
     </div><!-- /clearfix -->
   </fieldset>

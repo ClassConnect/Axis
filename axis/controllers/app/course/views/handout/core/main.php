@@ -12,7 +12,6 @@ function getHandoutChildren($contentID, $courseID) {
 
 		$params = array('permissions.type'=>2, 'permissions.shared_id'=>(int) $courseID);
 		$data = $collection->find($params);
-		return $data;
 
 	} else {
 		$data = $collection->find(array('parent.id'=>$contentID));
