@@ -66,9 +66,11 @@ if (isset($_POST['submitted'])) {
 
           // this email address isn't in our DB. lets create a fake account for it.
           } else {
-            $newID = createTempUser($local);
-            addFriend($newID, null, true);
-            $pers[] = array("shared_id"=>(int) $newID, "type"=>1, "auth_level"=>2);
+            if (user('level') == 3) {
+              $newID = createTempUser($local);
+              addFriend($newID, null, true);
+              $pers[] = array("shared_id"=>(int) $newID, "type"=>1, "auth_level"=>2);
+            }
           }
 
         }
@@ -81,7 +83,7 @@ if (isset($_POST['submitted'])) {
     // get courses
     $localCourses = explode(",", $_POST['courses']);
     foreach ($localCourses as $local) {
-      if ($local != '' && authSection($local)) {
+      if ($local != '' && authSection($local) && user('level') == 3) {
         $pers[] = array("shared_id"=>(int) $local, "type"=>2, "auth_level"=>1);
       }
     }
@@ -350,12 +352,14 @@ $('#update-pers').submit(function() {
           }
           
         }
+
+        $placerSwap = dispOnly('Enter colleague name or email...', 3) . dispOnly('Enter classmate or teacher name...', 1);
         ?>
         </div>
 
             <div class="addLeagues" style="margin-top:10px">
               <div class="input-append">
-                <input size="30" type="text" id="adder" style="width:220px;height:15px;font-style:italic" onfocus="if(this.value=='Enter colleague name or email...')this.value='';$(this).css('font-style','');" onblur="if(this.value=='')this.value='Enter colleague name or email...';$(this).css('font-style','italic');" value="Enter colleague name or email...">
+                <input size="30" type="text" id="adder" style="width:220px;height:15px;font-style:italic" onfocus="if(this.value=='<?= $placerSwap; ?>')this.value='';$(this).css('font-style','');" onblur="if(this.value=='')this.value='<?= $placerSwap; ?>';$(this).css('font-style','italic');" value="<?= $placerSwap; ?>">
                 <label class="add-on" style="height:15px"><select id="perAuther" style="width:95px;font-size:11px;padding-top:3px;float:right;margin-top:-5px;background:none;border-radius:0;border:none">
                 <option>View & edit</option>
                 <option>View-only</option>
@@ -369,7 +373,7 @@ $('#update-pers').submit(function() {
 
       </div>
       <?php
-      if (getSections()) {
+      if (getSections() && user('level') == 3) {
       ?>
 
       <div style="margin-top:70px">

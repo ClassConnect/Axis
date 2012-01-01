@@ -11,6 +11,18 @@ if ($this->Command->Parameters[0] == 'courses') {
     require_once('axis/controllers/app/manage/courses/teacher/index.php');
   }
  
+
+// if this is settings
+} elseif ($this->Command->Parameters[0] == 'settings') {
+	require_once('settings/core/main.php');
+	// if this is a modify command
+	if ($this->Command->Parameters[1] == 'icon') {
+		// this is for updating a user or course icon
+		require_once('settings/views/icon.php');
+
+	} else {
+	  require_once('settings/views/index.php');
+	}
 }
 
 ?>

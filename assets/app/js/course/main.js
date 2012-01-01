@@ -107,7 +107,7 @@ function initAnnouncements() {
 
 			$.ajax({  
 		      type: "POST",  
-		      url: preURL + "announcements/add",  
+		      url: preURL + "latest/add",  
 		      data: 'courses=' + selected + '&status=' + $("#status").val(),
 		      success: function(retData) {
 		        $("#course_feed").prepend(

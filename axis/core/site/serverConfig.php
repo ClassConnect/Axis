@@ -11,7 +11,7 @@ function imgServer() {
 
 // Rackspace img server
 function iconServer() {
-	return 'http://c443942.r42.cf2.rackcdn.com/';
+	return 'http://c980053.r53.cf2.rackcdn.com/';
 }
 
 // Location of classconnect server

@@ -9,8 +9,9 @@ function genCoursePage($secData, $courseData, $rightCont, $appid, $crumb, $pageT
 		// <div class="container">
 	echo '<div class="content"> 
 	        <div class="row" style="clear:both"> 
-	          <div class="sectionLeft"> 
-	            <img src="/assets/app/img/course/atom.png" class="courseLogo" />
+	          <div class="sectionLeft">
+	          ' . dispOnly('<div class="logoChange" onClick="jQuery.facebox({ ajax: \'/app/course/' . $secData['section_id'] . '/manage/icon\' }); return false;">Change Icon</div>', 3) . '
+	            <img src="' . iconServer() . '210_' . $secData['icon'] . '" class="courseLogo" />
 
 	            <div class="appMenu">
 	              <a href="/app/course/' . $secData['section_id'] . '/latest" class="js-pjax" onClick="swapActive($(this).find(\'.appItem\'))"><div id="app-1" class="appItem">Latest</div></a>

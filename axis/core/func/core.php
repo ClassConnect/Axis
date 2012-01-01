@@ -119,6 +119,13 @@ function say($text, $lang) {
     }
 }
 
+//only returns the string if they're allowed to see it
+function dispOnly($str, $level) {
+    if (user('level') == $level) {
+        return $str;
+    }
+}
+
 
 
 
@@ -1145,7 +1152,7 @@ function genFeedItem($items, $primary, $uid) {
                 $finalResult .= '<div class="feedItem" id="item-' . $item['_id'] . '">
 ' . $delML . '
     <div class="feedLeft">
-      <img src="/assets/app/img/course/atom.png" class="profImg" /> 
+      <img src="' . iconServer() . '50_' . $secData['icon'] . '" class="profImg" /> 
     </div>
 
     <div class="feedRight">

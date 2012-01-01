@@ -24,6 +24,10 @@ if (authSection($sectionID)) {
 		require_once('views/handout/core/main.php');
 		require_once('views/handout/index.php');
 
+	} elseif ($this->Command->Parameters[1] == 'manage') {
+		if ($this->Command->Parameters[2] == 'icon') {
+			require_once('views/manage/icon.php');
+		}
 
 
 	// default view (?)

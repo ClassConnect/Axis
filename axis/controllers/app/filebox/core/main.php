@@ -2608,7 +2608,7 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    		<a class="js-pjax" href="/app/filebox/shared">Shared with you</a>
 	    		</div>
 	    		<div class="conlast">
-	    		Content shared with you by your colleagues.
+	    		Content shared with you by your ' .  dispOnly('colleagues', 3) .  dispOnly('classmates and teachers', 1) .'.
 	    		</div>
 	    	</div>
 	    </div>
@@ -2726,7 +2726,7 @@ function authorUI($conObj, $perObj) {
 
 
  return '<div style="clear:both">
-	 	<img src="/assets/app/img/temp/user.png" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px; border:2px solid #ccc" />
+	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px; border:2px solid #ccc" />
 		 	<div style="margin-left:70px;padding-bottom:5px">
 		 		<div style="padding-top:1px">
 
@@ -2738,10 +2738,10 @@ function authorUI($conObj, $perObj) {
 		 			<div id="storageval" style="display:none">' . $sData['percentage'] . '</div>
 
 		 			<div style="color:#666;font-size:10px;margin-left:3px">Using ' . $sData['used']['data'] . ' ' . $sData['used']['fix'] . ' of your ' . $sData['available']['data'] . ' ' . $sData['available']['fix'] . '</div>
-		 			<div style="margin-top:-5px;font-size:10px"><a href="#" onClick="jQuery.facebox({ 
+		 			<div style="margin-top:-5px;font-size:10px">' .  dispOnly('<a href="#" onClick="jQuery.facebox({ 
     ajax: \'/app/common/colleagues/add\'
   });
-  return false;">Invite colleagues, <strong>get storage!</strong></a></div>
+  return false;">Invite colleagues, <strong>get storage!</strong></a>', 3) . '</div>
 
 		 		</div>
 		 	</div>
@@ -2752,7 +2752,7 @@ function authorUI($conObj, $perObj) {
 	} else {
 
 	 return '<div style="clear:both">
-	 	<img src="/assets/app/img/temp/user.png" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px; border:2px solid #ccc" />
+	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px; border:2px solid #ccc" />
 		 	<div style="margin-left:70px">
 		 		<div style="padding-top:5px;font-size:14px">
 		 			<a href="#">' . dispUser($ownerID, 'first_name') . ' ' . dispUser($ownerID, 'last_name') . '</a>

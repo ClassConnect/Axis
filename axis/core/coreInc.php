@@ -27,4 +27,6 @@ require_once('func/core.php');
 require_once('site/cloudFiles/cloudfiles.php');
 // get scribd ext
 require_once('site/scribd/scribd.php');
+// pull in the thumbnailer
+require_once('site/thumbnail/ThumbLib.inc.php');
 ?>

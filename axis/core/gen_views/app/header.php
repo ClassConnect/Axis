@@ -115,8 +115,7 @@
             <li class="dropdown imgoverride">
               <a href="#" class="dropdown-toggle"><img src="/assets/app/img/nav/settings.png" style="height:25px;float:left;margin-top:-3px" /></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="/app/manage/settings">Settings</a></li>
                 <li class="divider"></li>
                 <li><a href="/app/logout">Logout</a></li>
               </ul>
