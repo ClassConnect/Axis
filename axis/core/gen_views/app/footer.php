@@ -1,5 +1,5 @@
       <footer> 
-        <p>&copy; ClassConnect Inc 2011</p> 
+        <p>&copy; ClassConnect Inc 2012</p> 
       </footer> 
  
     </div> <!-- /main-container --> 

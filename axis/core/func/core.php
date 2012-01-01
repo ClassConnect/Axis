@@ -1358,7 +1358,7 @@ function genFriendsJSON() {
     $amigos = getFriends();
     foreach ($amigos as $amigoID) {
       $temp = array("label" => dispUser($amigoID, 'first_name') . ' ' . dispUser($amigoID, 'last_name'),
-      "val" => $amigoID);
+      "val" => $amigoID, "icon" => dispUser($amigoID, 'prof_icon'));
         $finalList[] = $temp;
     }
 

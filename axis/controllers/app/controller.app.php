@@ -57,8 +57,12 @@ class appController extends Axis_Controller
 
         function _calendar()
         {
-                require_once('calendar/core/main.php');
-                require_once('calendar/index.php');
+                if (!checkSession()) {
+                        showLogin();
+                } else {
+                        require_once('calendar/core/main.php');
+                        require_once('calendar/index.php');
+                }
         }
 
 
