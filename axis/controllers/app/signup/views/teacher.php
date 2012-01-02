@@ -142,6 +142,9 @@ $('#add-teacher').submit(function() {
         <input id="pass2" name="pass2" size="100" maxlength="30" type="password" style="font-size:12px;height:15px">
       </div>
     </div>
+
+    <div style="color:#666;margin-top:10px;text-align:center;font-size:10px;margin-bottom:-7px">You agree to our <a href="/legal/tos" target="_blank">terms of service</a></div>
+
     <input type="hidden" name="submitted" value="true" />
     </div><!-- /clearfix -->
   </fieldset>

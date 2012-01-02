@@ -4,7 +4,7 @@
 $mongocon = new Mongo();
 
 // select a database
-$mdb = $mongocon->dev;
+$mdb = $mongocon->final;
 
 
 // memcached connection

@@ -2524,6 +2524,20 @@ function createConIcon($obj) {
 		$img ='gdoc.png';
 		$text = 'Doc';
 
+	
+	// web document
+	} elseif ($obj['format'] == 6) {
+		$class = 'conWeb';
+		$img ='document.png';
+		$text = 'Doc';
+
+
+	// livelecture
+	} elseif ($obj['format'] == 7) {
+		$class = 'conWeb';
+		$img ='lecture.png';
+		$text = 'Lecture';
+
 
 	}
 
@@ -3171,6 +3185,17 @@ function displayContent($cObj, $cData) {
 	// if this is a google doc
 	} elseif ($cObj['format'] == 5) {
 		return '<center><a href="' . $cData['data'] . '" class="btn large primary" style="font-weight:bolder" onclick="displayWebContent(5, \'' . $cObj['title'] . '\', \'' . $cData['data'] . '\'); return false"><img src="/assets/app/img/box/goog.png" style="float:left;margin-right:10px;height:18px" />Open Google Document</a>';
+
+
+
+	// temp doc catch
+	} elseif ($cObj['format'] == 6) {
+		return '<center><a href="/app/docs" class="btn large primary" style="font-weight:bolder">Open this document</a></center>';
+
+
+	// temp lecture catch
+	} elseif ($cObj['format'] == 7) {
+		return '<center><a href="/app/livelecture" class="btn large primary" style="font-weight:bolder">Open this lecture</a></center>';
 
 	}
 }

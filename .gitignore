@@ -1,2 +1,5 @@
 dom/*
 mongoadmin/*
+convert/*
+axis/core/data/connect.php
+axis/core/site/serverConfig.php

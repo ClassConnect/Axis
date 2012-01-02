@@ -108,7 +108,7 @@ function initAnnouncements() {
 			$.ajax({  
 		      type: "POST",  
 		      url: preURL + "latest/add",  
-		      data: 'courses=' + selected + '&status=' + $("#status").val(),
+		      data: 'courses=' + selected + '&status=' + escape($("#status").val()),
 		      success: function(retData) {
 		        $("#course_feed").prepend(
 				    $(retData).hide().fadeIn('slow')

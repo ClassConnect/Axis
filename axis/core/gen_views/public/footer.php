@@ -1,109 +1,9 @@
-</div><!-- END "#container" -->
+      <footer>
+        <p>&copy; 2012 ClassConnect <span style="font-size:10px"></p>
+      </footer>
 
-<!--| footer starts here |-->
+    </div> <!-- /container -->
 
-    <footer>
-<?php if(isset($foot_msg)) { ?>
-        <div id="footer-top">
-        	<div id="footer-bar-shadow-top"></div>
-
-            <div id="footer-top-inner">
-<?php echo $foot_msg; ?>
-            </div><!-- END "#footer-top-inner" -->
-
-            <div id="footer-bar-shadow-bottom"></div>
-        </div><!-- END "#footer-top" -->
-<?php } ?>
-
-        <div id="footer-mid">
-        	<div id="footer-mid-inner">
-
-
-                <div class="footerbox-mid">
-                <div>
-                    <span class="footerHeader" style="color:#fff">About Us</span><br /><br />
-                    <span class="footerHeader"><a href="/about/company/">Our Company</a></span><br />
-                    <span class="footerHeader"><a href="/about/team/">Our Team</a></span><br />
-                    <span class="footerHeader"><a href="/about/advisors/">Our Advisors</span><br />
-              </div>
-              <div style="margin-top:50px">
-                <span class="footerHeader" style="color:#fff">Follow Us</span><div style="clear:both;margin-top:15px"></div>
-                <a href="http://www.facebook.com/pages/ClassConnect/178960745494321" target="_blank"><img src="/assets/public/images/fb.png" style="float:left; margin-left:13px" /></a>
-                <a href="http://www.twitter.com/ClassConnectInc" target="_blank"><img src="/assets/public/images/twitter.png" style="float:left; margin-left:13px" /></a>
-                <a href="http://www.youtube.com/user/ClassConnectInc" target="_blank"><img src="/assets/public/images/yt.png" style="float:left; margin-left:13px" /></a>
-              </div>
-                </div><!-- END ".footerbox-mid" -->
-
-                <div class="footerbox-connect">
-                    <span class="footerHeader" style="color:#fff">Latest Blog Posts</span>
-
-<?php
-// Include WordPress
-
-define('WP_USE_THEMES', false);
-if(file_exists('wp-load.php')){
-  require('wp-load.php');
-} else {
-  require('blog/wp-load.php');
-}
-query_posts('showposts=6');
-?>
-
-<?php while (have_posts()): the_post(); ?>
-<li style="border-bottom:1px solid #ccc;list-style:none"><a href="<?php the_permalink(); ?>" style="color:#fff"><?php the_title(); ?></a></li>
-<?php endwhile; 
-?>
-
-                </div><!-- END ".footerbox-mid" -->
-
-                <div class="footerbox-right">
-                <span class="footerHeader" style="color:#fff">Contact Us</span>
-                    <div class="numbero" style="text-align:center;margin-top:15px">(866) 844-5250</div>
-                    <div class="numbero" style="text-align:center;margin-top:10px;margin-bottom:20px">or we'll call you.</div>
-                     <form id="footer-form" method="post" style="margin-top:-10px;clear:both">
-                        <input type="text" onfocus="if(this.value=='Name')this.value='';" onblur="if(this.value=='')this.value='Name';" value="Name" name="field1footer" class="footer-input" id="field1footer" />
-                        <input type="text" onfocus="if(this.value=='Phone Number')this.value='';" onblur="if(this.value=='')this.value='Phone Number';" value="Phone Number" name="field2footer" class="footer-input" id="field2footer" />
-                        <textarea onfocus="if(this.value=='Any questions or comments?')this.value='';" onblur="if(this.value=='')this.value='Any questions or comments?';" class="footer-textarea" name="field3footer" id="field3footer" >Any questions or comments?</textarea>
-                        <button class="silverButtonset" type="submit" style="width:80px;height:35px;float:right;font-size:14px;border:none">Call me!</button>
-                    </form>
-                </div><!-- END ".footerbox-right"" -->
-
-                        <!-- form validation -->
-
-                            <script type="text/javascript">
-                            //<![CDATA[
-                              var field1footer    = new LiveValidation('field1footer', {onlyOnSubmit: false, validMessage: " "});
-                              var field2footer    = new LiveValidation('field2footer', {onlyOnSubmit: false, validMessage: " "});
-                              var field3footer    = new LiveValidation('field3footer', {onlyOnSubmit: false, validMessage: " "});
-
-                              field1footer.add( Validate.Presence,{failureMessage: " "});
-							  field1footer.add( Validate.Exclusion, { within: [ 'Name' ] } );
-                              field2footer.add( Validate.Email,{failureMessage: " "});
-                              field2footer.add( Validate.Presence,{failureMessage: " "});
-                              field3footer.add( Validate.Presence,{failureMessage: " "});
-                           //]]>
-                          </script>
-
-            </div><!-- END "#footer-main-inner" -->
-        </div><!-- END "#footer-main" -->
-
-        <div id="footer-bottom">
-        	<div id="footer-bottom-inner">
-                <div id="copyright">
-                	<p>ClassConnect Inc &copy; 2011</p>
-                </div>
-                <ul id="footer-menu">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about-company.cc">About</a></li>
-                    <li><a href="/blog/">Blog</a></li>
-                    <li><a href="/contact.cc">Contact</a></li>
-                    <li><a href="/app/login.cc">Login</a></li>
-                    <li><a href="javascript:void(0);" id="top">(top)</a></li>
-                </ul>
-            </div><!-- END "#footer-bottom-inner" -->
-        </div><!-- END "#ffooter-bottom" -->
-    </footer><!-- END footer -->
-<div id="dialogBox"></div><div id="blackbox"></div><div id="clearbox"></div> 
 
 <script type="text/javascript">
 
@@ -118,5 +18,24 @@ query_posts('showposts=6');
   })();
 
 </script>
-</body>
+
+<style>
+.habla_conversation_text_span {
+  float:none;
+  margin-left:0px;
+}
+</style>
+<script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+<?php
+if (checkSession()) {
+?>
+olark('api.visitor.updateFullName', {fullName: '<?= dispUser(user('id'), 'first_name') . ' ' . dispUser(user('id'), 'last_name');?>'});
+olark('api.visitor.updateEmailAddress', {emailAddress: '<?= dispUser(user('id'), 'e_mail');?>'});
+olark('api.chat.updateVisitorNickname', {snippet: 'UID-<?= user('id'); ?>'}); 
+<?
+}
+?>
+olark.identify('8849-415-10-3302');/*]]>{/literal}*/</script>
+
+  </body>
 </html>

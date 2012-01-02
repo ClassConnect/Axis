@@ -117,7 +117,7 @@ $(".sharePop").twipsy({
 $(document).ready(function(){
   $('.linkClicker').zclip({
       path:'/assets/app/js/clip/ZeroClipboard.swf',
-      copy:'<?= dispUser(user('id'), 'mehash'); ?>'
+      copy:'http://www.classconnect.com/app/?uref=<?= dispUser(user('id'), 'mehash'); ?>'
   });
 });
 </script>
@@ -141,9 +141,9 @@ $(document).ready(function(){
           <div style="padding-top:5px;float:left"><a href="#" onclick="return false">Copy URL to clipboard</a></div>
       </div>
 
-      <a href="http://twitter.com/intent/tweet?text=Come collaborate with me on ClassConnect! http://www.classconnect.com/app/signup?uref=<?= dispUser(user('id'), 'mehash'); ?> %23UnitedWeTeach" onClick="window.open('http://twitter.com/intent/tweet?text=Come collaborate with me on ClassConnect! http://www.classconnect.com/app/signup?uref=<?= dispUser(user('id'), 'mehash'); ?> %23UnitedWeTeach', 'mywindow','location=1,status=1,scrollbars=1, width=400,height=300'); return false"><img src="/assets/app/img/colleagues/tw.png" data-original-title="Share with colleagues on Twitter" class="networkShares sharePop" /></a>
+      <a href="http://twitter.com/intent/tweet?text=Come collaborate with me on ClassConnect! http://www.classconnect.com/app/?uref=<?= dispUser(user('id'), 'mehash'); ?> %23UnitedWeTeach" onClick="window.open('http://twitter.com/intent/tweet?text=Come collaborate with me on ClassConnect! http://www.classconnect.com/app/?uref=<?= dispUser(user('id'), 'mehash'); ?> %23UnitedWeTeach', 'mywindow','location=1,status=1,scrollbars=1, width=400,height=300'); return false"><img src="/assets/app/img/colleagues/tw.png" data-original-title="Share with colleagues on Twitter" class="networkShares sharePop" /></a>
 
-      <a href="http://www.facebook.com/share.php?u=http://www.classconnect.com/app/signup?uref=<?= dispUser(user('id'), 'mehash'); ?>" onClick="window.open('http://www.facebook.com/share.php?u=http://www.classconnect.com/app/signup?uref=<?= dispUser(user('id'), 'mehash'); ?>', 'mywindow','location=1,status=1,scrollbars=1, width=400,height=300'); return false"><img src="/assets/app/img/colleagues/fb.png" data-original-title="Share with colleagues on Facebook" class="networkShares sharePop" /></a>
+      <a href="http://www.facebook.com/share.php?u=http://www.classconnect.com/app/?uref=<?= dispUser(user('id'), 'mehash'); ?>" onClick="window.open('http://www.facebook.com/share.php?u=http://www.classconnect.com/app/?uref=<?= dispUser(user('id'), 'mehash'); ?>', 'mywindow','location=1,status=1,scrollbars=1, width=400,height=300'); return false"><img src="/assets/app/img/colleagues/fb.png" data-original-title="Share with colleagues on Facebook" class="networkShares sharePop" /></a>
 
 <div style="clear:both"></div>
     </div>
