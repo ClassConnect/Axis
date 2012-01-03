@@ -33,7 +33,7 @@ foreach ($result as $res) {
   $rcount++;
 }
 if ($rcount == 0) {
-  $final .= '<p id="noneRM" style="text-align:center;color:#666">No activity found...yet.</p>';
+  $final .= '<p id="noneRM" style="text-align:center;color:#666"><span style="font-size:16px;font-weight:bolder">Welcome to ClassConnect!</span><br />Things have changed a little bit and we\'re still in putting on the finishing touches. <br />If you need help, feel free to chat with us using the chat bar at the bottom right hand corner!</p>';
 } else {
   $final .= genFeedItem($result);
 }
