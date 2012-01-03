@@ -1,6 +1,6 @@
 <?php
 // mongo connection
-// connect
+// connect DONT DO IT
 $mongocon = new Mongo();
 
 // select a database
