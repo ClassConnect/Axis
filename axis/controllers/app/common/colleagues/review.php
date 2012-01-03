@@ -73,7 +73,7 @@ function initReq(action, friendID, mObj) {
       $usr = getUser($req);
 
       echo '<div style="padding-top:10px;padding-bottom:10px;border-top:1px solid #eee">
-      <img src="' . iconServer(). $usr['prof_icon'] . '" style="height:50px;width:50px;float:left;margin-right:10px" /> 
+      <img src="' . iconServer(). '50_' . $usr['prof_icon'] . '" style="height:50px;width:50px;float:left;margin-right:10px" /> 
       <span class="colNamer" style="font-weight:bolder;font-size:14px">' . $usr['first_name'] . ' ' .$usr['last_name'] . '</span>
 
       <div class="uniqueBoxer" style="margin-top:8px">

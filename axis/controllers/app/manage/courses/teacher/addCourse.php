@@ -76,6 +76,7 @@ $('#add-course').submit(function() {
           <option value="Masters">Masters</option>
           <option value="PhD">PhD</option>
           <option value="Post-Doc">Post-Doc</option>
+          <option value="Other">Other</option>
       </select>
 
       <select id="subjectSel" name="subject" style="width:175px">
@@ -92,6 +93,7 @@ $('#add-course').submit(function() {
           <option value="Visual Arts">Visual Arts</option>
           <option value="Special Education">Special Education</option>
           <option value="Technology and Engineering">Technology and Engineering</option>
+          <option value="Other">Other</option>
       </select>
 
     </div><!-- /clearfix -->
