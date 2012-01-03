@@ -1446,8 +1446,8 @@ function storageInfo($userID) {
     }
     $udata = getUser($userID);
     // calculate total storage available
-    // 204 800 = 200mb
-    $total = ($udata['invites'] * 204800) + 204800;
+    // 524 288 = 500mb
+    $total = ($udata['invites'] * 524288) + 524288;
 
     $total = $total * 1024; // get this to bytes
 
