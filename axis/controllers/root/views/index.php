@@ -15,7 +15,7 @@
                 </div>
                 <div style="width:290px;float:left">
                     <span style="color:#666"><?= say('Password'); ?></span><br />
-                    <input type="password" name="pass" style="width:215px;margin-top:4px" /> 
+                    <input type="password" name="pass" style="width:215px;margin-top:4px" />
                     <input type="hidden" name="logsubmit" value="submitted" />
                     <button class="btn pull-right" type="submit" style="font-size:11px;margin-top:4px"> 
                     <?= say('Login'); ?>
