@@ -60,7 +60,7 @@ function softFresh() {
   });
   return false;"><img src="/assets/app/img/temp/course_l.png" style="height:14px;margin-right:7px;margin-bottom:-3px" />Create New Course</button>
             <div style="padding-top:15px">
-              <strong>REMINDER!</strong><br />You need to give your students the course section code in order for them to enroll. <a href="#">Watch a video.</a>
+              <strong>REMINDER!</strong><br />You need to give your students the course section code in order for them to enroll.
             </div>
           </div> 
         </div> 
