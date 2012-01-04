@@ -57,18 +57,19 @@ echo $final;
 
       if (!empty($enOrg)) {
         ksort($enOrg);
-      }
 
-      foreach ($enOrg as $gkey=>$group) {
-        echo '<div class="calhdr">' . date("l, F jS", $gkey) . '</div>';
-        foreach ($group as $entry) {
-          $edata = determineEvType($entry['type']);
-          $color = $edata['color'];
-          echo '<div class="calent" title="' . htmlentities(createBubble($entry)) . '" onClick="$(\'.twipsy\').remove();jQuery.facebox({ 
-            ajax: \'/app/calendar/view/' . $entry['_id'] . '\'
-          });"><div class="calBub" style="background:' . $color . '"></div>' . $entry['title'] . '</div>';
+        foreach ($enOrg as $gkey=>$group) {
+          echo '<div class="calhdr">' . date("l, F jS", $gkey) . '</div>';
+          foreach ($group as $entry) {
+            $edata = determineEvType($entry['type']);
+            $color = $edata['color'];
+            echo '<div class="calent" title="' . htmlentities(createBubble($entry)) . '" onClick="$(\'.twipsy\').remove();jQuery.facebox({ 
+              ajax: \'/app/calendar/view/' . $entry['_id'] . '\'
+            });"><div class="calBub" style="background:' . $color . '"></div>' . $entry['title'] . '</div>';
 
+          }
         }
+
       }
 
 
