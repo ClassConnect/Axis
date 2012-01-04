@@ -20,9 +20,11 @@
     <script src="/assets/app/js/facebox.js"></script> 
     <script src="/assets/app/js/formControl.js"></script>
     <script src="/assets/app/js/pjax.js"></script>
+    <script src="/assets/app/js/placer.js"></script>
     <script type="text/javascript">
     $(document).ready(function() { 
           $('.topbar').dropdown();
+          $('input, textarea').placeholder();
     });
     </script>
     <?= $insertJS; ?>

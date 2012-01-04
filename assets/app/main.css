@@ -710,6 +710,9 @@ select[multiple] {
 textarea {
   height: auto;
 }
+.placeholder {
+  color: #bfbfbf;
+}
 .uneditable-input {
   background-color: #ffffff;
   display: block;
