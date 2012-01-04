@@ -48,14 +48,15 @@ echo $final;
       echo 1;
       $cstart = strtotime(date("Y-m-d")) - 3600;
       $cend = strtotime(date("Y-m-d", strtotime(date("Y-m-d"))) . " +6 day");
+      echo '1.5';
       $entries = getCalEntries($cstart, $cend, null, $secStr);
+      echo 2;
       $enOrg = array();
       foreach ($entries as $entry) {
         $d1 = date("Y-m-d", $entry['end']);
         $d2 = date("U", strtotime($d1));
         $enOrg[$d2][] = $entry;
       }
-      echo 2;
 
       ksort($enOrg);
 echo 3;
