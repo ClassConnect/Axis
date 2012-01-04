@@ -45,12 +45,9 @@ echo $final;
       <?php
       // generate calendar
       require_once('axis/controllers/app/calendar/core/main.php');
-      echo 1;
       $cstart = strtotime(date("Y-m-d")) - 3600;
       $cend = strtotime(date("Y-m-d", strtotime(date("Y-m-d"))) . " +6 day");
-      echo '1.5';
       $entries = getCalEntries($cstart, $cend, null, $secStr);
-      echo 2;
       $enOrg = array();
       foreach ($entries as $entry) {
         $d1 = date("Y-m-d", $entry['end']);
@@ -58,8 +55,10 @@ echo $final;
         $enOrg[$d2][] = $entry;
       }
 
-      ksort($enOrg);
-echo 3;
+      if (!empty($enOrg)) {
+        ksort($enOrg);
+      }
+
       foreach ($enOrg as $gkey=>$group) {
         echo '<div class="calhdr">' . date("l, F jS", $gkey) . '</div>';
         foreach ($group as $entry) {
@@ -71,7 +70,6 @@ echo 3;
 
         }
       }
-      echo 4;
 
 
 
