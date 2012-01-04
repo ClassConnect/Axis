@@ -13,12 +13,39 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Le styles -->
-    <link href="/assets/app/main.css" rel="stylesheet">
-    <link href="/assets/app/facebox.css" rel="stylesheet">
+<?php
+global $developerMode;
+if ($developerMode == true) {
+?>
     <script src="/assets/app/js/jquery.js"></script>
-    <script src="/assets/app/js/facebox.js"></script>
+    <script src="/assets/app/js/dropdown.js"></script> 
+    <script src="/assets/app/js/twipsy.js"></script> 
+    <script src="/assets/app/js/tabs.js"></script>
+    <script src="/assets/app/js/facebox.js"></script> 
     <script src="/assets/app/js/formControl.js"></script>
+    <script src="/assets/app/js/pjax.js"></script>
+    <script src="/assets/app/js/placer.js"></script>
+    <link href="/assets/app/main.css" rel="stylesheet">
+    <link href="/assets/app/app.css" rel="stylesheet">
+
+<?php
+} else {
+?>
+<script src="/assets/app/production/production.js"></script>
+<link href="/assets/app/production/main.css" rel="stylesheet">
+<link href="/assets/app/production/app.css" rel="stylesheet">
+<?php
+}
+?>
+    <script src="/assets/app/ui/ui.js"></script>
+    <link href="/assets/app/ui/ui.css" rel="stylesheet">
+
+    <script type="text/javascript">
+    $(document).ready(function() { 
+          $('.topbar').dropdown();
+          $('input, textarea').placeholder();
+    });
+    </script>
 
     <!-- Le fav and touch icons
     <link rel="shortcut icon" href="images/favicon.ico">
