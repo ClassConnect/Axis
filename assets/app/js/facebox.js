@@ -125,6 +125,7 @@
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
       $('#facebox .close').remove();
+      // place holder auto add
       $('input, textarea').placeholder();
     },
 
