@@ -156,7 +156,7 @@ $('#add-entry').submit(function() {
 	      <div class="input">
 	        <input id="pickStart" value="<?php
           if (isset($_GET['start'])) {
-            echo date("m/d/Y", strtotime($_GET['start']));
+            echo date("m/d/Y", strtotime(html_entity_decode($_GET['start'])));
           }
           ?>" name="start" size="15" type="text" style="font-size:12px;height:15px;width:70px">
 	      </div>
@@ -166,7 +166,7 @@ $('#add-entry').submit(function() {
 	      <div class="input">
 	        <input id="pickEnd" value="<?php
           if (isset($_GET['end'])) {
-            echo date("m/d/Y", strtotime($_GET['end']));
+            echo date("m/d/Y", strtotime(html_entity_decode($_GET['end'])));
           }
           ?>" name="end" size="15" type="text" style="font-size:12px;height:15px;width:70px">
 	      </div>
