@@ -26,6 +26,7 @@ if ($developerMode == true) {
     <script src="/assets/app/js/placer.js"></script>
     <link href="/assets/app/main.css" rel="stylesheet">
     <link href="/assets/app/app.css" rel="stylesheet">
+    <link href="/assets/app/ui/ui.css" rel="stylesheet">
 
 <?php
 } else {
@@ -33,10 +34,10 @@ if ($developerMode == true) {
 <script src="/assets/app/production/production.js"></script>
 <link href="/assets/app/production/main.css" rel="stylesheet">
 <link href="/assets/app/production/app.css" rel="stylesheet">
+<link href="/assets/app/ui/ui-production.css" rel="stylesheet">
 <?php
 }
 ?>
-  <link href="/assets/app/ui/ui.css" rel="stylesheet">
 
     <script type="text/javascript">
     $(document).ready(function() { 
