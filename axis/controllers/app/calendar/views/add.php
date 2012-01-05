@@ -12,8 +12,8 @@ if (isset($_POST['submitted'])) {
 
   setTempSwap($selCourses, 'calendar');
 
-  $starter = strtotime($_POST['start']);
-  $ender = strtotime($_POST['end']);
+  $starter = strtotime($_POST['start']) + 7200;
+  $ender = strtotime($_POST['end']) + 7200;
 
   $attempt = writeEvent(1, $starter, $ender, $_POST['entryType'], $_POST['title'], $_POST['body'], $fcourses);
 
