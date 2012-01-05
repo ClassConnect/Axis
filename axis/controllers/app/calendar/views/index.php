@@ -53,7 +53,7 @@ $csvSecs = substr($csvSecs, 0, strlen($csvSecs) - 1);
 
       select: function(startDate, endDate, allDay, jsEvent, view) {
           jQuery.facebox({ 
-            ajax: '/app/calendar/write/add?start=' + escape(startDate) + '&end=' + escape(endDate)
+            ajax: '/app/calendar/write/add?start=' + startDate + '&end=' + endDate
           });
       },
 
