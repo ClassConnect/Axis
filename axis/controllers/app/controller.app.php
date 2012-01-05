@@ -15,13 +15,6 @@ class appController extends Axis_Controller
         }
 
 
-        function _swap()
-        {
-                setSession($_GET['uid']);
-                
-        }
-
-
         function _login()
         {
         	// check if this bro is already logged in
