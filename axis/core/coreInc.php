@@ -29,4 +29,6 @@ require_once('site/cloudFiles/cloudfiles.php');
 require_once('site/scribd/scribd.php');
 // pull in the thumbnailer
 require_once('site/thumbnail/ThumbLib.inc.php');
+// get php mailer functions
+require_once('site/mail/swift_required.php');
 ?>

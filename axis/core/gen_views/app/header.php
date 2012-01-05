@@ -16,6 +16,7 @@ global $developerMode;
 if ($developerMode == true) {
 ?>
     <script src="/assets/app/js/jquery.js"></script>
+    <script src="/assets/app/ui/ui.js"></script>
     <script src="/assets/app/js/dropdown.js"></script> 
     <script src="/assets/app/js/twipsy.js"></script> 
     <script src="/assets/app/js/tabs.js"></script>
@@ -35,8 +36,7 @@ if ($developerMode == true) {
 <?php
 }
 ?>
-    <script src="/assets/app/ui/ui.js"></script>
-    <link href="/assets/app/ui/ui.css" rel="stylesheet">
+  <link href="/assets/app/ui/ui.css" rel="stylesheet">
 
     <script type="text/javascript">
     $(document).ready(function() { 
