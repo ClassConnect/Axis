@@ -53,20 +53,16 @@ $csvSecs = substr($csvSecs, 0, strlen($csvSecs) - 1);
 
       select: function(startDate, endDate, allDay, jsEvent, view) {
         var start1 = new Date(startDate);
-        var start_hour = start1.getHours();
-        var start_min = start1.getMinutes();
         var start_day = start1.getDate();
         var start_year = start1.getFullYear();
         var start_month = start1.getMonth() + 1;
         
         var end1 = new Date(endDate);
-        var end_hour = end1.getHours();
-        var end_min = end1.getMinutes();
         var end_day = end1.getDate();
         var end_year = end1.getFullYear();
         var end_month = end1.getMonth() + 1;
           jQuery.facebox({ 
-            ajax: "/app/calendar/write/add?start=" + escape(start_month + "/" + start_day + "/" + start_year + " " + start_hour + ":" + start_min) + "&end=" + escape(end_month + "/" + end_day + "/" + end_year + " " + end_hour + ":" + end_min)
+            ajax: "/app/calendar/write/add?start=" + escape(start_month + "/" + start_day + "/" + start_year) + "&end=" + escape(end_month + "/" + end_day + "/" + end_year)
           });
       },
 
