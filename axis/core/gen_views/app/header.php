@@ -31,10 +31,10 @@ if ($developerMode == true) {
 <?php
 } else {
 ?>
-<script src="/assets/app/production/production.js"></script>
-<link href="/assets/app/production/main.css" rel="stylesheet">
-<link href="/assets/app/production/app.css" rel="stylesheet">
-<link href="/assets/app/ui/ui-production.css" rel="stylesheet">
+    <script src="/assets/app/production/production.js"></script>
+    <link href="/assets/app/production/main.css" rel="stylesheet">
+    <link href="/assets/app/production/app.css" rel="stylesheet">
+    <link href="/assets/app/ui/ui-production.css" rel="stylesheet">
 <?php
 }
 ?>
