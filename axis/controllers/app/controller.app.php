@@ -109,6 +109,38 @@ class appController extends Axis_Controller
         }
 
 
+        function _emailme()
+        {
+                $smtp = Swift_SmtpTransport::newInstance('smtp.classconnect.com', 25);
+
+$mailer = Swift_Mailer::newInstance($smtp);
+
+$message = Swift_Message::newInstance('Your subject');
+$message
+  ->setTo(array(
+    'eric.classconnect@gmail.com',
+    'eric@classconnect.com' => 'Mr. Simons'
+  ))
+  ->setFrom(array('support@classconnect.com' => 'ClassConnect Support'))
+  ->setBody(
+    'This is a test.',
+    'text/plain'
+  );
+
+if ($mailer->send($message))
+{
+  echo "Message sent!";
+}
+else
+{
+  echo "Message could not be sent.";
+}
+
+
+
+        }
+
+
         function _logout()
         {
         	killSession();
