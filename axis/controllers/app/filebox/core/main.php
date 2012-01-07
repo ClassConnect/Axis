@@ -135,6 +135,10 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 		// insert the feed
 		insertFboxNoti(1, $permissions, $parentPermissions, $owner_id, $obj);
 
+
+		// finally, lets return the new object ID
+		return (string) $obj['_id'];
+
 	// if per level == 2
 	}
 
@@ -1603,6 +1607,108 @@ function linkToVideo($content) {
 
 
 
+// datastore file types (docs & livelectures)
+function addDSFile($format, $parent, $title, $body, $content, $uid) {
+	if (isset($uid)) {
+		$uid = (string) $uid;
+	} else {
+		$uid = (string) user('id');
+	}
+
+
+	// make sure there is a title
+	if ($title != '') {
+		// make sure the title is less than 60 chars
+		if (strlen($title) > 60) {
+			$errors[] = 'The title you entered is too long.';
+		}
+	} else {
+		$errors[] = 'You forgot to enter a title.';
+	}
+
+
+	// make sure our parent folder is here
+	if (!isset($parent) || $parent == '') {
+		$errors[] = 'No parent folder detected.';
+	}
+
+
+	if (empty($content)) {
+		$content = array();
+		$content['data'] = 'none';
+	}
+
+
+	// if there are no errors, return success
+	if (empty($errors)) {
+		$newID = insertContent($uid, $parent, 2, $title, $body, $permissions, $tags, $standards, $format, $content);
+		return $newID;	
+	} else {
+		return $errors;
+	}
+
+}
+
+
+// update a doc or livelecture
+function pushDSFile($fileID, $versionID, $content, $uid) {
+	if (isset($uid)) {
+		$uid = (string) $uid;
+	} else {
+		$uid = (string) user('id');
+	}
+
+	global $cloudUser;
+	global $cloudKey;
+	global $cloudBucket;
+
+	// make sure we're cleared to do this (verify permissions)
+	$tdata = getContent($fileID);
+	$permissionObj = verifyPermissions($tdata, $uid);
+	$perLevel = determinePerLevel($tdata['_id'], $permissionObj);
+
+	// if verified, obtain file & version ID
+	if ($perLevel == 2 && verifyDataAuth($versionID, $tdata)) {
+		$encname = gen_encName($uid, $versionID);
+		// Connect to Rackspace
+		$auth = new CF_Authentication($cloudUser, $cloudKey);
+		$auth->authenticate();
+		$conn = new CF_Connection($auth);
+		// Get the container we want to use
+		$container = $conn->get_container($cloudBucket);
+
+
+		$store_data = getContentData($versionID);
+		// remove old cloud file (if not none)
+		if ($store_data['data'] != 'none') {
+			$container->delete_object($store_data['data']);
+		}
+
+
+		// upload new cloud file
+		// create object
+		$object = $container->create_object($encname);
+
+		$tmpfname = tempnam("swap", "dswap");
+
+		$handle = fopen($tmpfname, "w");
+		fwrite($handle, $content);
+		fclose($handle);
+
+		// upload file to Rackspace
+		$object->load_from_filename($tmpfname);
+
+		// do here something
+		unlink($tmpfname);
+
+		// update datastore with new data
+		global $mdb;
+		$collection = $mdb->fbox_datastore;
+		$collection->update(array('_id' => new MongoId($versionID)), array('$set' => array("data" => $encname)));
+
+	}
+}
+
 
 // main add file function
 function addFile($parent, $fileLoc, $title, $body, $content, $uid) {
@@ -2134,7 +2240,7 @@ function updateDesc($conID, $desc, $uid) {
 	$perLevel = determinePerLevel($targData['_id'], $permissionObj);
 	// make sure we have permission to edit this
 	if ($perLevel == 2) {
-		$collection->update(array('_id' => new MongoId($conID)), array('$set' => array("body" => $desc)), array("upsert" => true));
+		$collection->update(array('_id' => new MongoId($conID)), array('$set' => array("body" => $desc)));
 	}
 	
 

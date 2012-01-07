@@ -104,7 +104,8 @@ class appController extends Axis_Controller
                 if (!checkSession()) {
                         showLogin();
                 } else {
-                        underUpdate();
+                        require_once('filebox/core/main.php');
+                        require_once('docs/index.php');
                 }
         }
 
