@@ -91,10 +91,12 @@ class appController extends Axis_Controller
 
         function _livelecture()
         {
-                if (!checkSession()) {
+                if (!checkSession() && $this->Command->Parameters[0] != 'save') {
                         showLogin();
                 } else {
-                        underUpdate();
+                        require_once('filebox/core/main.php');
+                        require_once('livelecture/core/main.php');
+                        require_once('livelecture/index.php');
                 }
         }
 
