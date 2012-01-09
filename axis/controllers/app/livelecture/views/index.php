@@ -18,10 +18,10 @@ appHeader('LiveLecture', $scripts, 3);
 
 
           <div class="sectionRight"> 
-				<div class="alert-message block-message error" style="margin:20px;margin-top:0">
+				<div class="alert-message block-message" style="margin:20px;margin-top:0">
 			        <p><strong>LiveLecture is currently in beta.</strong> If you run across any bugs please let us know!</p>
 			      </div>
-<a href="/app/livelecture/edit?fid=1">editor</a>
+<a href="/app/livelecture/edit?fid=4f08d461498fe2423e000003-4f08d461498fe2423e000002">editor</a>
 
   		  </div> 
 

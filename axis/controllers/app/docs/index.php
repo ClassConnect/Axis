@@ -5,7 +5,7 @@ if ($this->Command->Parameters[0] == 'create') {
 
 // if we're editing a document
 } elseif ($this->Command->Parameters[0] == 'edit') {
-
+	require_once('views/edit.php');
 
 // this is the main page for docs
 } else {

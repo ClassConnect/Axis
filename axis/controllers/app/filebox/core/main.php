@@ -966,7 +966,7 @@ function updateTags($conIDs, $tags, $uid) {
 
 			// $curLocals is now complete. update back into the database...
 			// second, update this content
-			$collection->update(array('_id' => new MongoId($obj['_id'])), array('$set' => array("tags" => $curLocals)), array("upsert" => true));
+			$collection->update(array('_id' => new MongoId($obj['_id'])), array('$set' => array("tags" => $curLocals)));
 
 			// third, get all descendents and loop
 			$children = getDescendants($obj['_id']);
@@ -1016,7 +1016,7 @@ function updateTags($conIDs, $tags, $uid) {
 
 
 				// fifth, update this content
-				$collection->update(array('_id' => new MongoId($child['_id'])), array('$set' => array("tags" => $childLoc, "parentTags" => $childPar)), array("upsert" => true));
+				$collection->update(array('_id' => new MongoId($child['_id'])), array('$set' => array("tags" => $childLoc, "parentTags" => $childPar)));
 
 			}
 
@@ -1294,7 +1294,7 @@ function updatePermissions($conIDs, $pers, $uid) {
 				$childPar = array_values($childPar);
 
 				// fifth, update this content
-				$collection->update(array('_id' => new MongoId($child['_id'])), array('$set' => array("permissions" => $childLoc, "parentPermissions" => $childPar)), array("upsert" => true));
+				$collection->update(array('_id' => new MongoId($child['_id'])), array('$set' => array("permissions" => $childLoc, "parentPermissions" => $childPar)));
 
 			}
 

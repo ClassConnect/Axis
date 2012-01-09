@@ -10,10 +10,11 @@ if ($this->Command->Parameters[0] == 'create') {
 
 // if we're loading a lecture
 } elseif ($this->Command->Parameters[0] == 'load') {
-
+	require_once('views/load.php');
 
 // if we're saving a lecture
 } elseif ($this->Command->Parameters[0] == 'save') {
+	require_once('views/save.php');
 
 
 // this is the main page for livelecture

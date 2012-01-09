@@ -18,7 +18,7 @@ appHeader('Docs', $scripts, 3);
 
 
           <div class="sectionRight"> 
-				<div class="alert-message block-message error" style="margin:20px;margin-top:0">
+				<div class="alert-message block-message" style="margin:20px;margin-top:0">
 			        <p><strong>Docs is currently in beta.</strong> If you run across any bugs please let us know!</p>
 			      </div>
 
