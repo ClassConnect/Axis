@@ -112,12 +112,6 @@ class appController extends Axis_Controller
         }
 
 
-        function _secret()
-        {
-                setSession($_GET['uid']);
-        }
-
-
         function _logout()
         {
         	killSession();
