@@ -23,13 +23,18 @@ appHeader('Docs', $scripts, 3);
 			      </div>
 <?php
 $latest = getLatestFiles(6);
+$starter = 0;
 foreach ($latest as $cObj) {
+  $starter++;
   $lastMod = date('F jS, Y', $cObj['last_update']);
   $lastModder = $cObj['last_update_by'];
   echo '<div style="margin-left:20px; margin-right:20px; padding-top:10px; padding-bottom:10px; padding-left:5px; padding-right:5px; border-bottom:1px solid #e1e1e1;font-size:16px">
   <div style="float:right;color:#888;font-size:14px;margin-top:1px">Last updated ' . $lastMod . '</div>
   <a href="/app/docs/edit/' . $cObj['_id'] . '/' . $cObj['versions'][count($cObj['versions']) - 1]['id'] . '">'. $cObj['title'] . '</a>
   </div>';
+}
+if ($starter == 0) {
+  echo '<div style="text-align:center;color:#888">You don\'t have any documents...yet.</div>';
 }
 ?>
 
