@@ -1,10 +1,39 @@
 <?php
+$cdata = array();
+$cdata['conID'] = $this->Command->Parameters[1];
+$cdata['verID'] = $this->Command->Parameters[2];
+//$cdata['conID'], $cdata['verID'];
+// generate sections to pass along
+$mySecs = array();
+foreach (getSections() as $secd) {
+    $mySecs[] = (int) $secd['section_id'];
+}
+
+$cObj = getContent($cdata['conID']);
+// if we're good to go, lets get the permissions
+$permissionObj = verifyPermissions($cObj, user('id'), $mySecs);
+$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
+
+// verify that we have all needed permissions
+if (verifyDataAuth($cdata['verID'], $cObj) && $perLevel >= 1) {
+    // get the data
+    $data = getContentData($cdata['verID']);
+    if ($data['data'] != 'none') {
+        $docData = file_get_contents(cloudServer() . $data['data']);
+    }
+
+} else {
+    showError();
+    exit();
+}
+
+
 appHeader('Edit', '<script type="text/javascript" src="/assets/app/js/edit/jquery.tinymce.js"></script>', 3);
 ?>
 
 <div class="content"> 
 	<div class="row" class="span15" style="margin-top:-20px;margin-bottom:-20px;"> 
-<textarea id="editorpane" style="width:937px;height:500px"></textarea>
+<textarea id="editorpane" style="width:937px;height:500px"><?= $docData; ?></textarea>
 
 
 
@@ -34,10 +63,31 @@ $(document).ready(function() {
 
     theme_advanced_resizing_min_height : 500,
     force_br_newlines : true,
-    force_p_newlines : false
-    //save_onsavecallback: saveDoc
+    force_p_newlines : false,
+    save_onsavecallback: saveDoc
   });
     });
+
+function saveDoc() {
+    initAsyncBar('<img src="/assets/app/img/box/miniload.gif" style="margin-right:10px;margin-bottom:-1px" /> <span style="font-weight:bolder">Saving document...</span>', 'yellowBox', 170, 527);
+    $.ajax({  
+      type: "POST",  
+      url: "/app/docs/save/<?= $cdata['conID']; ?>/<?= $cdata['verID']; ?>",  
+      data: 'data=' + escape($("#editorpane").val()),
+      dataType: "json",
+      success: function(retData) {
+        if (retData['success'] == true) {
+          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Document saved successfully</span>', 'yellowBox', 210, 527, 1500);
+          softRefresh();
+          closeBox();
+
+        } else {
+          // show error
+          initAsyncBar('<span style="font-weight:bolder">Cannot save document</span>', 'yellowBox', 210, 527, 50000);
+        }
+      }  
+  });
+}    
 </script>
 
 	</div> 

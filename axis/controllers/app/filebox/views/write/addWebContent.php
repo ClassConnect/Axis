@@ -17,7 +17,7 @@ if (isset($_POST['submitted'])) {
   // we need to determine if this is a url or an embed
   $parent = $_POST['parent'];
 
-  if ($_POST['embedCode'] == '') {
+  if ($_POST['embedCode'] == '' || $_POST['embedCode'] == '<embed code>') {
     // url handling
     $title = $_POST['urlTitle'];
     $data = $_POST['url'];

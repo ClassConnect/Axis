@@ -21,7 +21,18 @@ appHeader('LiveLecture', $scripts, 3);
 				<div class="alert-message block-message" style="margin:20px;margin-top:0">
 			        <p><strong>LiveLecture is currently in beta.</strong> If you run across any bugs please let us know!</p>
 			      </div>
-<a href="/app/livelecture/edit?fid=4f08d461498fe2423e000003-4f08d461498fe2423e000002">editor</a>
+
+<?php
+$latest = getLatestFiles(7);
+foreach ($latest as $cObj) {
+  $lastMod = date('F jS, Y', $cObj['last_update']);
+  $lastModder = $cObj['last_update_by'];
+  echo '<div style="margin-left:20px; margin-right:20px; padding-top:10px; padding-bottom:10px; padding-left:5px; padding-right:5px; border-bottom:1px solid #e1e1e1;font-size:16px">
+  <div style="float:right;color:#888;font-size:14px;margin-top:1px">Last updated ' . $lastMod . '</div>
+  <a href="/app/livelecture/edit?fid=' . $cObj['_id'] . '-' . $cObj['versions'][count($cObj['versions']) - 1]['id'] . '">'. $cObj['title'] . '</a>
+  </div>';
+}
+?>
 
   		  </div> 
 

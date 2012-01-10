@@ -1,5 +1,7 @@
 <?php
 function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags, $standards, $format, $content) {
+	// init return array
+	$retArr = array();
 
 	// substr title to max 60
 	$title = substr($title, 0, 60);
@@ -22,6 +24,7 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 			$content['format'] = $format;
 			$dataID = insertData($content);
 			$dataID = (string) $dataID;
+			$retArr['verID'] = $dataID;
 			if ($format == 1) {
 				$extData = $content['ext'];
 				$sizeData = (int) $content['size'];
@@ -137,7 +140,8 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 
 
 		// finally, lets return the new object ID
-		return (string) $obj['_id'];
+		$retArr['conID'] = (string) $obj['_id'];
+		return $retArr;
 
 	// if per level == 2
 	}
@@ -1970,6 +1974,28 @@ function getChildren($contentID, $userid) {
 
 
 
+// get latest 20 files
+function getLatestFiles($format, $uid) {
+	if (isset($uid)) {
+		$uid = (string) $uid;
+	} else {
+		$uid = (string) user('id');
+	}
+	global $mdb;
+
+	// select a collection (analogous to a relational database's table)
+	$collection = $mdb->fbox_content;
+
+
+	$params = array('format'=>$format, 'owner_id'=>$uid);
+
+	$data = $collection->find($params)->sort(array('last_update'=>-1))->limit(20);
+
+	return $data;
+}
+
+
+
 function verifyPermissions($conObj, $uid, $courses) {
 	// lets initialize our return values
 	$isOwner = 0;
@@ -3296,12 +3322,12 @@ function displayContent($cObj, $cData) {
 
 	// temp doc catch
 	} elseif ($cObj['format'] == 6) {
-		return '<center><a href="/app/docs" class="btn large primary" style="font-weight:bolder">Open this document</a></center>';
+		return '<center><a href="/app/docs/edit/' . $cObj['_id'] . '/' . $cData['_id'] . '" class="btn large primary" style="font-weight:bolder">Open this document</a></center>';
 
 
 	// temp lecture catch
 	} elseif ($cObj['format'] == 7) {
-		return '<center><a href="/app/livelecture" class="btn large primary" style="font-weight:bolder">Open this lecture</a></center>';
+		return '<center><a href="/app/livelecture/edit/?fid=' . $cObj['_id'] . '-' . $cData['_id'] . '" class="btn large primary" style="font-weight:bolder">Open this lecture</a></center>';
 
 	}
 }

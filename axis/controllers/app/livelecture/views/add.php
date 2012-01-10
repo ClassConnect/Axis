@@ -6,7 +6,7 @@ if (isset($_POST['submitted'])) {
 // set json header
 header('Content-type: application/json');
 $final = array();
-  if (!is_array($attempt)) {
+  if (isset($attempt['verID'])) {
 
     $final['success'] = 1;
     $final['data'] = $attempt;
@@ -40,7 +40,7 @@ $('#create-lec').submit(function() {
       dataType: "json",
       success: function(retData) {
         if (retData['success'] == 1) {
-          window.location = "/app/livelecture/edit/?fid=" + retData['data'];
+          window.location = "/app/livelecture/edit/?fid=" + retData['data']['conID'] + "-" + retData['data']['verID'];
 
         } else {
           fbFormRevert('#create-lec');

@@ -16,6 +16,10 @@ if ($this->Command->Parameters[0] == 'create') {
 } elseif ($this->Command->Parameters[0] == 'save') {
 	require_once('views/save.php');
 
+// if we're uploading an image
+} elseif ($this->Command->Parameters[0] == 'upload-img') {
+	require_once('views/upload_image.php');
+
 
 // this is the main page for livelecture
 } else {
