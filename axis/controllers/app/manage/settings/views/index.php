@@ -1,4 +1,7 @@
-<?php appHeader('Settings', ''); ?>
+<?php
+appHeader('Settings', '');
+$udata = getUser(user('id'));
+?>
 <div class="content"> 
     <div class="row" style="clear:both">
     <div style="margin-left:20px;margin-right:20px">
@@ -13,20 +16,20 @@
 <div class="pill-content">
   <div class="active" id="info">
 
-
 <div style="clear:both">
 
 <div style="width:610px;float:right">
-<form>
+<form action="#" id="update-personal">
 
 <div style="font-size:20px;color:#555;margin-bottom:8px">Name</div>
 
 <div><?= dispOnly('<select id="title" name="title" class="small">
+        <option>' . $udata['pre_name'] . '</option>
         <option>' . say('Mr.') . '</option>
         <option>' . say('Mrs.') . '</option>
         <option>' . say('Ms.') . '</option>
         <option>' . say('Dr.') . '</option>
-      </select>', 3); ?> <input name="first_name" size="30" type="text" placeholder="First name"> <input name="last_name" size="30" type="text" placeholder="Last name"></div>
+      </select>', 3); ?> <input name="first_name" size="30" type="text" placeholder="First name" value="<?= $udata['first_name']; ?>"> <input name="last_name" size="30" type="text" placeholder="Last name" value="<?= $udata['last_name']; ?>"></div>
 <div style="color:#999;margin-top:5px;font-size:11px">
 <?= dispOnly('Students will see your title instead of your first name (ie "Mr. Saget")', 3); ?>
 <?= dispOnly('Your teachers will be notified if you change your name.', 1); ?>
@@ -34,7 +37,7 @@
 
 
 <div style="font-size:20px;color:#555;margin-bottom:8px;margin-top:30px">Email Address</div>
-<input name="e_mail" size="30" type="text" placeholder="Email address" style="width:300px">
+<input name="e_mail" size="30" type="text" placeholder="Email address" style="width:300px" value="<?= $udata['e_mail']; ?>">
 <div style="color:#999;margin-top:5px;font-size:11px">Having an email address allows you to reset your password if you ever forget it</div>
 
 
@@ -42,7 +45,8 @@
 <input name="pass1" size="30" type="text" placeholder="New password"> <input name="pass2" size="30" type="text" placeholder="Confirm password">
 
 <div style="margin-top:30px">
-  <input type="submit" class="btn primary large" value="Update personal settings">
+  <input type="hidden" name="submitted" value="true" />
+  <button id="subbtn1" type="submit" class="btn primary large">Update personal settings</button>
 </div>
 
 
@@ -66,8 +70,34 @@
  
 <script>
   $(function () {
-    $('.tabs').tabs()
-  })
+    $('.tabs').tabs();
+  });
+
+$('#update-personal').submit(function() {
+  $('#subbtn1').append('<img id="rmSoon" src="/assets/app/img/box/miniload.gif" style="float:right;margin-top:4px;margin-left:10px" />');
+   var serData = $("#update-personal").serialize();
+    fbFormDisable('#update-personal');
+    $.ajax({  
+      type: "POST",  
+      url: "/app/manage/settings/personal",  
+      data: serData,
+      success: function(retData) {
+        alert(retData);
+        if (retData == 1) {
+          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Settings updated successfully</span>', 'yellowBox', 220, 485, 2000);
+
+        } else {
+          // show error
+        }
+
+        fbFormEnable('#update-personal');
+        $("#rmSoon").remove();
+
+      }  
+      
+  });  
+    return false;
+});
 </script>
 
 

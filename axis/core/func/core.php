@@ -433,32 +433,6 @@ function updateReqs($value, $uid) {
 }
 
 
-// update a user's data
-function updateUser($userID, $prof, $number, $nstatus, $email, $estatus) {
-    $prof = escape($prof);
-    $number = escape($number);
-    $nstatus = escape($nstatus);
-    $email = escape($email);
-    $estatus = escape($estatus);
-
-    if ( filter_var($email, FILTER_VALIDATE_EMAIL) != true) {
-			$errors[] = 'Email address not valid.';
-		} else {
-			$checkMail = good_query_assoc("SELECT * FROM users WHERE e_mail = '$email' AND id != '$userID'  LIMIT 1");
-			if ($checkMail != false) {
-				$errors[] = 'This email address has already been used.';
-			}
-		} // valid email else
-
-    if (empty($errors)) {
-    good_query("UPDATE users SET e_mail = '$email', email_active = '$estatus', cell = '$number', cell_active = '$nstatus', prof_icon = '$prof' WHERE id = $userID");
-    return 1;
-    } else {
-        return $errors;
-    }
-}
-// end updateUser
-
 
 // get user & reset password
 function resetPassStream($email) {
