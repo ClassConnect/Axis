@@ -5,21 +5,56 @@
 
 
 <ul class="tabs">
-  <li class="active"><a href="#icon">User Icon</a></li>
+  <li class="active"><a href="#info">Personal Info & Password</a></li>
+  <li><a href="#icon">Notifications</a></li>
+  <li><a href="#icon">Location & Language</a></li>
 </ul>
  
 <div class="pill-content">
-  <div class="active" id="icon">
+  <div class="active" id="info">
 
 
-<div style="margin-left:300px;clear:both">
-<img src="<?= iconServer(); ?>210_<?= dispUser(user('id'), 'prof_icon'); ?>" class="vidView" style="background-image:none;margin-bottom:10px;margin-left:15px" />
-  <form action="/app/manage/settings/icon" method="post" enctype="multipart/form-data" style="border:1px solid #ccc;width:260px;padding:10px">
-  <div style="font-size:14px;margin-bottom:8px;font-weight:bolder">Change Icon</div>
-  <input type="file" name="file" id="file" /> 
-  <br />
-  <button type="submit" class="btn primary" style="margin-left:40px;margin-top:7px">Upload Profile Icon</button>
-  </form>
+<div style="clear:both">
+
+<div style="width:610px;float:right">
+<form>
+
+<div style="font-size:20px;color:#555;margin-bottom:8px">Name</div>
+
+<div><?= dispOnly('<select id="title" name="title" class="small">
+        <option>' . say('Mr.') . '</option>
+        <option>' . say('Mrs.') . '</option>
+        <option>' . say('Ms.') . '</option>
+        <option>' . say('Dr.') . '</option>
+      </select>', 3); ?> <input name="first_name" size="30" type="text" placeholder="First name"> <input name="last_name" size="30" type="text" placeholder="Last name"></div>
+<div style="color:#999;margin-top:5px;font-size:11px">
+<?= dispOnly('Students will see your title instead of your first name (ie "Mr. Saget")', 3); ?>
+<?= dispOnly('Your teachers will be notified if you change your name.', 1); ?>
+</div>
+
+
+<div style="font-size:20px;color:#555;margin-bottom:8px;margin-top:30px">Email Address</div>
+<input name="e_mail" size="30" type="text" placeholder="Email address" style="width:300px">
+<div style="color:#999;margin-top:5px;font-size:11px">Having an email address allows you to reset your password if you ever forget it</div>
+
+
+<div style="font-size:20px;color:#555;margin-bottom:8px;margin-top:30px">Change Password</div>
+<input name="pass1" size="30" type="text" placeholder="New password"> <input name="pass2" size="30" type="text" placeholder="Confirm password">
+
+<div style="margin-top:30px">
+  <input type="submit" class="btn primary large" value="Update personal settings">
+</div>
+
+
+</form>
+</div>
+
+<div style="width:225px;margin-left:15px">
+  <center>
+    <img src="<?= iconServer(); ?>210_<?= dispUser(user('id'), 'prof_icon'); ?>" class="vidView" style="background-image:none;margin-bottom:10px;" /><br />
+    <a href="#" onclick="jQuery.facebox({ div:'#iconOpen' }); return false" class="btn"><img src="/assets/app/img/temp/change.png" style="float:left;margin-right:8px" />Change Picture</a>
+  </center>
+</div>
 
 </div>
 
@@ -36,6 +71,39 @@
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
+<div id="iconOpen" style="display:none">
+    <form action="/app/manage/settings/icon" method="post" enctype="multipart/form-data" id="change-icon" class="form-stacked">
+<input type="hidden" name="submitted" value="true" />
+  <fieldset>
+    <legend>Change Picture</legend>
+    <div class="clearfix">
+    <div id="errorBox" style="display:none"></div>
+
+<div style="font-size:12px; font-weight:bolder; color:#666; margin-bottom:3px">Choose an image</div>
+    <div class="input">
+      <input type="file" name="file" id="file" /> 
+    </div>
+
+    </div><!-- /clearfix -->
+  </fieldset>
+  <div id="fbActions" class="actions" style="margin-bottom:-17px">
+    <div style="float:right">
+      <button type="submit" class="btn primary">Upload new picture</button>&nbsp;<button class="btn" onClick="closeBox();return false">Close</button>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+</form>
+  </div>
 
 
 </div></div></div>

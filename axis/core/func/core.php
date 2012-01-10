@@ -100,21 +100,28 @@ function showLogin() {
 
 // internationalization stuff (language & timezones)
 function say($text, $lang) {
+    // only put to strs file if its local
+    global $developerMode;
+    if ($developerMode == true) {
     $strings = file_get_contents('axis/lang/strs.json');
-    $strAr = json_decode($strings);
-    if (array_key_exists($text, $strAr)) {
-        if (array_key_exists($lang, $strAr->$text)) {
-            return $strAr->$text->$lang;
+        $strAr = json_decode($strings);
+        if (array_key_exists($text, $strAr)) {
+            if (array_key_exists($lang, $strAr->$text)) {
+                return $strAr->$text->$lang;
+            } else {
+                return $text;
+            }
         } else {
+            $strAr->$text = array();
+            $myFile = "axis/lang/strs.json";
+            $fh = fopen($myFile, 'w') or die("can't open file");
+            $stringData = json_encode($strAr);
+            fwrite($fh, $stringData);
+            fclose($fh);
             return $text;
         }
+    // production? just return the string
     } else {
-        $strAr->$text = array();
-        $myFile = "axis/lang/strs.json";
-        $fh = fopen($myFile, 'w') or die("can't open file");
-        $stringData = json_encode($strAr);
-        fwrite($fh, $stringData);
-        fclose($fh);
         return $text;
     }
 }
