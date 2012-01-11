@@ -97,6 +97,24 @@ function showLogin() {
 }
 
 
+// determine & set time settings
+function setLocales() {
+    // if we're logged in
+    if (checkSession()) {
+        $data = getUser(user('id'));
+        $settings = cleanSettings($data['settings']);
+        if (isset($settings['timezone'])) {
+            date_default_timezone_set($settings['timezone']);
+        }
+    }
+}
+
+
+function cleanSettings($setObj) {
+    $newObj = html_entity_decode($setObj);
+    $settings = json_decode($newObj, true);
+    return $settings;
+}
 
 // internationalization stuff (language & timezones)
 function say($text, $lang) {

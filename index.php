@@ -5,6 +5,8 @@ require_once('axis/lib/axis.urlinterpreter.php');
 require_once('axis/lib/axis.commanddispatcher.php');
 require_once('axis/lib/axis.controller.php');
 require_once('axis/core/coreInc.php');
+// set date/time & (soon) default language
+setLocales();
 
 $urlInterpreter = new Axis_URLInterpreter();
 $command = $urlInterpreter->getCommand();

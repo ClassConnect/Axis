@@ -25,6 +25,10 @@ if ($this->Command->Parameters[0] == 'courses') {
 		// this is for updating a user or course icon
 		require_once('settings/views/personal.php');
 
+	} elseif ($this->Command->Parameters[1] == 'locales') {
+		// this is for updating a user or course icon
+		require_once('settings/views/loclang.php');
+
 	} else {
 	  require_once('settings/views/index.php');
 	}

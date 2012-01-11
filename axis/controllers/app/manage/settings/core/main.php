@@ -50,4 +50,23 @@ function updatePersonalData($uid, $title, $firstname, $lastname, $email, $pass1,
 	}
 	
 }
+
+
+
+
+// set the local settings (timezone, lang)
+function updateLocales($uid, $tz) {
+	if (!isset($uid)) {
+        $uid = user('id');
+    }
+    
+    $curData = getUser($uid);
+    $settings = cleanSettings($curData['settings']);
+    $settings['timezone'] = $tz;
+    $settings = json_encode($settings);
+
+    good_query("UPDATE users SET settings = '$settings' WHERE id = $uid");
+    // update memcached
+	getUser($uid, true);
+}
 ?>

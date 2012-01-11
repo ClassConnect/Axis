@@ -9,7 +9,7 @@ $udata = getUser(user('id'));
 
 <ul class="tabs">
   <li class="active"><a href="#personalup">Personal Info & Password</a></li>
-  <li><a href="#notiup">Notifications</a></li>
+  <!-- <li><a href="#notiup">Notifications</a></li> -->
   <li><a href="#loclang">Location & Language</a></li>
 </ul>
  
@@ -20,6 +20,8 @@ $udata = getUser(user('id'));
 
 <div style="width:610px;float:right">
 <form action="#" id="update-personal">
+
+<div id="persError"></div>
 
 <div style="font-size:20px;color:#555;margin-bottom:8px">Name</div>
 
@@ -208,8 +210,16 @@ $zonelist = array('Kwajalein' => '(GMT-12:00) International Date Line West',
     'Pacific/Auckland' => '(GMT+12:00) Auckland',
     'Pacific/Tongatapu' => '(GMT+13:00) Nukualofa');
 ?>
-<form method="post">
+<form action="#" id="update-locales">
   <select name="tz">
+  <?php
+  $settings = cleanSettings($udata['settings']);
+foreach($zonelist as $key => $value) {
+  if ($key == $settings['timezone']) {
+    echo '    <option value="' . $key . '">' . $value . '</option>';
+  }
+}
+?>
   <option value="America/Chicago">(GMT-06:00) Central Time (US &amp; Canada)</option>
   <option value="Pacific/Honolulu">(GMT-10:00) Hawaii</option>
   <option value="America/Anchorage">(GMT-09:00) Alaska</option>
@@ -221,15 +231,19 @@ $zonelist = array('Kwajalein' => '(GMT-12:00) International Date Line West',
   <option disabled="disabled">&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;</option>
 <?php
 foreach($zonelist as $key => $value) {
-  echo '    <option value="' . $key . '">' . $value . '</option>' . "\n";
+  echo '    <option value="' . $key . '">' . $value . '</option>';
 }
 ?>
   </select>
-  
-
 
 <div style="font-size:20px;color:#555;margin-bottom:8px;margin-top:30px">Language</div>
 <p style="color:#777">We need your help translating ClassConnect - <a href="#" onclick="olark('api.box.expand'); return false">contact us!</a></p>
+
+
+<div style="margin-top:30px">
+  <input type="hidden" name="submitted" value="true" />
+  <button id="subbtn3" type="submit" class="btn primary large">Update location & language settings</button>
+</div>
 
 </form>
 
@@ -248,15 +262,17 @@ $('#update-personal').submit(function() {
    var serData = $("#update-personal").serialize();
     fbFormDisable('#update-personal');
     $.ajax({  
-      type: "POST",  
-      url: "/app/manage/settings/personal",  
+      type: "POST",
+      url: "/app/manage/settings/personal",
       data: serData,
       success: function(retData) {
         if (retData == 1) {
+          $("#persError").html('');
           initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Settings updated successfully</span>', 'yellowBox', 220, 485, 2000);
 
         } else {
           // show error
+          $("#persError").html(retData);
         }
 
         fbFormEnable('#update-personal');
@@ -267,6 +283,30 @@ $('#update-personal').submit(function() {
   });  
     return false;
 });
+
+
+
+$('#update-locales').submit(function() {
+  $('#subbtn3').append('<img id="rmSoon" src="/assets/app/img/box/miniload.gif" style="float:right;margin-top:4px;margin-left:10px" />');
+   var serData = $("#update-locales").serialize();
+    fbFormDisable('#update-locales');
+    $.ajax({  
+      type: "POST",
+      url: "/app/manage/settings/locales",
+      data: serData,
+      success: function(retData) {
+        initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Settings updated successfully</span>', 'yellowBox', 220, 485, 2000);
+
+
+        fbFormEnable('#update-locales');
+        $("#rmSoon").remove();
+
+      }  
+      
+  });  
+    return false;
+});
+
 </script>
 
 
