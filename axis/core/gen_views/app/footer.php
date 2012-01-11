@@ -1,7 +1,15 @@
       <footer> 
         <p>&copy; 2012 ClassConnect</p> 
       </footer> 
- 
+
+
+<?php
+// wizard
+require_once('axis/controllers/app/common/wizard/ftr.php');
+?>
+
+
+
     </div> <!-- /main-container --> 
 <?php 
 if (checkSession()) {
