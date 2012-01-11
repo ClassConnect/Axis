@@ -116,6 +116,47 @@ function cleanSettings($setObj) {
     return $settings;
 }
 
+
+// initialize connection to SMTP server & send an email
+function sendEmail($subject, $toArr, $fromArr, $body, $bodyType) {
+    /*
+    Example use case
+    
+    $subj = 'Func send';
+    $sendTo = array('eric@classconnect.com' => 'Eric Simons');
+    $sendFrom = array('support@classconnect.com' => 'CC Eric');
+    $body = "Hi there!\n\n\nSUP";
+
+    sendEmail($subj, $sendTo, $sendFrom, $body);
+    */
+    if (!isset($bodyType)) {
+        $bodyType = 'text/plain';
+    }
+
+    if (!isset($fromArr)) {
+        $fromArr = array('support@classconnect.com' => 'ClassConnect');
+    }
+
+
+    $smtp = Swift_SmtpTransport::newInstance('smtp.sendgrid.net', 587)->setUsername('classconnectinc')->setPassword('cc221g7tx');
+    $mailer = Swift_Mailer::newInstance($smtp);
+                $message = Swift_Message::newInstance($subject);
+$message
+  ->setTo($toArr)
+  ->setFrom($fromArr)
+  ->setBody(
+    $body,
+    $bodyType
+  );
+
+    if ($mailer->send($message)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 // internationalization stuff (language & timezones)
 function say($text, $lang) {
     // only put to strs file if its local
@@ -894,6 +935,9 @@ function insertFeedItem($appType, $notiType, $shared_first, $data, $withinInc, $
 
         $collection->insert($obj);
 
+        // send notis (if applicable)
+        pushNotis($obj);
+
         $returnID = $obj['_id'];
     }
 
@@ -1204,6 +1248,31 @@ function genFeedItem($items, $primary, $uid) {
 }
 
 
+// send noti emails and (soon) text messages
+function pushNotis($itemObj) {
+
+    // filebox notis
+    if ($itemObj['appType'] == 1) {
+        // new share email
+        if ($itemObj['notiType'] == 3) {
+            foreach ($itemObj['shared_with'] as $share) {
+                if ($share['type'] == 1) {
+                    // send an email to our shared friend
+                    $myName = dispUser($itemObj['uid'], 'first_name') . ' ' . dispUser($itemObj['uid'], 'last_name');
+                    $subj = $myName . ' has shared "' . $itemObj['data'][0]['title'] . '" with you';
+                    $sendTo = array(dispUser($share['shareID'], 'e_mail'));
+                    $sendFrom = array('support@classconnect.com' => $myName);
+                    $body = "Hi there,\n$myName just shared \"{$itemObj['data'][0]['title']}\" with you on ClassConnect. To access this content, visit http://www.classconnect.com/app/filebox/{$itemObj['data'][0]['id']} in your web browser.\n\n-The ClassConnect Team";
+
+                    sendEmail($subj, $sendTo, $sendFrom, $body);
+                    
+                }
+            }
+        }
+    }
+}
+
+
 
 
 
@@ -1247,6 +1316,15 @@ function addFriend($friendID, $uid, $autoAdd) {
         $now = date("U");
         good_query("INSERT INTO colleagues (user1, user2, status, initiated) VALUES ($uid, $friendID, $status, $now)");
         updateReqs(1, $friendID);
+
+        // send an email to our new friend
+        $myName = dispUser($uid, 'first_name') . ' ' . dispUser($uid, 'last_name');
+        $subj = $myName . ' requested you as a colleague on ClassConnect';
+        $sendTo = array(dispUser($friendID, 'e_mail'));
+        $sendFrom = array('support@classconnect.com' => $myName);
+        $body = "Hi there,\n$myName just added you as a colleague on ClassConnect. To accept this colleague request, visit http://www.classconnect.com/app in your web browser.\n\n-The ClassConnect Team";
+
+        sendEmail($subj, $sendTo, $sendFrom, $body);
         
     }
 
