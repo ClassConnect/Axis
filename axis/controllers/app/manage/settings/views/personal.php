@@ -8,7 +8,7 @@ if (isset($_POST['submitted'])) {
 	if ($attempt == 1) {
 		echo 1;
 	} else {
-		echo '<div class="alert-message warning" style="width:300px">';
+		echo '<div class="alert-message warning" style="width:600px">';
 	    foreach($attempt as $error) {
 	      echo '<li>' . $error . '</li>';
 	    }

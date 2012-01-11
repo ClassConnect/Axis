@@ -41,7 +41,7 @@ function updatePersonalData($uid, $title, $firstname, $lastname, $email, $pass1,
 	}
 
 	if (empty($errors)) {
-		good_query("UPDATE users SET pre_name = '$title', first_name = '$firstname', last_name = '$lastname', e_mail = '$email'$insertPass WHERE id = $userID");
+		good_query("UPDATE users SET pre_name = '$title', first_name = '$firstname', last_name = '$lastname', e_mail = '$email'$insertPass WHERE id = $uid");
 		// update memcached
 		getUser($uid, true);
 		return 1;
