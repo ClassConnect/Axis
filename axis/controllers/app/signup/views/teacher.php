@@ -11,6 +11,12 @@ if (isset($_POST['submitted'])) {
 	} else {
    // set the session
    setSession($attempt);
+   // send an email to our new friend
+  $subj = 'Re: Welcome to ClassConnect';
+  $sendTo = array(dispUser($attempt, 'e_mail'));
+  $sendFrom = array('eric@classconnect.com' => 'Eric Simons');
+  $body = "Hi - I saw you just signed up for classconnect.com, let me know if there is anything I can do to help\n\n-Eric";
+  sendEmail($subj, $sendTo, $sendFrom, $body);
    echo 1; 
   }
 	exit();
