@@ -44,7 +44,7 @@ $udata = getUser(user('id'));
 
 
 <div style="font-size:20px;color:#555;margin-bottom:8px;margin-top:30px">Change Password</div>
-<input name="pass1" size="30" type="text" placeholder="New password"> <input name="pass2" size="30" type="text" placeholder="Confirm password">
+<input name="pass1" size="30" type="password" placeholder="New password"> <input name="pass2" size="30" type="password" placeholder="Confirm password">
 
 <div style="margin-top:30px">
   <input type="hidden" name="submitted" value="true" />
