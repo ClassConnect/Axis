@@ -62,7 +62,7 @@ function updateLocales($uid, $tz) {
     
     $curData = getUser($uid);
     $settings = cleanSettings($curData['settings']);
-    $settings['timezone'] = $tz;
+    $settings['timezone'] = escape($tz);
     $settings = json_encode($settings);
 
     good_query("UPDATE users SET settings = '$settings' WHERE id = $uid");
