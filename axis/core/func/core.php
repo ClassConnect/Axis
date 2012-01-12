@@ -110,11 +110,16 @@ function setLocales() {
 }
 
 
+// clean our settings thing
 function cleanSettings($setObj) {
     $newObj = html_entity_decode($setObj);
     $settings = json_decode($newObj, true);
     return $settings;
 }
+
+
+// initialize the wizard
+
 
 
 // initialize connection to SMTP server & send an email
@@ -129,28 +134,51 @@ function sendEmail($subject, $toArr, $fromArr, $body, $bodyType) {
 
     sendEmail($subj, $sendTo, $sendFrom, $body);
     */
-    if (!isset($bodyType)) {
-        $bodyType = 'text/plain';
+    $totalTo = 0;
+    foreach ($toArr as $tkey=>$to) {
+        if (is_numeric($tkey)) {
+            if (filter_var($to, FILTER_VALIDATE_EMAIL) != true) {
+                unset($toArr[$tkey]);
+            } else {
+                $totalTo++;
+            }
+        } else {
+            if (filter_var($tkey, FILTER_VALIDATE_EMAIL) != true) {
+                unset($toArr[$tkey]);
+            } else {
+                $totalTo++;
+            }
+        }
     }
 
-    if (!isset($fromArr)) {
-        $fromArr = array('support@classconnect.com' => 'ClassConnect');
-    }
+    if ($totalTo > 0) {
+
+        if (!isset($bodyType)) {
+            $bodyType = 'text/plain';
+        }
+
+        if (!isset($fromArr)) {
+            $fromArr = array('support@classconnect.com' => 'ClassConnect');
+        }
 
 
-    $smtp = Swift_SmtpTransport::newInstance('smtp.sendgrid.net', 587)->setUsername('classconnectinc')->setPassword('cc221g7tx');
-    $mailer = Swift_Mailer::newInstance($smtp);
-                $message = Swift_Message::newInstance($subject);
-$message
-  ->setTo($toArr)
-  ->setFrom($fromArr)
-  ->setBody(
-    $body,
-    $bodyType
-  );
+        $smtp = Swift_SmtpTransport::newInstance('smtp.sendgrid.net', 587)->setUsername('classconnectinc')->setPassword('cc221g7tx');
+        $mailer = Swift_Mailer::newInstance($smtp);
+                    $message = Swift_Message::newInstance($subject);
+    $message
+      ->setTo($toArr)
+      ->setFrom($fromArr)
+      ->setBody(
+        $body,
+        $bodyType
+      );
 
-    if ($mailer->send($message)) {
-        return true;
+        if ($mailer->send($message)) {
+            return true;
+        } else {
+            return false;
+        }
+        
     } else {
         return false;
     }

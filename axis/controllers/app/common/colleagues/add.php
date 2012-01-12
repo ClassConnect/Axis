@@ -21,9 +21,11 @@ if (isset($_POST['submitted'])) {
 
   		// this email address isn't in our DB. lets create a fake account for it.
   		} else {
-  			$newID = createTempUser($email);
-  			addFriend($newID, null, true);
-  			$friendCount++;
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) == true) {
+          $newID = createTempUser($email);
+          addFriend($newID, null, true);
+          $friendCount++;
+        }
   		}
   	}
   }
