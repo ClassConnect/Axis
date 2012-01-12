@@ -5,7 +5,8 @@
 
 <?php
 // wizard
-//require_once('axis/controllers/app/common/wizard/views/ftr.php');
+require_once('axis/controllers/app/common/wizard/core/main.php');
+require_once('axis/controllers/app/common/wizard/views/ftr.php');
 ?>
 
 

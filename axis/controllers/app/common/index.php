@@ -31,6 +31,13 @@ if ($this->Command->Parameters[0] == 'colleagues' && checkSession()) {
   require_once('picker/index.php');
 
 
+
+// if we're accessing the wizard
+} elseif ($this->Command->Parameters[0] == 'wizard' && checkSession()) {
+  require_once('wizard/core/main.php');
+  require_once('wizard/index.php');
+
+
 // lets assume that this is a piece of filebox content (or homepage)
 } else {
   showError();

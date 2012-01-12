@@ -119,7 +119,17 @@ function cleanSettings($setObj) {
 
 
 // initialize the wizard
+function initWizard() {
+    $_SESSION['wiz'] = true;
+    $_SESSION['wizData'] = array();
+}
 
+
+// set wiz to false, destroy current wiz data
+function destroyWizard() {
+    $_SESSION['wiz'] = false;
+    $_SESSION['wizData'] = array();
+}
 
 
 // initialize connection to SMTP server & send an email
@@ -173,11 +183,18 @@ function sendEmail($subject, $toArr, $fromArr, $body, $bodyType) {
         $bodyType
       );
 
+
+    try {
+
         if ($mailer->send($message)) {
             return true;
         } else {
             return false;
         }
+
+    } catch (Exception $e) {
+        return false;
+    }
         
     } else {
         return false;

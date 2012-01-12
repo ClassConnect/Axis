@@ -1,11 +1,11 @@
 <div id="wizthing" onClick="wizSwapper();" class="schColor"><img src="/assets/app/img/wiz/gs.png" style="margin-left:8px;padding-top:10px" /></div>
 <div id="wizpnel">
-<div class="wizShade"><div class="wizLdr"><img src="' . $imgServer . 'sBoxLoad.gif" /></div></div>
+<div class="wizShade"><div class="wizLdr"><img src="/assets/app/img/box/loading.gif" /></div></div>
 
 
 <div class="wizcol wizTop">Here are the basics for getting started with ClassConnect.</div>
 
-<div class="wizDiv"' . $createSty . '>
+<div class="wizDiv"<?= dispWizComplete(1); ?>>
     <span class="wizBld">1.&nbsp;&nbsp;<a href="#" onClick="initWiz(1);">Create your classes</a></span>
     <div class="sgtx">It takes just a few clicks to create your classes. Your students can join a class by using its access code.</div>
 </div>
@@ -26,7 +26,7 @@
 
 
 
-
+<div id="wizExec" style="display:none"></div>
 
 
 
@@ -42,5 +42,22 @@ function wizSwapper() {
         $("#wizthing").show().animate({right:"-=360px"},500);
         setTimeout("$('#wizpnel').hide();",500);
     }
+}
+
+
+function initWiz(num) {
+    $(".wizShade").show();
+    $.ajax({  
+      type: "GET",  
+      url: "/app/common/wizard/ajax/",  
+      data: "step=" + num + "&loc=" + escape(document.URL),
+      success: function(retData) {
+          $(".wizShade").hide();
+          $("#wizExec").html(retData);
+          wizSwapper();
+
+      }  
+      
+  }); 
 }
 </script>
