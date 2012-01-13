@@ -1,8 +1,17 @@
+$(".wzdv1").addClass('wizard-crossed');
 guiders.createGuider({
-  buttons: [{name: "Next"}],
-  description: "Guiders are a user interface design pattern for introducing features of software. This dialog box, for example, is the first in a series of guiders that together make up a guide.",
+  buttons: [{name: "Done with the video? Start using your FileBox!", classString: "danger", onclick: guiders.next }],
+  description: "<iframe id=\"rmGuideVid\" width=\"720\" height=\"420\" src=\"http://www.youtube.com/v/SuXi5qBtSco?autoplay=1&hd=1\" frameborder=\"0\" allowfullscreen></iframe>",
   id: "first",
   next: "second",
   overlay: true,
-  title: "Meet FileBox."
+  width:720,
+  title: "Learn about your FileBox!"
 }).show();
+
+guiders.createGuider({
+  buttons: [{name: "Close & start using FileBox", onclick: guiders.hideAll }],
+  description: "Start adding & organizing your content into FileBox! Once you're ready to move on, click the 'Getting Started' tab on the right.",
+  id: "second",
+  title: "Your turn!"
+});

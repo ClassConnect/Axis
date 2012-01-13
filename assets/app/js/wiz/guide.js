@@ -25,7 +25,7 @@ var guiders = (function($) {
     buttons: [{name: "Close"}],
     buttonCustomHTML: "",
     classString: null,
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    description: "",
     highlight: null,
     isHashable: true,
     offset: {
@@ -74,7 +74,7 @@ var guiders = (function($) {
     for (var i = myGuider.buttons.length-1; i >= 0; i--) {
       var thisButton = myGuider.buttons[i];
       var thisButtonElem = $("<a></a>", {
-                              "class" : "guider_button",
+                              "class" : "guider_button btn",
                               "text" : thisButton.name });
       if (typeof thisButton.classString !== "undefined" && thisButton.classString !== null) {
         thisButtonElem.addClass(thisButton.classString);
@@ -278,6 +278,7 @@ var guiders = (function($) {
       return;
     }
     var nextGuiderId = currentGuider.next || null;
+    $("#" + guiders._currentGuiderID).find('#rmGuideVid').remove();
     if (nextGuiderId !== null && nextGuiderId !== "") {
       var myGuider = guiders._guiderById(nextGuiderId);
       var omitHidingOverlay = myGuider.overlay ? true : false;

@@ -10,6 +10,8 @@ function urlToArray($url) {
 		$url = substr($url, 0, (strpos($url, '?')));
 	}
 
+	$url = str_replace('#', '', $url);
+
 	// first lets get the location of /app/ and slice it
 	$start = strpos($url, '/app/') + 5;
 	$fin = substr($url, $start, strlen($url) - $start);
@@ -44,8 +46,15 @@ function fireWizard($curLoc, $step) {
 
 	$locData = urlToArray($curLoc);
 
-	// session 1
-	if ($_SESSION['wizData']['target'] == 1) {
+
+	// destroy the wizard
+	if ($_SESSION['wizData']['target'] == -1) {
+		// reset the session
+		destroyWizard();
+		return loadWizJS($groot . 'destroy.js');
+
+	// main filebox
+	} elseif ($_SESSION['wizData']['target'] == 1) {
 		if ($locData[0] == 'filebox') {
 			// reset target
 			$_SESSION['wizData']['target'] = 0;
@@ -55,13 +64,66 @@ function fireWizard($curLoc, $step) {
 			return loadWizJS($groot . 'filebox/main.js');
 
 		} else {
+			// only return this if we initialized this via JS
 			if ($forceElse) {
-				return 1;
+				return loadWizJS($groot . 'filebox/direct.js');
 			}
 		}
 
-	// session 2
+	// adding tags
 	} elseif ($_SESSION['wizData']['target'] == 2) {
+		if ($locData[0] == 'filebox') {
+			// reset target
+			$_SESSION['wizData']['target'] = 0;
+			// set the session completion
+			$_SESSION['wizData']['completed'][2] = true;
+
+			return loadWizJS($groot . 'filebox/standards.js');
+
+		} else {
+			// only return this if we initialized this via JS
+			if ($forceElse) {
+				return loadWizJS($groot . 'filebox/direct.js');
+			}
+		}
+
+
+	// sharing with colleagues
+	} elseif ($_SESSION['wizData']['target'] == 3) {
+		if ($locData[0] == 'filebox') {
+			// reset target
+			$_SESSION['wizData']['target'] = 0;
+			// set the session completion
+			$_SESSION['wizData']['completed'][3] = true;
+
+			return loadWizJS($groot . 'filebox/collaborate.js');
+
+		} else {
+			// only return this if we initialized this via JS
+			if ($forceElse) {
+				return loadWizJS($groot . 'filebox/direct.js');
+			}
+		}
+
+
+	// adding/sharing with courses
+	} elseif ($_SESSION['wizData']['target'] == 4) {
+		if ($locData[0] == 'manage' && $locData[1] == 'courses') {
+			// reset target
+			$_SESSION['wizData']['target'] = 0;
+			// set the session completion
+			$_SESSION['wizData']['completed'][4] = true;
+
+			return loadWizJS($groot . 'courses/add.js');
+
+		} else {
+			// only return this if we initialized this via JS
+			if ($forceElse) {
+				return loadWizJS($groot . 'courses/direct.js');
+			}
+		}
+
+
 		
 	}
 
@@ -81,7 +143,7 @@ function loadWizJS($file) {
 // display cross if completed
 function dispWizComplete($num) {
 	if ($_SESSION['wizData']['completed'][$num]) {
-		return ' style="text-decoration: line-through;"';
+		return 'wizard-crossed';
 	}
 }
 ?>

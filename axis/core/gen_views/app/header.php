@@ -98,7 +98,7 @@ if ($developerMode == true) {
           <ul class="nav"> 
           <!-- <span style="padding-top:4px" class="label important">&nbsp;1&nbsp;</span>&nbsp;&nbsp; -->
             <li<?php if ($setTab == 1) { echo ' class="active"'; } ?>><a href="/app/">Latest</a></li> 
-            <li<?php if ($setTab == 2) { echo ' class="active"'; } ?>><a href="/app/filebox/">FileBox</a></li> 
+            <li id="filebox-tab"<?php if ($setTab == 2) { echo ' class="active"'; } ?>><a href="/app/filebox/">FileBox</a></li> 
             <?php // class="active" ?>
             <li class="dropdown<?php if ($setTab == 3) { echo ' active'; } ?>">
               <a href="#" class="dropdown-toggle">Apps</a>
@@ -108,12 +108,12 @@ if ($developerMode == true) {
                 <li><a href="/app/docs">Docs</a></li>
               </ul>
             </li>
-            <li class="dropdown<?php if ($setTab == 4) { echo ' active'; } ?>">
+            <li id="courses-tab" class="dropdown<?php if ($setTab == 4) { echo ' active'; } ?>">
               <a href="#" class="dropdown-toggle">Courses</a>
               <ul class="dropdown-menu">
                 <?= buildCourseNav(); ?>
                 <li class="divider"></li>
-                <li><a href="/app/manage/courses" style="font-size:10px">add / manage courses</a></li>
+                <li id="manage-courses-tab"><a href="/app/manage/courses" style="font-size:10px">add / manage courses</a></li>
               </ul>
             </li>
             <!--
