@@ -165,6 +165,18 @@ function determineAuth(str) {
   }
 }
 
+
+function checkBeforeAdd() {
+  var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+   if ($("#adder").val().search(emailRegEx) == -1) {
+    // do nothing
+   } else {
+    addPer(1, $("#adder").val(), determineAuth($("#perAuther").val()), $("#adder").val());
+    $("#adder").val('');
+   }
+}
+
+
 $(function() {
   fbFormControl();
     $("img[rel=locked]").twipsy({
@@ -175,13 +187,7 @@ $(function() {
   $("#adder").keypress(function(event) {
     if (event.which == 13) {
        event.preventDefault();
-       var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-       if ($("#adder").val().search(emailRegEx) == -1) {
-        // do nothing
-       } else {
-        addPer(1, $("#adder").val(), determineAuth($("#perAuther").val()), $("#adder").val());
-        $("#adder").val('');
-       }
+       checkBeforeAdd();
      }
   });
 
@@ -251,6 +257,7 @@ function rmPer(type, data) {
 
 
 $('#update-pers').submit(function() {
+  checkBeforeAdd();
   fbFormSubmitted('#update-pers');
   uidRead = '';
   uidWrite = '';

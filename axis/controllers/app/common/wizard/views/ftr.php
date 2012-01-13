@@ -1,3 +1,8 @@
+
+
+<script src="/assets/app/js/wiz/guide.js"></script>
+<div id="wizExec" style="display:none"><?= fireWizard($_SERVER['REQUEST_URI']); ?></div>
+
 <div id="wizthing" onClick="wizSwapper();" class="schColor"><img src="/assets/app/img/wiz/gs.png" style="margin-left:8px;padding-top:10px" /></div>
 <div id="wizpnel">
 <div class="wizShade"><div class="wizLdr"><img src="/assets/app/img/box/loading.gif" /></div></div>
@@ -6,29 +11,23 @@
 <div class="wizcol wizTop">Here are the basics for getting started with ClassConnect.</div>
 
 <div class="wizDiv"<?= dispWizComplete(1); ?>>
-    <span class="wizBld">1.&nbsp;&nbsp;<a href="#" onClick="initWiz(1);">Create your classes</a></span>
-    <div class="sgtx">It takes just a few clicks to create your classes. Your students can join a class by using its access code.</div>
+    <span class="wizBld">1.&nbsp;&nbsp;<a href="#" onClick="initWiz(1); return false">Set up your FileBox</a></span>
+    <div class="wizGtx">It's a crazy simple way to organize files, bookmarks, embed codes, Google Docs and more!</div>
 </div>
 
-<div class="wizDiv"' . $fboxSty . '>
-    <span class="wizBld">2.&nbsp;&nbsp;<a href="#" onClick="initWiz(2);">Add & organize class content</a></span>
-    <div class="sgtx">Upload files, bookmark websites, organize content into folders, and then share class content with all your classes with just a click.</div>
+<div class="wizDiv"<?= dispWizComplete(2); ?>>
+    <span class="wizBld">2.&nbsp;&nbsp;<a href="#" onClick="initWiz(2);">Collaborate with your colleagues</a></span>
+    <div class="wizGtx">Allow your colleagues to view and/or edit the content you added to your FileBox - in just a few clicks.</div>
 </div>
-<div class="wizDiv"' . $classSty . '>
-    <span class="wizBld">3.&nbsp;&nbsp;<a href="#" onClick="initWiz(3);">Manage a class page</a></span>
-    <div class="sgtx">Your classes have their own individual "pages" where you can post updates, manage the class calendar, open forums and start lectures.</div>
+<div class="wizDiv"<?= dispWizComplete(3); ?>>
+    <span class="wizBld">3.&nbsp;&nbsp;<a href="#" onClick="initWiz(3);">Share with your students</a></span>
+    <div class="wizGtx">Your students can access content you share with them as well as their class calendar & announcements.</div>
 </div>
 <div style="margin-top:60px;font-size:12px">
     <div class="wizcol wizEx"><a href="#" style="color:#fff;font-weight:bolder" onClick="endWiz();">End the 'Getting Started' wizard</a></div>
     <div style="padding-top:5px;padding-left:17px;color:#666">Done with these steps?</div>
 </div>
 </div>
-
-
-
-<div id="wizExec" style="display:none"></div>
-
-
 
 
 <script>
@@ -58,6 +57,6 @@ function initWiz(num) {
 
       }  
       
-  }); 
+  });
 }
 </script>

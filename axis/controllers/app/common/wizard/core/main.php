@@ -27,6 +27,10 @@ function urlToArray($url) {
 
 // generic fire func
 function fireWizard($curLoc, $step) {
+	// set the root of the guiders
+	$groot = 'axis/controllers/app/common/wizard/guides/';
+
+
 	if (!isset($step)) {
 		$step = $_SESSION['wizData']['target'];
 	} else {
@@ -43,15 +47,16 @@ function fireWizard($curLoc, $step) {
 	// session 1
 	if ($_SESSION['wizData']['target'] == 1) {
 		if ($locData[0] == 'filebox') {
-			echo 'dataloaded';
 			// reset target
 			$_SESSION['wizData']['target'] = 0;
 			// set the session completion
 			$_SESSION['wizData']['completed'][1] = true;
 
+			return loadWizJS($groot . 'filebox/main.js');
+
 		} else {
 			if ($forceElse) {
-				echo 'nope';
+				return 1;
 			}
 		}
 
@@ -64,6 +69,13 @@ function fireWizard($curLoc, $step) {
 }
 
 
+
+// load a file and put script tags around it
+function loadWizJS($file) {
+	$fin = file_get_contents($file);
+	$fin = '<script>guiders.hideAll();' . $fin . '</script>';
+	return $fin;
+}
 
 
 // display cross if completed

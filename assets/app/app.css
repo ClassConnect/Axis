@@ -1280,6 +1280,12 @@ border:1px solid #666;
   color:#666;
 }
 
+.wizGtx {
+  color:#666;
+  font-size:13px;
+  line-height:1.2em;
+}
+
 /* = STEPS CONTAINER
 ----------------------------*/
 .wizard-steps {
