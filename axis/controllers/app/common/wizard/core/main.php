@@ -53,6 +53,11 @@ function fireWizard($curLoc, $step) {
 		destroyWizard();
 		return loadWizJS($groot . 'destroy.js');
 
+	// first init
+	} elseif ($_SESSION['wizData']['target'] == 0 && !isset($_SESSION['wizData']['completed'][0])) {
+		$_SESSION['wizData']['completed'][0] = true;
+		return loadWizJS($groot . 'first.js');
+
 	// main filebox
 	} elseif ($_SESSION['wizData']['target'] == 1) {
 		if ($locData[0] == 'filebox') {

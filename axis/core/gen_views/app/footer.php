@@ -4,9 +4,11 @@
 
 
 <?php
-// wizard
-require_once('axis/controllers/app/common/wizard/core/main.php');
-require_once('axis/controllers/app/common/wizard/views/ftr.php');
+if ($_SESSION['wiz'] == true) {
+	// wizard
+	require_once('axis/controllers/app/common/wizard/core/main.php');
+	require_once('axis/controllers/app/common/wizard/views/ftr.php');	
+}
 ?>
 
 

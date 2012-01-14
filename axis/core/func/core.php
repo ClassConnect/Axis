@@ -122,6 +122,7 @@ function cleanSettings($setObj) {
 function initWizard() {
     $_SESSION['wiz'] = true;
     $_SESSION['wizData'] = array();
+    $_SESSION['wizData']['target'] = 0;
 }
 
 
@@ -1307,7 +1308,7 @@ function pushNotis($itemObj) {
                     $subj = $myName . ' has shared "' . $itemObj['data'][0]['title'] . '" with you';
                     $sendTo = array(dispUser($share['shareID'], 'e_mail'));
                     $sendFrom = array('support@classconnect.com' => $myName);
-                    $body = "Hi there,\n$myName just shared \"{$itemObj['data'][0]['title']}\" with you on ClassConnect. To access this content, visit http://www.classconnect.com/app/filebox/{$itemObj['data'][0]['id']} in your web browser.\n\n-The ClassConnect Team";
+                    $body = "Hi there,\n$myName just shared \"{$itemObj['data'][0]['title']}\" with you on ClassConnect. To access this content, visit http://www.classconnect.com/app/filebox/{$itemObj['data'][0]['id']} in your web browser.\n\nIf you do not have a ClassConnect account yet, simply sign up at http://www.classconnect.com/app using this email address (" . dispUser($share['shareID'], 'e_mail') . ")\n\n-The ClassConnect Team";
 
                     sendEmail($subj, $sendTo, $sendFrom, $body);
                     
@@ -1367,7 +1368,7 @@ function addFriend($friendID, $uid, $autoAdd) {
         $subj = $myName . ' requested you as a colleague on ClassConnect';
         $sendTo = array(dispUser($friendID, 'e_mail'));
         $sendFrom = array('support@classconnect.com' => $myName);
-        $body = "Hi there,\n$myName just added you as a colleague on ClassConnect. To accept this colleague request, visit http://www.classconnect.com/app in your web browser.\n\n-The ClassConnect Team";
+        $body = "Hi there,\n$myName just added you as a colleague on ClassConnect. To accept this colleague request, visit http://www.classconnect.com/app in your web browser.\n\nIf you do not have a ClassConnect account yet, simply sign up at http://www.classconnect.com/app using this email address (" . dispUser($friendID, 'e_mail') . ")\n\n-The ClassConnect Team";
 
         sendEmail($subj, $sendTo, $sendFrom, $body);
         

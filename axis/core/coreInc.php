@@ -10,11 +10,6 @@ set_error_handler("customError");
 
 session_start();
 
-// signup referencer. store this in the session for use when we signup
-if (isset($_GET['uref'])) {
-	$_SESSION['uref'] = $_GET['uref'];
-}
-
 // GLOBAL SITE VARIABLES //
 require_once('site/serverConfig.php');
 /// Set session variables for easy access <-- hehehehehehehehe
@@ -31,4 +26,16 @@ require_once('site/scribd/scribd.php');
 require_once('site/thumbnail/ThumbLib.inc.php');
 // get php mailer functions
 require_once('site/mail/swift_required.php');
+
+
+
+// signup referencer. store this in the session for use when we signup
+if (isset($_GET['uref'])) {
+	$_SESSION['uref'] = $_GET['uref'];
+}
+
+// initialize the wizard
+if (isset($_GET['iwiz'])) {
+	initWizard();
+}
 ?>

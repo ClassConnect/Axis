@@ -1,7 +1,7 @@
 $(".wzdv1").addClass('wizard-crossed');
 guiders.createGuider({
   buttons: [{name: "Done with the video? Start using your FileBox!", classString: "danger", onclick: guiders.next }],
-  description: "<iframe id=\"rmGuideVid\" width=\"720\" height=\"420\" src=\"http://www.youtube.com/v/SuXi5qBtSco?autoplay=1&hd=1\" frameborder=\"0\" allowfullscreen></iframe>",
+  description: "<iframe id=\"rmGuideVid\" width=\"720\" height=\"420\" src=\"http://www.youtube.com/v/sC_tDs5bdM8?autoplay=1&hd=1\" frameborder=\"0\" allowfullscreen></iframe>",
   id: "first",
   next: "second",
   overlay: true,

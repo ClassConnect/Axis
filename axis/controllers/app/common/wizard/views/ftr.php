@@ -29,7 +29,7 @@
     <div class="wizGtx">Your students can access content you share with them as well as their class calendar & announcements - no uploading or downloading required.</div>
 </div>
 <div style="margin-top:39px;font-size:12px">
-    <div class="wizcol wizEx"><a href="#" style="color:#fff;font-weight:bolder" onClick="initWiz(-1)">End the 'Getting Started' wizard</a></div>
+    <div class="wizcol wizEx"><a href="#" style="color:#fff;font-weight:bolder" onClick="initWiz(-1); return false">End the 'Getting Started' wizard</a></div>
     <div style="padding-top:5px;padding-left:17px;color:#666">Done with these steps?</div>
 </div>
 </div>
