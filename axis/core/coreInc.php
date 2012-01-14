@@ -35,7 +35,7 @@ if (isset($_GET['uref'])) {
 }
 
 // initialize the wizard
-if (isset($_GET['iwiz'])) {
+if (isset($_GET['iwiz']) && checkSession()) {
 	initWizard();
 }
 ?>
