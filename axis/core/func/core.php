@@ -542,9 +542,9 @@ function updateReqs($value, $uid) {
 // get user & reset password
 function resetPassStream($email) {
     $email = escape($email);
-    $user = good_query_assoc("SELECT * FROM users LEFT JOIN school_users ON school_users.uid = users.id WHERE (users.e_mail = '$email' OR school_users.email='$email') LIMIT 1");
+    $user = getUserByEmail($email);
     if ($user != false) {
-        $chash = substr(SHA1($email . date('m/d/Y/i/s') . 'cc4'),0,7);
+        $chash = substr(SHA1($email . date('m/d/Y/i/s') . 'cc5'),0,7);
         setPassword($user['id'], $chash);
         sendPasswordEmail($user['id'], $chash);
         return true;
@@ -566,22 +566,19 @@ function setPassword($userID, $password) {
 // Reset password function
 function sendPasswordEmail($userID, $password) {
 	$user = getUser($userID);
-	$body = "Hello " . $user['first_name'] . ",\n
-Your ClassConnect password has been reset. You can now login using your email/username and new password listed below.\n\n
-	
-Your new password: $password \n
-Your username: " . $user['user_name'] . "\n\n
+    if ($user['user_name'] == '') {
+        $ident = $user['e_mail'];
+    } else {
+        $ident = $user['user_name'];
+    }
+	$body = "Hello " . $user['first_name'] . ",\nYour ClassConnect password has been reset. You can now login using your email/username and new password listed below.\n\nYour new password: $password \nYour username: " . $ident . "\n\nLogin using your email/username and password at http://www.classconnect.com. If you encounter any problems, feel free to reply to this email and we'll assist you in any way possible!\n\nSincerely,\n
+The ClassConnect Team";
 
-Login using your email/username and password at http://www.classconnect.com. If you encounter any problems, feel free to reply to this email and we'll assist you in any way possible!\n\n
-	
-Sincerely,\n
-The ClassConnect Support Team";
-	$emails = getUserEmails($userID);
-	
-	foreach ($emails as $address) {
-		mail($address, 'ClassConnect Account Password Reset', $body, "From: support@classconnect.com");
-	}
+$subj = 'Your password has been reset';
+    $sendTo = array($user['e_mail']);
+    $sendFrom = array('support@classconnect.com' => 'ClassConnect');
 
+    sendEmail($subj, $sendTo, $sendFrom, $body);
 }
 // end resetPassword function
 

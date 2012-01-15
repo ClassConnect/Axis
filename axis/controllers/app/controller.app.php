@@ -28,6 +28,18 @@ class appController extends Axis_Controller
         }
 
 
+        function _resetpassword()
+        {
+                // check if this bro is already logged in
+                // if he isn't, show that login screen
+                if (!checkSession()) {
+                        require_once('login/reset_pass.php');
+                } else {
+                        // it they are already logged in, send them home
+                        header('location: /app/');
+                }
+        }
+
 
         function _filebox()
         {

@@ -20,6 +20,9 @@
                     <button class="btn pull-right" type="submit" style="font-size:11px;margin-top:4px"> 
                     <?= say('Login'); ?>
                     </button><br />
+                  <div style="padding-top:3px;font-size:11px">
+                  <a href="/app/resetpassword"><?= say('Forgot your password?'); ?></a>
+                  </div>
                     <div style="padding-top:3px;font-size:11px">
                     </div>
                 </div>

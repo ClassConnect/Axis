@@ -1,5 +1,6 @@
       <footer>
         <p>&copy; 2012 ClassConnect <span style="font-size:10px"></p>
+        <center><a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-top:10px" /></a></center>
       </footer>
 
     </div> <!-- /container -->

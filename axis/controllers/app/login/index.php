@@ -48,7 +48,7 @@ if ($loginError) {
                 	<?= say('Login'); ?>
                 	</button><br />
                 	<div style="padding-top:3px;font-size:11px">
-                	<a href="#"><?= say('Forgot your password?'); ?></a>
+                	<a href="/app/resetpassword"><?= say('Forgot your password?'); ?></a>
                 	</div>
 				</div>
 			</form>
