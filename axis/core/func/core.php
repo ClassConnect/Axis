@@ -173,7 +173,7 @@ function sendEmail($subject, $toArr, $fromArr, $body, $bodyType) {
         }
 
 
-        $smtp = Swift_SmtpTransport::newInstance('smtp.sendgrid.net', 587)->setUsername('classconnectinc')->setPassword('cc221g7tx');
+        $smtp = Swift_SendmailTransport::newInstance();
         $mailer = Swift_Mailer::newInstance($smtp);
                     $message = Swift_Message::newInstance($subject);
     $message
