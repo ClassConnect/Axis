@@ -759,6 +759,7 @@ function getSection($secID, $reset) {
 
 // get section teachers
 function getSectionStudents($secID, $reset) {
+    $reset = true;
     // query memcached
     $key = md5('section-students-' . $secID);
     $get_result = getMemKey($key);
