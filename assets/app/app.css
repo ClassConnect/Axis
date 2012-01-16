@@ -1065,7 +1065,38 @@ border:1px solid #666;
   border-left:1px solid #ccc;
 }
 
-
+.getStartedBox {
+  float:left;
+  width:175px;
+  height:80px;
+  margin:5px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.getStartedBox:hover {
+  background-position: 0 -30px;
+  color: #333;
+  text-decoration: none;
+}
+.getStartedBox .startImg {
+  width:40px;
+  height:40px;
+  float:left;
+  margin-right:10px;
+}
+.getStartedBox .startTitle {
+  font-size:16px;
+  font-weight:bolder;
+  line-height:1.2em;
+  color:#555;
+  text-align:center;
+}
+.getStartedBox .startBody {
+  font-size:13px;
+  line-height:1.1em;
+  color:#777;
+}
 
 
 

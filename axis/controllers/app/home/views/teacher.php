@@ -33,15 +33,66 @@ foreach ($result as $res) {
   $rcount++;
 }
 if ($rcount == 0) {
-  $final .= '<p id="noneRM" style="text-align:center;color:#666"><span style="font-size:16px;font-weight:bolder">Welcome to ClassConnect!</span><br />Things have changed a little bit and we\'re still in putting on the finishing touches. <br />If you need help, feel free to chat with us using the chat bar at the bottom right hand corner!</p>';
+  if ($_SESSION['wiz']) {
+?>
+<div class="alert-message block-message info" style="margin:20px">
+<div style="font-size:20px;font-weight:bolder">Welcome! Get started using the "Getting Started" tab on the right :)</div>
+<div style="clear:both;margin-top:5px;color:#666;font-size:11px;float:right">This message will go away when a colleague adds you.</div>
+<div style="clear:both;margin-bottom:-15px"></div>
+</div>
+<?php
+  } else {
+?>
+<div class="alert-message block-message info" style="margin:20px">
+  <div style="font-size:20px;font-weight:bolder">Welcome! Lets get you started.</div>
+  <div class="getStartedBox btn" onclick="window.location='/app/?iwiz=true';">
+      <div class="startTitle">
+      Get your stuff set up
+      </div>
+      <div class="startBody">
+        <img src="/assets/app/img/box/type/folder.png" class="startImg" style="margin-top:3px" />
+        A quick walkthrough showing you how to use ClassConnect.
+      </div>
+  </div>
+  <div class="getStartedBox btn" onClick="jQuery.facebox({ 
+    ajax: '/app/common/colleagues/add'
+  });
+  return false;">
+      <div class="startTitle">
+      Invite your colleagues
+      </div>
+      <div class="startBody">
+        <img src="/assets/app/img/colleagues/minicard.png" class="startImg" style="margin-top:3px" />
+        Everyone you invite earns you 500mb of free storage.
+      </div>
+  </div>
+  <div class="getStartedBox btn" onclick="olark('api.box.expand');">
+      <div class="startTitle">
+      Get involved!
+      </div>
+      <div class="startBody">
+        Be a pioneer and join the United We Teach movement. We'd love to hear from you!
+      </div>
+  </div>
+
+
+  <div style="clear:both;margin-top:5px;color:#666;font-size:11px;float:right">This message will go away when a colleague adds you.</div>
+
+  <div style="clear:both;margin-bottom:-15px"></div>
+</div>
+
+
+
+<?php
+  }
 } else {
-  $final .= genFeedItem($result);
+  echo genFeedItem($result);
 }
 
-
-echo $final;
-
 ?>
+
+
+
       </div>
 
       <div class="homeRight">

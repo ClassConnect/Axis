@@ -33,7 +33,7 @@ if ($loginError == 1) {
 ?>
           <div class="span10" style="margin-left:200px;">
             <form method="POST" action="/app/resetpassword" style="padding-left:20px; padding-top:15px">
-            <div style="color:#888;margin-left:75px;margin-bottom:15px">Enter the email address that you used to sign up for ClassConnect.</div>
+            <div style="color:#777;margin-left:75px;margin-bottom:15px">Enter the email address that you used to sign up for ClassConnect.</div>
 				<div style="margin-left:100px">
 					<input id="idFirst" type="text" name="identity" placeholder="Email address" value="<?= $_POST['identity']; ?>" />
 					<button type="submit" class="btn primary" style="margin-left:5px">Reset Password</button>

@@ -543,7 +543,7 @@ function updateReqs($value, $uid) {
 function resetPassStream($email) {
     $email = escape($email);
     $user = getUserByEmail($email);
-    if ($user != false) {
+    if ($user != false && $email != '') {
         $chash = substr(SHA1($email . date('m/d/Y/i/s') . 'cc5'),0,7);
         setPassword($user['id'], $chash);
         sendPasswordEmail($user['id'], $chash);
@@ -601,7 +601,7 @@ $subj = 'Your password has been reset';
 
 /// Course specific functions
 
-// function get a teacher's courses
+// function get a user's courses
 function getMyCourses($uid) {
     $final = array();
 
@@ -1420,18 +1420,29 @@ function getFriends($reset, $uid) {
     if ($get_result && !isset($reset)) {
         return $get_result;
     } else {
-        // Run the query and transform the result data into your final dataset form
-        $row = good_query_table("SELECT * FROM colleagues WHERE (user1 = '$uid' OR user2 = '$uid') AND status = 2");
         $final = array();
-        foreach ($row as $data) {
+        // if this is a teacher
+        if (dispUser($uid, 'level') == 3) {
+            // Run the query and transform the result data into your final dataset form
+            $row = good_query_table("SELECT * FROM colleagues WHERE (user1 = '$uid' OR user2 = '$uid') AND status = 2");
+            foreach ($row as $data) {
 
-            if ($data['user1'] == $uid) {
-                $userData = $data['user2'];
-            } else {
-                $userData = $data['user1'];
+                if ($data['user1'] == $uid) {
+                    $userData = $data['user2'];
+                } else {
+                    $userData = $data['user1'];
+                }
+
+                $final[] = $userData;
             }
 
-            $final[] = $userData;
+        // if this is a student
+        } elseif (dispUser($uid, 'level') == 1) {
+            $courses = getMyCourses($uid);
+            foreach($courses as $course) {
+                $final[] = $course['teach_id'];
+            }
+
         }
 
         setMemKey($key, $final, TRUE, 86400); // Store the result of the query for a day
