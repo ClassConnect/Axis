@@ -17,6 +17,9 @@ if ($this->Command->Parameters[1] == 'add') {
 	// if we're adding a section
 	} elseif ($this->Command->Parameters[2] == 'section') {
 		require_once('editSection.php');
+	// if we're editing students
+	} elseif ($this->Command->Parameters[2] == 'students') {
+		require_once('editStudents.php');
 	}
 
 

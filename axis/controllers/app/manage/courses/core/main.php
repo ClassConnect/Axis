@@ -125,6 +125,7 @@ function addStudToSection($secID, $uid) {
 		good_query("INSERT INTO course_students (student_id, link_sec_id, added_on) VALUES ('$uid', '$secID', '$now')");
 
 		getSections($studID, 1);
+		getSectionStudents($secID, 1);
 		
 	}
 
@@ -413,20 +414,6 @@ function genChash($name) {
 
 
 
-// get list of section students
-function getSectionStudents($secID) {
-	$secs = good_query_table("SELECT * FROM course_students WHERE link_sec_id = $secID");
-	return $secs;
-}
-
-// get list of section teachers
-function getSectionTeachers($secID) {
-	$secs = good_query_table("SELECT * FROM course_teachers WHERE link_sec_id = $secID");
-	return $secs;
-}
-
-
-
 
 
 
@@ -450,9 +437,11 @@ function dispTeachCourseView() {
 		$result .= '<div class="courseEl">';
 		
 		foreach ($course['sections'] as $section) {
+			$totStuds = count(getSectionStudents($section['section_id']));
 			$result .= '<div class="sectionWrapper">
                 <div style="margin-left:10px;font-size:16px;padding:10px">
                   » <a href="/app/course/' . $section['section_id'] . '">' . $section['title'] . '</a>
+
                   <img class="arcTog hovTip" data-original-title="Archive this section" src="/assets/app/img/manage/archive.png" onClick="jQuery.facebox({ 
     ajax: \'/app/manage/courses/archive?sid=' . $section['section_id'] . '\'
   });
@@ -461,6 +450,12 @@ function dispTeachCourseView() {
 <img src="/assets/app/img/manage/edit.png" class="keyTog hovTip" data-original-title="Edit this section" onClick="jQuery.facebox({ ajax: \'/app/manage/courses/edit/section?sid=' . $section['section_id'] . '\' });" />
 
   <img src="/assets/app/img/manage/key.png" class="keyTog hovTip" data-original-title="View this section\'s code" onClick="jQuery.facebox({ div: \'#' . $section['section_id'] . 'code\' });" />
+
+  <div style="float:right;margin-right:10px"><a href="#" style="font-size:12px" onClick="jQuery.facebox({ 
+    ajax: \'/app/manage/courses/edit/students/' . $section['section_id'] . '\'
+  });
+  return false;">' . $totStuds . ' students</a></div>
+
 
   <div style="display:none" id="' . $section['section_id'] . 'code">
   <div style="font-size:14px;margin-left:10px;text-align:center"><strong>"' . $section['title'] . '"</strong> access code:</div>

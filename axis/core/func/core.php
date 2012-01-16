@@ -757,6 +757,38 @@ function getSection($secID, $reset) {
 }
 
 
+// get section teachers
+function getSectionStudents($secID, $reset) {
+    // query memcached
+    $key = md5('section-students-' . $secID);
+    $get_result = getMemKey($key);
+    if ($get_result && !isset($reset)) {
+        return $get_result;
+    } else {
+        // Run the query and transform the result data into your final dataset form
+        $row = good_query_table("SELECT * FROM course_students WHERE link_sec_id = $secID");
+        setMemKey($key, $row, TRUE, 86400); // Store the result of the query for a day
+        return $row;
+    }
+}
+
+
+// get section teachers
+function getSectionTeachers($secID, $reset) {
+    // query memcached
+    $key = md5('section-teachers-' . $secID);
+    $get_result = getMemKey($key);
+    if ($get_result && !isset($reset)) {
+        return $get_result;
+    } else {
+        // Run the query and transform the result data into your final dataset form
+        $row = good_query_table("SELECT * FROM course_teachers WHERE link_sec_id = $secID");
+        setMemKey($key, $row, TRUE, 86400); // Store the result of the query for a day
+        return $row;
+    }
+}
+
+
 
 function authSection($secID, $uid) {
     if (!isset($uid)) {

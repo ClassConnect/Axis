@@ -63,7 +63,7 @@ if ($rcount == 0) {
       </div>
       <div class="startBody">
         <img src="/assets/app/img/colleagues/minicard.png" class="startImg" style="margin-top:3px" />
-        Everyone you invite earns you 500mb of free storage.
+        Every user you invite earns you 500mb of free storage.
       </div>
   </div>
   <div class="getStartedBox btn" onclick="olark('api.box.expand');">
