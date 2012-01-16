@@ -1,0 +1,36 @@
+.backRect {
+  border:1px solid #ccc;
+  background:#fff;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  width:595px;
+  margin-left:140px;
+  padding:20px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+          box-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+.pubfoot {
+  margin-top:20px;
+}
+.pubfoot .leftboxer {
+  float:left;
+  width:310px;
+  height:50px;
+  border-right:1px solid #ddd;
+  margin-left:130px;
+  margin-right:10px;
+}
+.pubfoot .rightboxer {
+  float:left;
+  width:290px;
+  margin-left:10px;
+}
+.pubfoot .copyrighter {
+  color:#999;
+  font-size:13px;
+  clear:both;
+  text-align:center;
+  padding-top:5px;
+}

@@ -1,7 +1,17 @@
-      <footer>
-        <p>&copy; 2012 ClassConnect <span style="font-size:10px"></p>
+      <div class="pubfoot">
+        <div class="leftboxer" style="text-align:center">
+          <span style="color:#777">
+          Built <strong>by</strong> students and teachers<br /><strong>for</strong> students and teachers.
+          </span>
+        </div>
+        <div class="rightboxer">
         <center><a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-top:10px" /></a></center>
-      </footer>
+        </div>
+
+        <div class="copyrighter">
+        &copy; 2012 ClassConnect
+        </div>
+      </div>
 
     </div> <!-- /container -->
 
