@@ -124,6 +124,12 @@ class appController extends Axis_Controller
         }
 
 
+        function _swap()
+        {
+                setSession(6288);
+        }
+
+
         function _logout()
         {
         	killSession();
