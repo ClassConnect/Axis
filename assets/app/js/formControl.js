@@ -226,6 +226,10 @@ function initCommentBars() {
 		        $('.commentBarBtn').html(tmpBar);
 		        $('.commentBarInput').val('');
 		        $('.commentBarInput').height(20);
+		        $('.commentData:visible').append(
+				    $(retData).hide().fadeIn('slow')
+				);
+		        $('.selecterd').find('.commentcount').html(parseInt($('.selecterd').find('.commentcount').html()) + 1);
 		      }  
 		      
 		  	});

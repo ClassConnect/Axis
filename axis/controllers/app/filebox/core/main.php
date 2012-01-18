@@ -3286,8 +3286,8 @@ function createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID, $o
 
 
 	<div class="commentbox-contain-label">
-		<span class="commentbox-label editor-true selecterd">' . count($cObj['versions'][$vdex]['comments_priv']) . ' editor comments</span>&nbsp;&nbsp;&nbsp;
-		<span class="commentbox-label viewer-true">0 viewer comments</span>
+		<span class="commentbox-label editor-true selecterd"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_priv']) . '</span> editor comments</span>&nbsp;&nbsp;&nbsp;
+		<span class="commentbox-label viewer-true"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_pub']) . '</span> viewer comments</span>
 	</div>
 
 
@@ -3327,7 +3327,7 @@ function genCommentFeed($comments, $permissionObj, $perLevel, $uid) {
 	foreach ($comments as $comment) {
 		$finDat .= '<div class="commentEntry">
 		<img src="' . iconServer() . '50_' . dispUser($comment['uid'], 'prof_icon') . '" class="proImgr" style="margin-bottom:5px" />
-		<div class="commentText"><a href="#" onclick="return false">' . dispUser($comment['uid'], 'first_name') . ' ' . dispUser($comment['uid'], 'last_name') . '</a><br />' . nl2br($comment['text']) . '</div>
+		<div class="commentText"><a href="#" onclick="return false">' . dispUser($comment['uid'], 'first_name') . ' ' . dispUser($comment['uid'], 'last_name') . '</a><br />' . spit($comment['text']) . '</div>
 
 		<div style="clear:both"></div>
 		</div>';
@@ -3371,9 +3371,12 @@ function addConComment($conID, $dataID, $target, $text, $uid, $optID) {
 		}
 
 		$cmtID = uniqid(rand(1, 999999));
-		$up[$finIndex][] = array("id" => $cmtID, "text" => $text, "uid" => $uid, "posted" => (int) date("U"));
+		$retVal = array("id" => $cmtID, "text" => $text, "uid" => $uid, "optID" => $optID, "posted" => (int) date("U"));
+		$up[$finIndex][] = $retVal;
 		// update this
 		$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+
+		return array("data" => $retVal, "perLevel" => $perLevel, "permissionObj" => $permissionObj);
 	}
 }
 
