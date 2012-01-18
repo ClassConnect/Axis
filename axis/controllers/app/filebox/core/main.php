@@ -3280,21 +3280,34 @@ function createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID, $o
 
 	$vdex = getDataIndex($dataID, $cObj);
 
+	// there is no override, show for main fbox view
+	if (!isset($override)) {
+		if ($perLevel == 2) {
+			$commentLabels .= '<span class="commentbox-label editor-true selecterd"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_priv']) . '</span> editor comments</span>&nbsp;&nbsp;&nbsp;';
+			$commentDatas .= '<div class="commentData editor-comments">' . genCommentFeed($cObj['versions'][$vdex]['comments_priv'], $conID, $dataID, $permissionObj, $perLevel) . '</div>';
+
+			$viewComs = 'style="display:none"';
+		} else {
+			$viewSel = ' selecterd';
+		}
+
+		$commentLabels .= '<span class="commentbox-label viewer-true' . $viewSel . '"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_pub']) . '</span> viewer comments</span>';
+
+		$commentDatas .= '<div class="commentData viewer-comments" ' . $viewComs . '>' . genCommentFeed($cObj['versions'][$vdex]['comments_pub'], $conID, $dataID, $permissionObj, $perLevel) . '</div>';
+	}
+
 	// format the comments section
-	$result .= '
-<div class="commentbox-wrapper">
+	$result .= '<div class="commentbox-wrapper">
 
 
 	<div class="commentbox-contain-label">
-		<span class="commentbox-label editor-true selecterd"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_priv']) . '</span> editor comments</span>&nbsp;&nbsp;&nbsp;
-		<span class="commentbox-label viewer-true"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_pub']) . '</span> viewer comments</span>
+		' . $commentLabels . '
 	</div>
 
 
 	<div class="commentBoxTopper"></div>
 	<div class="commentBox">
-		<div class="commentData editor-comments">' . genCommentFeed($cObj['versions'][$vdex]['comments_priv'], $permissionObj, $perLevel) . '</div>
-		<div class="commentData viewer-comments" style="display:none">' . genCommentFeed($cObj['versions'][$vdex]['comments_pub'], $permissionObj, $perLevel) . '</div>
+		' . $commentDatas . '
 
 		<form action="#" class="commentBar">
 		<input type="hidden" class="comlevel" name="comlevel" value="2" />
@@ -3316,7 +3329,7 @@ function createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID, $o
 
 
 // function to display a comment feed
-function genCommentFeed($comments, $permissionObj, $perLevel, $uid) {
+function genCommentFeed($comments, $conID, $dataID, $permissionObj, $perLevel, $optID, $uid) {
 	if (!isset($uid)) {
 		$uid = user('id');
 	}
@@ -3325,10 +3338,10 @@ function genCommentFeed($comments, $permissionObj, $perLevel, $uid) {
 
 	$finDat = '';
 	foreach ($comments as $comment) {
-		$finDat .= '<div class="commentEntry" id="' . $comment['id'] . '">';
+		$finDat .= '<div class="commentEntry" id="com-' . $comment['id'] . '">';
 		if ($permissionObj['isOwner'] == 1 || ($comment['uid'] == $uid && dispUser($uid, 'level') != 1)) {
 			// show the delete button
-			$finDat .= '<img src="/assets/app/img/colleagues/del.png" class="deleter" title="Remove" onClick="jQuery.facebox({ ajax: \'/\' }); return false;" />';
+			$finDat .= '<img src="/assets/app/img/colleagues/del.png" class="deleter" title="Remove" onClick="jQuery.facebox({ ajax: \'/app/filebox/write/rm/comment/' . $conID . '/' . $dataID . '/' . $comment['id'] . '\' }); return false;" />';
 		}
 
 		$finDat .= '<img src="' . iconServer() . '50_' . dispUser($comment['uid'], 'prof_icon') . '" class="proImgr" style="margin-bottom:5px" />
@@ -3348,16 +3361,28 @@ function addConComment($conID, $dataID, $target, $text, $uid, $optID) {
 		$uid = user('id');
 	}
 
+	$allow = false;
 	$cObj = getContent($conID);
 	$permissionObj = verifyPermissions($cObj, $uid, $mySecs);
 	$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
 
 	if ($target == 1) {
 		$arDex = 'comments_pub';
+		if ($perLevel >= 1) {
+			$allow = true;
+		}
+
 	} elseif ($target == 2) {
 		$arDex = 'comments_priv';
+		if ($perLevel == 2) {
+			$allow = true;
+		}
+
+	// this is a course
 	} elseif ($target == 3) {
 		$arDex = 'comments_course';
+		//auth section here
+		$allow = true;
 	}
 
 	$dataID = verifyDataAuth($dataID, $cObj);
@@ -3381,10 +3406,65 @@ function addConComment($conID, $dataID, $target, $text, $uid, $optID) {
 		// update this
 		$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
 
-		return array("data" => $retVal, "perLevel" => $perLevel, "permissionObj" => $permissionObj);
+		return array("data" => $retVal, "perLevel" => $perLevel, "permissionObj" => $permissionObj, "conID" => $conID, "dataID" => $dataID);
 	}
 }
 
+
+
+// delete a comment
+function delConComment($conID, $dataID, $comID, $uid) {
+	if (!isset($uid)) {
+		$uid = user('id');
+	}
+
+	$cObj = getContent($conID);
+	$permissionObj = verifyPermissions($cObj, $uid, $mySecs);
+	$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
+	$dataID = verifyDataAuth($dataID, $cObj);
+	
+	$vkey = getDataIndex($dataID, $cObj);
+
+	foreach ($cObj['versions'][$vkey]['comments_priv'] as $ckey=>$cval) {
+		if ($cval['id'] == $comID) {
+			$comment = $cval;
+			$commentKey = $ckey;
+			$arrKey = 'comments_priv';
+		}
+	}
+
+	foreach ($cObj['versions'][$vkey]['comments_pub'] as $ckey=>$cval) {
+		if ($cval['id'] == $comID) {
+			$comment = $cval;
+			$commentKey = $ckey;
+			$arrKey = 'comments_pub';
+		}
+	}
+
+	foreach ($cObj['versions'][$vkey]['comments_course'] as $ckey=>$cval) {
+		if ($cval['id'] == $comID) {
+			$comment = $cval;
+			$commentKey = $ckey;
+			$arrKey = 'comments_course';
+		}
+	}
+
+	if ($permissionObj['isOwner'] == 1 || ($comment['uid'] == $uid && dispUser($uid, 'level') != 1)) {
+		global $mdb;
+	  	$collection = $mdb->fbox_content;
+
+		// remove the comment
+		unset($cObj['versions'][$vkey][$arrKey][$commentKey]);
+		array_values($cObj['versions'][$vkey][$arrKey]);
+
+		$up = array();
+		$up['versions.' . $vkey . '.' . $arrKey] = $cObj['versions'][$vkey][$arrKey];
+
+		$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+	}
+
+
+}
 
 
 // display a given piece of content

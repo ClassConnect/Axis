@@ -69,6 +69,13 @@ if ($this->Command->Parameters[0] == 'write') {
     require_once('views/write/delete.php');
 
 
+  // if we're deleting a comment...
+  } elseif ($this->Command->Parameters[1] == 'rm') {
+    if ($this->Command->Parameters[2] == 'comment') {
+      require_once('views/write/delComment.php');
+    }
+
+
   // if we're editing content...
   } elseif ($this->Command->Parameters[1] == 'edit') {
     if ($this->Command->Parameters[2] == 'title') {
