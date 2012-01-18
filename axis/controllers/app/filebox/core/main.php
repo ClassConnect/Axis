@@ -3282,35 +3282,64 @@ function createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID, $o
 
 	// there is no override, show for main fbox view
 	if (!isset($override)) {
+		// private viewing
 		if ($perLevel == 2) {
-			$commentLabels .= '<span class="commentbox-label editor-true selecterd"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_priv']) . '</span> editor comments</span>&nbsp;&nbsp;&nbsp;';
-			$commentDatas .= '<div class="commentData editor-comments">' . genCommentFeed($cObj['versions'][$vdex]['comments_priv'], $conID, $dataID, $permissionObj, $perLevel) . '</div>';
+			$comLabels = '<span class="commentbox-label editor-true selecterd"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_priv']) . '</span> editor comments</span>&nbsp;&nbsp;&nbsp;
+		<span class="commentbox-label viewer-true"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_pub']) . '</span> viewer comments</span>';
 
-			$viewComs = 'style="display:none"';
-		} else {
-			$viewSel = ' selecterd';
+			$comDatas = '<div class="commentData editor-comments">' . genCommentFeed($cObj['versions'][$vdex]['comments_priv'], $conID, $dataID, $permissionObj, $perLevel) . '</div>
+		<div class="commentData viewer-comments" style="display:none">' . genCommentFeed($cObj['versions'][$vdex]['comments_pub'], $conID, $dataID, $permissionObj, $perLevel) . '</div>';
+
+			$comLev = 2;
+
+		// public viewing
+		} elseif ($perLevel == 1) {
+			$comLabels = '<span class="commentbox-label pub-true selecterd"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_pub']) . '</span> viewer comments</span>';
+
+			$comDatas = '<div class="commentData pub-comments">' . genCommentFeed($cObj['versions'][$vdex]['comments_pub'], $conID, $dataID, $permissionObj, $perLevel) . '</div>';
+
+			$comLev = 1;
+			
 		}
 
-		$commentLabels .= '<span class="commentbox-label viewer-true' . $viewSel . '"><span class="commentcount">' . count($cObj['versions'][$vdex]['comments_pub']) . '</span> viewer comments</span>';
+	// override is set, display
+	} else {
+		// if this is a course
+		if ($override['type'] == 3) {
+			$courments = array();
+			foreach ($cObj['versions'][$vdex]['comments_course'] as $cmt) {
+				if ($cmt['optID'] == $override['optID']) {
+					$courments[] = $cmt;
+				}
+			}
 
-		$commentDatas .= '<div class="commentData viewer-comments" ' . $viewComs . '>' . genCommentFeed($cObj['versions'][$vdex]['comments_pub'], $conID, $dataID, $permissionObj, $perLevel) . '</div>';
+
+			$comLabels = '<span class="commentbox-label pub-true selecterd"><span class="commentcount">' . count($courments) . '</span> course comments</span>';
+
+			$comDatas = '<div class="commentData pub-comments">' . genCommentFeed($courments, $conID, $dataID, $permissionObj, $perLevel) . '</div>';
+			$comLev = 3;
+			$optID = $override['optID'];
+		}
+		
 	}
 
 	// format the comments section
-	$result .= '<div class="commentbox-wrapper">
+	$result .= '
+<div class="commentbox-wrapper">
 
 
 	<div class="commentbox-contain-label">
-		' . $commentLabels . '
+		' . $comLabels . '
 	</div>
 
 
 	<div class="commentBoxTopper"></div>
 	<div class="commentBox">
-		' . $commentDatas . '
+		' . $comDatas . '
 
 		<form action="#" class="commentBar">
-		<input type="hidden" class="comlevel" name="comlevel" value="2" />
+		<input type="hidden" class="comlevel" name="comlevel" value="' . $comLev . '" />
+		<input type="hidden" class="comlevel" name="optID" value="' . $optID . '" />
 		<input type="hidden" name="conid" value="' . $conID . '" />
 		<input type="hidden" name="dataid" value="' . $dataID . '" />
 		<img src="' . iconServer() . '50_' . dispUser(user('id'), 'prof_icon') . '" class="proImgr" style="display:none" /><textarea class="commentBarInput" name="comment_text" placeholder=" Add a comment..." rows="3" style="width: 640px; resize: none; height: 20px; "></textarea>
@@ -3356,7 +3385,7 @@ function genCommentFeed($comments, $conID, $dataID, $permissionObj, $perLevel, $
 
 
 // adding a comment to a piece of content
-function addConComment($conID, $dataID, $target, $text, $uid, $optID) {
+function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 	if (!isset($uid)) {
 		$uid = user('id');
 	}
@@ -3382,7 +3411,9 @@ function addConComment($conID, $dataID, $target, $text, $uid, $optID) {
 	} elseif ($target == 3) {
 		$arDex = 'comments_course';
 		//auth section here
-		$allow = true;
+		if (authSection($secID, $uid)) {
+			$allow = true;
+		}
 	}
 
 	$dataID = verifyDataAuth($dataID, $cObj);
@@ -3495,7 +3526,7 @@ function displayContent($cObj, $cData) {
 
 	// if this is a URL
 	} elseif ($cObj['format'] == 2) {
-		return '<center><a href="' . $cData['data'] . '" class="btn large primary" style="font-weight:bolder" onclick="displayWebContent(2, \'' . str_replace("'", "\'", $cObj['title']) . '\', \'' . $cData['data'] . '\'); return false"><img src="/assets/app/img/box/globe.png" style="float:left;margin-right:10px;height:18px" />View bookmarked website</a>';
+		return '<center><a href="' . $cData['data'] . '" class="btn large primary" style="font-weight:bolder" onclick="displayWebContent(2, \'' . str_replace("'", "\'", $cObj['title']) . '\', \'' . $cData['data'] . '\'); return false"><img src="/assets/app/img/box/globe.png" style="float:left;margin-right:10px;height:18px" />View bookmarked website</a></center>';
 
 	// if this is an embed
 	} elseif ($cObj['format'] == 3) {
@@ -3520,7 +3551,7 @@ function displayContent($cObj, $cData) {
 
 	// if this is a google doc
 	} elseif ($cObj['format'] == 5) {
-		return '<center><a href="' . $cData['data'] . '" class="btn large primary" style="font-weight:bolder" onclick="displayWebContent(5, \'' . $cObj['title'] . '\', \'' . $cData['data'] . '\'); return false"><img src="/assets/app/img/box/goog.png" style="float:left;margin-right:10px;height:18px" />Open Google Document</a>';
+		return '<center><a href="' . $cData['data'] . '" class="btn large primary" style="font-weight:bolder" onclick="displayWebContent(5, \'' . $cObj['title'] . '\', \'' . $cData['data'] . '\'); return false"><img src="/assets/app/img/box/goog.png" style="float:left;margin-right:10px;height:18px" />Open Google Document</a></center>';
 
 
 

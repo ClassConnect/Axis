@@ -198,7 +198,7 @@ function initCommentBars() {
 			$(this).parent().parent().find('.editor-comments').show();
 
 		// set the viewers as primary
-		} else {
+		} else if($(this).hasClass('viewer-true')) {
 			$('.commentBoxTopper').animate({marginLeft:'175px'}, 300);
 			$('.selecterd').removeClass('selecterd');
 			$(this).addClass('selecterd');

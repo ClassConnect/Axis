@@ -86,7 +86,8 @@ function initAnnouncements() {
     }
   });
 
-
+  $('#status').elastic();
+  $('#status').height(20);
 	$("#status").focus(function () {
          $(this).parent().find('.statActions').show();
          $(this).height(50);
@@ -274,6 +275,8 @@ function initHandout() {
     // reset the link click
     linkClick = false;
   });
+
+  initCommentBars();
 
 }
 
