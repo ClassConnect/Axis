@@ -372,6 +372,8 @@ function initFilUI() {
   
   // dude, floating panels aren't cool anymore...
   killScrollSpy();
+
+  initCommentBars();
   
 }
 

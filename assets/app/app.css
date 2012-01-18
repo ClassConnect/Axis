@@ -482,6 +482,80 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 
+.commentBoxTopper {
+  background: url(/assets/app/img/box/cmttop.png) 0 0 no-repeat;
+  margin-left:50px;
+  margin-bottom:-1px;
+  height:16px;
+  width:48px;
+}
+
+.commentBox {
+  width:650px;
+  background:#EFF5F9;
+  margin:20px;
+  margin-top:0px;
+  padding:10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.commentBox .proImgr {
+  margin-right:10px;
+  width:30px;
+  height:30px;
+  float:left;
+}
+
+.commentBox .commentBar {
+  margin-bottom:0;
+}
+
+.commentBox .commentEntry {
+  border-bottom:2px solid #fff;
+  padding-left:10px;
+  margin-left:-10px;
+  width:670px;
+  margin-bottom:10px;
+}
+
+.commentBox .commentEntry .commentText {
+  width:610px;
+  margin-bottom:5px;
+  margin-right:20px;
+  margin-top:-4px;
+  font-size:11px;
+  float:right;
+  line-height:1.2em;
+}
+
+.commentbox-contain-label {
+  margin:20px;
+  margin-bottom:10px;
+}
+
+.commentbox-label {
+  padding: 4px 5px 4px;
+  background-color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  color: #666;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align:center;
+  cursor:pointer;
+}
+.commentbox-label:hover {
+  background-color: #efefef;
+}
+.commentbox-label.selecterd {
+  color:#fff;
+  background-color: #267BB6;
+}
+
+
 
 .courseRight {
   -moz-box-shadow:inset 4px 0px 10px -4px #ccc;

@@ -2275,10 +2275,28 @@ function updateDesc($conID, $desc, $uid) {
 
 // verify a data object is in a content object
 function verifyDataAuth($dataID, $cObj) {
+	if ($dataID == '0') {
+		$dex = count($cObj['versions']) - 1;
+		$dataID = $cObj['versions'][$dex]['id'];
+	}
+
 	$result = false;
 	foreach ($cObj['versions'] as $vd) {
 		if ($vd['id'] == $dataID) {
-			$result = true;
+			$result = $dataID;
+		}
+	}
+
+	return $result;
+}
+
+// get index of data object
+function getDataIndex($dataID, $cObj) {
+
+	$result = false;
+	foreach ($cObj['versions'] as $vkey=>$vd) {
+		if ($vd['id'] == $dataID) {
+			$result = $vkey;
 		}
 	}
 
@@ -3202,13 +3220,9 @@ function createFilBar($conObj, $perObj) {
 
 // display a piece of content (main view)
 function createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) {
-	if ($dataID == 0) {
-		$dex = count($cObj['versions']) - 1;
-		$dataID = $cObj['versions'][$dex]['id'];
+	if ($dataID == false) {
+		return '<div style="font-weight:bolder;font-size:24px;color:#666;text-align:center;margin-top:20px">Oops! We couldn\'t find that!</div>';
 	}
-
-
-	if (verifyDataAuth($dataID, $cObj)) {
 		// get the data
 		$data = getContentData($dataID);
 		$view = displayContent($cObj, $data);
@@ -3251,14 +3265,116 @@ function createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 			$result .= '<div class="descMain" style="margin-left:10px"><div class="descText" style="width:660px">' . $cObj['body'] . '</div></div>';
 		}
 	}
-	
+
 		return $result;
-		
-	} else {
-		return false;
-		
-	}
 	
+}
+
+
+
+// create the comment view
+function createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID, $override) {
+	if ($dataID == false) {
+		return '';
+	}
+
+	$vdex = getDataIndex($dataID, $cObj);
+
+	// format the comments section
+	$result .= '
+<div class="commentbox-wrapper">
+
+
+	<div class="commentbox-contain-label">
+		<span class="commentbox-label editor-true selecterd">' . count($cObj['versions'][$vdex]['comments_priv']) . ' editor comments</span>&nbsp;&nbsp;&nbsp;
+		<span class="commentbox-label viewer-true">0 viewer comments</span>
+	</div>
+
+
+	<div class="commentBoxTopper"></div>
+	<div class="commentBox">
+		<div class="commentData editor-comments">' . genCommentFeed($cObj['versions'][$vdex]['comments_priv'], $permissionObj, $perLevel) . '</div>
+		<div class="commentData viewer-comments" style="display:none">' . genCommentFeed($cObj['versions'][$vdex]['comments_pub'], $permissionObj, $perLevel) . '</div>
+
+		<form action="#" class="commentBar">
+		<input type="hidden" class="comlevel" name="comlevel" value="2" />
+		<input type="hidden" name="conid" value="' . $conID . '" />
+		<input type="hidden" name="dataid" value="' . $dataID . '" />
+		<img src="' . iconServer() . '50_' . dispUser(user('id'), 'prof_icon') . '" class="proImgr" style="display:none" /><textarea class="commentBarInput" name="comment_text" placeholder=" Add a comment..." rows="3" style="width: 640px; resize: none; height: 20px; "></textarea>
+		<div class="commentBarBtn" style="float:right;margin-top:10px;display:none">
+			<button class="btn">Add Comment</button>
+		</div>
+		<div style="clear:both"></div>
+		</form>
+	</div>
+
+
+</div>';
+
+	return $result;
+}
+
+
+// function to display a comment feed
+function genCommentFeed($comments, $permissionObj, $perLevel, $uid) {
+	if (!isset($uid)) {
+		$uid = user('id');
+	}
+
+	$comments = sort2d($comments, 'posted', 'asc', true);
+
+	$finDat = '';
+	foreach ($comments as $comment) {
+		$finDat .= '<div class="commentEntry">
+		<img src="' . iconServer() . '50_' . dispUser($comment['uid'], 'prof_icon') . '" class="proImgr" style="margin-bottom:5px" />
+		<div class="commentText"><a href="#" onclick="return false">' . dispUser($comment['uid'], 'first_name') . ' ' . dispUser($comment['uid'], 'last_name') . '</a><br />' . nl2br($comment['text']) . '</div>
+
+		<div style="clear:both"></div>
+		</div>';
+	}
+
+	return $finDat;
+}
+
+
+// adding a comment to a piece of content
+function addConComment($conID, $dataID, $target, $text, $uid, $optID) {
+	if (!isset($uid)) {
+		$uid = user('id');
+	}
+
+	$cObj = getContent($conID);
+	$permissionObj = verifyPermissions($cObj, $uid, $mySecs);
+	$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
+
+	if ($target == 1) {
+		$arDex = 'comments_pub';
+	} elseif ($target == 2) {
+		$arDex = 'comments_priv';
+	} elseif ($target == 3) {
+		$arDex = 'comments_course';
+	}
+
+	$dataID = verifyDataAuth($dataID, $cObj);
+	if ($dataID != false) {
+		global $mdb;
+	  	$collection = $mdb->fbox_content;
+
+		// update local
+		$up = array();
+
+		foreach ($cObj['versions'] as $vkey=>$vd) {
+			if ($vd['id'] == $dataID) {
+				$finIndex = 'versions.' . $vkey . '.' . $arDex;
+				$up[$finIndex] = $vd[$arDex];
+			}
+		}
+
+		$cmtID = uniqid(rand(1, 999999));
+		$up[$finIndex][] = array("id" => $cmtID, "text" => $text, "uid" => $uid, "posted" => (int) date("U"));
+		// update this
+		$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+	}
 }
 
 

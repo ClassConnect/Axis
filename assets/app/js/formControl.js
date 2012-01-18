@@ -172,3 +172,66 @@ function selectPickFolder(fObj) {
 	$(fObj).closest(".pickPane").hide();
 
 }
+
+
+
+
+// functions for the comment bar
+function initCommentBars() {
+	$('.commentBarInput').elastic();
+	$('.commentBarInput').height(20);
+	$('.commentBarInput').focus(function() {
+	  $(this).width(600);
+	  $(this).parent().find('.proImgr').show();
+	  $(this).parent().find('.commentBarBtn').show();
+	});
+
+
+	$('.commentbox-label').click(function() {
+		// set the editors as primary
+		if ($(this).hasClass('editor-true')) {
+			$(this).parent().parent().find('.commentBoxTopper').animate({marginLeft:'50px'}, 300);
+			$('.selecterd').removeClass('selecterd');
+			$(this).addClass('selecterd');
+			$(this).parent().parent().find('.comlevel').val('2');
+			$(this).parent().parent().find('.commentData').hide();
+			$(this).parent().parent().find('.editor-comments').show();
+
+		// set the viewers as primary
+		} else {
+			$('.commentBoxTopper').animate({marginLeft:'175px'}, 300);
+			$('.selecterd').removeClass('selecterd');
+			$(this).addClass('selecterd');
+			$(this).parent().parent().find('.comlevel').val('1');
+			$(this).parent().parent().find('.commentData').hide();
+			$(this).parent().parent().find('.viewer-comments').show();
+		}
+	});
+
+	$('.commentBar').submit(function() {
+	   var curObj = $(this);
+	   if ($('.commentBarInput').val() != '') {
+		   var tmpBar = $('.commentBarBtn').html();
+		   $("input").blur();
+		   var serData = $(this).serialize();
+		   $(this).find(':input').attr('disabled', true);
+		   $('.commentBarBtn').html('<div style="float:right; color:#999; margin-left:5px">submitting...</div><img src="/assets/app/img/box/sub.gif" />');
+
+		    $.ajax({  
+		      type: "POST",  
+		      url: "/app/filebox/write/add/comment",  
+		      data: serData,  
+		      success: function(retData) {
+		      	curObj.find(':input').attr('disabled', false);
+		        $('.commentBarBtn').html(tmpBar);
+		        $('.commentBarInput').val('');
+		        $('.commentBarInput').height(20);
+		      }  
+		      
+		  	});
+		}
+	    return false;
+	});
+}
+//600px
+//640px

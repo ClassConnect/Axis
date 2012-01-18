@@ -6,6 +6,9 @@ if (empty($this->Command->Parameters[1])){
   $dataID = $this->Command->Parameters[1];
 }
 
+// check if this exists, return false if not
+$dataID = verifyDataAuth($dataID, $cObj);
+
 // if this is a download request
 if ($this->Command->Parameters[2] == 'download') {
 	require_once('download/download.php');

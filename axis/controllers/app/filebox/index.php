@@ -6,7 +6,11 @@ if ($this->Command->Parameters[0] == 'write') {
   if ($this->Command->Parameters[1] == 'add') {
 
     // if we're adding a folder
-    if ($this->Command->Parameters[2] == 'folder') {
+    if ($this->Command->Parameters[2] == 'comment') {
+      require_once('views/write/addComment.php');
+
+    // if we're adding a folder
+    } elseif ($this->Command->Parameters[2] == 'folder') {
       require_once('views/write/addFolder.php');
     
     // if we're adding web content

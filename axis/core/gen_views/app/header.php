@@ -24,6 +24,7 @@ if ($developerMode == true) {
     <script src="/assets/app/js/formControl.js"></script>
     <script src="/assets/app/js/pjax.js"></script>
     <script src="/assets/app/js/placer.js"></script>
+    <script src="/assets/app/js/elastic.js"></script>
     <link href="/assets/app/main.css" rel="stylesheet">
     <link href="/assets/app/app.css" rel="stylesheet">
     <link href="/assets/app/ui/ui.css" rel="stylesheet">

@@ -7,7 +7,7 @@ $crumbs = constructCrumbs($permissionObj, $cObj['parents'], array("id" => '-1', 
 // generate our sidebar
 $sidebar = createFilBar($cObj, $permissionObj);
 // generate main area
-$main = createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID);
+$main = createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) . createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID);
 // generate our nav crumbs
 $crumbs = createCrumbs($crumbs);
 
