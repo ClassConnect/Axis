@@ -8,6 +8,9 @@ $mysecs = array($sectionID);
 $permissionObj = verifyPermissions($conData, -1, $mysecs);
 $perLevel = determinePerLevel($conData['_id'], $permissionObj);
 
+$realPermissionObj = verifyPermissions($conData, user('id'), $mysecs);
+$realPerLevel = determinePerLevel($conData['_id'], $realPermissionObj);
+
 
 if (!isset($conID) || $conID == '') {
   $conID = '0';
@@ -58,7 +61,7 @@ if ($conData['type'] == 1) {
   $rightCont .= '<div style="margin-left:7px;margin-top:0px">' . createHandoutDirView($conID, $conData, $sectionID) . '</div>';
 } elseif ($conData['type'] == 2) {
   $version = verifyDataAuth('0', $conData);
-  $rightCont .= '<div style="margin-right:15px;margin-top:0px">' . createContentView($conID, $conData, $permissionObj, $perLevel, $version) . createCommentView($conID, $conData, $permissionObj, $perLevel, $version, array("type" => 3, "optID" => $sectionID)) . '</div>';
+  $rightCont .= '<div style="margin-right:15px;margin-top:0px">' . createContentView($conID, $conData, $permissionObj, $perLevel, $version) . createCommentView($conID, $conData, $realPermissionObj, $realPerLevel, $version, array("type" => 3, "optID" => $sectionID)) . '</div>';
 }
 
 // execute init
