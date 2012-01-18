@@ -57,7 +57,7 @@ $rightCont .= '<div style="margin-left:14px;height:35px;margin-top:10px">' . $cr
 if ($conData['type'] == 1) {
   $rightCont .= '<div style="margin-left:7px;margin-top:0px">' . createHandoutDirView($conID, $conData, $sectionID) . '</div>';
 } elseif ($conData['type'] == 2) {
-  $rightCont .= '<div style="margin-right:15px;margin-top:0px">' . createContentView($conID, $conData, $permissionObj, $perLevel, 0) . '</div>';
+  $rightCont .= '<div style="margin-right:15px;margin-top:0px">' . createContentView($conID, $conData, $permissionObj, $perLevel, verifyDataAuth('0', $conData)) . '</div>';
 }
 
 // execute init

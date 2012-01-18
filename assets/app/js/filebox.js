@@ -28,7 +28,7 @@ $(document).ready(function() {
     });
 
   // twipsy for folders
-  $("a[rel=sharedWith]").twipsy({
+  $("a[rel=sharedWith], .deleter").twipsy({
     live: true,
     placement: 'right',
     html: true

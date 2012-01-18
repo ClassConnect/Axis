@@ -3325,8 +3325,13 @@ function genCommentFeed($comments, $permissionObj, $perLevel, $uid) {
 
 	$finDat = '';
 	foreach ($comments as $comment) {
-		$finDat .= '<div class="commentEntry">
-		<img src="' . iconServer() . '50_' . dispUser($comment['uid'], 'prof_icon') . '" class="proImgr" style="margin-bottom:5px" />
+		$finDat .= '<div class="commentEntry" id="' . $comment['id'] . '">';
+		if ($permissionObj['isOwner'] == 1 || ($comment['uid'] == $uid && dispUser($uid, 'level') != 1)) {
+			// show the delete button
+			$finDat .= '<img src="/assets/app/img/colleagues/del.png" class="deleter" title="Remove" onClick="jQuery.facebox({ ajax: \'/\' }); return false;" />';
+		}
+
+		$finDat .= '<img src="' . iconServer() . '50_' . dispUser($comment['uid'], 'prof_icon') . '" class="proImgr" style="margin-bottom:5px" />
 		<div class="commentText"><a href="#" onclick="return false">' . dispUser($comment['uid'], 'first_name') . ' ' . dispUser($comment['uid'], 'last_name') . '</a><br />' . spit($comment['text']) . '</div>
 
 		<div style="clear:both"></div>
