@@ -2088,7 +2088,7 @@ function verifyPermissions($conObj, $uid, $courses) {
 				}
 
 			// if this is shared with a course
-			} elseif ($pper['type'] == 2) { 
+			} elseif ($pper['type'] == 2) {
 				// check if this exists
 				if (in_array($pper['shared_id'], $courses)) {
 					// winner winner, chicken dinner
@@ -2105,6 +2105,21 @@ function verifyPermissions($conObj, $uid, $courses) {
 				}
 
 			// we need to add a public option in the next update
+			} elseif ($pper['type'] == 3) {
+				if ($pper['shared_id'] == 1) {
+					$publicAuth = 1;
+
+					if ($pper['auth_level'] > $localAuth) {
+						$localAuth = $pper['auth_level'];
+
+						$findex = count($conObj['parents']);
+						// get location of folder
+						if ($folderLoc < $findex) {
+		  					$folderLoc = $findex;
+		  				}
+					}
+				}
+				
 			}
 		}
 
@@ -3337,17 +3352,23 @@ function createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID, $o
 	<div class="commentBox">
 		' . $comDatas . '
 
-		<form action="#" class="commentBar">
-		<input type="hidden" class="comlevel" name="comlevel" value="' . $comLev . '" />
-		<input type="hidden" class="comlevel" name="optID" value="' . $optID . '" />
-		<input type="hidden" name="conid" value="' . $conID . '" />
-		<input type="hidden" name="dataid" value="' . $dataID . '" />
-		<img src="' . iconServer() . '50_' . dispUser(user('id'), 'prof_icon') . '" class="proImgr" style="display:none" /><textarea class="commentBarInput" name="comment_text" placeholder=" Add a comment..." rows="3" style="width: 640px; resize: none; height: 20px; "></textarea>
-		<div class="commentBarBtn" style="float:right;margin-top:10px;display:none">
-			<button class="btn">Add Comment</button>
-		</div>
-		<div style="clear:both"></div>
-		</form>
+		<form action="#" class="commentBar">';
+		// show the comment bar if they're logged in
+		if (checkSession()) {
+			$result .= '<input type="hidden" class="comlevel" name="comlevel" value="' . $comLev . '" />
+			<input type="hidden" class="comlevel" name="optID" value="' . $optID . '" />
+			<input type="hidden" name="conid" value="' . $conID . '" />
+			<input type="hidden" name="dataid" value="' . $dataID . '" />
+			<img src="' . iconServer() . '50_' . dispUser(user('id'), 'prof_icon') . '" class="proImgr" style="display:none" /><textarea class="commentBarInput" name="comment_text" placeholder=" Add a comment..." rows="3" style="width: 640px; resize: none; height: 20px; "></textarea>
+			<div class="commentBarBtn" style="float:right;margin-top:10px;display:none">
+				<button class="btn">Add Comment</button>
+			</div>
+			<div style="clear:both"></div>';
+		// otherwise, show a generic error message
+		} else {
+			$result .= 'Log in to leave a comment!';
+		}
+		$result .= '</form>
 	</div>
 
 

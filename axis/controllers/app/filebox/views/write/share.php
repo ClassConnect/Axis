@@ -89,6 +89,12 @@ if (isset($_POST['submitted'])) {
     }
 
 
+    if ($_POST['pub'] == 1) {
+      // add a public permission
+      $pers[] = array("shared_id"=> 1, "type"=>3, "auth_level"=>1);
+    }
+
+
 
 updatePermissions($_POST['conIDs'], $pers);
 echo 1;
@@ -102,12 +108,18 @@ $batchCon = getBatchContent($_GET['conIDs']);
 $permissions = getSharedPermissions($batchCon);
 $amigos = array();
 $coursesMal = array();
+$public = false;
 foreach ($permissions as $per) {
   if ($per['type'] == 1) {
     $amigos[] = $per;
   } elseif ($per['type'] == 2) {
     // catch here for the uncheckables
     $coursesMal[] = $per['shared_id'];
+
+  } elseif ($per['type'] == 3) {
+    if ($per['shared_id'] == 1) {
+      $public = true;
+    }
 
   }
 }
@@ -289,11 +301,17 @@ $('#update-pers').submit(function() {
     courses = courses.substr(0,courses.length-1);
   }
 
+  if ($("#publicTog").is(':checked')) {
+    pubshare = 1;
+  } else {
+    pubshare = 0;
+  }
+
 
   $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/share/", 
-      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&userRead=' + uidRead + '&userWrite=' + uidWrite + '&courses=' + courses,
+      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&userRead=' + uidRead + '&userWrite=' + uidWrite + '&courses=' + courses + '&pub=' + pubshare,
       success: function(retData) {
         if (retData == '1') {
           initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Sharing updated successfully</span>', 'yellowBox', 210, 527, 1500);
@@ -320,6 +338,32 @@ $('#update-pers').submit(function() {
     <div class="clearfix">
     <div id="errorBox" style="display:none"></div>
       <div class="input">
+
+
+      <?php
+      if (user('level') == 3) {
+      ?>
+
+      <div style="margin-bottom:30px">
+      <div style="font-size:13px; font-weight:bolder; color:#666; margin-bottom:5px"> Public</div>
+
+      <div class="input">
+        <div class="input-prepend">
+          <label class="add-on"><input type="checkbox" name="public" id="publicTog" value="1" <?php if ($public) { echo 'checked'; } ?>></label>
+          <div style="padding-left:8px;padding-top:7px;padding-bottom:8px;border:1px solid #ccc;width:301px;margin-left:24px;font-size:11px;color:#666;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">
+          Share this with every teacher on ClassConnect (view-only)
+          </div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#999;margin-top:4px;margin-left:5px">
+      Reminder - all content you share publicly is <strong>free storage</strong>!
+      </div>
+
+      <div style="clear:both"></div>
+      </div>
+      <?php
+      }
+      ?>
 
 
       <div class="tagroup" style="margin-top:-10px">
@@ -366,7 +410,7 @@ $('#update-pers').submit(function() {
 
             <div class="addLeagues" style="margin-top:10px">
               <div class="input-append">
-                <input size="30" type="text" id="adder" style="width:220px;height:15px;font-style:italic" onfocus="if(this.value=='<?= $placerSwap; ?>')this.value='';$(this).css('font-style','');" onblur="if(this.value=='')this.value='<?= $placerSwap; ?>';$(this).css('font-style','italic');" value="<?= $placerSwap; ?>">
+                <input size="30" type="text" id="adder" style="width:220px;height:15px" placeholder="<?= $placerSwap; ?>">
                 <label class="add-on" style="height:15px"><select id="perAuther" style="width:95px;font-size:11px;padding-top:3px;float:right;margin-top:-5px;background:none;border-radius:0;border:none">
                 <option>View & edit</option>
                 <option>View-only</option>
@@ -383,7 +427,7 @@ $('#update-pers').submit(function() {
       if (getSections() && user('level') == 3) {
       ?>
 
-      <div style="margin-top:70px">
+      <div style="margin-top:60px">
       <div style="font-size:13px; font-weight:bolder; color:#666; margin-bottom:5px"> Courses </div>
 
       <?= buildCoursePicker($coursesMal,0,'','line-height:1.4'); ?>
@@ -392,11 +436,13 @@ $('#update-pers').submit(function() {
       <?php
       }
       ?>
+
+
     </div><!-- /clearfix -->
   </fieldset>
   <div id="fbActions" class="actions" style="margin-bottom:-17px">
     <div style="float:right">
-      <button type="submit" class="btn danger">Update Sharing Permissions</button>&nbsp;<button type="reset" class="btn" onClick="closeBox();">Close</button>
+      <button type="submit" class="btn danger">Update Sharing Permissions</button>&nbsp;<button class="btn" onClick="closeBox(); return false">Close</button>
     </div>
     <div style="clear:both"></div>
   </div>
