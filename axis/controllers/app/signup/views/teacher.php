@@ -120,7 +120,7 @@ $('#add-teacher').submit(function() {
     <div class="rowBut" style="margin-top:10px">
     	<div class="pendDesc"><?= say('Email:'); ?></div>
       <div class="input">
-        <input id="email" name="email" size="100" maxlength="30" type="text" style="font-size:12px;height:15px">
+        <input id="email" name="email" size="100" maxlength="150" type="text" style="font-size:12px;height:15px">
       </div>
     </div>
 

@@ -69,27 +69,7 @@ function underUpdate() {
 }
 
 function showLogin() {
-    $loginError = false;
-
-    // check if this user submitted the login form
-    if (isset($_POST['logsubmit'])) {
-
-        if (!isset($_POST['identity'])) {
-        $_POST['identity'] == '';
-        }
-        if (!isset($_POST['pass'])) {
-            $_POST['pass'] == '';
-        }
-        $attempt = initLogin($_POST['identity'], $_POST['pass']);
-
-        if ($attempt != false) {
-            header('location: ' . $_SERVER['REQUEST_URI']);
-            exit();
-        } else {
-            $loginError = true;
-        }
-
-    }
+    global $loginError;
 
     appHeader('Login');
     require_once('axis/controllers/app/login/index.php');

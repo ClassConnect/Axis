@@ -3411,6 +3411,7 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 		$uid = user('id');
 	}
 
+	$text = strip_tags($text);
 	$allow = false;
 	$cObj = getContent($conID);
 	$permissionObj = verifyPermissions($cObj, $uid, $mySecs);

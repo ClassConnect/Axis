@@ -38,4 +38,27 @@ if (isset($_GET['uref'])) {
 if (isset($_GET['iwiz']) && checkSession()) {
 	initWizard();
 }
+
+
+// check if this person is trying to log in
+$loginError = false;
+
+// check if this user submitted the login form
+if (isset($_POST['logsubmit']) && !checkSession()) {
+
+    if (!isset($_POST['identity'])) {
+    $_POST['identity'] == '';
+    }
+    if (!isset($_POST['pass'])) {
+        $_POST['pass'] == '';
+    }
+    $attempt = initLogin($_POST['identity'], $_POST['pass']);
+
+    if ($attempt != false) {
+        // do nothing, we're in
+    } else {
+        $loginError = true;
+    }
+
+}
 ?>

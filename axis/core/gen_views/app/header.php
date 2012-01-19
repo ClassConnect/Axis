@@ -62,7 +62,7 @@ if ($developerMode == true) {
   // if there is no session, show blank w/ login
   if (!checkSession()) {
     ?>
-<div class="topbar">
+<div id="mainNavBar" class="topbar">
       <div class="topbar-inner">
         <div class="container">
           <a class="brand" href="/"><img src="/assets/app/img/logo.png" style="float:left;height:18px;margin-top:1px" /></a> 
