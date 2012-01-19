@@ -351,7 +351,7 @@ $('#update-pers').submit(function() {
         <div class="input-prepend">
           <label class="add-on"><input type="checkbox" name="public" id="publicTog" value="1" <?php if ($public) { echo 'checked'; } ?>></label>
           <div style="padding-left:8px;padding-top:7px;padding-bottom:8px;border:1px solid #ccc;width:301px;margin-left:24px;font-size:11px;color:#666;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">
-          Share this with every teacher on ClassConnect (view-only)
+          Allow this content to be accessed publicly (view-only)
           </div>
         </div>
       </div>
