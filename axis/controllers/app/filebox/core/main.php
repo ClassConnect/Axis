@@ -341,8 +341,14 @@ function moveContent($target, $conIDs, $uid) {
 
 	// user needs to have r/w to both of these
 	if ($batchLevel == 2 && $clear != false) {
-		// increment user's storage
-		incStorage($sizeTot, $newOwner);
+		// if this isn't shared publicly, increase storage
+		if (!verifyPublic($targData)) {
+			// increment user's storage
+			incStorage($sizeTot, $newOwner);
+		} else {
+			
+		}
+
 		// send notifications
 		insertFboxNoti(2, $targData['permissions'], $targData['parentPermissions'], $targData['owner_id'], $targData);
 
@@ -559,6 +565,8 @@ function deleteContent($conIDs, $uid) {
 	// user must be the owner and have cleared the target verification
 	if ($batchPer['localAuth'] == 2 || $batchPer['isOwner'] == 1) {
 		foreach ($batchObj as $conObj) {
+			$isPub = verifyPublic($conObj);
+
 			// delete this content
   			$collection->remove(array('_id' => new MongoId($conObj['_id'])), array('safe' => true));
   			// delete descendants
@@ -590,8 +598,10 @@ function deleteContent($conIDs, $uid) {
 			$updateParams['folders'] = -$conObj['folders'];
 			$updateParams['total_size'] = -$conObj['total_size'];
 
-			// update this user's total storage
-			incStorage($updateParams['total_size'], $conObj['owner_id']);
+			if (!$isPub) {
+				// update this user's total storage
+				incStorage($updateParams['total_size'], $conObj['owner_id']);
+			}
 			// update the parents
   			updateParents($final, $updateParams, $sets);
   		}
@@ -681,8 +691,12 @@ function copyContent($target, $conIDs, $uid) {
 
 	// user must be the owner and have cleared the target verification
 	if ($batchLevel >= 1 && $clear != false) {
-		// increase user's storage
-		incStorage($sizeTot, $newOwner);
+		// if this isn't shared publicly, increase storage
+		if (!verifyPublic($targData)) {
+			// increase user's storage
+			incStorage($sizeTot, $newOwner);
+		}
+
 		// send update
 		insertFboxNoti(2, $targData['permissions'], $targData['parentPermissions'], $targData['owner_id'], $targData);
 		// key=> value for old ids and new ids
@@ -1167,6 +1181,11 @@ function updatePermissions($conIDs, $pers, $uid) {
 			// if this didn't fail, insert into the add array
 			if ($pass == true) {
 				$add[] = $per;
+
+				// check if this is a public share
+				if ($per['type'] == 3 && $per['shared_id'] == 1) {
+					$addPub = true;
+				}
 			}
 			
 		}
@@ -1183,9 +1202,50 @@ function updatePermissions($conIDs, $pers, $uid) {
 
 			if ($pass == false) {
 				$del[] = $curr;
+
+				// check if this is a public share
+				if ($curr['type'] == 3 && $curr['shared_id'] == 1) {
+					$subPub = true;
+				}
 			}
 			
 		}
+
+
+		// if we are adding or subtracting pubs
+		if ($addPub || $subPub) {
+			// calculate total size of this
+			$placeID = 0;
+			$sizeTot = 0;
+			$folTot = 0;
+			$filTot = 0;
+			foreach ($batchObj as $cObj) {
+
+				// set userid, increment size, folder and file count
+				$placeID = $cObj['owner_id'];
+				$sizeTot += $cObj['total_size'];
+				$folTot += $cObj['folders'];
+				$filTot += $cObj['files'];
+			}
+
+			// if we're subtracting, make sure we have enough storage to do so
+			if ($subPub) {
+				if (!checkStorage($sizeTot, $placeID)) {
+					return array("We can't remove public permissions from this content because you don't have enough storage space!");
+				}
+
+			// if we're adding public, subtract from total
+			} else {
+				$sizeTot = -$sizeTot;
+			}
+
+			// increment user's storage
+			incStorage($sizeTot, $placeID);
+		}
+
+
+
+
 
 		// okay, so now we have our add and delete arrays. lets update our content
 		foreach ($batchObj as $obj) {
@@ -1803,11 +1863,31 @@ function addFile($parent, $fileLoc, $title, $body, $content, $uid) {
 			$tdata['owner_id'] = $uid;
 		}
 
+		// verify that we can upload this
+		if ($perLevel == 2) {
+			// public? allow it
+			if (verifyPublic()) {
+				$pass1 = true;
+			} else {
+				if (checkStorage($content['size'], $tdata['owner_id'])) {
+					$pass1 = true;
+				} else {
+					$pass1 = false;
+				}
+			}
+		} else {
+			$pass1 = false;
+		}
+
 		// if we're allowed to be here and have enough storage
-		if ($perLevel == 2 && checkStorage($content['size'], $tdata['owner_id'])) {
+		if ($pass1) {
 			uploadCloudFile($fileLoc, $encname, $formatType, $ext);
 			insertContent($uid, $parent, 2, $title, $body, $permissions, $tags, $standards, 1, $finalCon);
-			incStorage($finalCon['size'], $uid);
+
+			// if this isn't shared publicly, increment storage
+			if (!verifyPublic($tdata)) {
+				incStorage($finalCon['size'], $uid);
+			}
 			return true;
 		} else {
 			return false;
@@ -2106,18 +2186,16 @@ function verifyPermissions($conObj, $uid, $courses) {
 
 			// we need to add a public option in the next update
 			} elseif ($pper['type'] == 3) {
-				if ($pper['shared_id'] == 1) {
-					$publicAuth = 1;
+				$publicAuth = 1;
 
-					if ($pper['auth_level'] > $localAuth) {
-						$localAuth = $pper['auth_level'];
+				if ($pper['auth_level'] > $localAuth) {
+					$localAuth = $pper['auth_level'];
 
-						$findex = count($conObj['parents']);
-						// get location of folder
-						if ($folderLoc < $findex) {
-		  					$folderLoc = $findex;
-		  				}
-					}
+					$findex = count($conObj['parents']);
+					// get location of folder
+					if ($folderLoc < $findex) {
+	  					$folderLoc = $findex;
+	  				}
 				}
 				
 			}
@@ -2142,6 +2220,31 @@ function verifyPermissions($conObj, $uid, $courses) {
 // end of function
 }
 
+
+
+// check if something is available publicly
+function verifyPublic($conObj) {
+	// cycle through parent permissions and see if we have a hit
+		foreach ($conObj['parentPermissions'] as $pper) {
+			// if this permission is public
+			if ($pper['type'] == 3) {
+				return true;
+			}
+
+		}
+
+		// no permissions found from the parents/owner?
+		// lets check out our local permissions...
+		foreach ($conObj['permissions'] as $pper) {
+			// if this permission is public
+			if ($pper['type'] == 3) {
+				return true;
+			}
+		}
+
+
+		return false;
+}
 
 
 // return batch permissions
