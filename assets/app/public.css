@@ -17,17 +17,39 @@
 .pubfoot .leftboxer {
   float:left;
   width:310px;
-  height:300px;
-  border-right:1px solid #ddd;
-  margin-left:130px;
-  margin-right:10px;
+  height:180px;
+  margin-left:120px;
+  margin-right:15px;
 }
 
 .pubfoot .leftboxer .videoText {
-  width:200px;
+  width:158px;
   height:90px;
-  border:1px solid #ccc;
+  margin-left: 8px;
+  margin-right:-8px;
   float:right;
+  color:#777;
+  line-height:1.2em;
+}
+
+.pubfoot .leftboxer .videoTitle {
+  margin-bottom:5px;
+  font-weight:bolder;
+}
+
+.pubfoot .featureBtn {
+  background-color: #eeeeee;
+  background-image: -webkit-linear-gradient(top, #F7F7F7, #eeeeee);
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#F7F7F7), to(#eeeeee));
+  background-image: -moz-linear-gradient(top, #F7F7F7, #eeeeee);
+  background-image: -ms-linear-gradient(top, #F7F7F7, #eeeeee);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F7F7F7), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(top, #F7F7F7, #eeeeee);
+  background-image: -o-linear-gradient(top, #F7F7F7, #eeeeee);
+  background-image: linear-gradient(top, #F7F7F7, #eeeeee);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F7F7', endColorstr='#eeeeee', GradientType=0);
+  
 }
 
 .pubfoot .leftboxer .videoPreview {
@@ -60,7 +82,7 @@
 .pubfoot .rightboxer {
   float:left;
   width:290px;
-  margin-left:10px;
+  margin-left:5px;
 }
 .pubfoot .copyrighter {
   color:#999;

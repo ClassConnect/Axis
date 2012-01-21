@@ -1,20 +1,38 @@
       <div class="pubfoot">
         <div class="leftboxer">
 
+        <div class="btn featureBtn">
+          <div class="videoTitle">
+            Pioneer Chat: Jennie Dougherty!
+          </div>
+
           <a href="#">
             <div class="videoPreview" style="background:url(http://img.youtube.com/vi/99Ip6r49MvU/2.jpg) no-repeat">
             <img src="/assets/public/play.png" class="playBtn" />
             </div>
           </a>
 
-          sdsd
+          <div class="videoText">
+          This week we chat with an english teacher from the East Coast who is also the founder of <a href="http://www.betaclassroom.org" target="_blank">Beta Classroom</a>!
+          </div>
+        </div>
 
-        <!--  <span style="color:#777">
-          Built <strong>by</strong> students and teachers<br /><strong>for</strong> students and teachers.
-          </span>-->
+        <a href="#" class="btn featureBtn" style="margin-top:10px;width:278px;text-align:center;font-weight:bolder;">
+        <img src="/assets/public/blog.png" style="margin-bottom:-3px;margin-right:8px" />View all blog entries
+        </a>
+
+
+
         </div>
         <div class="rightboxer">
-        <center><a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-top:10px" /></a></center>
+
+        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.classconnect.com&amp;send=false&amp;layout=box_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=90&amp;appId=213954741999891" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:70px;" allowTransparency="true"></iframe>
+
+        <iframe allowtransparency="true" frameborder="0" scrolling="no"
+        src="//platform.twitter.com/widgets/tweet_button.html?count=vertical&text=I'm a pioneer! %23UnitedWeTeach&via=ClassConnectInc&url=http://www.classconnect.com"
+        style="width:55px; height:70px;"></iframe>
+
+          <a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-top:10px" /></a>
         </div>
 
         <div class="copyrighter">
