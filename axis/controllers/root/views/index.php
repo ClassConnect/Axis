@@ -1,14 +1,18 @@
-<div class="row">
+<div style="text-align:center">
+      <img src="/assets/public/mainlogo.png" style="width:400px;height:49px;margin-top:-20px" />
+</div>
+
   <div class="backRect">
-      
+  <div class="sloganDiv">
+Content collaboration for students and teachers, built by students and teachers.
+</div>
+      <!--
+      <div style="font-size:15px;color:#333;text-align:center;margin-top:10px;font-family:Varela Round">
+        Content collaboration built <strong>for</strong> students and teachers <strong>by</strong> students and teachers.
+      </div>-->
 
-
-      <div style="text-align:center">
-      <img src="/assets/public/mainlogo.png" style="width:400px;height:49px" />
-      </div>
-
-
-      <div>
+      <div style="width: 50%;margin: auto;">
+        <div style="width:600px">
             <form method="POST" action="/app/" style="padding-left:30px; padding-top:15px">
                 <div style="width:250px;float:left">
                     <span style="color:#666"><?= say('Email / Username'); ?></span><br />
@@ -28,6 +32,7 @@
                     </div>
                 </div>
             </form>
+          </div>
         </div>
 
         <div style="clear:both"></div>
@@ -44,7 +49,8 @@
 
     <div style="clear:both"></div>
   </div>
-</div>
+
+<div style="height:250px">&nbsp;</div>
 
 <script type="text/javascript">
 $(document).ready(function(){

@@ -13,7 +13,7 @@
           </a>
 
           <div class="videoText">
-          This week we chat with an english teacher from the East Coast who is also the founder of <a href="http://www.betaclassroom.org" target="_blank">Beta Classroom</a>!
+          This week we chat with Jennie, an english teacher from the East Coast who is also the founder of <a href="http://www.betaclassroom.org" target="_blank">Beta Classroom</a>!
           </div>
         </div>
 
@@ -25,14 +25,30 @@
 
         </div>
         <div class="rightboxer">
+          <div class="rightLinks">
+            <div class="rightLink">
+              <a href="#">What is ClassConnect?</a> Learn more!
+            </div>
+            <div class="rightLink">
+              <a href="#">United We Teach.</a> Together, we are stronger.
+            </div>
+            <div class="rightLink">
+              <a href="#">Our Story.</a> How ClassConnect came to be!
+            </div>
 
-        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.classconnect.com&amp;send=false&amp;layout=box_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=90&amp;appId=213954741999891" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:70px;" allowTransparency="true"></iframe>
+          </div>
 
-        <iframe allowtransparency="true" frameborder="0" scrolling="no"
-        src="//platform.twitter.com/widgets/tweet_button.html?count=vertical&text=I'm a pioneer! %23UnitedWeTeach&via=ClassConnectInc&url=http://www.classconnect.com"
-        style="width:55px; height:70px;"></iframe>
+          <div style="height:70px">
+            <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.classconnect.com&amp;send=false&amp;layout=box_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=90&amp;appId=213954741999891" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:70px; margin-right:3px" allowTransparency="true"></iframe>
 
-          <a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-top:10px" /></a>
+            <iframe allowtransparency="true" frameborder="0" marginwidth="0" scrolling="no" src="https://plusone.google.com/_/+1/fastbutton?url=http%3A%2F%2Fwww.classconnect.com%2F&amp;size=tall&amp;count=true&amp;annotation=&amp;width=120&amp;hl=en-US&amp;jsh=m%3B%2F_%2Fapps-static%2F_%2Fjs%2Fwidget%2F__features__%2Frt%3Dj%2Fver%3DSXEYxs5FO0c.en_US.%2Fsv%3D1%2Fam%3D!KW4lzGmbF_KIhSW8Og%2Fd%3D1%2F#id=I1_1327178530968&amp;parent=http%3A%2F%2Fwww.classconnect.com&amp;rpctoken=350075819&amp;_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe" style="border:none; overflow:hidden; width:50px; height:70px;margin-bottom:-1px;margin-right:3px" title="+1"></iframe>
+
+            <iframe allowtransparency="true" frameborder="0" scrolling="no"
+            src="//platform.twitter.com/widgets/tweet_button.html?count=vertical&text=I'm a pioneer! %23UnitedWeTeach&via=ClassConnectInc&url=http://www.classconnect.com"
+            style="width:55px; height:70px;"></iframe>
+
+            <a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-bottom:22px;margin-left:15px" /></a>
+          </div>
         </div>
 
         <div class="copyrighter">
