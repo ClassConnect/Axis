@@ -98,6 +98,36 @@ function cleanSettings($setObj) {
 }
 
 
+
+// add to a newsletter
+function addToNewsletter($userID, $letterID) {
+    $udata = getUser($userID);
+    // main teachers newsletter
+    if ($letterID == 1) {
+        $list = 'CC-Teachers';
+    }
+
+
+    $hiturl = 'https://sendgrid.com/api/newsletter/lists/email/add.json';
+    $fields_string = 'api_user=classconnectinc&api_key=cc221g7tx&list=' . $list . '&data={"email":"' . $udata['e_mail'] . '","name":"' . $udata['first_name'] . ' ' . $udata['last_name'] . '"}';
+
+    //open connection
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    //set the url, number of POST vars, POST data
+    curl_setopt($ch,CURLOPT_URL,$hiturl);
+    curl_setopt($ch,CURLOPT_POST,4);
+    curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+
+    //execute post
+    $result = curl_exec($ch);
+
+    //close connection
+    curl_close($ch);
+}
+
+
 // initialize the wizard
 function initWizard() {
     $_SESSION['wiz'] = true;

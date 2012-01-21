@@ -17,11 +17,46 @@
 .pubfoot .leftboxer {
   float:left;
   width:310px;
-  height:50px;
+  height:300px;
   border-right:1px solid #ddd;
   margin-left:130px;
   margin-right:10px;
 }
+
+.pubfoot .leftboxer .videoText {
+  width:200px;
+  height:90px;
+  border:1px solid #ccc;
+  float:right;
+}
+
+.pubfoot .leftboxer .videoPreview {
+  float:left;
+  cursor:pointer;
+  width:120px;
+  height:90px;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -ms-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  -webkit-box-shadow: 0 1px 5px rgba(0,0,0,.55);
+     -moz-box-shadow: 0 1px 5px rgba(0,0,0,.55);
+          box-shadow: 0 1px 5px rgba(0,0,0,.55);
+}
+
+.pubfoot .leftboxer .videoPreview:hover {
+  -webkit-box-shadow: 0 1px 8px rgba(0,0,0,.85);
+     -moz-box-shadow: 0 1px 8px rgba(0,0,0,.85);
+          box-shadow: 0 1px 8px rgba(0,0,0,.85);
+  
+}
+
+.pubfoot .leftboxer .videoPreview .playBtn {
+  margin-left:44px;
+  margin-top:29px;
+}
+
 .pubfoot .rightboxer {
   float:left;
   width:290px;

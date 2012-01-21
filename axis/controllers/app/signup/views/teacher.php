@@ -17,7 +17,8 @@ if (isset($_POST['submitted'])) {
   $sendFrom = array('eric@classconnect.com' => 'Eric Simons');
   $body = "Hi - I saw you just signed up for classconnect.com, let me know if there is anything I can do to help!\n\n-Eric";
   sendEmail($subj, $sendTo, $sendFrom, $body);
-  initWizard();
+  // add to newsletter
+  addToNewsletter($attempt, 1);
    echo 1; 
   }
 	exit();

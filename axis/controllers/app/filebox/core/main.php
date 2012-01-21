@@ -303,12 +303,69 @@ function moveContent($target, $conIDs, $uid) {
 	$sizeTot = 0;
 	$folTot = 0;
 	$filTot = 0;
+	$donSub = array();
 	foreach ($batchObj as $cObj) {
 		// check if we're putting a folder in a folder
 		foreach ($targData['parents'] as $parChk) {
 			if ($cObj['_id'] == $parChk['id'] || $targData['_id'] == $cObj['_id']) {
 				return array("You cannot put a folder within itself.");
 			}
+		}
+
+		// public -> private
+		if (verifyPublic($cObj) && !verifyPublic($targData)) {
+			// verify that there's enough room to do this
+			if ($cObj['owner_id'] == $targData['owner_id']) {
+				if (!checkStorage($cObj['total_size'], $cObj['owner_id'])) {
+					return array("There is not enough room in the specified folder.");
+				}
+				// double the storage to add
+				incStorage($cObj['total_size'], $targData['owner_id']);
+
+			} else {
+				if (!checkStorage($cObj['total_size'], $targData['owner_id'])) {
+					return array("There is not enough room in the specified folder.");
+				}
+
+				// dont subract
+				$donSub[] = (string) $cObj['_id'];
+			}
+
+		// if this is public -> public
+		} elseif (verifyPublic($cObj) && verifyPublic($targData)) {
+			// verify that there's enough room to do this
+			if ($cObj['owner_id'] != $targData['owner_id']) {
+				// dont subract
+				$donSub[] = (string) $cObj['_id'];
+				// subtract from new parent to compensate
+				incStorage(-$cObj['total_size'], $targData['owner_id']);
+
+
+			}
+
+		// if this is private to public (fuck this dude)
+		} elseif (!verifyPublic($cObj) && verifyPublic($targData)) {
+			// if same owner
+			if ($cObj['owner_id'] == $targData['owner_id']) {
+				$pubtot = 0;
+				$curID = (string) $cObj['_id'];
+				$curDesc = getDescendants($curID);
+				foreach ($curDesc as $dec1) {
+					if (verifyPublic($dec1) && $dec1['type'] == 2) {
+						$pubtot += $dec1['total_size'];
+					}
+				}
+
+				$totsub = ($cObj['total_size'] - $pubtot);
+				incStorage(-$totsub, $targData['owner_id']);
+
+			// different owner, offset add
+			} else {
+				// subtract from new user
+				incStorage(-$cObj['total_size'], $targData['owner_id']);
+			}
+
+
 		}
 
 		// set userid, increment size, folder and file count
@@ -341,13 +398,8 @@ function moveContent($target, $conIDs, $uid) {
 
 	// user needs to have r/w to both of these
 	if ($batchLevel == 2 && $clear != false) {
-		// if this isn't shared publicly, increase storage
-		if (!verifyPublic($targData)) {
-			// increment user's storage
-			incStorage($sizeTot, $newOwner);
-		} else {
-			
-		}
+		// increment user's storage
+		incStorage($sizeTot, $newOwner);
 
 		// send notifications
 		insertFboxNoti(2, $targData['permissions'], $targData['parentPermissions'], $targData['owner_id'], $targData);
@@ -379,8 +431,10 @@ function moveContent($target, $conIDs, $uid) {
 			$updateParams['folders'] = -$conObj['folders'];
 			$updateParams['total_size'] = -$conObj['total_size'];
 
-			// update this user's total storage
-			incStorage($updateParams['total_size'], $conObj['owner_id']);
+			// update this user's total storage if no sub exists
+			if (!in_array((string) $conObj['_id'], $donSub)) {
+				incStorage($updateParams['total_size'], $conObj['owner_id']);
+			}
 			// update the parents
   			updateParents($finalq, $updateParams);
 
@@ -772,7 +826,9 @@ function copyContent($target, $conIDs, $uid) {
 				$conObj["parents"] = array(array("id" => "0", "title" => ''));
 			}
 
-
+			// clean the object (comments, etc)
+			$conObj = cleanCopyObj($conObj);
+			// insert object
 			$collection->insert($conObj);
 			// set ID swap for $current OBID
 			$idSwap[$currentOBID] = (string) $conObj['_id'];
@@ -822,7 +878,10 @@ function copyContent($target, $conIDs, $uid) {
 				$final['parentPermissions'] = $targData['parentPermissions'];
 
 				$final['owner_id'] = $newOwner;
-			
+
+				// clean final object (comments, etc)
+				$final = cleanCopyObj($final);
+				// insert final
 				$collection->insert($final);
 				// set ID swap for $current OBID
 				$idSwap[(string) $fold['_id']] = (string) $final['_id'];
@@ -879,6 +938,20 @@ function copyContent($target, $conIDs, $uid) {
 		return array("You don't have permission to copy content here.");
 	}
 
+}
+
+
+// helper function for copy that removes all comments and chooses primary version
+function cleanCopyObj($copObj) {
+	// just remove comments for now
+	foreach ($copObj['versions'] as $vkey=>$ver) {
+		$ver['comments_pub'] = array();
+		$ver['comments_priv'] = array();
+		$ver['comments_course'] = array();
+		$copObj['versions'][$vkey] = $ver;
+	}
+
+	return $copObj;
 }
 
 

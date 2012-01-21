@@ -1,8 +1,17 @@
       <div class="pubfoot">
-        <div class="leftboxer" style="text-align:center">
-          <span style="color:#777">
+        <div class="leftboxer">
+
+          <a href="#">
+            <div class="videoPreview" style="background:url(http://img.youtube.com/vi/99Ip6r49MvU/2.jpg) no-repeat">
+            <img src="/assets/public/play.png" class="playBtn" />
+            </div>
+          </a>
+
+          sdsd
+
+        <!--  <span style="color:#777">
           Built <strong>by</strong> students and teachers<br /><strong>for</strong> students and teachers.
-          </span>
+          </span>-->
         </div>
         <div class="rightboxer">
         <center><a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-top:10px" /></a></center>
