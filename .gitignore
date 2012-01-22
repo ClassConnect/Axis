@@ -5,3 +5,4 @@ axis/core/data/connect.php
 axis/core/site/serverConfig.php
 compile.sh
 assets/lecture/*
+axis/controllers/spotlight/data/*

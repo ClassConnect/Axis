@@ -11,8 +11,8 @@ Content collaboration for students and teachers, built by students and teachers.
         Content collaboration built <strong>for</strong> students and teachers <strong>by</strong> students and teachers.
       </div>-->
 
-      <div style="width: 50%;margin: auto;">
-        <div style="width:600px">
+
+        <div style="width:600px;margin-left: auto;margin-right: auto;">
             <form method="POST" action="/app/" style="padding-left:30px; padding-top:15px">
                 <div style="width:250px;float:left">
                     <span style="color:#666"><?= say('Email / Username'); ?></span><br />
@@ -33,7 +33,7 @@ Content collaboration for students and teachers, built by students and teachers.
                 </div>
             </form>
           </div>
-        </div>
+        
 
         <div style="clear:both"></div>
 

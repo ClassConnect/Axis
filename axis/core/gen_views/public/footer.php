@@ -1,23 +1,14 @@
       <div class="pubfoot">
         <div class="leftboxer">
 
-        <div class="btn featureBtn">
-          <div class="videoTitle">
-            Pioneer Chat: Jennie Dougherty!
-          </div>
+        <?php
+        // echo the blog snippet
+        require_once('axis/controllers/spotlight/data/index.php');
+        require_once('axis/controllers/spotlight/core/main.php');
+        echo genHomeSnip($blogs);
+        ?>
 
-          <a href="#">
-            <div class="videoPreview" style="background:url(http://img.youtube.com/vi/99Ip6r49MvU/2.jpg) no-repeat">
-            <img src="/assets/public/play.png" class="playBtn" />
-            </div>
-          </a>
-
-          <div class="videoText">
-          This week we chat with Jennie, an english teacher from the East Coast who is also the founder of <a href="http://www.betaclassroom.org" target="_blank">Beta Classroom</a>!
-          </div>
-        </div>
-
-        <a href="#" class="btn featureBtn" style="margin-top:10px;width:278px;text-align:center;font-weight:bolder;">
+        <a href="/spotlight" class="btn featureBtn" style="margin-top:10px;width:278px;text-align:center;font-weight:bolder;">
         <img src="/assets/public/blog.png" style="margin-bottom:-3px;margin-right:8px" />View all blog entries
         </a>
 
@@ -27,13 +18,13 @@
         <div class="rightboxer">
           <div class="rightLinks">
             <div class="rightLink">
-              <a href="#">What is ClassConnect?</a> Learn more!
+              <a href="/about">What is ClassConnect?</a> <span style="cursor:default">Learn more!</span>
             </div>
             <div class="rightLink">
-              <a href="#">United We Teach.</a> Together, we are stronger.
+              <a href="/about/unitedweteach">United We Teach.</a> <span style="cursor:default">Together, we are stronger.</span>
             </div>
             <div class="rightLink">
-              <a href="#">Our Story.</a> How ClassConnect came to be!
+              <a href="/about/us">Our Story.</a> <span style="cursor:default">Who, what, where, when & why.</span>
             </div>
 
           </div>

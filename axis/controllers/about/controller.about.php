@@ -1,30 +1,28 @@
 <?php
 class aboutController extends Axis_Controller
 {
-
         function _default()
         {
-                pubHeader('Our Company');
-                require_once('views/company.php');
-                pubFooter();
+                // include about CC file
+                require_once('views/about-cc.php');
         }
-        function _company()
+
+        function _us() 
         {
-                pubHeader('Our Company');
-                require_once('views/company.php');
-                pubFooter();
+        	// include about eric file
+                require_once('views/about-us.php');
         }
-        function _team()
+
+        function _unitedweteach() 
         {
-                pubHeader('Our Team');
-                require_once('views/team.php');
-                pubFooter();
+                // include about eric file
+                require_once('views/about-uwt.php');
         }
-        function _advisors()
+
+        function _error()
         {
-                pubHeader('Our Advisors');
-                require_once('views/advisors.php');
-                pubFooter();
+                showError();
         }
+
 }
 ?>
