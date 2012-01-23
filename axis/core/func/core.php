@@ -1339,7 +1339,7 @@ function genFeedItem($items, $primary, $uid) {
 
     <div class="feedRight">
       <a href="/app/course/' . $unid['shareID'] . '" style="font-weight:bolder">' . $idTitle . '</a><br />
-      ' . nl2br($item['data'][count($item['data']) - 1]['status']) . '
+      ' . spit($item['data'][count($item['data']) - 1]['status']) . '
     </div>
 
     <div style="clear:both"></div>
