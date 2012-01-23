@@ -60,7 +60,7 @@ Meet some pioneers in our community!
 <script>
 $('#teachBut').click(function() {
     jQuery.facebox({ 
-    	ajax: '/app/signup/teacher'
+    	ajax: '/app/signup/teacher?forceURL=/app/'
   	});
 });
 </script>

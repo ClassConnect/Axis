@@ -89,7 +89,13 @@ $('#add-student').submit(function() {
       data: serData,  
       success: function(retData) {
         if (retData == '1') {
-          window.location = location.pathname;
+          window.location = <?php
+          if (isset($_GET['forceURL'])) {
+            echo "'" . $_GET['forceURL'] . "'";
+          } else {
+            echo 'location.pathname';
+          }
+          ?>;
 
         } else {
           fbFormRevert('#add-student');

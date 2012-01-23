@@ -36,12 +36,12 @@ $(document).ready(function(){
   $("#idFirst").focus();
   $('#studBut').click(function() {
     jQuery.facebox({ 
-    	ajax: '/app/signup/student'
+    	ajax: '/app/signup/student?forceURL=/app/'
   	});
   });
   $('#teachBut').click(function() {
     jQuery.facebox({ 
-    	ajax: '/app/signup/teacher'
+    	ajax: '/app/signup/teacher?forceURL=/app/'
   	});
   });
 });
