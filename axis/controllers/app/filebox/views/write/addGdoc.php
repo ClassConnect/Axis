@@ -6,7 +6,9 @@ if (isset($_POST['submitted'])) {
     // set vars
     $title = $_POST['docTitle'];
     $data = $_POST['docURL'];
-    $desc = $_POST['docDesc'];
+    if ($_POST['docDesc'] != 'Description') {
+      $desc = $_POST['docDesc'];
+    }
 
 
   // lets insert this

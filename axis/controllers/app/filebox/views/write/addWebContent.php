@@ -21,14 +21,18 @@ if (isset($_POST['submitted'])) {
     // url handling
     $title = $_POST['urlTitle'];
     $data = $_POST['url'];
-    $desc = $_POST['urlDesc'];
+    if ($_POST['urlDesc'] != 'Description') {
+      $desc = $_POST['urlDesc'];
+    }
     $type = 1;
 
   } else {
     // embed handling
     $title = $_POST['embedTitle'];
     $data = $_POST['embedCode'];
-    $desc = $_POST['embedDesc'];
+    if ($_POST['embedDesc'] != 'Description') {
+      $desc = $_POST['embedDesc'];
+    }
     $type = 2;
 
   }
