@@ -234,6 +234,25 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .fbprogSel {
   background-color:#d1e3ff;
 }
+.optArDef {
+  font-size:11px;
+  filter: alpha(opacity=5);
+  -khtml-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+.fbprogHov .optArDef, .fbprogSel .optArDef {
+  filter: alpha(opacity=1);
+  -khtml-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+.fboxElement .textTogg {
+  color:#666;
+}
+.fbprogHov .textTogg, .fbprogSel .textTogg {
+  color: #0069d6;
+}
 .folderBar {
   width:224px;
   background:#fff;

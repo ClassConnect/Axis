@@ -2993,10 +2993,17 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    		<div style="margin-top:17px;margin-left:50px">
 	    			';
 
+	    		$list .= '<div class="optArDef">
+	    		<a style="float:left" class="textTogg" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
+  }); return false;">Share</a>
+	    		<img src="/assets/app/img/box/sharelink.png" class="topDesc" title="<strong>This is shared publicly</strong><br />Anyone with the link can access it" style="float:left;margin-left:4px;margin-top:2px;height:14px;width:14px">
+	    		</div>';
+
 	    	if ($perLev == 2) {
-	    		$list .= '<a href="#" onClick="jQuery.facebox({ 
+	    	/*	$list .= '<a href="#" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/edit/title/' . $child['_id'] . '\'
-  });"><img src="/assets/app/img/box/editcon.png" style="float:left;margin-right:4px;margin-top:2px;height:14px;width:14px">Edit</a>';
+  });"><img src="/assets/app/img/box/editcon.png" style="float:left;margin-right:4px;margin-top:2px;height:14px;width:14px">Edit</a>';*/
 	    	}
 
 	    $list .= '</div>
@@ -3006,7 +3013,7 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    		<a class="js-pjax" href="/app/filebox/' . $child['_id'] . '">' . createConTitle($child) . '</a>
 	    		</div>
 	    		<div class="conlast">
-	    		Updated ' . $lastMod . ' by <a href="#" onClick="return false">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>
+	    		Updated ' . $lastMod . ' by <a href="#" class="textTogg" onClick="return false">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>
 	    		</div>
 	    	</div>
 	    </div>
@@ -3081,7 +3088,7 @@ function authorUI($conObj, $perObj) {
 
 
  return '<div style="clear:both">
-	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px; border:2px solid #ccc" />
+	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px;" class="vidView" />
 		 	<div style="margin-left:70px;padding-bottom:5px">
 		 		<div style="padding-top:1px">
 

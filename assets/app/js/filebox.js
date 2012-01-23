@@ -38,6 +38,12 @@ $(document).ready(function() {
     placement: 'below',
     html: true
   });
+  $(".topDesc").twipsy({
+    live: true,
+    placement: 'above',
+    html: true,
+    delayIn: 200
+  });
 
 });
 
