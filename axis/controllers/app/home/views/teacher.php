@@ -47,7 +47,7 @@ if ($rcount == 0) {
   <div style="font-size:20px;font-weight:bolder">Welcome! Lets get you started.</div>
   <div class="getStartedBox btn" onclick="window.location='/app/?iwiz=true';">
       <div class="startTitle">
-      Get your stuff set up
+      Take a guided tour
       </div>
       <div class="startBody">
         <img src="/assets/app/img/box/type/folder.png" class="startImg" style="margin-top:3px" />
