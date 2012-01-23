@@ -5,12 +5,12 @@ appHeader('Our Story');
 	<div class="row" style="padding:20px;padding-top:0px;font-size:14px">
 
  
-<img src="/assets/public/eric.png" style="margin-right:10px;margin-bottom:10px; height:300px;border:2px solid #ccc;float:left" />
+<img src="/assets/public/eric.png" id="ericpic" class="vidView" style="margin-right:10px;margin-bottom:10px; height:300px;width:225px;float:left" title="Black sand <strong>does</strong> taste like black sand!" />
 
-<div style="font-family:Varela Round;font-size:18px;text-align:center;margin-top:7px;font-weight:bolder">
+<div style="font-family:Varela Round;font-size:18px;text-align:center;margin-top:7px;margin-bottom:10px;font-weight:bolder">
 	As a student I was your worst nightmare.
 </div>	
-<br />
+
 I couldn’t stay focused in school, I wasn’t interested in homework, and I wasn’t motivated by grades.
 <br /><br />
 This dismayed my parents and frustrated my teachers. Then, during my junior year of high school (almost two years ago), my chemistry teacher pulled me aside and asked the question that changed the focus of my life: "What would make you interested in learning what I’m teaching?" I was stumped. She didn't ask me to try harder, she didn’t ask me to stay after for help or study more - she asked me to figure out how she could grab my interest. No one had ever bothered to ask me that before. A few moments later I replied, "let’s get everyone working together on computers – I'll even build the software for us to use".
@@ -26,6 +26,18 @@ Life isn't about what you have, it's about what you leave – and I want to leav
 <a href="http://www.twitter.com/ericsimons40" target="_blank" class="btn large primary" style="font-weight:bolder">Follow me on Twitter!</a>
 	</div>
 </div>
+
+<script>
+
+$("#ericpic").twipsy({
+    placement: 'below',
+    html: true,
+    trigger: 'manual'
+  });
+  $(document).ready(function() {
+  $("#ericpic").twipsy('show');
+});
+</script>
 <?php
 appFooter();
 ?>

@@ -43,7 +43,7 @@ This is the turning point for education. Get involved!
 </div>
 
 <a href="#" id="teachBut" onclick="return false" class="btn large danger" type="submit" style="font-weight:bolder;margin-top:10px;margin-left:55px"> 
-Be a pioneer - join your colleagues and lets change education
+Be a pioneer - join your colleagues and let's' change education
 </a>
 
 <a href="/spotlight" class="btn large" type="submit" style="font-weight:bolder;margin-top:10px;margin-left:15px"> 
