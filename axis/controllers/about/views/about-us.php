@@ -5,7 +5,7 @@ appHeader('Our Story');
 	<div class="row" style="padding:20px;padding-top:0px;font-size:14px">
 
  
-<img src="/assets/public/eric.png" id="ericpic" class="vidView" style="margin-right:10px;margin-bottom:10px; height:300px;width:225px;float:left" title="Black sand <strong>does</strong> taste like black sand!" />
+<img src="/assets/public/eric.png" id="ericpic" class="vidView" style="margin-right:10px;margin-bottom:10px; height:300px;width:225px;float:left" title="Eric in his natural habitat" />
 
 <div style="font-family:Varela Round;font-size:18px;text-align:center;margin-top:7px;margin-bottom:10px;font-weight:bolder">
 	As a student I was your worst nightmare.
