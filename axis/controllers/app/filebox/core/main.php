@@ -2974,7 +2974,34 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    $count++;
 	    //$list .= '<div style="border-bottom:1px solid #ccc;padding:7px;font-size:18px"><a class="js-pjax" href="/app/filebox/' . $child['_id'] . '">' . $child['title'] . ' - (' . $child['versions'][count($child['versions']) - 1]['timestamp'] . ')</a></div>';
 
-	    if ($child['type'] == 1) {
+	    $list .= genConStripe($child, $perLev);
+	    
+
+	    // debug opt ' . $child['folders'] . ' folders, ' . $child['files'] . ' files (' . $child['total_size'] . ')
+	}
+
+	  if ($count == 0) {
+	  	if ($perLev == 2) {
+	  		$list .= '<img src="/assets/app/img/box/nocon.png" style="margin-top:10px;margin-left:10px;float:left" />
+	    <div style="font-size:20px;color:#444;font-weight:bolder;margin-top:42px">This folder is empty.
+	    <div style="font-weight:normal;color:#666;margin-top:6px">Click "Add Content" to add files, websites, videos and more.</div>
+	    </div>';
+	  	} else {
+	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
+	    </div>';
+	  	}
+	    
+	  }
+
+
+	  return $list;
+}
+
+
+// dir view helper function
+function genConStripe($child, $perLev) {
+	$list = '';
+	if ($child['type'] == 1) {
 	    	$class = "fboxFolder";
 	    	$icon = '<img src="/assets/app/img/box/type/folder.png" class="conicon" />';
 	    } else {
@@ -3063,26 +3090,15 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    	</div>
 	    </div>
 	    </div>';
-
-	    // debug opt ' . $child['folders'] . ' folders, ' . $child['files'] . ' files (' . $child['total_size'] . ')
-	}
-
-	  if ($count == 0) {
-	  	if ($perLev == 2) {
-	  		$list .= '<img src="/assets/app/img/box/nocon.png" style="margin-top:10px;margin-left:10px;float:left" />
-	    <div style="font-size:20px;color:#444;font-weight:bolder;margin-top:42px">This folder is empty.
-	    <div style="font-weight:normal;color:#666;margin-top:6px">Click "Add Content" to add files, websites, videos and more.</div>
-	    </div>';
-	  	} else {
-	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
-	    </div>';
-	  	}
-	    
-	  }
-
-
-	  return $list;
+	    return $list;
 }
+
+
+
+
+
+
+
 
 
 // create the folder sidebar

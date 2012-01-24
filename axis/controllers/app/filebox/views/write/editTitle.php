@@ -4,15 +4,24 @@ $conID = $this->Command->Parameters[3];
 if (isset($_POST['submitted'])) {
   // example of per array: array('type' => 1, 'shared_id' => 8, 'auth_level' => 1)
   $attempt = updateTitle($conID, $_POST['content_title']);
-
+  $retObj = array();
+  $retObj['success'] = $attempt;
+  header('Content-type: application/json');
   if ($attempt == 1) {
-    echo 1;
+    $cdata = getContent($conID);
+    $permissionObj = verifyPermissions($cdata, user('id'));
+    $perLevel = determinePerLevel($cdata['_id'], $permissionObj);
+    $retObj['data']['id'] = $conID;
+    $retObj['data']['result'] = genConStripe($cdata, $perLevel);
+    echo json_encode($retObj);
   } else {
-    echo '<div class="alert-message warning" style="width:310px">';
+    $errDat = '<div class="alert-message warning" style="width:310px">';
     foreach($attempt as $error) {
-      echo '<li>' . say($error) . '</li>';
+      $errDat .= '<li>' . say($error) . '</li>';
     }
-    echo '</div>';
+    $errDat .= '</div>';
+    $retObj['text'] = $errDat;
+    echo json_encode($retObj);
 
   }
 
@@ -37,16 +46,19 @@ $('#edit-title').submit(function() {
     $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/edit/title/<?= $conID; ?>",  
-      data: serData,  
+      data: serData,
+      dataType: "json",
       success: function(retData) {
-        if (retData == '1') {
-          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content updated successfully</span>', 'yellowBox', 210, 527, 1500);
-          softRefresh();
+        if (retData['success'] == 1) {
+          if (currentType == 1) {
+            initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content updated successfully</span>', 'yellowBox', 210, 527, 1500);
+            $("#" + retData['data']['id']).replaceWith(retData['data']['result']);
+            initFolUI();
+          }
           closeBox();
-
         } else {
           fbFormRevert('#edit-title');
-          showFormError(retData);
+          showFormError(retData['text']);
         }
       }  
       

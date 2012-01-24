@@ -287,6 +287,7 @@ function initFolUI() {
     // set draggable property
     $('.fboxElement').each(function(index) {
       $(this).draggable({
+        zIndex: 2700,
         distance: 20,
         opacity: 0.70,
         start:function(evt,ui){

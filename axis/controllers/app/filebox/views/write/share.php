@@ -97,7 +97,19 @@ if (isset($_POST['submitted'])) {
 
 
 updatePermissions($_POST['conIDs'], $pers);
-echo 1;
+$retObj = array();
+$retObj['success'] = 1;
+
+$batchCon = getBatchContent($_POST['conIDs']);
+foreach ($batchCon as $ctem) {
+  $permissionObj = verifyPermissions($ctem, user('id'));
+  $perLevel = determinePerLevel($ctem['_id'], $permissionObj);
+  if ($perLevel > 0) {
+    $retObj['data'][] = array("id" => (string) $ctem['_id'], "result" => genConStripe($ctem, $perLevel));
+  }
+}
+header('Content-type: application/json');
+echo json_encode($retObj);
 
 
   exit();
@@ -330,14 +342,20 @@ $('#update-pers').submit(function() {
       type: "POST",  
       url: "/app/filebox/write/share/", 
       data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&userRead=' + uidRead + '&userWrite=' + uidWrite + '&courses=' + courses + '&pub=' + pubshare,
+      dataType: "json",
       success: function(retData) {
-        if (retData == '1') {
-          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Sharing updated successfully</span>', 'yellowBox', 210, 527, 1500);
-          softRefresh();
+        if (retData['success'] == 1) {
+          if (currentType == 1) {
+            initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Sharing updated successfully</span>', 'yellowBox', 210, 527, 1500);
+            for (dataID in retData['data']) {
+                $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
+              }
+            initFolUI();
+          }
           closeBox();
         } else {
           fbFormRevert('#update-tags');
-          showFormError(retData);
+          showFormError(retData['text']);
         }
         
       }  

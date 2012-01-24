@@ -145,6 +145,7 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   width:707px;
   background:#fff;
   border-bottom:2px solid #ccc;
+  z-index:1;
 }
 .fboxElement, .sharedEl {
   border-bottom:1px solid #eee;

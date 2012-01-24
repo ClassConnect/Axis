@@ -2,14 +2,20 @@
 if (isset($_POST['submitted'])) {
   deleteContent($_POST['ids']);
   $attempt = 1;
+  $retObj = array();
+  $retObj['success'] = $attempt;
+  $retObj['items'] = explode(',', $_POST['ids']);
+  header('Content-type: application/json');
   if ($attempt == 1) {
-    echo 1;
+    echo json_encode($retObj);
   } else {
-    echo '<div class="alert-message warning" style="width:310px">';
+    $errDat = '<div class="alert-message warning" style="width:310px">';
     foreach($attempt as $error) {
-      echo '<li>' . say($error) . '</li>';
+      $errDat .= '<li>' . say($error) . '</li>';
     }
-    echo '</div>';
+    $errDat .= '</div>';
+    $retObj['text'] = $errDat;
+    echo json_encode($retObj);
 
   }
 
@@ -30,16 +36,22 @@ $('#del-con').submit(function() {
     $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/delete/",  
-      data: 'submitted=true&ids=<?= $_GET['conIDs']; ?>',  
+      data: 'submitted=true&ids=<?= $_GET['conIDs']; ?>', 
+      dataType: "json",
       success: function(retData) {
-        if (retData == '1') {
-          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content deleted successfully</span>', 'yellowBox', 210, 527, 1500);
-          softRefresh();
-          closeBox();
+        if (retData['success'] == 1) {
+          // if this is a dir view
+          if (currentType == 1) {
+            initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content deleted successfully</span>', 'yellowBox', 210, 527, 1500);
+            for (dataID in retData['items']) {
+              $("#" + retData['items'][dataID]).css('opacity', 1).slideUp('fast').animate({ opacity: 0 },{ queue: false, duration: 'fast'});
+            }
+            closeBox();
+          }
 
         } else {
           fbFormRevert('#del-con');
-          showFormError(retData);
+          showFormError(retData['text']);
         }
       }  
       
