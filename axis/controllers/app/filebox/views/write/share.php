@@ -8,7 +8,7 @@ if (isset($_POST['submitted'])) {
       if ($local != '') {
 
         // are we friends?
-        if (is_numeric($local)) {
+        if (authFriend($local) || $local == user('id')) {
           $pers[] = array("shared_id"=>(int) $local, "type"=>1, "auth_level"=>1);
         // no? create them an account then...
         } elseif (filter_var($local, FILTER_VALIDATE_EMAIL)) {
@@ -45,10 +45,10 @@ if (isset($_POST['submitted'])) {
       if ($local != '') {
 
         // are we friends?
-        if (authFriend($local)) {
+        if (authFriend($local) || $local == user('id')) {
           $pers[] = array("shared_id"=>(int) $local, "type"=>1, "auth_level"=>2);
         // no? create them an account then...
-        } else {
+        } elseif (filter_var($local, FILTER_VALIDATE_EMAIL)) {
           // CREATE ACCOUNT
           $check = getUserByEmail($local);
           // if this user exists
