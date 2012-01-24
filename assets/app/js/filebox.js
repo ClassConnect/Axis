@@ -376,6 +376,13 @@ function restartFolUI() {
   $("#mainSwap").html($("#mainSwap").html());
   $("#leftSwap").html($("#leftSwap").html());
   $("#crumbNav").html($("#crumbNav").html());
+  if (!$(".checkBoxed").length) {
+    $('#copyBtn').attr('disabled', 'disabled');
+    $('#moveBtn').attr('disabled', 'disabled');
+    $('#delBtn').attr('disabled', 'disabled');
+    $('#shareBtn').attr('disabled', 'disabled');
+    $('#tagBtn').attr('disabled', 'disabled');
+  }
   initFolUI();
 }
 
