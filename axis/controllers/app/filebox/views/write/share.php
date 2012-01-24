@@ -103,8 +103,12 @@ echo 1;
   exit();
 }
 
-
+$objcount = 0;
 $batchCon = getBatchContent($_GET['conIDs']);
+foreach ($batchCon as $ctem) {
+  $objcount++;
+  $objid = (string) $ctem['_id'];
+}
 $permissions = getSharedPermissions($batchCon);
 $amigos = array();
 $coursesMal = array();
@@ -238,7 +242,7 @@ function addPer(type, data, auth, placer) {
     if (pass != false) {
       var rSel = '';
       var rwSel = '';
-      var ptml = '<div class="alert-message elem">' + placer + '<span style="font-weight:bolder;float:right;cursor:pointer" onClick="rmPer(' + type + ', \'' + data + '\')">x</span><select class="auth" name="auth" style="height:23px;width:95px;font-size:11px;padding:3px;float:right;margin-top:-6px;margin-right:5px;background:none;border-radius:0">';
+      var ptml = '<div class="alert-message elem">' + placer + '<img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer" onClick="rmPer(' + type + ', \'' + data + '\')" /><select class="auth" name="auth" style="height:23px;width:95px;font-size:11px;padding:3px;float:right;margin-top:-6px;margin-right:5px;background:none;border-radius:0">';
       if (auth == 1) {
         rSel = ' selected';
       } else {
@@ -264,6 +268,20 @@ function rmPer(type, data) {
         }
       }
     });
+  }
+}
+
+
+// public toggling
+function pubToggler(obje) {
+  var primbut = $(obje).parent().parent().parent();
+  if (primbut.hasClass('primary')) {
+    primbut.removeClass('primary');
+    primbut.find('.pubtoggler').css('opacity', 1).slideUp('fast').animate({ opacity: 0 },{ queue: false, duration: 'fast'});
+
+  } else {
+    primbut.addClass('primary');
+    primbut.find('.pubtoggler').css('opacity', 0).slideDown('fast').animate({ opacity: 1 },{ queue: false, duration: 'fast'});
   }
 }
 
@@ -347,14 +365,27 @@ $('#update-pers').submit(function() {
       <div style="margin-bottom:30px">
       <div style="font-size:13px; font-weight:bolder; color:#666; margin-bottom:5px"> Public</div>
 
-      <div class="input">
+      <div class="btn <?php if ($public) { echo 'primary'; } ?>" style="padding-left:7px;padding-right:7px">
         <div class="input-prepend">
-          <label class="add-on"><input type="checkbox" name="public" id="publicTog" value="1" <?php if ($public) { echo 'checked'; } ?>></label>
-          <div style="padding-left:8px;padding-top:7px;padding-bottom:8px;border:1px solid #ccc;width:301px;margin-left:24px;font-size:11px;color:#666;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">
+          <label class="add-on"><input type="checkbox" name="public" id="publicTog" value="1" onclick="pubToggler(this);" <?php if ($public) { echo 'checked'; } ?>></label>
+          <div style="padding-left:8px;padding-top:6px;padding-bottom:6px;border:1px solid #ccc;width:285px;margin-left:24px;font-size:11px;color:#666;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;background:#fff">
           Allow this content to be accessed publicly (view-only)
           </div>
         </div>
+        <?php
+        if ($objcount == 1) {
+          echo '<div class="pubtoggler" style="margin-top:5px';
+          if (!$public) {
+            echo ';display:none';
+          }
+          echo '">
+          <span style="color:#fff;font-weight:bolder"><img src="/assets/app/img/box/sharelink.png" style="float:left;margin-right:4px;margin-top:4px" /> Link:</span>
+          <input type="text" style="font-size:11px;width:253px;padding-top:2px;padding-bottom:2px;border:2px solid #999" onclick="this.select();" value="http://www.classconnect.com/app/filebox/' . $objid . '" readonly />
+        </div>';
+        }
+        ?>
       </div>
+
       <div style="font-size:10px;color:#999;margin-top:4px;margin-left:5px">
       Reminder - all content you share publicly is <strong>free storage</strong>!
       </div>
@@ -385,7 +416,7 @@ $('#update-pers').submit(function() {
           $isLock = ' disabled';
         // if this is local
         } elseif ($col['loc'] == 2) {
-          $tagPend = '<span style="font-weight:bolder;float:right;cursor:pointer" onClick="rmPer(' . $col['type'] . ', \'' . $col['shared_id'] . '\')">x</span>';
+          $tagPend = '<img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer" onClick="rmPer(' . $col['type'] . ', \'' . $col['shared_id'] . '\')" />';
           $isLock = '';
 
 

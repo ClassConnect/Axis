@@ -2991,8 +2991,10 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    <div class="conmain">
 	    	<div class="optarea">
 	    		<div style="margin-top:17px;">
+	    		<div style="float:right;margin-right:34px;height:10px"></div>
 	    			';
 
+	    if ($perLev == 2) {
 	    		$list .= '<div class="optArDef">
 	    		<div class="btn opterBtner" onclick="toggleOptPanel(this);">
 		    		<img src="/assets/app/img/gen/arrDown.png" style="margin-top:-3px" />
@@ -3005,6 +3007,12 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
   }); return false;">
 			    		<img src="/assets/app/img/box/editcon.png" style="float:left;margin-right:3px;height:12px;margin-top:0px;margin-right:5px" />
 			    		Rename
+			    		</div>
+			    		<div class="listElem" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/tags/?conIDs=' . $child['_id'] . '\'
+  }); return false;">
+			    		<img src="/assets/app/img/box/tag.png" style="float:left;margin-right:3px;height:12px;margin-top:0px;margin-right:5px" />
+			    		Tag
 			    		</div>
 			    		<div class="listElem" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/move/?conIDs=' . $child['_id'] . '\'
@@ -3026,21 +3034,21 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 			    		</div>
 		    		</div>
 
-	    		</div>
+	    		</div>';
+	    	}
 
-	    		<img src="/assets/app/img/box/sharelink.png" onClick="jQuery.facebox({ 
+	 if (verifyPublic($child)) {
+	    	$list .= '<img src="/assets/app/img/box/sharelink.png" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
-  }); return false;" class="topDesc" title="<strong>This is shared publicly</strong><br />Anyone with the link can access it<br /><span style=\'color:#bbb;font-size:9px\'>(click to view the link)</span>" style="float:right;margin-left:4px;margin-top:2px;height:14px;width:14px">
-	    		<a style="float:right" class="textTogg" onClick="jQuery.facebox({ 
+  }); return false;" class="topDesc" title="<strong>This is shared publicly</strong><br />Anyone with the link can access it<br /><span style=\'color:#bbb;font-size:9px\'>(click to view the link)</span>" style="float:right;margin-left:4px;margin-top:2px;height:14px;width:14px">';
+	}
+
+  if ($perLev == 2) {
+	    $list .= '<a style="float:right" class="textTogg" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
   }); return false;">Share</a>
 
 	    		</div>';
-
-	    	if ($perLev == 2) {
-	    	/*	$list .= '<a href="#" onClick="jQuery.facebox({ 
-    ajax: \'/app/filebox/write/edit/title/' . $child['_id'] . '\'
-  });"><img src="/assets/app/img/box/editcon.png" style="float:left;margin-right:4px;margin-top:2px;height:14px;width:14px">Edit</a>';*/
 	    	}
 
 	    $list .= '</div>
