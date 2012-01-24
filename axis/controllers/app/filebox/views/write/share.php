@@ -8,7 +8,7 @@ if (isset($_POST['submitted'])) {
       if ($local != '') {
 
         // are we friends?
-        if (authFriend($local) || $local == user('id')) {
+        if (is_numeric($local)) {
           $pers[] = array("shared_id"=>(int) $local, "type"=>1, "auth_level"=>1);
         // no? create them an account then...
         } elseif (filter_var($local, FILTER_VALIDATE_EMAIL)) {
