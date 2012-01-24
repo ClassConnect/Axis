@@ -231,6 +231,7 @@ function initFolUI() {
    function() {
       $(this).removeClass('fbprogHov');
       $(this).find('.checkBoxy').addClass('cboxNorm').removeClass('cboxHov');
+      $(this).find('.optListers').hide();
    }
   );
 
@@ -485,7 +486,7 @@ function moveContent(target, contIDs) {
 // our non-drag move function
 function moveDefault() {
   jQuery.facebox({ 
-    ajax: '/app/filebox/write/move/'
+    ajax: '/app/filebox/write/move/?conIDs=' + getSelected()
   });
   return false;
 }
@@ -494,7 +495,7 @@ function moveDefault() {
 // our non-drag move function
 function copyDefault() {
   jQuery.facebox({ 
-    ajax: '/app/filebox/write/copy/'
+    ajax: '/app/filebox/write/copy/?conIDs=' + getSelected()
   });
   return false;
 }
@@ -524,7 +525,7 @@ function getSelected() {
 
 function addContent(route) {
   jQuery.facebox({ 
-    ajax: '/app/filebox/write/add/' + route + '/' 
+    ajax: '/app/filebox/write/add/' + route + '/'
   });
   return false;
 }
@@ -533,7 +534,7 @@ function addContent(route) {
 
 function deleteContent() {
   jQuery.facebox({ 
-    ajax: '/app/filebox/write/delete/' 
+    ajax: '/app/filebox/write/delete/?conIDs=' + getSelected()
   });
   return false;
 }
@@ -576,6 +577,15 @@ function addButtonToggle(butObj) {
   } else {
     $(butObj).find('.contentPanel').css('opacity', 1).slideUp('fast').animate({ opacity: 0 },{ queue: false, duration: 'fast'});
     $(butObj).css('z-index', "0");
+  }
+}
+
+function toggleOptPanel(butObj) {
+  var lstObj = $(butObj).find('.optListers');
+  if (lstObj.is(":hidden")) {
+    lstObj.show();
+  } else {
+    lstObj.hide();
   }
 }
 

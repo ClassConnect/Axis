@@ -2990,14 +2990,51 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    ' . $icon  . '
 	    <div class="conmain">
 	    	<div class="optarea">
-	    		<div style="margin-top:17px;margin-left:50px">
+	    		<div style="margin-top:17px;">
 	    			';
 
 	    		$list .= '<div class="optArDef">
-	    		<a style="float:left" class="textTogg" onClick="jQuery.facebox({ 
+	    		<div class="btn opterBtner" onclick="toggleOptPanel(this);">
+		    		<img src="/assets/app/img/gen/arrDown.png" style="margin-top:-3px" />
+
+		    		<div class="optListers">
+			    		<div style="float:right;border-top:1px solid #fff; margin-top:-1px;width:20px;height:1px;margin-right:2px">
+			    		</div>
+			    		<div class="listElem" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/edit/title/' . $child['_id'] . '\'
+  }); return false;">
+			    		<img src="/assets/app/img/box/editcon.png" style="float:left;margin-right:3px;height:12px;margin-top:0px;margin-right:5px" />
+			    		Rename
+			    		</div>
+			    		<div class="listElem" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/move/?conIDs=' . $child['_id'] . '\'
+  }); return false;">
+			    		<img src="/assets/app/img/box/move.png" style="float:left;margin-right:3px;height:12px;margin-top:0px;margin-right:5px" />
+			    		Move
+			    		</div>
+			    		<div class="listElem" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/copy/?conIDs=' . $child['_id'] . '\'
+  }); return false;">
+			    		<img src="/assets/app/img/box/copy.png" style="float:left;margin-right:3px;height:12px;margin-top:0px;margin-right:5px" />
+			    		Copy
+			    		</div>
+			    		<div class="listElem" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/delete/?conIDs=' . $child['_id'] . '\'
+  }); return false;">
+			    		<img src="/assets/app/img/box/del.png" style="float:left;margin-right:3px;height:12px;margin-top:0px;margin-right:5px" />
+			    		Delete
+			    		</div>
+		    		</div>
+
+	    		</div>
+
+	    		<img src="/assets/app/img/box/sharelink.png" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
+  }); return false;" class="topDesc" title="<strong>This is shared publicly</strong><br />Anyone with the link can access it<br /><span style=\'color:#bbb;font-size:9px\'>(click to view the link)</span>" style="float:right;margin-left:4px;margin-top:2px;height:14px;width:14px">
+	    		<a style="float:right" class="textTogg" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
   }); return false;">Share</a>
-	    		<img src="/assets/app/img/box/sharelink.png" class="topDesc" title="<strong>This is shared publicly</strong><br />Anyone with the link can access it" style="float:left;margin-left:4px;margin-top:2px;height:14px;width:14px">
+
 	    		</div>';
 
 	    	if ($perLev == 2) {
@@ -3114,7 +3151,7 @@ function authorUI($conObj, $perObj) {
 	} else {
 
 	 return '<div style="clear:both">
-	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px; border:2px solid #ccc" />
+	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:8px;" class="vidView" />
 		 	<div style="margin-left:70px">
 		 		<div style="padding-top:5px;font-size:14px">
 		 			<a href="#">' . dispUser($ownerID, 'first_name') . ' ' . dispUser($ownerID, 'last_name') . '</a>

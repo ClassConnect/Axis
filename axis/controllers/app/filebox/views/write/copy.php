@@ -21,7 +21,7 @@ $(document).ready(function(){
   fbFormControl();
 });
 $('#copy-con').submit(function() {
-   var serData = 'target=' + $('.chosenOne').val() + '&conIDs=' + getSelected();
+   var serData = 'target=' + $('.chosenOne').val() + '&conIDs=<?= $_GET['conIDs']; ?>';
     fbFormSubmitted('#copy-con');
     $.ajax({  
       type: "POST",  

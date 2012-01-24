@@ -57,7 +57,7 @@ $('#edit-title').submit(function() {
 <form action="#" id="edit-title" class="form-stacked">
 <input type="hidden" name="submitted" value="true" />
   <fieldset>
-    <legend>Edit Content</legend>
+    <legend>Rename Content</legend>
     <div class="clearfix">
     <div id="errorBox" style="display:none"></div>
       <div class="input">

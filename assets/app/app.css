@@ -253,6 +253,68 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .fbprogHov .textTogg, .fbprogSel .textTogg {
   color: #0069d6;
 }
+.opterBtner {
+  float:right;
+  margin-top:1px;
+  margin-right:34px;
+  margin-left:20px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #F4F4F4;
+  background-repeat: no-repeat;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), color-stop(25%, #ffffff), to(#F4F4F4));
+  background-image: -webkit-linear-gradient(#ffffff, #ffffff 25%, #F4F4F4);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 25%, #F4F4F4);
+  background-image: -ms-linear-gradient(#ffffff, #ffffff 25%, #F4F4F4);
+  background-image: -o-linear-gradient(#ffffff, #ffffff 25%, #F4F4F4);
+  background-image: linear-gradient(#ffffff, #ffffff 25%, #F4F4F4);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#F4F4F4', GradientType=0);
+  padding: 2px;
+  height:10px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  color: #333;
+  font-size: 11px;
+  line-height: normal;
+  border: 1px solid #ccc;
+  border-bottom-color: #bbb;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -ms-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+}
+.opterBtner .optListers {
+  width:100px;
+  position:absolute;
+  background:#fff;
+  margin-left:-81px;
+  margin-top:-7px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  border-bottom-color: #bbb;
+  display:none;
+  z-index:100;
+}
+.opterBtner .optListers .listElem {
+  padding:5px 2px 5px 8px;
+  border-bottom:1px solid #eee;
+  color:#444;
+  font-weight:bolder;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.opterBtner .optListers .listElem:hover {
+  background:#efefef;
+}
 .folderBar {
   width:224px;
   background:#fff;

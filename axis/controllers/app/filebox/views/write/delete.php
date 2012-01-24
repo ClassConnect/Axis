@@ -30,7 +30,7 @@ $('#del-con').submit(function() {
     $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/delete/",  
-      data: 'submitted=true&ids=' + delData,  
+      data: 'submitted=true&ids=<?= $_GET['conIDs']; ?>',  
       success: function(retData) {
         if (retData == '1') {
           initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content deleted successfully</span>', 'yellowBox', 210, 527, 1500);
