@@ -206,7 +206,7 @@ function addTag(type, tag, bypass) {
       $('#lackTag').hide();
     
 
-    $('.type' + type).append('<div class="alert-message elem"><span class="type' + type + 'text">' + tag + '</span><span style="font-weight:bolder;float:right;cursor:pointer" onClick="xTag(\'' + type + '\', this)">x</span></div>');
+    $('.type' + type).append('<div class="alert-message elem"><span class="type' + type + 'text">' + tag + '</span><img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer" onClick="xTag(\'' + type + '\', this)" /></div>');
   }
   
 }
@@ -398,7 +398,7 @@ function swapCore(curr, grade, topic) {
 
         // if this is local
         } elseif ($item['loc'] == 2) {
-          $tagPend = '<span style="font-weight:bolder;float:right;cursor:pointer" onClick="xTag(\'' . $tid . '\', this)">x</span>';
+          $tagPend = '<img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer" onClick="xTag(\'' . $tid . '\', this)" />';
 
 
         }
