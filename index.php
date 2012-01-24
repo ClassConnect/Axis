@@ -19,7 +19,7 @@ $buffer = ob_get_clean();
 // set a custom header (just for kicks)
 header('X-Powered-By: ClassConnect Axis');
 // clean & send the final buffer
-echo cleanBuffer($buffer);
+echo $buffer;
 /*
 $domainarray = explode('.', $_SERVER['HTTP_HOST']);
 $index=count($domainarray)-1;

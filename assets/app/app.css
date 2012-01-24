@@ -237,16 +237,18 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 .optArDef {
   font-size:11px;
-  filter: alpha(opacity=5);
+  filter: alpha(opacity=50);
   -khtml-opacity: 0.5;
   -moz-opacity: 0.5;
   opacity: 0.5;
+  zoom: 1;
 }
 .fbprogHov .optArDef, .fbprogSel .optArDef {
-  filter: alpha(opacity=1);
+  filter: alpha(opacity=100);
   -khtml-opacity: 1;
   -moz-opacity: 1;
   opacity: 1;
+  zoom: 1;
 }
 .fboxElement .textTogg {
   color:#666;
