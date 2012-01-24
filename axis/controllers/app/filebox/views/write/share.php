@@ -398,7 +398,7 @@ $('#update-pers').submit(function() {
           }
           echo '">
           <span style="color:#fff;font-weight:bolder"><img src="/assets/app/img/box/sharelink.png" style="float:left;margin-right:4px;margin-top:4px" /> Link:</span>
-          <input type="text" style="font-size:11px;width:253px;padding-top:2px;padding-bottom:2px;border:2px solid #999" onclick="this.select();" value="http://www.classconnect.com/app/filebox/' . $objid . '" readonly />
+          <input type="text" style="font-size:11px;width:253px;padding-top:2px;padding-bottom:2px;border:2px solid #999;cursor:pointer" onclick="this.select();" value="http://www.classconnect.com/app/filebox/' . $objid . '" readonly />
         </div>';
         }
         ?>
