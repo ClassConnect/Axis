@@ -1401,7 +1401,14 @@ function pushNotis($itemObj) {
                     $subj = $myName . ' has shared "' . $itemObj['data'][0]['title'] . '" with you';
                     $sendTo = array(dispUser($share['shareID'], 'e_mail'));
                     $sendFrom = array('support@classconnect.com' => $myName);
-                    $body = "Hi there,\n$myName just shared \"{$itemObj['data'][0]['title']}\" with you on ClassConnect. To access this content, visit http://www.classconnect.com/app/filebox/{$itemObj['data'][0]['id']} in your web browser.\n\nIf you do not have a ClassConnect account yet, simply sign up at http://www.classconnect.com/app using this email address (" . dispUser($share['shareID'], 'e_mail') . ")\n\n-The ClassConnect Team";
+                    $body = "Hi there,\n$myName just shared \"{$itemObj['data'][0]['title']}\" with you on ClassConnect. To access this content, visit http://www.classconnect.com/app/filebox/{$itemObj['data'][0]['id']} in your web browser.";
+
+                    // if this is a temp account, show a sign up prompt
+                    if (dispUser($share['shareID'], 'pass') == 'temp-user') {
+                        $body .= "\n\nIf you do not have a ClassConnect account yet, simply sign up at http://www.classconnect.com/ using this email address (" . dispUser($share['shareID'], 'e_mail') . ")";
+                    }
+
+                    $body .= "\n\n-The ClassConnect Team";
 
                     sendEmail($subj, $sendTo, $sendFrom, $body);
                     
