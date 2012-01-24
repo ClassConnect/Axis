@@ -46,6 +46,13 @@ $('#del-con').submit(function() {
             for (dataID in retData['items']) {
               $("#" + retData['items'][dataID]).css('opacity', 1).slideUp('fast').animate({ opacity: 0 },{ queue: false, duration: 'fast'});
             }
+
+            // temp for now
+            $('#copyBtn').attr('disabled', 'disabled');
+            $('#moveBtn').attr('disabled', 'disabled');
+            $('#delBtn').attr('disabled', 'disabled');
+            $('#shareBtn').attr('disabled', 'disabled');
+            $('#tagBtn').attr('disabled', 'disabled');
             closeBox();
           }
 
