@@ -350,7 +350,7 @@ $('#update-pers').submit(function() {
             for (dataID in retData['data']) {
                 $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
               }
-            initFolUI();
+            restartFolUI();
           }
           closeBox();
         } else {

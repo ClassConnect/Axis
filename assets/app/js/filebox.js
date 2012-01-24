@@ -372,6 +372,14 @@ function initFolUI() {
 }
 
 
+function restartFolUI() {
+  $("#mainSwap").html($("#mainSwap").html());
+  $("#leftSwap").html($("#leftSwap").html());
+  $("#crumbNav").html($("#crumbNav").html());
+  initFolUI();
+}
+
+
 
 function initFilUI() {
   $("#storagebar").progressbar({

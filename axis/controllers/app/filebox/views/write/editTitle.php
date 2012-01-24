@@ -53,7 +53,7 @@ $('#edit-title').submit(function() {
           if (currentType == 1) {
             initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content updated successfully</span>', 'yellowBox', 210, 527, 1500);
             $("#" + retData['data']['id']).replaceWith(retData['data']['result']);
-            initFolUI();
+            restartFolUI();
           }
           closeBox();
         } else {
