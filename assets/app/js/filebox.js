@@ -236,7 +236,7 @@ function initFolUI() {
   );
 
   // let our option area be unclickable
-  $('.optarea, .optBox').click(function() {
+  $('.optarea, .optBox, .rollFalse').click(function() {
     return false;
   });
 
@@ -372,9 +372,19 @@ function initFolUI() {
 }
 
 
-function restartFolUI() {
+function restartFolUI(sidebar) {
+  if ($(".fboxFloater").hasClass("fboxFloat")) {
+    var shouldFloat = true;
+  } else {
+    var shouldFloat = false;
+  }
+
   $("#mainSwap").html($("#mainSwap").html());
-  $("#leftSwap").html($("#leftSwap").html());
+  if (!sidebar) {
+    $("#leftSwap").html($("#leftSwap").html()); 
+  } else {
+    $("#leftSwap").html(sidebar);
+  }
   $("#crumbNav").html($("#crumbNav").html());
   if (!$(".checkBoxed").length) {
     $('#copyBtn').attr('disabled', 'disabled');
@@ -383,6 +393,14 @@ function restartFolUI() {
     $('#shareBtn').attr('disabled', 'disabled');
     $('#tagBtn').attr('disabled', 'disabled');
   }
+
+  if (shouldFloat) {
+    var panel = $(".fboxFloater");
+    panel.addClass('fboxFloat');
+    panel.addClass('fboxPad');
+    $("#crumbNav").addClass('fboxCrumbFloat'); 
+  }
+
   initFolUI();
 }
 

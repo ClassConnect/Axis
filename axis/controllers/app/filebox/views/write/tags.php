@@ -12,7 +12,36 @@ if (isset($_POST['submitted'])) {
   }
 
 updateTags($_POST['conIDs'], $tags);
-echo 1;
+
+
+$retObj = array();
+$retObj['success'] = 1;
+
+$cdata = getContent($_POST['current']);
+$permissionObj = verifyPermissions($cdata, user('id'));
+if ($_POST['current'] == '0') {
+  $cdata['_id'] = 0;
+  $cdata['type'] = 1;
+  $cdata['title'] = 'FileBox';
+}
+
+if ($cdata['type'] == 1) {
+  $retObj['sidebar'] = createFolBar($cdata, $permissionObj);
+} elseif ($cdata['type'] == 2) {
+  $retObj['sidebar'] = createFilBar($cdata, $permissionObj);
+}
+
+
+$batchCon = getBatchContent($_POST['conIDs']);
+foreach ($batchCon as $ctem) {
+  $permissionObj = verifyPermissions($ctem, user('id'));
+  $perLevel = determinePerLevel($ctem['_id'], $permissionObj);
+  if ($perLevel > 0) {
+    $retObj['data'][] = array("id" => (string) $ctem['_id'], "result" => genConStripe($ctem, $perLevel));
+  }
+}
+header('Content-type: application/json');
+echo json_encode($retObj);
 
   /*
   $attempt = 1;
@@ -101,17 +130,28 @@ $('#update-tags').submit(function() {
     $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/tags/", 
-      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&type1=' + escape(type1) + '&type2=' + escape(type2) + '&type3=' + escape(type3) + '&type4=' + escape(type4),
+      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&type1=' + escape(type1) + '&type2=' + escape(type2) + '&type3=' + escape(type3) + '&type4=' + escape(type4) + '&current=' + currentCon,
+      dataType: "json",
       success: function(retData) {
         
-        if (retData == '1') {
-          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Tags updated successfully</span>', 'yellowBox', 190, 547, 1500);
-          softRefresh();
+          if (retData['success'] == 1) {
+            initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Tags updated successfully</span>', 'yellowBox', 190, 547, 1500);
+            
+            if (currentType == 1) {
+
+              for (dataID in retData['data']) {
+                  $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
+                }
+              restartFolUI(retData['sidebar']);
+            }
           closeBox();
-        } else {
-          fbFormRevert('#update-tags');
-          showFormError(retData);
-        }
+          } else {
+            fbFormRevert('#update-tags');
+            showFormError(retData['text']);
+          }
+
+          closeBox();
+
         
       }  
       

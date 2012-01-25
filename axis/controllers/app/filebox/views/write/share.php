@@ -100,6 +100,21 @@ updatePermissions($_POST['conIDs'], $pers);
 $retObj = array();
 $retObj['success'] = 1;
 
+$cdata = getContent($_POST['current']);
+$permissionObj = verifyPermissions($cdata, user('id'));
+if ($_POST['current'] == '0') {
+  $cdata['_id'] = 0;
+  $cdata['type'] = 1;
+  $cdata['title'] = 'FileBox';
+}
+
+if ($cdata['type'] == 1) {
+  $retObj['sidebar'] = createFolBar($cdata, $permissionObj);
+} elseif ($cdata['type'] == 2) {
+  $retObj['sidebar'] = createFilBar($cdata, $permissionObj);
+}
+
+
 $batchCon = getBatchContent($_POST['conIDs']);
 foreach ($batchCon as $ctem) {
   $permissionObj = verifyPermissions($ctem, user('id'));
@@ -341,7 +356,7 @@ $('#update-pers').submit(function() {
   $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/share/", 
-      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&userRead=' + uidRead + '&userWrite=' + uidWrite + '&courses=' + courses + '&pub=' + pubshare,
+      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&userRead=' + uidRead + '&userWrite=' + uidWrite + '&courses=' + courses + '&pub=' + pubshare + '&current=' + currentCon,
       dataType: "json",
       success: function(retData) {
         if (retData['success'] == 1) {
@@ -350,7 +365,7 @@ $('#update-pers').submit(function() {
             for (dataID in retData['data']) {
                 $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
               }
-            restartFolUI();
+            restartFolUI(retData['sidebar']);
           }
           closeBox();
         } else {

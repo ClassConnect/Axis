@@ -7,6 +7,19 @@ if (isset($_POST['submitted'])) {
   $retObj['items'] = explode(',', $_POST['ids']);
   header('Content-type: application/json');
   if ($attempt == 1) {
+    $cdata = getContent($_POST['current']);
+    $permissionObj = verifyPermissions($cdata, user('id'));
+    if ($_POST['current'] == '0') {
+      $cdata['_id'] = 0;
+      $cdata['type'] = 1;
+      $cdata['title'] = 'FileBox';
+    }
+
+    if ($cdata['type'] == 1) {
+      $retObj['sidebar'] = createFolBar($cdata, $permissionObj);
+    } elseif ($cdata['type'] == 2) {
+      $retObj['sidebar'] = createFilBar($cdata, $permissionObj);
+    }
     echo json_encode($retObj);
   } else {
     $errDat = '<div class="alert-message warning" style="width:310px">';
@@ -36,7 +49,7 @@ $('#del-con').submit(function() {
     $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/delete/",  
-      data: 'submitted=true&ids=<?= $_GET['conIDs']; ?>', 
+      data: 'submitted=true&ids=<?= $_GET['conIDs']; ?>&current=' + currentCon, 
       dataType: "json",
       success: function(retData) {
         if (retData['success'] == 1) {
@@ -44,15 +57,11 @@ $('#del-con').submit(function() {
           if (currentType == 1) {
             initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content deleted successfully</span>', 'yellowBox', 210, 527, 1500);
             for (dataID in retData['items']) {
-              $("#" + retData['items'][dataID]).css('opacity', 1).slideUp('fast').animate({ opacity: 0 },{ queue: false, duration: 'fast'});
+              $("#" + retData['items'][dataID]).css('opacity', 1).slideUp('fast').animate({ opacity: 0 },{ queue: false, duration: 300});
             }
 
-            // temp for now
-            $('#copyBtn').attr('disabled', 'disabled');
-            $('#moveBtn').attr('disabled', 'disabled');
-            $('#delBtn').attr('disabled', 'disabled');
-            $('#shareBtn').attr('disabled', 'disabled');
-            $('#tagBtn').attr('disabled', 'disabled');
+            sideBarSwap = retData['sidebar'];
+            setTimeout("restartFolUI(sideBarSwap)",300);
             closeBox();
           }
 

@@ -1741,6 +1741,24 @@ function dispStorageInfo($userID) {
     return $final;
 }
 
+
+function sizeToText($size) {
+    $used = array();
+    // show in megabytes
+    if ($size < 1073741824) {
+        $used['data'] = ceil($size / 1048576);
+        $used['fix'] = 'MB';
+
+    // show in gigs
+    } elseif ($size >= 1073741824) {
+        $used['data'] = sprintf("%.1f", $size / 1073741824);
+        $used['fix'] = 'GB';
+
+    }
+
+    return $used;
+}
+
 // check if storage exceeds max
 function checkStorage($add, $uid) {
     $data = storageInfo($uid);

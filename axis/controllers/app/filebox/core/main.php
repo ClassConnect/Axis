@@ -3085,8 +3085,32 @@ function genConStripe($child, $perLev) {
 	    		<a class="js-pjax" href="/app/filebox/' . $child['_id'] . '">' . createConTitle($child) . '</a>
 	    		</div>
 	    		<div class="conlast">
-	    		Updated ' . $lastMod . ' by <a href="#" class="textTogg" onClick="return false">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>
-	    		</div>
+	    		Updated ' . $lastMod . ' by <a href="#" class="textTogg" onClick="return false">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>';
+
+
+	    		if ($child['total_size'] > 0 && $child['type'] == 1) {
+	    			$sizeData = sizeToText($child['total_size']);
+	    			$list .= '<span class="topDesc rollFalse" title="' . $child['files'] . ' files, ' . $sizeData['data'] . ' ' . $sizeData['fix'] .'"><img src="/assets/app/img/box/mini/file.png" style="margin-left:6px;margin-right:-1px;" /> ' . $child['files'] . '</span>';
+	    		}
+
+
+	    		//if this has tags, show the mini button thing
+	    		$totTags = (count($child['tags']) + count($child['parentTags']));
+	    		if ($totTags > 0) {
+	    			$list .= '<span class="topDesc rollFalse" title="' . $totTags . ' tags" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/tags/?conIDs=' . $child['_id'] . '\'
+  });$(\'.twipsy\').remove();"><img src="/assets/app/img/box/mini/tag.png" style="margin-left:6px;margin-right:-1px;" /> ' . $totTags . '</span>';
+	    		}
+
+	    		//if this has tags, show the mini button thing
+	    		$totShares = (count($child['permissions']) + count($child['parentPermissions']));
+	    		if ($totShares > 0) {
+	    			$list .= '<span class="topDesc rollFalse" title="Shared with ' . $totShares . '" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
+  });$(\'.twipsy\').remove();"><img src="/assets/app/img/box/mini/user.png" style="margin-left:6px;margin-right:-1px;" /> ' . $totShares . '</span>';
+	    		}
+
+	    $list .= '</div>
 	    	</div>
 	    </div>
 	    </div>';
@@ -3149,7 +3173,7 @@ function authorUI($conObj, $perObj) {
 
 
  return '<div style="clear:both">
-	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px;" class="vidView" />
+	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px;background:#fff" class="vidView" />
 		 	<div style="margin-left:70px;padding-bottom:5px">
 		 		<div style="padding-top:1px">
 
@@ -3175,7 +3199,7 @@ function authorUI($conObj, $perObj) {
 	} else {
 
 	 return '<div style="clear:both">
-	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:8px;" class="vidView" />
+	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:8px;background:#fff" class="vidView" />
 		 	<div style="margin-left:70px">
 		 		<div style="padding-top:5px;font-size:14px">
 		 			<a href="#">' . dispUser($ownerID, 'first_name') . ' ' . dispUser($ownerID, 'last_name') . '</a>
