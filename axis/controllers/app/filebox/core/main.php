@@ -3088,7 +3088,7 @@ function genConStripe($child, $perLev) {
 	    		Updated ' . $lastMod . ' by <a href="#" class="textTogg" onClick="return false">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>';
 
 
-	    		if ($child['total_size'] > 0 && $child['type'] == 1) {
+	    		if ($child['files'] > 0 && $child['type'] == 1) {
 	    			$sizeData = sizeToText($child['total_size']);
 	    			$list .= '<span class="topDesc rollFalse" title="' . $child['files'] . ' files, ' . $sizeData['data'] . ' ' . $sizeData['fix'] .'"><img src="/assets/app/img/box/mini/file.png" style="margin-left:6px;margin-right:-1px;" /> ' . $child['files'] . '</span>';
 	    		}
