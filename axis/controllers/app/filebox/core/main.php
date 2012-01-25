@@ -92,9 +92,6 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 		$obj = array(
 			"owner_id" => $owner_id, // owner of this content
 			"type" => $type, // 1 = folder, 2 = file
-			"calc_votes" => 0, // current vote calculation
-			"total_votes" => 0, // total number of votes
-			"id_votes" => array(), // votes w/ corresponding UIDs
 			"parent" => $parent, // parent folder
 			"parents" => $parents, // all parents
 			"parentPermissions" => $parentPermissions, // permissions from parents
@@ -3523,7 +3520,17 @@ function createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 
 		$result = '<div id="padset" style="height:30px;width:650px;display:none">&nbsp;</div>
 		<div class="contentView">
-		<div class="contentTitle">' . createConTitle($cObj) . '</div>
+		<div class="contentTitle"><span class="contentTitleSwap">' . createConTitle($cObj) . '</span>';
+
+		// if editable, show rename button
+		if ($perLevel == 2) {
+			$result .= '<button class="btn topDesc" style="padding-left:5px;padding-right:0px;padding-top:2px;padding-bottom:4px;position:absolute;margin-left:7px;margin-top:-3px" title="Rename this content" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/edit/title/' . $conID . '\'
+  }); $(\'.twipsy\').remove(); return false;"><img src="/assets/app/img/box/editcon.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /></button>';
+		}
+
+
+		$result .= '</div>
 		' . $view . '</div>';
 
 		// if we have read write
@@ -3569,6 +3576,9 @@ function createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 // create options view
 function createFilUI() {
 	return '<div style="float:right;margin-top:15px">
+
+	<div style="font-size:11px;float:left;margin-right:15px;margin-top:6px"><a href="#">Share</a> <img src="/assets/app/img/box/sharelink.png" style="margin-bottom:-3px;margin-left:2px" /></div>
+
 	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px;margin-right:10px" title="Recommend this"><img src="/assets/app/img/box/thumbup.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">20</span></button>
 
 	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px" title="Add this to your Filebox"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">15</span></button>

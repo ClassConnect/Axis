@@ -13,6 +13,7 @@ if (isset($_POST['submitted'])) {
     $perLevel = determinePerLevel($cdata['_id'], $permissionObj);
     $retObj['data']['id'] = $conID;
     $retObj['data']['result'] = genConStripe($cdata, $perLevel);
+    $retObj['data']['title'] = createConTitle($cdata);
     echo json_encode($retObj);
   } else {
     $errDat = '<div class="alert-message warning" style="width:310px">';
@@ -38,7 +39,7 @@ if ($perLevel == 2) {
 ?>
 <script type="text/javascript">
 $(document).ready(function(){
-  fbFormControl('#xlInput3');
+  fbFormControl('#conTitler');
 });
 $('#edit-title').submit(function() {
    var serData = $("#edit-title").serialize();
@@ -50,10 +51,12 @@ $('#edit-title').submit(function() {
       dataType: "json",
       success: function(retData) {
         if (retData['success'] == 1) {
+          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content updated successfully</span>', 'yellowBox', 210, 527, 1500);
           if (currentType == 1) {
-            initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content updated successfully</span>', 'yellowBox', 210, 527, 1500);
             $("#" + retData['data']['id']).replaceWith(retData['data']['result']);
             restartFolUI();
+          } else if (currentType == 2) {
+            $('.contentTitleSwap').html(retData['data']['title']);
           }
           closeBox();
         } else {
@@ -73,7 +76,7 @@ $('#edit-title').submit(function() {
     <div class="clearfix">
     <div id="errorBox" style="display:none"></div>
       <div class="input">
-        <input class="xlarge span6" id="xlInput3" name="content_title" size="30" maxlength="60" type="text" style="margin-right:20px" value="<?= $conData['title']; ?>">
+        <input class="xlarge span6" id="conTitler" name="content_title" size="30" maxlength="60" type="text" style="margin-right:20px" value="<?= $conData['title']; ?>">
       </div>
     </div><!-- /clearfix -->
   </fieldset>
