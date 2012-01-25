@@ -3571,7 +3571,7 @@ function createFilUI() {
 	return '<div style="float:right;margin-top:15px">
 	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px;margin-right:10px" title="Recommend this"><img src="/assets/app/img/box/thumbup.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">20</span></button>
 
-	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px" title="Add this to your FileBox"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">15</span></button>
+	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px" title="Add this to your Filebox"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">15</span></button>
 	</div>';
 }
 
