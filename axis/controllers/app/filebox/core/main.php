@@ -3331,6 +3331,8 @@ function assocUI($conObj, $perObj) {
 	  		$fshar[2][] = $share;
 	  		$sdata = getSection($share['shared_id']);
 	  		$courAttr .= $sdata['title'] . '<br />';
+	  	} elseif ($share['type'] == 3) {
+	  		$fshar[3][] = $share;
 	  	}
 	  }
 
@@ -3356,6 +3358,15 @@ function assocUI($conObj, $perObj) {
 	  	}
 	  	$sharePend .= '<a href="#" rel="sharedWith" data-original-title="' . $courAttr . '<span style=\'color:#ccc;font-size:9px\'>(click to edit)</span>" onClick="shareCurrent();return false">
 	      	<img src="/assets/app/img/temp/course.png" style="float:left;margin-right:5px;margin-top:2px;height:12px" /> ' . count($fshar[2]) . ' ' . $courText . '
+	      </a>';
+	  }
+
+	  if (count($fshar[3]) > 0) {
+	  	if ($sharePend != '') {
+	  		$sharePend .= '<br />';
+	  	}
+	  	$sharePend .= '<a href="#" rel="sharedWith" data-original-title="<strong>This is shared publicly</strong><br />Anyone with the link can access it<br /><span style=\'color:#bbb;font-size:9px\'>(click to view the link)</span>" onClick="shareCurrent();return false">
+	      	<img src="/assets/app/img/temp/globe.png" style="float:left;margin-left:-2px;margin-right:5px;margin-top:2px;height:12px" /> Public
 	      </a>';
 	  }
 
@@ -3551,6 +3562,17 @@ function createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 
 		return $result;
 	
+}
+
+
+
+// create options view
+function createFilUI() {
+	return '<div style="float:right;margin-top:15px">
+	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px;margin-right:10px" title="Recommend this"><img src="/assets/app/img/box/thumbup.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">20</span></button>
+
+	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px" title="Add this to your FileBox"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">15</span></button>
+	</div>';
 }
 
 
