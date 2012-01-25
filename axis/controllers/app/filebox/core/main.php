@@ -3257,7 +3257,7 @@ function actionUI($conObj, $perObj) {
 
       <button id="delBtn" class="btn actBtn actBtnNoLeft actBtnMarg" disabled><img src="/assets/app/img/box/del.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Delete') . '</button>
 
-      <button id="shareBtn" class="btn actBtn actBtnNoRight" style="margin-left:40px" disabled><img src="/assets/app/img/box/share.png" style="float:left; height:16px;margin-right:5px;margin-top:-2px;" />' . say('Share') . '</button>
+      <button id="shareBtn" class="btn actBtn actBtnNoRight" style="margin-left:40px" disabled><img src="/assets/app/img/box/share.png" style="float:left; height:16px;margin-right:5px;margin-top:-2px;margin-bottom:-2px" />' . say('Share') . '</button>
 
       <button id="tagBtn" class="btn actBtn actBtnNoLeft actBtnMarg" disabled><img src="/assets/app/img/box/tag.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Tag') . '</button>';
 

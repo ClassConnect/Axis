@@ -143,6 +143,8 @@ $('#update-tags').submit(function() {
                   $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
                 }
               restartFolUI(retData['sidebar']);
+            } else if (currentType == 2) {
+              restartFilUI(retData['sidebar']);
             }
           closeBox();
           } else {

@@ -360,14 +360,20 @@ $('#update-pers').submit(function() {
       dataType: "json",
       success: function(retData) {
         if (retData['success'] == 1) {
+          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Sharing updated successfully</span>', 'yellowBox', 210, 527, 1500);
+
           if (currentType == 1) {
-            initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Sharing updated successfully</span>', 'yellowBox', 210, 527, 1500);
             for (dataID in retData['data']) {
                 $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
               }
             restartFolUI(retData['sidebar']);
+
+          } else if (currentType == 2) {
+            restartFilUI(retData['sidebar']);
           }
+
           closeBox();
+          
         } else {
           fbFormRevert('#update-tags');
           showFormError(retData['text']);

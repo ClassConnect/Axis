@@ -420,6 +420,26 @@ function initFilUI() {
 
 
 
+function restartFilUI(sidebar) {
+  //$("#mainSwap").html($("#mainSwap").html());
+  if (!sidebar) {
+    //$("#leftSwap").html($("#leftSwap").html()); 
+  } else {
+    $("#leftSwap").html(sidebar);
+  }
+  //$("#crumbNav").html($("#crumbNav").html());
+
+
+  $("#storagebar").progressbar({
+    value: parseInt($("#storageval").text())
+  });
+  
+  // dude, floating panels aren't cool anymore...
+  killScrollSpy();
+}
+
+
+
 
 function swapDesc() {
   var obStr = '';
