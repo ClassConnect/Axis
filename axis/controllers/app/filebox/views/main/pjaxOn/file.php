@@ -9,7 +9,7 @@ $crumbs = constructCrumbs($permissionObj, $cObj['parents'], array("id" => '-1', 
 // generate our sidebar
 $sidebar = cleanOutJS(createFilBar($cObj, $permissionObj));
 // generate main dir list
-$main = cleanOutJS(createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) . createFilUI() . createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID));
+$main = cleanOutJS(createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) . createFilUI($conID, $cObj, $permissionObj, $perLevel, $dataID) . createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID));
 
 if (isset($_GET['_nav'])) {
   $crumbs = 0;

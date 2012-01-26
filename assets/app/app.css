@@ -564,6 +564,17 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background:#EBF3FF;
 }
 
+.fboxFilUIbtn {
+  padding-left:5px;
+  padding-right:5px;
+  padding-top:4px;
+  margin-right:10px;
+}
+
+.fboxFilUIbtnSel {
+  background:#ccc;
+}
+
 
 .commentBoxTopper {
   background: url(/assets/app/img/box/cmttop.png) 0 0 no-repeat;

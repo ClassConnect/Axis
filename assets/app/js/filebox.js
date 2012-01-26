@@ -516,6 +516,43 @@ function saveDesc() {
 }
 
 
+function recommendThis(obje, conID, dataID) {
+  if ($(obje).hasClass('fboxFilUIbtnSel')) {
+    $(obje).removeClass('fboxFilUIbtnSel');
+    $(obje).attr('title', 'Recommend this');
+    $('.twipsy').remove();
+    $(obje).twipsy('show');
+    var primObj = $(obje).find('.numbero');
+    primObj.html(parseInt(primObj.html()) - 1);
+    $.ajax({
+      type: "GET",
+      url: "/app/filebox/write/rm/rec/" + conID + "/" + dataID,
+      success: function(data) {
+          // do nothing
+      }
+
+    });
+    
+  } else {
+
+    $(obje).addClass('fboxFilUIbtnSel');
+    $(obje).attr('title', 'Un-recommend this');
+    $('.twipsy').remove();
+    $(obje).twipsy('show');
+    var primObj = $(obje).find('.numbero');
+    primObj.html(parseInt(primObj.html()) + 1);
+    $.ajax({
+      type: "GET",
+      url: "/app/filebox/write/add/rec/" + conID + "/" + dataID,
+      success: function(data) {
+          // do nothing
+             
+      }
+
+    });
+    
+  }
+}
 
 
 function moveContent(target, contIDs) {

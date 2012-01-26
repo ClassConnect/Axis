@@ -9,6 +9,9 @@ if ($this->Command->Parameters[0] == 'write') {
     if ($this->Command->Parameters[2] == 'comment') {
       require_once('views/write/addComment.php');
 
+    } elseif ($this->Command->Parameters[2] == 'rec') {
+      require_once('views/write/addRec.php');
+
     // if we're adding a folder
     } elseif ($this->Command->Parameters[2] == 'folder') {
       require_once('views/write/addFolder.php');
@@ -73,6 +76,9 @@ if ($this->Command->Parameters[0] == 'write') {
   } elseif ($this->Command->Parameters[1] == 'rm') {
     if ($this->Command->Parameters[2] == 'comment') {
       require_once('views/write/delComment.php');
+      
+    } elseif ($this->Command->Parameters[2] == 'rec') {
+      require_once('views/write/delRec.php');
     }
 
 

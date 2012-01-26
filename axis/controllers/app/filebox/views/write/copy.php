@@ -30,7 +30,11 @@ $('#copy-con').submit(function() {
       success: function(retData) {
         if (retData == '1') {
           initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Content copied successfully</span>', 'yellowBox', 210, 527, 1500);
-          softRefresh();
+          if (currentType == 1) {
+            softRefresh();
+          } else if (currentType == 2) {
+            $('.copynumbero').html(parseInt($('.copynumbero').html()) + 1);
+          }
           closeBox();
 
         } else {

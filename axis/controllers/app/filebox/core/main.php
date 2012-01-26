@@ -3574,15 +3574,184 @@ function createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 
 
 // create options view
-function createFilUI() {
-	return '<div style="float:right;margin-top:15px">
+function createFilUI($conID, $cObj, $permissionObj, $perLevel, $dataID) {
+	$ret = '<div style="float:right;margin-top:15px">';
 
-	<div style="font-size:11px;float:left;margin-right:15px;margin-top:6px"><a href="#">Share</a> <img src="/assets/app/img/box/sharelink.png" style="margin-bottom:-3px;margin-left:2px" /></div>
+	// if this is accessible publicly, show the share link
+	if (verifyPublic($cObj)) {
+		$ret .= '<div style="font-size:11px;float:left;margin-right:15px;margin-top:6px"><a href="#">Share</a> <img src="/assets/app/img/box/sharelink.png" style="margin-bottom:-3px;margin-left:2px" /></div>';
+	}
 
-	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px;margin-right:10px" title="Recommend this"><img src="/assets/app/img/box/thumbup.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">20</span></button>
+	// if this is accessible publicly, show the share link
+	if ($permissionObj['isOwner'] == 1) {
+		$icon = 'copy';
+		$text = 'Copy';
+	} else {
+		$icon = 'addfile';
+		$text = 'Add';
+	}
+	$ret .= '<button class="btn fboxFilUIbtn primary" style="font-weight:bolder" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/copy/?conIDs=' . $conID . '\'
+  }); return false;"><img src="/assets/app/img/box/' . $icon . '.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> ' . $text . ' to your Filebox</button>';
 
-	<button class="btn topDesc" style="padding-left:5px;padding-right:5px;padding-top:4px" title="Add this to your Filebox"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label" style="background:#666;text-shadow:none">15</span></button>
-	</div>';
+  	if (didRecommend($cObj, $dataID)) {
+		$class = ' fboxFilUIbtnSel';
+		$text = 'Un-recommend this';
+	} else {
+		$text = 'Recommend this';
+	}
+
+	$ret .= '<button class="btn fboxFilUIbtn topDesc' . $class . '" onClick="recommendThis(this, \'' . $conID . '\', \'' . $dataID . '\')"  title="' . $text . '"><img src="/assets/app/img/box/thumbup.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label numbero" style="background:#666;text-shadow:none">' . genNumLikes($cObj, $dataID) . '</span></button>
+
+	<button class="btn fboxFilUIbtn topDesc" style="margin-right:0px" title="This has been used 1 times<br /><span style=\'font-size:9px;color:#ccc\'>(click to view)</span>"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label copynumbero" style="background:#666;text-shadow:none">1</span></button>';
+
+
+	$ret .= '</div>';
+
+
+	return $ret;
+}
+
+
+function genNumLikes($cObj, $dataID) {
+	foreach ($cObj['versions'] as $vkey=>$vd) {
+		if ($vd['id'] == $dataID) {
+			return (int) $vd['recs'] + 1;
+		}
+	}
+	
+}
+
+
+function addRecommendation($conID, $dataID, $uid) {
+	if (!isset($uid)) {
+		$uid = user('id');
+	}
+
+	// get the data for this content
+	$cObj = getContent($conID);
+	// if we're good to go, lets get the permissions
+	$permissionObj = verifyPermissions($cObj, $uid);
+	$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
+
+	$dataID = verifyDataAuth($dataID, $cObj);
+
+	// if this dataID exists
+	if ($dataID != false && $perLevel > 0) {
+		// update the thing
+		// update local
+		$up = array();
+
+		foreach ($cObj['versions'] as $vkey=>$vd) {
+			if ($vd['id'] == $dataID) {
+				$countIndex = 'versions.' . $vkey . '.recs';
+				$arrIndex = 'versions.' . $vkey . '.recIDs';
+				$up[$countIndex] = $vd['recs'];
+				$up[$arrIndex] = $vd['recIDs'];
+			}
+		}
+
+		$uid = (int) $uid;
+
+		if (!in_array($uid, $up[$arrIndex])) {
+			$up[$arrIndex][] = $uid;
+			$up[$countIndex] = (int) $up[$countIndex];
+			$up[$countIndex] = $up[$countIndex] + 1;
+
+			global $mdb;
+		  	$collection = $mdb->fbox_content;
+			// update this
+			$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+			return true;
+		} else {
+			return false;
+		}
+
+	} else {
+		return false;
+	}
+}
+
+
+function delRecommendation($conID, $dataID, $uid) {
+	if (!isset($uid)) {
+		$uid = user('id');
+	}
+
+	// get the data for this content
+	$cObj = getContent($conID);
+	// if we're good to go, lets get the permissions
+	$permissionObj = verifyPermissions($cObj, $uid);
+	$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
+
+	$dataID = verifyDataAuth($dataID, $cObj);
+
+	// if this dataID exists
+	if ($dataID != false && $perLevel > 0) {
+		// update the thing
+		// update local
+		$up = array();
+
+		foreach ($cObj['versions'] as $vkey=>$vd) {
+			if ($vd['id'] == $dataID) {
+				$countIndex = 'versions.' . $vkey . '.recs';
+				$arrIndex = 'versions.' . $vkey . '.recIDs';
+				$up[$countIndex] = $vd['recs'];
+				$up[$arrIndex] = $vd['recIDs'];
+			}
+		}
+
+		$uid = (int) $uid;
+
+		if (in_array($uid, $up[$arrIndex])) {
+			foreach ($up[$arrIndex] as $ik=>$val) {
+				if ($val == $uid) {
+					unset($up[$arrIndex][$ik]);
+				}
+			}
+			array_values($up[$arrIndex]);
+			$up[$countIndex] = (int) $up[$countIndex];
+			if ($up[$countIndex] > 0) {
+				$up[$countIndex] = $up[$countIndex] - 1;
+			}
+
+			global $mdb;
+		  	$collection = $mdb->fbox_content;
+			// update this
+			$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+			return true;
+		} else {
+			return false;
+		}
+
+	} else {
+		return false;
+	}
+}
+
+
+function didRecommend($cObj, $dataID, $uid) {
+	if (!isset($uid)) {
+		$uid = user('id');
+	}
+
+	$up = array();
+
+	foreach ($cObj['versions'] as $vkey=>$vd) {
+		if ($vd['id'] == $dataID) {
+			$up[$countIndex] = $vd['recs'];
+			$up[$arrIndex] = $vd['recIDs'];
+		}
+	}
+
+	$uid = (int) $uid;
+
+	if (in_array($uid, $up[$arrIndex])) {
+		return true;
+	} else {
+		return false;
+	}
+	
 }
 
 
