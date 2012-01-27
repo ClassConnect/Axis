@@ -11,6 +11,17 @@ if (isset($_POST['submitted'])) {
     $start++;
   }
 
+
+// verify
+$batchCon = getBatchContent($_POST['conIDs']);
+$batchPer = verifyBatchPermissions($batchCon);
+$permLev = determinePerLevel(123, $batchPer);
+if ($permLev != 2) {
+  echo '<p style="margin:10px;font-size:14px;font-weight:bolder;text-align:center">Oops! You don\'t have permission to view this.</p>
+  <button class="btn" onClick="closeBox(); return false" style="float:right;margin:15px">Close</button>';
+  exit();
+}
+
 updateTags($_POST['conIDs'], $tags);
 
 
@@ -32,7 +43,6 @@ if ($cdata['type'] == 1) {
 }
 
 
-$batchCon = getBatchContent($_POST['conIDs']);
 foreach ($batchCon as $ctem) {
   $permissionObj = verifyPermissions($ctem, user('id'));
   $perLevel = determinePerLevel($ctem['_id'], $permissionObj);
@@ -62,6 +72,13 @@ echo json_encode($retObj);
 // SHOW REGULAR PAGE
 // YAY IM DRUNK
 $batchCon = getBatchContent($_GET['conIDs']);
+$batchPer = verifyBatchPermissions($batchCon);
+$permLev = determinePerLevel(123, $batchPer);
+if ($permLev < 1) {
+  echo '<p style="margin:10px;font-size:14px;font-weight:bolder;text-align:center">Oops! You don\'t have permission to view this.</p>
+  <button class="btn" onClick="closeBox(); return false" style="float:right;margin:15px">Close</button>';
+  exit();
+}
 $tags = getSharedTags($batchCon);
 $numTags = count(explode(',', $_GET['conIDs'])) - 1;
 $marker = 0;
@@ -334,6 +351,9 @@ function swapCore(curr, grade, topic) {
     <div class="clearfix">
     <div id="errorBox" style="display:none"></div>
 
+<?php
+if ($permLev == 2) {
+?>
     <div class="addTags">
       <div class="toggleTags" onClick="addToggle();" style="padding-left:110px;cursor:pointer;padding-bottom:10px;margin-bottom:-10px">
       <img src="/assets/app/img/box/tag.png" style="float:left;width:16px;margin-right:5px" /> <span id="swapText">+ Add Tags</span>
@@ -418,6 +438,15 @@ function swapCore(curr, grade, topic) {
 
     </div>
 
+<?php
+} else {
+?>
+<legend>Tags for this content</legend>
+<?php
+}
+?>
+
+
      <?php 
     foreach ($finalArr as $tid=>$type) {
       if (empty($type)) {
@@ -443,6 +472,10 @@ function swapCore(curr, grade, topic) {
           $tagPend = '<img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer" onClick="xTag(\'' . $tid . '\', this)" />';
 
 
+        }
+
+        if ($permLev < 2) {
+          $tagPend = '';
         }
         echo '<div class="alert-message elem"><span class="type' . $tid . 'text">' . $item['title'] . '</span>' . $tagPend . '</div>';
       }
@@ -478,7 +511,9 @@ function swapCore(curr, grade, topic) {
   </fieldset>
   <div id="fbActions" class="actions" style="margin-bottom:-17px">
     <div style="float:right">
-      <button type="submit" class="btn danger">Update Tags</button>&nbsp;<button type="reset" class="btn" onClick="closeBox();">Close</button>
+<?php
+if ($permLev == 2) {
+?><button type="submit" class="btn danger">Update Tags</button>&nbsp;<?php } ?><button type="reset" class="btn" onClick="closeBox();">Close</button>
     </div>
     <div style="clear:both"></div>
   </div>

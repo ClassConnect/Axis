@@ -95,6 +95,16 @@ if (isset($_POST['submitted'])) {
     }
 
 
+// verify
+$batchCon = getBatchContent($_POST['conIDs']);
+$permissions = getSharedPermissions($batchCon);
+$batchPer = verifyBatchPermissions($batchCon);
+$permLev = determinePerLevel(123, $batchPer);
+if ($permLev != 2) {
+  echo '<p style="margin:10px;font-size:14px;font-weight:bolder;text-align:center">Oops! You don\'t have permission to view this.</p>
+  <button class="btn" onClick="closeBox(); return false" style="float:right;margin:15px">Close</button>';
+  exit();
+}
 
 updatePermissions($_POST['conIDs'], $pers);
 $retObj = array();
@@ -115,7 +125,6 @@ if ($cdata['type'] == 1) {
 }
 
 
-$batchCon = getBatchContent($_POST['conIDs']);
 foreach ($batchCon as $ctem) {
   $permissionObj = verifyPermissions($ctem, user('id'));
   $perLevel = determinePerLevel($ctem['_id'], $permissionObj);
@@ -137,6 +146,13 @@ foreach ($batchCon as $ctem) {
   $objid = (string) $ctem['_id'];
 }
 $permissions = getSharedPermissions($batchCon);
+$batchPer = verifyBatchPermissions($batchCon);
+$permLev = determinePerLevel(123, $batchPer);
+if ($permLev != 2) {
+  echo '<p style="margin:10px;font-size:14px;font-weight:bolder;text-align:center">Oops! You don\'t have permission to view this.</p>
+  <button class="btn" onClick="closeBox(); return false" style="float:right;margin:15px">Close</button>';
+  exit();
+}
 $amigos = array();
 $coursesMal = array();
 $public = false;
