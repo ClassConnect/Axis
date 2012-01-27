@@ -108,7 +108,8 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 			"files" => 0, // number of files in here
 			"total_size" => $sizeData, // total size in bytes
 			"forkedFrom" => '0', // origin fork contentID hash
-			"forkHash" => '0' // origin fork DS hash
+			"forkHash" => '0', // origin fork DS hash
+			"forkStamp" => 0 // timestamp of fork
 
 		);
 
@@ -848,6 +849,20 @@ function copyContent($target, $conIDs, $uid) {
 			$conObj['parentPermissions'] = $targData['parentPermissions'];
 			$conObj['owner_id'] = $newOwner;
 
+			// new owner? this is a fork, set the forkfrom and forkhash
+			if ($newOwner != $placeID) {
+				// when versioning comes out, make this an opt override
+				$conObj["forkedFrom"] = $currentOBID; // origin fork contentID hash
+				$conObj["forkHash"] = verifyDataAuth('0', $conObj); // origin fork DS hash
+				$conObj["forkStamp"] = $conObj["last_update"]; // timestamp of fork
+			} else {
+				$conObj["forkedFrom"] = '';
+				$conObj["forkHash"] = '';
+				$conObj["forkStamp"] = 0;
+			}
+
+			$conObj["last_update"] = date("U");
+
 
 			// if this is the home folder
 			if ($target == '0') {
@@ -879,6 +894,8 @@ function copyContent($target, $conIDs, $uid) {
 				// init new array for this obj
 				$final = array();
 
+				$curTempID = (string)$fold['_id'];
+
 				// iterate through each key, make sure we want to copy it over
 				foreach ($fold as $key => $value) {
 					// add it if it isn't naughty
@@ -907,6 +924,20 @@ function copyContent($target, $conIDs, $uid) {
 				$final['parentPermissions'] = $targData['parentPermissions'];
 
 				$final['owner_id'] = $newOwner;
+
+				// new owner? this is a fork, set the forkfrom and forkhash
+				if ($newOwner != $placeID) {
+					// when versioning comes out, make this an opt override
+					$final["forkedFrom"] = $curTempID; // origin fork contentID hash
+					$final["forkHash"] = verifyDataAuth('0', $final); // origin fork DS hash
+					$final["forkStamp"] = $final["last_update"]; // timestamp of fork
+				} else {
+					$final["forkedFrom"] = '';
+					$final["forkHash"] = '';
+					$final["forkStamp"] = 0;
+				}
+
+				$final["last_update"] = date("U");
 
 				// clean final object (comments, etc)
 				$final = cleanCopyObj($final);
@@ -2175,6 +2206,22 @@ function getLatestFiles($format, $uid) {
 	$params = array('format'=>$format, 'owner_id'=>$uid);
 
 	$data = $collection->find($params)->sort(array('last_update'=>-1))->limit(20);
+
+	return $data;
+}
+
+
+// get all forks of a content & dataID
+function getAllForks($conID, $dataID) {
+	global $mdb;
+
+	// select a collection (analogous to a relational database's table)
+	$collection = $mdb->fbox_content;
+
+
+	$params = array('forkedFrom'=>$conID, 'forkHash'=>$dataID);
+
+	$data = $collection->find($params)->sort(array('last_update'=>-1));
 
 	return $data;
 }
