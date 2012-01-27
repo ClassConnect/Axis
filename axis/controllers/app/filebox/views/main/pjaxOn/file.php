@@ -20,6 +20,7 @@ if (isset($_GET['_nav'])) {
 ?>
 <script type="text/javascript">
 currentCon = '<?= $conID; ?>';
+accessLevel = <?= $perLevel; ?>;
 $(document).ready(function() {
   dispFilview();
 });

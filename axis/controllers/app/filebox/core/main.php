@@ -107,9 +107,8 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 			"folders" => 0, // number of folders in here
 			"files" => 0, // number of files in here
 			"total_size" => $sizeData, // total size in bytes
-			"forkTotal" => 0, // total number of times this has been forked
-			"forkedFrom" => 0, // this was originally forked from user (x)...
-			"forkHash" => '0' // original fork ID
+			"forkedFrom" => '0', // origin fork contentID hash
+			"forkHash" => '0' // origin fork DS hash
 
 		);
 
@@ -245,68 +244,30 @@ function updateParents($parents, $incs, $sets) {
 
 
 // update descendants
-function updateDescendantForks($batchObj, $incs, $sets) {
+function updateDescendantForks($batchObj, $num) {
 	global $mdb;
 
 	// select a collection (analogous to a relational database's table)
 	$collection = $mdb->fbox_content;
 
-	$updates = array();
+	$rent_ids = array();
 
-	if (isset($incs)) {
-		$updates['$inc'] = $incs;
+	foreach ($batchObj as $tObj) {
+		$rent_ids[] = array('_id' => new MongoId((string) $tObj['_id']));
+		$rent_ids[] = array('parent.id' => (string) $tObj['_id']);
+		$rent_ids[] = array('parents.id' => (string) $tObj['_id']);
 	}
 
-	if (isset($sets)) {
-		$updates['$set'] = $sets;
-	}
+	$finalq = array('$or' => $rent_ids);
 
-	$rent_ids[] = array('_id' => new MongoId($conObj['parent']['id']));
-			$finalq = array('$or' => $rent_ids);
+	$updateParams = array();
+	// if this is a folder
 
-			$updateParams = array();
-			// if this is a folder
-			if ($conObj['type'] == 1) {
-				$conObj['folders']++;
-			} else {
-				$conObj['files']++;
-			}
+	$updateParams['versions.0.forkTotal'] = $num;
 
-			$updateParams['files'] = -$conObj['files'];
-			$updateParams['folders'] = -$conObj['folders'];
-			$updateParams['total_size'] = -$conObj['total_size'];
+	$updates['$inc'] = $updateParams;
 
-	$collection->update($parents, $updates, array("multiple" => true));
-
-
-			// update local
-		$up = array();
-		$up["title"] = $title;
-		// update this
-		$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
-
-
-		// if this is a folder, update descendants
-		if ($conData['type'] == 1) {
-
-			// update all parent datas
-			$up = array();
-			$up["parent.title"] = $title;
-			// update this
-			$collection->update(array('parent.id' => $conID), array('$set' => $up), array("multiple" => true));
-
-
-			// update all parents datas
-			$numd = count($conData['parents']);
-			$titleStr = 'parents.' . $numd . '.title';
-			$idStr = 'parents.' . $numd . '.id';
-			$up = array();
-			$up[$titleStr] = $title;
-			// update this
-			$collection->update(array($idStr => $conID), array('$set' => $up), array("multiple" => true));
-
-		}
-	
+	$collection->update($finalq, $updates, array("multiple" => true));
 }
 
 
@@ -814,6 +775,11 @@ function copyContent($target, $conIDs, $uid) {
 			incStorage($sizeTot, $newOwner);
 		}
 
+		// if new owner, increase fork
+		if ($newOwner != $placeID) {
+			updateDescendantForks($batchObj, 1);
+		}
+
 		// send update
 		insertFboxNoti(2, $targData['permissions'], $targData['parentPermissions'], $targData['owner_id'], $targData);
 		// key=> value for old ids and new ids
@@ -1011,6 +977,9 @@ function cleanCopyObj($copObj) {
 		$ver['comments_pub'] = array();
 		$ver['comments_priv'] = array();
 		$ver['comments_course'] = array();
+		$ver['recIDs'] = array();
+		$ver['recs'] = 0;
+		$ver['forkTotal'] = 0;
 		$copObj['versions'][$vkey] = $ver;
 	}
 
@@ -3694,9 +3663,11 @@ function createFilUI($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 		$text = 'Recommend this';
 	}
 
+	$numForks = genNumForks($cObj, $dataID);
+
 	$ret .= '<button class="btn fboxFilUIbtn topDesc' . $class . '" onClick="recommendThis(this, \'' . $conID . '\', \'' . $dataID . '\')"  title="' . $text . '"><img src="/assets/app/img/box/thumbup.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label numbero" style="background:#666;text-shadow:none">' . genNumLikes($cObj, $dataID) . '</span></button>
 
-	<button class="btn fboxFilUIbtn topDesc" style="margin-right:0px" title="This has been used 1 times<br /><span style=\'font-size:9px;color:#ccc\'>(click to view)</span>"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label copynumbero" style="background:#666;text-shadow:none">1</span></button>';
+	<button class="btn fboxFilUIbtn topDesc" style="margin-right:0px" title="This has been used ' . $numForks . ' times<br /><span style=\'font-size:9px;color:#ccc\'>(click to view)</span>"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label copynumbero" style="background:#666;text-shadow:none">' . $numForks . '</span></button>';
 
 
 	$ret .= '</div>';
@@ -3710,6 +3681,15 @@ function genNumLikes($cObj, $dataID) {
 	foreach ($cObj['versions'] as $vkey=>$vd) {
 		if ($vd['id'] == $dataID) {
 			return (int) $vd['recs'] + 1;
+		}
+	}
+	
+}
+
+function genNumForks($cObj, $dataID) {
+	foreach ($cObj['versions'] as $vkey=>$vd) {
+		if ($vd['id'] == $dataID) {
+			return (int) $vd['forkTotal'] + 1;
 		}
 	}
 	

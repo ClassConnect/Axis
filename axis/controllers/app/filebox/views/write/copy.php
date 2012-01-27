@@ -33,7 +33,11 @@ $('#copy-con').submit(function() {
           if (currentType == 1) {
             softRefresh();
           } else if (currentType == 2) {
-            $('.copynumbero').html(parseInt($('.copynumbero').html()) + 1);
+            var newCount = parseInt($('.copynumbero').html()) + 1;
+            if (accessLevel != 2) {
+              $('.copynumbero').html(newCount);
+              $('.copynumbero').parent().attr('title', 'This has been used ' + newCount + ' times');
+            }
           }
           closeBox();
 
