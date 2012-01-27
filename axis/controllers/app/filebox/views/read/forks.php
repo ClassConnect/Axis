@@ -22,7 +22,12 @@ foreach ($forkers as $fork) {
 }
 
 foreach ($finForkers as $uid=>$forkarr) {
-	echo dispUser($fork['owner_id'], 'first_name') . ' ' . dispUser($fork['owner_id'], 'last_name') . ' - ' . count($forkarr) . '<br />';
+	echo '<div style="margin: 0px 10px 0px 10px">
+	<img src="' . iconServer() . '50_' . dispUser($fork['owner_id'], 'prof_icon') . '" style="float:left;margin:0px 10px 5px 0px" />
+	<span style="font-size:14px"><a href="#" style="font-weight:bolder">' . dispUser($fork['owner_id'], 'first_name') . ' ' . dispUser($fork['owner_id'], 'last_name') . '</a> used this <strong>' . count($forkarr) . ' times.</strong></span>
+
+
+	</div>';
 }
 
 if (empty($finForkers)) {
