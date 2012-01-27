@@ -92,6 +92,16 @@ if ($this->Command->Parameters[0] == 'write') {
 
 
 
+
+} elseif ($this->Command->Parameters[0] == 'read') {
+
+  // if we're adding a folder
+  if ($this->Command->Parameters[1] == 'forks') {
+    require_once('views/read/forks.php');
+
+  }
+
+
 // lets assume that this is a piece of filebox content (or homepage)
 } else {
   require_once('views/index.php');

@@ -3667,7 +3667,9 @@ function createFilUI($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 
 	$ret .= '<button class="btn fboxFilUIbtn topDesc' . $class . '" onClick="recommendThis(this, \'' . $conID . '\', \'' . $dataID . '\')"  title="' . $text . '"><img src="/assets/app/img/box/thumbup.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label numbero" style="background:#666;text-shadow:none">' . genNumLikes($cObj, $dataID) . '</span></button>
 
-	<button class="btn fboxFilUIbtn topDesc" style="margin-right:0px" title="This has been used ' . $numForks . ' times<br /><span style=\'font-size:9px;color:#ccc\'>(click to view)</span>"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label copynumbero" style="background:#666;text-shadow:none">' . $numForks . '</span></button>';
+	<button class="btn fboxFilUIbtn topDesc" style="margin-right:0px" title="This has been used ' . $numForks . ' times<br /><span style=\'font-size:9px;color:#ccc\'>(click to view)</span>" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/read/forks/' . $conID . '/' . $dataID . '\'
+  }); return false;"><img src="/assets/app/img/box/fork.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> <span class="label copynumbero" style="background:#666;text-shadow:none">' . $numForks . '</span></button>';
 
 
 	$ret .= '</div>';
