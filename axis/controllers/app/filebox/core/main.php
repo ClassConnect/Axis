@@ -245,7 +245,7 @@ function updateParents($parents, $incs, $sets) {
 
 
 // update descendants
-function updateDescendantForks($batchObj, $num) {
+function updateDescendantForks($batchObj, $num, $single) {
 	global $mdb;
 
 	// select a collection (analogous to a relational database's table)
@@ -255,8 +255,11 @@ function updateDescendantForks($batchObj, $num) {
 
 	foreach ($batchObj as $tObj) {
 		$rent_ids[] = array('_id' => new MongoId((string) $tObj['_id']));
-		$rent_ids[] = array('parent.id' => (string) $tObj['_id']);
-		$rent_ids[] = array('parents.id' => (string) $tObj['_id']);
+
+		if (!isset($single)) {
+			$rent_ids[] = array('parent.id' => (string) $tObj['_id']);
+			$rent_ids[] = array('parents.id' => (string) $tObj['_id']);
+		}
 	}
 
 	$finalq = array('$or' => $rent_ids);
@@ -637,6 +640,9 @@ function deleteContent($conIDs, $uid) {
 	}
 
 
+	$finForks = array();
+
+
 	// get the data for the content about to be moved
 	$batchObj = getBatchContent($conIDs);
 	$batchPer = verifyBatchPermissions($batchObj, $uid);
@@ -644,6 +650,18 @@ function deleteContent($conIDs, $uid) {
 	// user must be the owner and have cleared the target verification
 	if ($batchPer['localAuth'] == 2 || $batchPer['isOwner'] == 1) {
 		foreach ($batchObj as $conObj) {
+
+			if (isset($conObj['forkedFrom']) && $conObj['forkedFrom'] != 0 && $conObj['forkedFrom'] != '0') {
+				$finForks[] = array("_id" => $conObj['forkedFrom']);
+			}
+
+			$curDescs = getDescendants($conObj['_id']);
+			foreach ($curDescs as $play) {
+				if (isset($play['forkedFrom']) && $play['forkedFrom'] != 0 && $play['forkedFrom'] != '0') {
+					$finForks[] = array("_id" => $play['forkedFrom']);
+				}
+			}
+
 			$isPub = verifyPublic($conObj);
 
 			// delete this content
@@ -686,6 +704,10 @@ function deleteContent($conIDs, $uid) {
   		}
 
 
+
+
+  		// update forks
+  		updateDescendantForks($finForks, -1, true);
 	}
 
 

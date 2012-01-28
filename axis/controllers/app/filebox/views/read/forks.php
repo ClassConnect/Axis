@@ -22,13 +22,32 @@ foreach ($forkers as $fork) {
 }
 
 foreach ($finForkers as $uid=>$forkarr) {
-	echo '<div style="margin: 0px 10px 0px 10px">
-	<img src="' . iconServer() . '50_' . dispUser($fork['owner_id'], 'prof_icon') . '" style="float:left;margin:0px 10px 5px 0px" />
-	<span style="font-size:14px"><a href="#" style="font-weight:bolder">' . dispUser($fork['owner_id'], 'first_name') . ' ' . dispUser($fork['owner_id'], 'last_name') . '</a> used this <strong>' . count($forkarr) . ' times.</strong></span>
+	$numFork = count($forkarr);
+	if ($numFork == 1) {
+		$fword = 'time';
+	} else {
+		$fword = 'times';
+	}
+	echo '<div style="margin: 0px 10px 0px 10px; border-bottom:1px solid #eee;padding-top:5px">
+	<img src="' . iconServer() . '50_' . dispUser($uid, 'prof_icon') . '" style="float:left;margin:0px 10px 5px 0px" />
+	<div style="font-size:14px;width:290px;float:right"><a href="#" style="font-weight:bolder">' . dispUser($uid, 'first_name') . ' ' . dispUser($uid, 'last_name') . '</a> used this <strong>' . $numFork . ' ' . $fword . '</strong>';
+
+	foreach ($forkarr as $conData) {
+		$permissionObj = verifyPermissions($conData, user('id'));
+		$perLevel = determinePerLevel($conData['_id'], $permissionObj);
+		if ($perLevel > 0) {
+			echo '<li style="font-size:12px;margin:3px"><a href="/app/filebox/' . $conData['_id'] . '">' . $conData['title'] . '</a></li>';
+		} else {
+			echo '<li style="font-size:12px;margin:3px">Used privately</li>';
+		}
+	}
 
 
+	echo '</div>
+<div style="clear:both"></div>
 	</div>';
 }
+
 
 if (empty($finForkers)) {
 	if ($cObj['owner_id'] == user('id')) {
@@ -54,5 +73,7 @@ if (empty($finForkers)) {
   }); return false;"><img src="/assets/app/img/box/addfile.png" style="height:14px;float:left;margin-top:2px;margin-right:8px" /> Add to your Filebox</button>';
 	}
 
+} else {
+	echo '<button class="btn" onClick="closeBox(); return false" style="float:right;margin:10px 10px 5px 0px">Close</button>';
 }
 ?>
