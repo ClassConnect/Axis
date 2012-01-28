@@ -1,4 +1,16 @@
 <?php
+// if no session exists
+if (!checkSession()) {
+?>
+<script>
+$(document).ready(function() {
+logPopper();
+});
+</script>
+<?php
+exit();
+}
+
 if (isset($_POST['target'])) {
   $attempt = copyContent($_POST['target'], $_POST['conIDs']);
 

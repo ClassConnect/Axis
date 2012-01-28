@@ -24,6 +24,55 @@ echo genFriendsJSON();
 ?>
 </script>
 <?php
+// not logged in? preload the login popup
+} else {
+?>
+<div id="logPopper" style="display:none">
+  <form action="" method="POST" class="form-stacked">
+  <input type="hidden" name="submitted" value="true" />
+    <fieldset>
+      <div class="clearfix">
+
+        <div style="margin-left:35px">
+          <div class="input">
+            <label>Email / Username</label>
+            <input class="idFirst" type="text" name="identity" style="width:250px;margin-top:4px" />
+          </div>
+          <div class="input">
+            <label>Password</label>
+            <input type="password" name="pass" style="width:250px;margin-top:4px" />
+            <input type="hidden" name="logsubmit" value="submitted" />
+          </div>
+
+          <div style="float:left;margin-top:8px">
+            <a href="/app/resetpassword">Forgot your password?</a>
+          </div>
+          <button type="submit" class="btn danger" style="font-weight:bolder;margin-top:8px;margin-left:60px">Login</button>
+        </div>
+
+      </div><!-- /clearfix -->
+    </fieldset>
+    </form>
+    <div style="text-align:center;border-top:1px solid #eee;padding-top:10px;margin-top:20px">
+          <div style="font-size:20px;margin-bottom:8px">
+          Need an account?
+          </div>
+          <button class="btn large" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">I'm a Teacher</button>
+          <button class="btn large" onclick="jQuery.facebox({ ajax: '/app/signup/student' });">I'm a Student</button>
+        </div>
+    <div style="float:right;margin:8px">
+    <a href="#" onclick="closeBox();return false">close</a>
+    </div>
+
+</div>
+
+<script>
+function logPopper() {
+  jQuery.facebox({ div: '#logPopper' });
+  $(".idFirst:visible").focus();
+}
+</script>
+<?php
 }
 ?>
 <style>

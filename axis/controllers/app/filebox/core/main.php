@@ -3168,7 +3168,7 @@ function genConStripe($child, $perLev) {
 	    		</div>';
 	    	}
 
-	 if (verifyPublic($child)) {
+	 if (verifyPublic($child) && checkSession()) {
 	    	$list .= '<img src="/assets/app/img/box/sharelink.png" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
   }); return false;" class="topDesc" title="<strong>This is shared publicly</strong><br />Anyone with the link can access it<br /><span style=\'color:#bbb;font-size:9px\'>(click to view the link)</span>" style="float:right;margin-left:4px;margin-top:2px;height:14px;width:14px">';
@@ -3234,6 +3234,7 @@ function createFolBar($conObj, $perObj) {
 	$barML = '';
 	$barML .= authorUI($conObj, $perObj);
 	$barML .= actionUI($conObj, $perObj);
+	$barML .= forkNotice($conObj, $perObj);
 	$barML .= assocUI($conObj, $perObj);
 
 	$bar = '<div class="folderBar fboxFloater">' . $barML . '</div>';
@@ -3302,7 +3303,7 @@ function authorUI($conObj, $perObj) {
 
 	} else {
 
-	 return '<div style="clear:both">
+	 return '<div style="clear:both;margin-bottom:17px">
 	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:8px;background:#fff" class="vidView" />
 		 	<div style="margin-left:70px">
 		 		<div style="padding-top:5px;font-size:14px">
@@ -3412,6 +3413,33 @@ function actionUI($conObj, $perObj) {
 }
 
 
+
+// show forks notice (if applicable)
+function forkNotice($conObj, $perObj) {
+	if ($conObj['forkedFrom'] != 0 && $conObj['forkedFrom'] != '0') {
+		$cObj = getContent($conObj['forkedFrom']);
+		if (!is_null($cObj)) {
+			$permissionObj = verifyPermissions($cObj, user('id'), $mySecs);
+			$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
+			$result = '<div class="alert-message block-message warning" style="font-size:11px;margin:10px 10px 0 10px;padding:4px 4px 4px 4px">
+			<img src="/assets/app/img/box/fork.png" style="float:left;margin:3px 5px 5px 0px" />
+			Used from <a href="#">' . dispUser($cObj['owner_id'], 'first_name') . ' ' . dispUser($cObj['owner_id'], 'last_name') . '</a><br />';
+
+			if ($perLevel > 0) {
+				$result .= '<center><a href="/app/filebox/' . $conObj['forkedFrom'] . '" style="font-weight:bolder">Click here to view the original</a></center>';
+			}
+
+			$result .= '</div>';
+
+			return $result;
+			
+		} else {
+			return '';
+		}
+	}
+}
+
+
 // show tags & sharing info
 function assocUI($conObj, $perObj) {
 	  if ($conObj['_id'] != 0) {
@@ -3468,10 +3496,24 @@ function assocUI($conObj, $perObj) {
 	  if (count($fshar[3]) > 0) {
 	  	if ($sharePend != '') {
 	  		$sharePend .= '<br />';
+	  	} else {
+	  		if (checkSession()) {
+	  			$sharePend = '<div style="font-size:10px;color:#333">Not shared with colleagues or courses...<a href="#" onClick="shareCurrent();return false">yet.</a></div>';
+	  		}
 	  	}
-	  	$sharePend .= '<a href="#" rel="sharedWith" data-original-title="<strong>This is shared publicly</strong><br />Anyone with the link can access it<br /><span style=\'color:#bbb;font-size:9px\'>(click to view the link)</span>" onClick="shareCurrent();return false">
+
+
+	  	if (!checkSession()) {
+	  		$sharePend = '';
+	  	}
+	  	/*$sharePend .= '<a href="#" rel="sharedWith" data-original-title="<strong>This is shared publicly</strong><br />Anyone with the link can access it<br /><span style=\'color:#bbb;font-size:9px\'>(click to view the link)</span>" onClick="shareCurrent();return false">
 	      	<img src="/assets/app/img/temp/globe.png" style="float:left;margin-left:-2px;margin-right:5px;margin-top:2px;height:12px" /> Public
-	      </a>';
+	      </a>';*/
+
+	      $sharePend .= '<div class="btn primary" style="padding:3px 3px 3px 3px;font-size:10px;margin-top:5px">
+			<span style="color:#fff;font-weight:bolder"><img src="/assets/app/img/box/sharelink.png" style="float:left;margin-right:4px;margin-top:0px;height:12px" /> Public link (click then copy & paste)</span><br />
+          <input type="text" style="margin-top:4px;font-size:11px;width:180px;padding-top:2px;padding-bottom:2px;border:2px solid #999;cursor:pointer" onclick="this.select();" value="http://www.classconnect.com/app/filebox/' . $conObj['_id'] . '/" readonly />
+		</div>';
 	  }
 
 
@@ -3607,6 +3649,7 @@ function assocUI($conObj, $perObj) {
 function createFilBar($conObj, $perObj) {
 	$barML = '';
 	$barML .= authorUI($conObj, $perObj);
+	$barML .= forkNotice($conObj, $perObj);
 	$barML .= assocUI($conObj, $perObj);
 
 	$bar = '<div class="folderBar fboxFloater">' . $barML . '</div>';
@@ -3979,7 +4022,7 @@ function createCommentView($conID, $cObj, $permissionObj, $perLevel, $dataID, $o
 			<div style="clear:both"></div>';
 		// otherwise, show a generic error message
 		} else {
-			$result .= 'Log in to leave a comment!';
+			$result .= '<span style="color:#777"><a href="#" style="font-weight:bolder" onClick="logPopper();return false">Login or Sign up</a> to leave a comment!</span>';
 		}
 		$result .= '</form>
 	</div>
