@@ -4102,7 +4102,7 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 	} elseif ($target == 3) {
 		$arDex = 'comments_course';
 		//auth section here
-		if (authSection($secID, $uid)) {
+		if (authSection($optID, $uid)) {
 			$allow = true;
 		}
 	}
@@ -4127,6 +4127,9 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 		$up[$finIndex][] = $retVal;
 		// update this
 		$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+
+		// fire off a noti
+		insertFboxNoti(4, $cObj['permissions'], $cObj['parentPermissions'], $cObj['owner_id'], $cObj, array("target" => $target, "optID" => $optID), $uid);
 
 		return array("data" => $retVal, "perLevel" => $perLevel, "permissionObj" => $permissionObj, "conID" => $conID, "dataID" => $dataID);
 	}
@@ -4269,7 +4272,7 @@ function displayContent($cObj, $cData) {
 
 
 // format notification inserts
-function insertFboxNoti($type, $pers, $parentPers, $owner_id, $conObj, $uid) {
+function insertFboxNoti($type, $pers, $parentPers, $owner_id, $conObj, $addData, $uid) {
 	// set the user id
 	if (!isset($uid)) {
 		$uid = user('id');
@@ -4308,6 +4311,11 @@ function insertFboxNoti($type, $pers, $parentPers, $owner_id, $conObj, $uid) {
 
 		if ($conObj['format'] == 1) {
 			$notiData['ext'] = $conObj['versions'][0]['ext'];
+		}
+
+		// if extra data needs to be appended
+		if (isset($addData)) {
+			$notiData = array_merge($notiData, $addData);
 		}
 
 
