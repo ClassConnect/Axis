@@ -641,6 +641,7 @@ function deleteContent($conIDs, $uid) {
 
 
 	$finForks = array();
+	$finIds = array();
 
 
 	// get the data for the content about to be moved
@@ -650,13 +651,14 @@ function deleteContent($conIDs, $uid) {
 	// user must be the owner and have cleared the target verification
 	if ($batchPer['localAuth'] == 2 || $batchPer['isOwner'] == 1) {
 		foreach ($batchObj as $conObj) {
-
+			$finIds[] = array("data.id" => (string) $conObj['_id']);
 			if (isset($conObj['forkedFrom']) && $conObj['forkedFrom'] != 0 && $conObj['forkedFrom'] != '0') {
 				$finForks[] = array("_id" => $conObj['forkedFrom']);
 			}
 
 			$curDescs = getDescendants($conObj['_id']);
 			foreach ($curDescs as $play) {
+				$finIds[] = array("data.id" => (string) $play['_id']);
 				if (isset($play['forkedFrom']) && $play['forkedFrom'] != 0 && $play['forkedFrom'] != '0') {
 					$finForks[] = array("_id" => $play['forkedFrom']);
 				}
@@ -709,6 +711,10 @@ function deleteContent($conIDs, $uid) {
   		// update forks
   		updateDescendantForks($finForks, -1, true);
 	}
+
+
+	$feed_collection = $mdb->feed;
+	$feed_collection->remove(array('$or' => $finIds), array("multiple" => true, 'safe' => true));
 
 
 }
