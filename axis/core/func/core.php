@@ -1173,6 +1173,8 @@ function genFeedItem($items, $primary, $uid) {
     if (!isset($uid)) {
         $uid = user('id');
     }
+
+    $reqRoot = 'axis/controllers/app/common/feed/gen_notis/';
     // set the final result
     $finalResult = '';
     $miniResult = '';
@@ -1234,89 +1236,24 @@ function genFeedItem($items, $primary, $uid) {
 
             }
 
+
             // if content has been added
             if ($item['notiType'] == 1) {
-
-                $obj = array();
-                $obj['title'] = $item['data'][0]['title'];
-                $obj['format'] = $item['data'][0]['format'];
-                $obj['versions'][0]['ext'] = $item['data'][0]['ext'];
-                if ($item['data'][0]['format'] == 0) {
-                    $obj['format'] = 1;
-                    $obj['versions'][0]['ext'] = 'folder';
-                }
-
-             $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
-' . $delML . '
-  <img src="/assets/app/img/box/miniadd.png" class="miniImg" /> ' . $idTitle . ' created <a href="' . $fbURL . $item['data'][0]['id'] . '" class="js-pjax">' . createConTitle($obj) . '</a>
-
-  <div style="clear:both"></div>
-  </div>';
+                require_once($reqRoot . 'filebox/content_added.php');
+                
               // if content has been added
             } elseif ($item['notiType'] == 2) {
-
-                $obj = array();
-                $obj['title'] = $item['data'][0]['title'];
-                $obj['format'] = $item['data'][0]['format'];
-                $obj['versions'][0]['ext'] = $item['data'][0]['ext'];
-                if ($item['data'][0]['format'] == 0) {
-                    $obj['format'] = 1;
-                    $obj['versions'][0]['ext'] = 'folder';
-                }
-
-             $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
-' . $delML . '
-  <img src="/assets/app/img/box/minifoladd.png" class="miniImg" /> ' . $idTitle . ' added new content to <a href="' . $fbURL . $item['data'][0]['id'] . '" class="js-pjax">' . createConTitle($obj) . '</a>
-
-  <div style="clear:both"></div>
-  </div>';
+                require_once($reqRoot . 'filebox/content_moved.php');
 
 
-    // if content has been shared
+            // if content has been shared
             } elseif ($item['notiType'] == 3) {
-
-                $obj = array();
-                $obj['title'] = $item['data'][0]['title'];
-                $obj['format'] = $item['data'][0]['format'];
-                $obj['versions'][0]['ext'] = $item['data'][0]['ext'];
-                if ($item['data'][0]['format'] == 0) {
-                    $obj['format'] = 1;
-                    $obj['versions'][0]['ext'] = 'folder';
-                }
-
-             $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
-' . $delML . '
-  <img src="/assets/app/img/box/minishared.png" class="miniImg" /> ' . $idTitle . ' shared <a href="' . $fbURL . $item['data'][0]['id'] . '" class="js-pjax">' . createConTitle($obj) . '</a>
-
-  <div style="clear:both"></div>
-  </div>';
+                require_once($reqRoot . 'filebox/content_shared.php');
+               
             
             // this is a comment
             } elseif ($item['notiType'] == 4) {
-
-                $obj = array();
-                $obj['title'] = $item['data'][0]['title'];
-                $obj['format'] = $item['data'][0]['format'];
-                $obj['versions'][0]['ext'] = $item['data'][0]['ext'];
-                if ($item['data'][0]['format'] == 0) {
-                    $obj['format'] = 1;
-                    $obj['versions'][0]['ext'] = 'folder';
-                }
-
-                if ($item['data'][0]['optID'] !== '') {
-                    $url = '/app/course/' . $item['data'][0]['optID'] . '/handout/' . $item['data'][0]['id'];
-                } else {
-                    $url = $fbURL . $item['data'][0]['id'];
-                }
-
-
-             $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
-' . $delML . '
-  <img src="/assets/app/img/box/comment.png" class="miniImg" /> ' . $idTitle . ' commented on <a href="' . $url . '" class="js-pjax">' . createConTitle($obj) . '</a>
-
-  <div style="clear:both"></div>
-  </div>';
-
+                require_once($reqRoot . 'filebox/content_commented.php');
 
             }
 
@@ -1326,20 +1263,7 @@ function genFeedItem($items, $primary, $uid) {
 
             // added calendar entries
             if ($item['notiType'] == 1) {
-
-                // if there is more than 1 entry
-                if (count($item['data']) > 1) {
-                    $swapText = count($item['data']) . ' new entries';
-                } else {
-                    $swapText = '"' . $item['data'][count($item['data']) - 1]['title'] . '"';
-                }
-
-                $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
-' . $delML . '
-  <img src="/assets/app/img/feed/cal.png" class="miniImg" /> ' . $idTitle . ' added ' . $swapText . ' to the <a href="/app/course/' . $unid['shareID'] . '/calendar" class="js-pjax">calendar</a>.
-
-  <div style="clear:both"></div>
-  </div>';
+                require_once($reqRoot . 'calendar/added.php');
 
             }
 
@@ -1349,49 +1273,16 @@ function genFeedItem($items, $primary, $uid) {
         } elseif ($item['appType'] == 3) {
             // status update
             if ($item['notiType'] == 1) {
-                // close out the mini feed if there is one
-                if ($miniResult != '') {
-                    // do work
-                    $finalResult .= '<div class="feedItem">' . $miniResult . '</div>';
-                    $miniResult = '';
-                }
-
-                $finalResult .= '<div class="feedItem" id="item-' . $item['_id'] . '">
-' . $delML . '
-    <div class="feedLeft">
-      <img src="' . iconServer() . '50_' . $secData['icon'] . '" class="profImg" /> 
-    </div>
-
-    <div class="feedRight">
-      <a href="/app/course/' . $unid['shareID'] . '" style="font-weight:bolder">' . $idTitle . '</a><br />
-      ' . spit($item['data'][count($item['data']) - 1]['status']) . '
-    </div>
-
-    <div style="clear:both"></div>
-
-  </div>';
+                require_once($reqRoot . 'personal/status.php');                
 
 
             // if this is an auto add noti (storage!)
             } elseif ($item['notiType'] == 2) {
-                $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
-' . $delML . '
-  <img src="/assets/app/img/colleagues/minicard.png" class="miniImg" /> You successfully referred <strong>' . dispUser($item['data'][0]['friend_id'], 'first_name') . ' ' . dispUser($item['data'][0]['friend_id'], 'last_name') . '</strong>! To say thanks, we added storage space to your FileBox!
-
-  <div style="clear:both"></div>
-  </div>';
+                require_once($reqRoot . 'personal/autoadd.php'); 
 
             // if this is a colleague add success
             } elseif ($item['notiType'] == 3) {
-               
-
-
-               $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
-' . $delML . '
-  <img src="/assets/app/img/colleagues/minicard.png" class="miniImg" /> You are now colleagues with <strong>' . dispUser($item['data'][0]['friend_id'], 'first_name') . ' ' . dispUser($item['data'][0]['friend_id'], 'last_name') . '</strong>.
-
-  <div style="clear:both"></div>
-  </div>';
+                require_once($reqRoot . 'personal/colleague_added.php'); 
 
 
             }
