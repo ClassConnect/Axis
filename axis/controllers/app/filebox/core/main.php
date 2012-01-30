@@ -4085,6 +4085,7 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 	$cObj = getContent($conID);
 	$permissionObj = verifyPermissions($cObj, $uid, $mySecs);
 	$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
+	$share_permissions = array();
 
 	if ($target == 1) {
 		$arDex = 'comments_pub';
@@ -4092,11 +4093,43 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 			$allow = true;
 		}
 
+		// remove all entities that are courses
+		foreach ($cObj['permissions'] as $pkey=>$per) {
+			if ($per['type'] == 2) {
+				unset($cObj['permissions'][$pkey]);
+			}
+		}
+		foreach ($cObj['parentPermissions'] as $pkey=>$per) {
+			if ($per['type'] == 2) {
+				unset($cObj['permissions'][$pkey]);
+			}
+		}
+
+
+		// set bogus share to ID this noti
+		$cObj['permissions'][] = array("type" => 100, "shared_id" => $dataID, "auth_level" => 1);
+
 	} elseif ($target == 2) {
 		$arDex = 'comments_priv';
 		if ($perLevel == 2) {
 			$allow = true;
 		}
+
+		// remove all entities without r/w access
+		foreach ($cObj['permissions'] as $pkey=>$per) {
+			if ($per['authLevel'] != 2) {
+				unset($cObj['permissions'][$pkey]);
+			}
+		}
+		foreach ($cObj['parentPermissions'] as $pkey=>$per) {
+			if ($per['authLevel'] != 2) {
+				unset($cObj['permissions'][$pkey]);
+			}
+		}
+
+
+		// set bogus share to ID this noti
+		$cObj['permissions'][] = array("type" => 101, "shared_id" => $dataID, "auth_level" => 2);
 
 	// this is a course
 	} elseif ($target == 3) {
@@ -4105,10 +4138,27 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 		if (authSection($optID, $uid)) {
 			$allow = true;
 		}
+
+		$cObj['permissions'] = array();
+		$cObj['parentPermissions'] = array();
+
+		// if this is a teacher
+		if (dispUser($uid, 'level') == 3) {
+			$cObj['permissions'][] = array("type" => 2, "shared_id" => $optID, "auth_level" => 1);
+		// this is a student comment (notify teachers)
+		} else {
+			$teachers = getSectionTeachers($optID);
+			foreach ($teachers as $row) {
+				$cObj['permissions'][] = array("type" => 1, "shared_id" => (int) $row['teach_id'], "auth_level" => 1);
+			}
+
+			// set bogus share to ID this noti
+			$cObj['permissions'][] = array("type" => 102, "shared_id" => $dataID, "auth_level" => 3);
+		}
 	}
 
 	$dataID = verifyDataAuth($dataID, $cObj);
-	if ($dataID != false) {
+	if ($dataID != false && $allow) {
 		global $mdb;
 	  	$collection = $mdb->fbox_content;
 
@@ -4129,9 +4179,11 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 		$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
 
 		// fire off a noti
-		insertFboxNoti(4, $cObj['permissions'], $cObj['parentPermissions'], $cObj['owner_id'], $cObj, array("target" => $target, "optID" => $optID), $uid);
+		insertFboxNoti(4, $cObj['permissions'], $cObj['parentPermissions'], $cObj['owner_id'], $cObj, array("target" => $target, "optID" => $optID), 604800, $uid);
 
 		return array("data" => $retVal, "perLevel" => $perLevel, "permissionObj" => $permissionObj, "conID" => $conID, "dataID" => $dataID);
+	} else {
+		return false;
 	}
 }
 
@@ -4272,11 +4324,20 @@ function displayContent($cObj, $cData) {
 
 
 // format notification inserts
-function insertFboxNoti($type, $pers, $parentPers, $owner_id, $conObj, $addData, $uid) {
+function insertFboxNoti($type, $pers, $parentPers, $owner_id, $conObj, $addData, $force, $uid) {
 	// set the user id
 	if (!isset($uid)) {
 		$uid = user('id');
 	}
+
+	if (!isset($force)) {
+		$forceNew = true;
+		$timeLimit = null;
+	} else {
+		$forceNew = false;
+		$timeLimit = $force;
+	}
+
 	// make sure that type & owner are ints
 	$type = (int) $type;
 
@@ -4320,7 +4381,7 @@ function insertFboxNoti($type, $pers, $parentPers, $owner_id, $conObj, $addData,
 
 
 	    // fire off a notification
-	    insertFeedItem(1, $type, $sharedWith, $notiData, false, true);
+	    insertFeedItem(1, $type, $sharedWith, $notiData, $timeLimit, $forceNew);
 
 	// end of "if we have entities to share this with"
 	}

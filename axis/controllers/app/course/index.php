@@ -1,6 +1,5 @@
 <?php
 $sectionID = $this->Command->Parameters[0];
-
 // if we can access this section
 if (authSection($sectionID)) {
 

@@ -853,7 +853,7 @@ function getSectionTeachers($secID, $reset) {
 }
 
 
-
+// 
 function authSection($secID, $uid) {
     if (!isset($uid)) {
         $uid = user('id');
@@ -1303,15 +1303,16 @@ function genFeedItem($items, $primary, $uid) {
                     $obj['versions'][0]['ext'] = 'folder';
                 }
 
-                if ($unid['type'] == 2) {
-                    if ($unid['shareID'] == $item['data'][0]['optID']) {
-                        $pass = true;
-                    }
+                if ($item['data'][0]['optID'] !== '') {
+                    $url = '/app/course/' . $item['data'][0]['optID'] . '/handout/' . $item['data'][0]['id'];
+                } else {
+                    $url = $fbURL . $item['data'][0]['id'];
                 }
+
 
              $miniResult .= '<div class="feedItemStory" id="item-' . $item['_id'] . '">
 ' . $delML . '
-  <img src="/assets/app/img/box/comment.png" class="miniImg" /> ' . $idTitle . ' commented on <a href="' . $fbURL . $item['data'][0]['id'] . '" class="js-pjax">' . createConTitle($obj) . '</a>
+  <img src="/assets/app/img/box/comment.png" class="miniImg" /> ' . $idTitle . ' commented on <a href="' . $url . '" class="js-pjax">' . createConTitle($obj) . '</a>
 
   <div style="clear:both"></div>
   </div>';
