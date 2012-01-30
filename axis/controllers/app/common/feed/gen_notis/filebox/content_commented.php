@@ -8,7 +8,7 @@ $obj = array();
                     $obj['versions'][0]['ext'] = 'folder';
                 }
 
-                if ($item['data'][0]['optID'] !== '') {
+                if ($item['data'][0]['optID'] != '') {
                     $url = '/app/course/' . $item['data'][0]['optID'] . '/handout/' . $item['data'][0]['id'];
                 } else {
                     $url = $fbURL . $item['data'][0]['id'];

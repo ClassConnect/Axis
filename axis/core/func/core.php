@@ -1038,8 +1038,14 @@ function insertFeedItem($appType, $notiType, $shared_first, $data, $withinInc, $
 
         $minTime = $rightNow - $withinInc;
 
+        // this is an array, we want to query the array data instead of default
+        if (is_array($forceNew)) {
+            $queryOpt = $forceNew;
 
-        $queryOpt = array("shared_with" => $shared_with, "appType" => $appType, "notiType" => $notiType, "sent_at" => array('$gte' => $minTime));
+        } else {
+            $queryOpt = array("shared_with" => $shared_with, "appType" => $appType, "notiType" => $notiType, "sent_at" => array('$gte' => $minTime));
+        }
+        
         $curData = $collection->findOne($queryOpt);
 
         // if we actually have a result
