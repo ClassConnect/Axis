@@ -1045,7 +1045,7 @@ function insertFeedItem($appType, $notiType, $shared_first, $data, $withinInc, $
         } else {
             $queryOpt = array("shared_with" => $shared_with, "appType" => $appType, "notiType" => $notiType, "sent_at" => array('$gte' => $minTime));
         }
-        
+
         $curData = $collection->findOne($queryOpt);
 
         // if we actually have a result
@@ -1245,21 +1245,21 @@ function genFeedItem($items, $primary, $uid) {
 
             // if content has been added
             if ($item['notiType'] == 1) {
-                require_once($reqRoot . 'filebox/content_added.php');
+                require($reqRoot . 'filebox/content_added.php');
                 
               // if content has been added
             } elseif ($item['notiType'] == 2) {
-                require_once($reqRoot . 'filebox/content_moved.php');
+                require($reqRoot . 'filebox/content_moved.php');
 
 
             // if content has been shared
             } elseif ($item['notiType'] == 3) {
-                require_once($reqRoot . 'filebox/content_shared.php');
+                require($reqRoot . 'filebox/content_shared.php');
                
             
             // this is a comment
             } elseif ($item['notiType'] == 4) {
-                require_once($reqRoot . 'filebox/content_commented.php');
+                require($reqRoot . 'filebox/content_commented.php');
 
             }
 
@@ -1269,7 +1269,7 @@ function genFeedItem($items, $primary, $uid) {
 
             // added calendar entries
             if ($item['notiType'] == 1) {
-                require_once($reqRoot . 'calendar/added.php');
+                require($reqRoot . 'calendar/added.php');
 
             }
 
@@ -1279,16 +1279,16 @@ function genFeedItem($items, $primary, $uid) {
         } elseif ($item['appType'] == 3) {
             // status update
             if ($item['notiType'] == 1) {
-                require_once($reqRoot . 'personal/status.php');                
+                require($reqRoot . 'personal/status.php');                
 
 
             // if this is an auto add noti (storage!)
             } elseif ($item['notiType'] == 2) {
-                require_once($reqRoot . 'personal/autoadd.php'); 
+                require($reqRoot . 'personal/autoadd.php'); 
 
             // if this is a colleague add success
             } elseif ($item['notiType'] == 3) {
-                require_once($reqRoot . 'personal/colleague_added.php'); 
+                require($reqRoot . 'personal/colleague_added.php'); 
 
 
             }
