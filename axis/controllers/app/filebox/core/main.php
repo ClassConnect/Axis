@@ -4121,7 +4121,7 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 		}
 		foreach ($cObj['parentPermissions'] as $pkey=>$per) {
 			if ($per['type'] != 2) {
-				$share_permissions[] = $cObj['permissions'][$pkey];
+				$share_permissions[] = $cObj['parentPermissions'][$pkey];
 			}
 		}
 
@@ -4144,7 +4144,7 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 		}
 		foreach ($cObj['parentPermissions'] as $pkey=>$per) {
 			if ($per['auth_level'] == 2) {
-				$share_permissions[] = $cObj['permissions'][$pkey];
+				$share_permissions[] = $cObj['parentPermissions'][$pkey];
 			}
 		}
 
