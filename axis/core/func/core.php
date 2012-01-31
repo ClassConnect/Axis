@@ -368,7 +368,10 @@ function getUser($userid, $reset) {
     } else {
         // Run the query and transform the result data into your final dataset form
         $row = good_query_assoc("SELECT * FROM users WHERE id = '$userid' LIMIT 1");
-        setMemKey($key, $row, TRUE, 86400); // Store the result of the query for a day
+        setMemKey($key, $row, TRUE, 604800); // Store the result of the query for a day
+        // delete and then reset the mem key for username
+        delMemKey(md5('username-' . $row['user_name']));
+        setMemKey(md5('username-' . $row['user_name']), array($row['id']), TRUE, 604800);
         return $row;
     }
 
@@ -384,6 +387,32 @@ function dispUser($userid, $field){
     }
     return $userData[$field];
 }
+
+
+
+// get a user by their username
+function getUserByUsername($username) {
+    $username = escape($username);
+    if ($username == '') {
+        return false;
+    }
+    // query memcached
+    $key = md5('username-' . $username);
+    $get_result = getMemKey($key);
+    if ($get_result && $reset != true) {
+        return getUser($get_result[0]);
+    } else {
+        // Run the query and transform the result data into your final dataset form
+        $row = good_query_assoc("SELECT * FROM users WHERE user_name = '$username' LIMIT 1");
+        if ($row != false) {
+            // set the key for username-
+            setMemKey($key, array($row['id']), TRUE, 604800); // Store the result of the query for 7 days
+            setMemKey(md5('uid-' . $row['id']), $row, TRUE, 604800);
+        }
+        return $row;
+    }
+}
+
 
 // get a list of users
 function getUsers($userIDs) {

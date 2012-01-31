@@ -124,6 +124,17 @@ class appController extends Axis_Controller
         }
 
 
+
+        function _profile()
+        {
+                if (!checkSession()) {
+                        showLogin();
+                } else {
+                        require_once('profile/index.php');
+                }
+        }
+
+
         function _logout()
         {
         	killSession();

@@ -3,7 +3,8 @@ class errorController extends Axis_Controller
         {
         function _default()
                 {
-               header('location:/app/');
+                	require_once('axis/controllers/app/profile/index.php');
+               		//header('location:/app/');
                 }
         }
 ?>

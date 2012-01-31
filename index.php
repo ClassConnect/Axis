@@ -11,7 +11,6 @@ setLocales();
 $urlInterpreter = new Axis_URLInterpreter();
 $command = $urlInterpreter->getCommand();
 $commandDispatcher = new Axis_CommandDispatcher($command);
-global $commandResult;
 $commandDispatcher->Dispatch();
 
 
