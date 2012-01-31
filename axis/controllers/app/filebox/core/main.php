@@ -3872,7 +3872,7 @@ function addRecommendation($conID, $dataID, $uid) {
 			}
 			foreach ($cObj['parentPermissions'] as $pkey=>$per) {
 				if ($per['type'] != 2) {
-					$share_permissions[] = $cObj['permissions'][$pkey];
+					$share_permissions[] = $cObj['parentPermissions'][$pkey];
 				}
 			}
 
