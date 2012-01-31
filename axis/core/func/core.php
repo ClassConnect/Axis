@@ -1261,6 +1261,10 @@ function genFeedItem($items, $primary, $uid) {
             } elseif ($item['notiType'] == 4) {
                 require($reqRoot . 'filebox/content_commented.php');
 
+            // this is a recommend
+            } elseif ($item['notiType'] == 5) {
+                require($reqRoot . 'filebox/content_recommended.php');
+
             }
 
 

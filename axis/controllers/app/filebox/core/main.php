@@ -3862,6 +3862,23 @@ function addRecommendation($conID, $dataID, $uid) {
 		  	$collection = $mdb->fbox_content;
 			// update this
 			$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+
+			$share_permissions = array();
+			// remove all entities that are courses
+			foreach ($cObj['permissions'] as $pkey=>$per) {
+				if ($per['type'] != 2) {
+					$share_permissions[] = $cObj['permissions'][$pkey];
+				}
+			}
+			foreach ($cObj['parentPermissions'] as $pkey=>$per) {
+				if ($per['type'] != 2) {
+					$share_permissions[] = $cObj['permissions'][$pkey];
+				}
+			}
+
+			insertFboxNoti(5, $share_permissions, array(), $cObj['owner_id'], $cObj, array("dataID" => $dataID), null, $uid);
+
+
 			return true;
 		} else {
 			return false;
@@ -3919,6 +3936,9 @@ function delRecommendation($conID, $dataID, $uid) {
 		  	$collection = $mdb->fbox_content;
 			// update this
 			$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+
+			$feed_collection = $mdb->feed;
+			$feed_collection->remove(array('appType' => 1, 'notiType' => 5, 'uid' => $uid, 'data.0.id' => $conID, 'data.0.dataID' => $dataID), array('safe' => true));
 			return true;
 		} else {
 			return false;
