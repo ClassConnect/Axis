@@ -42,6 +42,9 @@ require_once('axis/controllers/app/profile/core/main.php');
 	} elseif ($this->Command->Parameters[1] == 'manage') {
 		if ($this->Command->Parameters[2] == 'icon') {
 			require_once('axis/controllers/app/profile/views/manage/icon.php');
+
+		} elseif ($this->Command->Parameters[2] == 'about') {
+			require_once('axis/controllers/app/profile/views/manage/about.php');
 		}
 
 

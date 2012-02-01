@@ -72,7 +72,9 @@ function buildSharingQuery($uid) {
 	// if we're logged in
 	if (checkSession()) {
 		if ($uid != user('id')) {
-			$result['$or'][] = array("shared_with.type" => 3, "shared_with.shareID" => (int) 1);
+			if (user('level') != 1) {
+				$result['$or'][] = array("shared_with.type" => 3, "shared_with.shareID" => (int) 1);
+			}
 			$result['$or'][] = array("shared_with.type" => 1, "shared_with.shareID" => (int) user('id'));
 			$secs = getSections();
 			foreach ($secs as $sec) {
