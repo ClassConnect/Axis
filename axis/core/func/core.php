@@ -1249,6 +1249,12 @@ function genFeedItem($items, $primary, $uid) {
             }
         }
 
+
+        // for pulls from UID
+        if ($primary['type'] == 10 && $item['uid'] == $primary['shareID']) {
+            $unid = array("type" => 1, "shareID" => $primary['shareID']);
+        }
+
         // generate title
         if ($unid['type'] == 2) {
             $secData = getSection($unid['shareID']);
