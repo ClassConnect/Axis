@@ -55,7 +55,11 @@ if (in_array($ext, $imgTypes)) {
 		$uid = user('id');
 		good_query("UPDATE users SET prof_icon = '$encname' WHERE id = $uid");
 		getUser($uid, true);
-		header('location:/app/manage/settings');
+		if ($_GET['redir']) {
+			header('location:' . $_GET['redir']);
+		} else {
+			header('location:/app/manage/settings');
+		}
 	}
 } else {
 	header('location:/app/manage/settings');	

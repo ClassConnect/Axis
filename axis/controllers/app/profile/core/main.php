@@ -12,7 +12,7 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 	          <div class="sectionLeft">';
 
 	          if ($userData['id'] == user('id')) {
-	          	echo '<div class="logoChange" onClick="jQuery.facebox({ ajax: \'/app/course/' . $secData['section_id'] . '/manage/icon\' }); return false;">Change Icon</div>';
+	          	echo '<div class="logoChange" onClick="jQuery.facebox({ ajax: \'' . $rootURL . 'manage/icon\' }); return false;">Change Icon</div>';
 	          }
 
 	           echo '<img src="' . iconServer() . '210_' . $userData['prof_icon'] . '" class="courseLogo" />
