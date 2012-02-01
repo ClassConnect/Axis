@@ -5,7 +5,7 @@ asyncOvr = false;
 $(document).ready(function() {
 	swapActive($("#app-" + curApp));
   // pjax stuff
-  $('.js-pjax').pjax('.sectionRight', {
+  $('.js-pjaxer').pjax('.sectionRight', {
   timeout: null, error: function(xhr, err){
     $('.error').text('Something went wrong: ' + err)
   }});
@@ -66,15 +66,15 @@ function initAnnouncements() {
       // pull in feed data
       $.ajax({  
       type: "GET",  
-      url: "/app/common/feed/retrieve/?limit=20&off=" + (totalPull * 40) + "&t2=" + secID + "&primType=2&primID=" + secID,  
+      url: "/app/common/feed/retrieve/?limit=40&off=" + (totalPull * 40) + "&t1=" + myUID + "&t2=" + mySecs + "&primType=10&primID=" + UID,  
       dataType: "json",
       success: function(retData) {
         if (retData['empty'] == false) {
-          $("#course_feed").append(retData['result']);
+          $("#usr_feed").append(retData['result']);
           loading=false;
         } else {
           $("#noneRM").remove();
-          $("#course_feed").append('<p style="text-align:center;color:#666; background:#efefef;padding:7px;margin:20px">No more announcements found for this section..</p>');
+          $("#usr_feed").append('<p style="text-align:center;color:#666; background:#efefef;padding:7px;margin:20px">No more activity found for this user.</p>');
           // dont unset the loading variable!
         }
 
@@ -85,51 +85,6 @@ function initAnnouncements() {
 
     }
   });
-
-  $('#status').elastic();
-  $('#status').height(20);
-	$("#status").focus(function () {
-         $(this).parent().find('.statActions').show();
-         $(this).height(50);
-    });
-
-	$("#statSub").click(function () {
-		// if we have a status to post
-		if ($("#status").val() != '') {
-			$('#status').attr('disabled', 'disabled');
-			var selected = '';
-			$("input:checkbox['courses']:checked").each(function() {
-			       selected += $(this).val() + ',';
-			  });
-
-			$('.statActions').hide();
-
-			$('.statActions').after('<img class="RM_me" src="/assets/app/img/box/sub.gif" style="float:right;margin-right:10px;margin-top:5px" />');
-
-			$.ajax({  
-		      type: "POST",  
-		      url: preURL + "latest/add",  
-		      data: 'courses=' + selected + '&status=' + escape($("#status").val()),
-		      success: function(retData) {
-		        $("#course_feed").prepend(
-				    $(retData).hide().fadeIn('slow')
-				);
-
-				$("#status").height(20).val('').removeAttr('disabled');
-				$('.RM_me').remove();
-				$('.statActions').show();
-				$('.hidPicker').hide();
-        $('#noneRM').remove();
-
-		      }  
-		      
-		  	}); 
-
-
-
-
-		}
-    });
 }
 
 // helper function

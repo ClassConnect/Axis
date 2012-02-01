@@ -12,7 +12,7 @@ $(document).ready(function() {
         // pull in feed data
         $.ajax({  
         type: "GET",  
-        url: "/app/common/feed/retrieve/?limit=20&off=" + (totalPull * 40) + urlComp,  
+        url: "/app/common/feed/retrieve/?limit=40&off=" + (totalPull * 40) + urlComp,  
         dataType: "json",
         success: function(retData) {
           if (retData['empty'] == false) {

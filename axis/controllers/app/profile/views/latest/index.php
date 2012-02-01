@@ -5,7 +5,7 @@
   $rightCont .= '<div id="usr_feed">';
 
 
-  $queryData = array("uid" => 8);
+  $queryData = buildSharingQuery($usr1['id']);
 
   $result = retrieveFeedItems($queryData);
 
@@ -13,6 +13,8 @@
   foreach ($result as $res) {
     $rcount++;
   }
+
+  
   if ($rcount == 0) {
     $rightCont .= '<p id="noneRM" style="text-align:center;color:#666">No activity found for this user...yet.</p>';
   } else {

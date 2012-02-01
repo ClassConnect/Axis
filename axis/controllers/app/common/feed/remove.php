@@ -69,12 +69,12 @@ function deleteItem() {
 <span style="font-size:14px;line-height:1.3">Are you sure you want to remove this item?</span>
 
 <?php
-if (count($idata['shared_with']) > 1) {
+if (count($idata['shared_with']) > 1 && !isset($_GET['rmall'])) {
 ?>
 <div style="margin-top:10px;margin-bottom:-15px">
   <label>
     <input type="checkbox" name="removeAll" value="true" style="float:left;margin-right:5px">
-    <div style="font-weight:normal;color:#666;font-size:12px">Also remove from all other attached courses</div>
+    <div style="font-weight:normal;color:#666;font-size:12px">Also remove from all other attached courses & colleagues</div>
   </label>
 </div>
 <?php

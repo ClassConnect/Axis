@@ -46,5 +46,7 @@ require_once('axis/controllers/app/profile/core/main.php');
 
 
 	// default view (?)
+	} else {
+		showError();
 	}
 ?>

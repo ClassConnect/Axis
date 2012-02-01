@@ -66,7 +66,7 @@ function initAnnouncements() {
       // pull in feed data
       $.ajax({  
       type: "GET",  
-      url: "/app/common/feed/retrieve/?limit=20&off=" + (totalPull * 40) + "&t2=" + secID + "&primType=2&primID=" + secID,  
+      url: "/app/common/feed/retrieve/?limit=40&off=" + (totalPull * 40) + "&t2=" + secID + "&primType=2&primID=" + secID,  
       dataType: "json",
       success: function(retData) {
         if (retData['empty'] == false) {
@@ -74,7 +74,7 @@ function initAnnouncements() {
           loading=false;
         } else {
           $("#noneRM").remove();
-          $("#course_feed").append('<p style="text-align:center;color:#666; background:#efefef;padding:7px;margin:20px">No more announcements found for this section..</p>');
+          $("#course_feed").append('<p style="text-align:center;color:#666; background:#efefef;padding:7px;margin:20px">No more announcements found for this section.</p>');
           // dont unset the loading variable!
         }
 

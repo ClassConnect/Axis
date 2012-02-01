@@ -1219,6 +1219,8 @@ function genFeedItem($items, $primary, $uid) {
             $dType = 't1=' . $primary['shareID'];
         } elseif ($primary['type'] == 2) {
             $dType = 't2=' . $primary['shareID'];
+        } elseif ($primary['type'] == 10) {
+            $dType = 'rmall=1';
         }
     }
 
@@ -1304,7 +1306,7 @@ function genFeedItem($items, $primary, $uid) {
 
 
         // calendar handler
-        } elseif ($item['appType'] == 2) {
+        } elseif ($item['appType'] == 2 && $primary['type'] != 10) {
 
             // added calendar entries
             if ($item['notiType'] == 1) {
@@ -1314,8 +1316,8 @@ function genFeedItem($items, $primary, $uid) {
 
 
 
-        // if this is a personal update
-        } elseif ($item['appType'] == 3) {
+        // if this is a personal update, never show on personal profiles
+        } elseif ($item['appType'] == 3 && $primary['type'] != 10) {
             // status update
             if ($item['notiType'] == 1) {
                 require($reqRoot . 'personal/status.php');                
