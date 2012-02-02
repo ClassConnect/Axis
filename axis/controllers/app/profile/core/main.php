@@ -9,6 +9,12 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 		// <div class="container">
 	echo '<div class="content">';
 
+	if (user('id') == $userData['id'] && $userData['level'] == 3 && $userData['user_name'] == '') {
+		echo '<div id="collPop" class="alert-message warning" style="margin-left:20px;text-align:center">
+		<strong>You haven\'t claimed your ClassConnect URL yet!</strong>
+		<form onsubmit="setURL();return false" style="margin-bottom:0px;margin-top:-1px;float:right;padding-right:10px">http://www.classconnect.com/<input type="text" id="urlSpot" maxlength="60" style="height:12px;font-size:12px;margin-bottom:-2px" /> <button class="btn primary" type="submit" style="font-size:12px;padding:2px 6px 3px 6px; font-weight:bolder;margin-bottom:-2px">Claim Your URL</button></form>
+		</div>';
+	}
 
 	        echo '<div class="row" style="clear:both"> 
 	          <div class="sectionLeft">';
@@ -85,6 +91,18 @@ function pingColleague(id) {
       }
 
     });
+}
+
+function setURL() {
+	$.ajax({
+      type: "GET",
+      url: "/app/profile/' . $userData['id'] . '/manage/url?id=",
+      success: function(data) {
+          // do nothing
+      }
+
+    });
+    return false;
 }
 </script>';
 		appFooter();

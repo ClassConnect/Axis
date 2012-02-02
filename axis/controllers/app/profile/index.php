@@ -46,6 +46,10 @@ require_once('axis/controllers/app/profile/core/main.php');
 
 		} elseif ($this->Command->Parameters[2] == 'about') {
 			require_once('axis/controllers/app/profile/views/manage/about.php');
+
+		} elseif ($this->Command->Parameters[2] == 'url') {
+			require_once('axis/controllers/app/profile/views/manage/url.php');
+
 		}
 
 
