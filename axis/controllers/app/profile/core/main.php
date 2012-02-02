@@ -10,9 +10,9 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 	echo '<div class="content">';
 
 	if (user('id') == $userData['id'] && $userData['level'] == 3 && $userData['user_name'] == '') {
-		echo '<div id="collPop" class="alert-message warning" style="margin-left:20px;text-align:center">
-		<strong>You haven\'t claimed your ClassConnect URL yet!</strong>
-		<form onsubmit="setURL();return false" style="margin-bottom:0px;margin-top:-1px;float:right;padding-right:10px">http://www.classconnect.com/<input type="text" id="urlSpot" maxlength="60" style="height:12px;font-size:12px;margin-bottom:-2px" /> <button class="btn primary" type="submit" style="font-size:12px;padding:2px 6px 3px 6px; font-weight:bolder;margin-bottom:-2px">Claim Your URL</button></form>
+		echo '<div id="urlPop" class="alert-message warning" style="margin-left:20px;text-align:center">
+		<span id="urlSwapper" style="font-weight:bolder">You haven\'t claimed your ClassConnect URL yet!</span>
+		<form id="urlSubber" onsubmit="setURL();return false" style="margin-bottom:0px;margin-top:-1px;float:right;padding-right:10px">http://www.classconnect.com/<input type="text" id="urlSpot" maxlength="60" style="height:12px;font-size:12px;margin-bottom:-2px" /> <button class="btn primary" id="urlSubBtn" type="submit" style="font-size:12px;padding:2px 6px 3px 6px; font-weight:bolder;margin-bottom:-2px">Claim Your URL</button></form>
 		</div>';
 	}
 
@@ -94,11 +94,24 @@ function pingColleague(id) {
 }
 
 function setURL() {
+	curVal = $("#urlSpot").val();
+	$("#urlSubBtn").attr("disabled", true);
+	$("#urlSpot").attr("disabled", true);
 	$.ajax({
       type: "GET",
-      url: "/app/profile/' . $userData['id'] . '/manage/url?id=",
+      url: "/app/profile/' . $userData['id'] . '/manage/url/?url=" + escape(curVal),
       success: function(data) {
-          // do nothing
+          if (data == "1") {
+          	$("#urlPop").html("<a href=\'#\' onclick=\'$(this).parent().remove();return false\' style=\'float:right\'>close</a> <span style=\'font-weight:bolder\'>Awesome! Your profile can now be accessed at http://www.classconnect.com/" + curVal + " <a href=\'https://twitter.com/intent/tweet?text=" + escape("I just claimed my ClassConnect URL! http://www.classconnect.com/" + curVal + " #UnitedWeTeach") + "&via=ClassConnectInc\' target=\'_blank\'>Tweet this!</a></span>");
+          } else if (data == "2") {
+          	$("#urlSwapper").html("<span style=\'color:#C43C35\'>Oops! That username has been taken. Try another!</span>");
+          	$("#urlSubBtn").attr("disabled", false);
+			$("#urlSpot").attr("disabled", false);
+		  } else if (data == "3") {
+          	$("#urlSwapper").html("<span style=\'color:#C43C35\'>Oops! Your username can only have A-Z, 1-9, and _</span>");
+          	$("#urlSubBtn").attr("disabled", false);
+			$("#urlSpot").attr("disabled", false);
+          }
       }
 
     });

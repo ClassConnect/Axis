@@ -10,6 +10,9 @@ if ($tempUN != $cleanUN) {
 	// we're good to go. lets check if this handle has been taken yet
 	if (!getUserByUsername($cleanUN) && $cleanUN != '') {
 		// not taken - lets register it
+		$myUID = user('id');
+		good_query("UPDATE users SET user_name = '$cleanUN' WHERE id = $myUID");
+  		getUser($myUID, true);
 		echo 1;
 	} else {
 		// taken, return error 2
