@@ -27,6 +27,20 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 
 	          }
 
+	          // only show the add colleague button if we're both teachers and not already friends
+	          if (user('level') == 3 && $userData['level'] == 3 && !authFriend($userData['id']) && user('id') != $userData['id']) {
+
+	          	// if we've already send a friend request
+	          	if (isRequested($userData['id'])) {
+	          		echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:10px;margin-top:-5px" disabled><img src="/assets/app/img/gen/mail.png" style="float:left;height:16px;width:16px;margin-right:5px"> Colleague request sent</button>';
+	          	// no friend request detected
+	          	} else {
+	          		echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:10px;margin-top:-5px" onclick="pingColleague(' . $userData['id'] . ');$(this).attr(\'disabled\', true);$(this).html(\'<img src=\\\'/assets/app/img/gen/mail.png\\\'style=\\\'float:left;height:16px;width:16px;margin-right:5px\\\'> Colleague request sent\');"><img src="/assets/app/img/colleagues/minicard.png" style="float:left;height:16px;width:16px;margin-right:5px"> Add Colleague</button>';
+	          	}
+	          } elseif (!checkSession()) {
+	          	echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:10px;margin-top:-5px" onclick="logPopper();"><img src="/assets/app/img/colleagues/minicard.png" style="float:left;height:16px;width:16px;margin-right:5px"> Add Colleague</button>';
+	          }
+
 	          echo '<div class="courseCrumbs">
 	            ' . dispUser($userData['id'], 'first_name') . ' ' . dispUser($userData['id'], 'last_name') . '
 	              <span class="label important" style="position:relative;bottom:4px;font-size:12px;cursor:pointer">314</span>';
@@ -60,6 +74,16 @@ myUID = ' . user('id') . ';
 UID = ' . $userData['id'] . ';
 mySecs = "' . $secStr . '";
 preURL = "' . $rootURL . '";
+function pingColleague(id) {
+	$.ajax({
+      type: "GET",
+      url: "/app/common/colleagues/ping?id=" + id,
+      success: function(data) {
+          // do nothing
+      }
+
+    });
+}
 </script>';
 		appFooter();
 	}

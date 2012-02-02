@@ -4,6 +4,9 @@ if ($this->Command->Parameters[0] == 'colleagues' && checkSession()) {
 	if ($this->Command->Parameters[1] == 'add') {
 		require_once('colleagues/add.php');
 
+	} elseif ($this->Command->Parameters[1] == 'ping') {
+		require_once('colleagues/ping.php');
+
 	} elseif ($this->Command->Parameters[1] == 'review') {
 		require_once('colleagues/review.php');
 

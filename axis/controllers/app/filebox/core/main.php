@@ -3195,7 +3195,7 @@ function genConStripe($child, $perLev) {
 	    		<a class="js-pjax" href="/app/filebox/' . $child['_id'] . '">' . createConTitle($child) . '</a>
 	    		</div>
 	    		<div class="conlast">
-	    		Updated ' . $lastMod . ' by <a href="#" class="textTogg" onClick="return false">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>';
+	    		Updated ' . $lastMod . ' by <a href="' . userURL($lastModder) . '" class="textTogg">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>';
 
 
 	    		if ($child['files'] > 0 && $child['type'] == 1) {
@@ -3284,7 +3284,7 @@ function authorUI($conObj, $perObj) {
 
 
  return '<div style="clear:both">
-	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px;background:#fff" class="vidView" />
+	 	<a href="' . userURL($ownerID) . '"><img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:3px;background:#fff" class="vidView" /></a>
 		 	<div style="margin-left:70px;padding-bottom:5px">
 		 		<div style="padding-top:1px">
 
@@ -3310,10 +3310,10 @@ function authorUI($conObj, $perObj) {
 	} else {
 
 	 return '<div style="clear:both;margin-bottom:17px">
-	 	<img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:8px;background:#fff" class="vidView" />
+	 	<a href="' . userURL($ownerID) . '"><img src="' . iconServer() . '50_' . dispUser($ownerID, 'prof_icon') . '" style="float:left; width:48px; height:48px; margin-left:10px; margin-bottom:8px;background:#fff" class="vidView" /></a>
 		 	<div style="margin-left:70px">
 		 		<div style="padding-top:5px;font-size:14px">
-		 			<a href="#">' . dispUser($ownerID, 'first_name') . ' ' . dispUser($ownerID, 'last_name') . '</a>
+		 			<a href="' . userURL($ownerID) . '">' . dispUser($ownerID, 'first_name') . ' ' . dispUser($ownerID, 'last_name') . '</a>
 		 		</div>
 		 		<div style="padding-top:2px;font-size:12px">
 		 			is the owner of this folder.
@@ -4083,8 +4083,8 @@ function genCommentFeed($comments, $conID, $dataID, $permissionObj, $perLevel, $
 			$finDat .= '<img src="/assets/app/img/colleagues/del.png" class="deleter" title="Remove" onClick="jQuery.facebox({ ajax: \'/app/filebox/write/rm/comment/' . $conID . '/' . $dataID . '/' . $comment['id'] . '\' }); return false;" />';
 		}
 
-		$finDat .= '<img src="' . iconServer() . '50_' . dispUser($comment['uid'], 'prof_icon') . '" class="proImgr" style="margin-bottom:5px" />
-		<div class="commentText"><a href="#" onclick="return false">' . dispUser($comment['uid'], 'first_name') . ' ' . dispUser($comment['uid'], 'last_name') . '</a><br />' . spit($comment['text']) . '</div>
+		$finDat .= '<a href="' . userURL($comment['uid']) . '"><img src="' . iconServer() . '50_' . dispUser($comment['uid'], 'prof_icon') . '" class="proImgr" style="margin-bottom:5px" /></a>
+		<div class="commentText"><a href="' . userURL($comment['uid']) . '">' . dispUser($comment['uid'], 'first_name') . ' ' . dispUser($comment['uid'], 'last_name') . '</a><br />' . spit($comment['text']) . '</div>
 
 		<div style="clear:both"></div>
 		</div>';

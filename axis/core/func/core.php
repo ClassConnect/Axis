@@ -1613,6 +1613,28 @@ function authFriend($friendID, $uid) {
 
 
 
+function isRequested($friendID, $uid) {
+    if (isset($uid)) {
+        $uid = $uid;
+    } else {
+        $uid = user('id');
+    }
+
+
+    $row = good_query_table("SELECT * FROM colleagues WHERE user1 = '$uid' AND status = 1");
+    $ret = false;
+    foreach ($row as $data) {
+        if ($data['user2'] == $friendID) {
+            $ret = true;
+        }
+    }
+
+    return $ret;
+
+}
+
+
+
 // create a temp user, just with an email address!
 function createTempUser($email) {
     global $dbc;
