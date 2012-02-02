@@ -7,8 +7,10 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 		appHeader(dispUser($userData['id'], 'first_name') . ' ' . dispUser($userData['id'], 'last_name') . ' ' . $pageTitle, '<link rel="stylesheet" type="text/css" href="/assets/app/filebox.css" /><script type="text/javascript" src="/assets/app/js/profile/main.js"></script>');
 
 		// <div class="container">
-	echo '<div class="content"> 
-	        <div class="row" style="clear:both"> 
+	echo '<div class="content">';
+
+
+	        echo '<div class="row" style="clear:both"> 
 	          <div class="sectionLeft">';
 
 	          if ($userData['id'] == user('id')) {

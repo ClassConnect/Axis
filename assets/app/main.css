@@ -1227,7 +1227,7 @@ textarea[readonly] {
 .topbar div > ul a, .nav a {
   display: block;
   float: none;
-  padding: 10px 10px 11px;
+  padding: 11px 10px 10px;
   line-height: 19px;
   text-decoration: none;
 }
