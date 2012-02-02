@@ -527,6 +527,7 @@ function populateState() {
         var inputSel = document.createElement("SELECT");
         inputSel.setAttribute("name","state");
         inputSel.setAttribute("id","stateSelect");
+        inputSel.setAttribute("style", "margin-bottom:5px");
         parentObj.appendChild(inputSel) ;
         selObj = document.getElementById('stateSelect');
         selObj.options[0] = new Option('Select State','');
@@ -552,9 +553,11 @@ function populateState() {
     inputEl.setAttribute("id", "stateSelect");
     inputEl.setAttribute("type", "text");
     inputEl.setAttribute("name", "state");
+    inputEl.setAttribute("style", "margin-bottom:5px;width:200px");
+    inputEl.setAttribute("placeholder", "State name");
     inputEl.setAttribute("size", 20);
     inputEl.setAttribute("value", postState);
-    parentObj.appendChild(inputEl) ;
+    parentObj.appendChild(inputEl);
   }
 }
 

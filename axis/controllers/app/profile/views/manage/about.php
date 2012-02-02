@@ -64,7 +64,7 @@ $('#update-about').submit(function() {
         You are currently located in
       </div>
 <select id='countrySelect' name="country" onchange='populateState()' style="margin-bottom:5px"></select><br />
-<select id='stateSelect' name="state" style="margin-bottom:5px"></select><br />
+<div id="#stateDrop"><select id='stateSelect' name="state" style="margin-bottom:5px"></select></div>
 <input type="text" name="city" placeholder="City name" style="width:200px" />
 
       <div style="color:#666;font-weight:bolder;margin-top:20px;margin-bottom:10px">
