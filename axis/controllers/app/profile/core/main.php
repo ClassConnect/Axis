@@ -32,13 +32,13 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 
 	          	// if we've already send a friend request
 	          	if (isRequested($userData['id'])) {
-	          		echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:10px;margin-top:-5px" disabled><img src="/assets/app/img/gen/mail.png" style="float:left;height:16px;width:16px;margin-right:5px"> Colleague request sent</button>';
+	          		echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:20px;margin-top:-5px" disabled><img src="/assets/app/img/gen/mail.png" style="float:left;height:16px;width:16px;margin-right:5px"> Colleague request sent</button>';
 	          	// no friend request detected
 	          	} else {
-	          		echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:10px;margin-top:-5px" onclick="pingColleague(' . $userData['id'] . ');$(this).attr(\'disabled\', true);$(this).html(\'<img src=\\\'/assets/app/img/gen/mail.png\\\'style=\\\'float:left;height:16px;width:16px;margin-right:5px\\\'> Colleague request sent\');"><img src="/assets/app/img/colleagues/minicard.png" style="float:left;height:16px;width:16px;margin-right:5px"> Add Colleague</button>';
+	          		echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:20px;margin-top:-5px" onclick="pingColleague(' . $userData['id'] . ');$(this).attr(\'disabled\', true);$(this).html(\'<img src=\\\'/assets/app/img/gen/mail.png\\\'style=\\\'float:left;height:16px;width:16px;margin-right:5px\\\'> Colleague request sent\');"><img src="/assets/app/img/colleagues/minicard.png" style="float:left;height:16px;width:16px;margin-right:5px"> Add Colleague</button>';
 	          	}
 	          } elseif (!checkSession()) {
-	          	echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:10px;margin-top:-5px" onclick="logPopper();"><img src="/assets/app/img/colleagues/minicard.png" style="float:left;height:16px;width:16px;margin-right:5px"> Add Colleague</button>';
+	          	echo '<button class="btn" style="font-weight:bolder;float:right;margin-right:20px;margin-top:-5px" onclick="logPopper();"><img src="/assets/app/img/colleagues/minicard.png" style="float:left;height:16px;width:16px;margin-right:5px"> Add Colleague</button>';
 	          }
 
 	          echo '<div class="courseCrumbs">

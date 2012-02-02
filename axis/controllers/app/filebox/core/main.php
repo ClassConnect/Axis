@@ -3503,7 +3503,7 @@ function assocUI($conObj, $perObj) {
 	  	if ($sharePend != '') {
 	  		$sharePend .= '<br />';
 	  	} else {
-	  		if (checkSession()) {
+	  		if (determinePerLevel($conObj['_id'], $perObj) == 2) {
 	  			$sharePend = '<div style="font-size:10px;color:#333">Not shared with colleagues or courses...<a href="#" onClick="shareCurrent();return false">yet.</a></div>';
 	  		}
 	  	}

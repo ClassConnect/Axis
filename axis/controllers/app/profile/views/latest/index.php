@@ -18,8 +18,15 @@
   if ($rcount == 0) {
     $rightCont .= '<p id="noneRM" style="text-align:center;color:#666">No activity found for this user...yet.</p>';
   } else {
-    $rightCont .= genFeedItem($result, array("type" => 10, "shareID" => (int) $usr1['id']));
+    $temp .= genFeedItem($result, array("type" => 10, "shareID" => (int) $usr1['id']));
   }
+
+  if (str_replace(' ', '', $temp) == '' && $rcount != 0) {
+    $rightCont .= '<p id="noneRM" style="text-align:center;color:#666">No recent activity found for this user.</p>';
+  } else {
+    $rightCont .= $temp;
+  }
+
 
   $rightCont .= '</div>
   <script>

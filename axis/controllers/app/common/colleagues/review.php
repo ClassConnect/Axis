@@ -74,7 +74,7 @@ function initReq(action, friendID, mObj) {
 
       echo '<div style="padding-top:10px;padding-bottom:10px;border-top:1px solid #eee">
       <img src="' . iconServer(). '50_' . $usr['prof_icon'] . '" style="height:50px;width:50px;float:left;margin-right:10px" /> 
-      <span class="colNamer" style="font-weight:bolder;font-size:14px">' . $usr['first_name'] . ' ' .$usr['last_name'] . '</span>
+      <span class="colNamer" style="font-weight:bolder;font-size:14px"><a href="' . userURL($usr['id']) . '" target="_blank">' . $usr['first_name'] . ' ' . $usr['last_name'] . '</a></span>
 
       <div class="uniqueBoxer" style="margin-top:8px">
         <button class="btn primary" style="font-size:11px;padding:5px" onclick="initReq(1, ' . $usr['id'] . ', this)">Approve</button>
