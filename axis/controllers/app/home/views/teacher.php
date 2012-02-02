@@ -172,7 +172,7 @@ function updateSidebar() {
   var finalText = '';
   var myCols = sortNest('label', amigos);
   for (per in myCols) {
-    finalText += '<div class="colItem"><img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' + myCols[per]['val'] + '\' }); return false;" /> <img src="<?= iconServer(); ?>50_' + myCols[per]['icon'] + '" class="smallProfImg" />' + myCols[per]['label'] + '</div>';
+    finalText += '<div class="colItem"><img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' + myCols[per]['val'] + '\' }); return false;" /> <a style="color:#444" href="/app/profile/' + myCols[per]['val'] + '"><img src="<?= iconServer(); ?>50_' + myCols[per]['icon'] + '" class="smallProfImg" />' + myCols[per]['label'] + '</a></div>';
   }
 
   if (finalText == '') {

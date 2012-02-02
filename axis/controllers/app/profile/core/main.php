@@ -151,7 +151,7 @@ function buildSharingQuery($uid) {
 
 
 function buildProfOneliner($userData) {
-	$startDiv = '<div id="miniDescer" style="margin-left:20px;font-size:13px;color:#999;margin-top:-5px;margin-bottom:10px">';
+	$startDiv = '<div id="miniDescer" style="margin-left:20px;font-size:13px;color:#666;margin-top:-5px;margin-bottom:10px">';
 	$endDiv = '</div>';
 	$midDiv = '';
 
