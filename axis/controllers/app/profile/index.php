@@ -24,6 +24,7 @@ if ($usr1 == false) {
 	exit();
 }
 
+$curUID = $usr1['id'];
 
 // two different routing blocks
 // this one is for profile by id

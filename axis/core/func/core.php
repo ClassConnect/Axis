@@ -390,6 +390,20 @@ function dispUser($userid, $field){
 
 
 
+function userURL($udata) {
+    if (is_numeric($udata)) {
+        $udata = getUser($udata);
+    }
+
+    if ($udata['user_name'] != '') {
+        return '/' . $udata['user_name'] . '/';
+    } else {
+        return '/app/profile/' . $udata['id'] . '/';
+    }
+}
+
+
+
 // get a user by their username
 function getUserByUsername($username) {
     $username = escape($username);

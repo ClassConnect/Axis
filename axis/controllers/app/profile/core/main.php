@@ -91,4 +91,103 @@ function buildSharingQuery($uid) {
 	return $result;
 }
 
+
+
+function buildProfOneliner($userData) {
+	$startDiv = '<div id="miniDescer" style="margin-left:20px;font-size:13px;color:#999;margin-top:-5px;margin-bottom:10px">';
+	$endDiv = '</div>';
+	$midDiv = '';
+
+
+	if ($userData['level'] == 1) {
+		return $startDiv . 'Student' . $endDiv;
+	}
+
+	$settings = cleanSettings($userData['settings']);
+
+	if ($settings['profile_data']['title'] == 'Teacher') {
+		$midDiv .= 'Teaches ';
+	} elseif ($settings['profile_data']['title'] == 'Librarian') {
+		$midDiv .= 'Librarian';
+	} elseif ($settings['profile_data']['title'] == 'Administrator') {
+		$midDiv .= 'Administrator';
+	}
+
+		// if we have subjects
+		if (!empty($settings['profile_data']['subjects'])) {
+			if ($settings['profile_data']['title'] != 'Teacher') {
+				$midDiv .= ' specializing in ';
+			}
+
+			$midDiv .= '<strong>';
+			foreach ($settings['profile_data']['subjects'] as $subj) {
+				$midDiv .= $subj . ', ';
+			}
+			$midDiv = substr($midDiv, 0, strlen($midDiv) - 2);
+			$midDiv .= '</strong>';
+		}
+
+		// if we have grade levels
+		if (!empty($settings['profile_data']['grades'])) {
+
+			if (count($settings['profile_data']['grades']) == 1) {
+				$gradeStr = 'grade';
+			} else {
+				$gradeStr = 'grades';
+			}
+
+			if (!empty($settings['profile_data']['subjects'])) {
+				$midDiv .= ' in ' . $gradeStr . ' ';
+			} else {
+				$midDiv .= $gradeStr . ' ';
+			}
+			$midDiv .= '<strong>';
+			foreach ($settings['profile_data']['grades'] as $grade) {
+				$midDiv .= $grade . ', ';
+			}
+			$midDiv = substr($midDiv, 0, strlen($midDiv) - 2);
+			$midDiv .= '</strong>';
+		}
+
+
+		if ((isset($settings['profile_data']['city']) && $settings['profile_data']['city'] != '') || (isset($settings['profile_data']['state']) && $settings['profile_data']['state'] != '') || (isset($settings['profile_data']['country']) && $settings['profile_data']['country'] != '')) {
+			$midDiv .= ' in ';
+		}
+
+		// if we have city
+		if (isset($settings['profile_data']['city'])) {
+			$midDiv .= ' ' . $settings['profile_data']['city'] . ' ';
+		}
+
+		// if we have state
+		if (isset($settings['profile_data']['state'])) {
+			$midDiv .= ' ' . $settings['profile_data']['state'] . ', ';
+		}
+
+		// if we have country
+		if (isset($settings['profile_data']['country'])) {
+			$midDiv .= ' ' . $settings['profile_data']['country'];
+		}
+
+		// if we have country
+		if (isset($settings['profile_data']['website']) && $settings['profile_data']['website'] != '') {
+			$midDiv .= ' <a href="' . $settings['profile_data']['website'] . '" target="_blank" style="margin-left:10px"><img src="/assets/app/img/box/globe.png" style="height:12px;width:12px;margin-bottom:-1px;margin-right:3px" />Website</a>';
+		}
+
+		if ($userData['id'] == user('id')) {
+			$midDiv .= '<button class="btn primary" style="margin-left:10px; padding:2px 6px 2px 6px" onclick="jQuery.facebox({ ajax: \'' . userURL($userData) . 'manage/about\' }); return false;"><img src="/assets/app/img/box/editcon.png" style="height:12px;width:12px;margin-bottom:-2px;margin-right:1px" /> Edit your profile</button>';
+		}
+
+
+	return $startDiv . $midDiv . $endDiv;
+
+
+  /*'Teaches <strong>Science, Math</strong> in grades <strong>9, 10, 11</strong> in Naperville, Illinois USA 
+  <a href="http://www.esft.com" target="_blank" style="margin-left:10px"><img src="/assets/app/img/box/globe.png" style="height:12px;width:12px;margin-bottom:-1px;margin-right:3px" />Website</a>
+
+  <button class="btn primary" style="margin-left:10px; padding:2px 6px 2px 6px" onclick="jQuery.facebox({ ajax: \'' . $rootURL . 'manage/about\' }); return false;"><img src="/assets/app/img/box/editcon.png" style="height:12px;width:12px;margin-bottom:-2px;margin-right:1px" /> Edit your profile</button>';
+
+*/
+
+}
 ?>
