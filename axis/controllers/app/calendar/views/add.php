@@ -174,7 +174,7 @@ $('#add-entry').submit(function() {
     </div>
 
 <?php
-if (user('level') == 3) {
+if (user('level') == 3 && count(getSections()) ) {
 ?>
     <div class="rowBut" style="margin-top:20px">
      <div style="padding: 0 0 7px 0; color:#666"><?= say('Choose courses to share with'); ?></div>

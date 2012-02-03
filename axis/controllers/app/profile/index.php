@@ -29,6 +29,7 @@ $curUID = $usr1['id'];
 // two different routing blocks
 // this one is for profile by id
 require_once('axis/controllers/app/profile/core/main.php');
+require_once('axis/controllers/app/filebox/core/main.php');
 
 	if ($this->Command->Parameters[1] == 'latest' || $this->Command->Parameters[1] == '') {
 	$cappID = 1;
