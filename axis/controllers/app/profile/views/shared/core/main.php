@@ -1,38 +1,47 @@
 <?php
-
-function getHandoutChildren($contentID, $courseID) {
+// this pulls all files shared publicly and/or shared with the logged in user
+function getSharedChildren($owner) {
 
 	global $mdb;
 
 	// select a collection (analogous to a relational database's table)
 	$collection = $mdb->fbox_content;
 
-	// if this is the root directory
-	if ($contentID == '0') {
+	$params = array();
+	$params[] = array('permissions.type'=>3, 'permissions.shared_id'=>1);
+	if (checkSession()) {
+		// add all of our courses to the array
+		if (user('level') == 1) {
+			foreach (getSections() as $secd) {
+				$params[] = array('permissions.type'=>2, 'permissions.shared_id'=>(int) $secd['section_id']);
+			}
+		}
 
-		$params = array('permissions.type'=>2, 'permissions.shared_id'=>(int) $courseID);
-		$data = $collection->find($params);
+		// add our UID to the permissions list
+		$params[] = array('permissions.type'=>1, 'permissions.shared_id'=>(int) user("id"));
+	}
+
+	$finalq = array('$or' => $params, "owner_id" => (string) $owner);
+	$data = $collection->find($finalq)->sort(array('last_update'=>-1));
+
+	$finalArr = array();
+	// if we're logged in, split up the shared items into public and private arrays
+	if (checkSession()) {
+		foreach($data as $d1) {
+			// if this isn't public, it can only be private
+			if (!verifyPublic($d1)) {
+				$finalArr['private'][] = $d1;
+			} else {
+				$finalArr['public'][] = $d1;
+			}
+		}
 
 	} else {
-		$data = $collection->find(array('parent.id'=>$contentID));
+		$finalArr['public'][] = $data;
+		$finalArr['private'][] = array();
 	}
 
-	$folArr = array();
-	$filArr = array();
-
-	foreach ($data as $obe) {
-		if ($obe['type'] == 1) {
-			$folArr[] = $obe;
-		} elseif ($obe['type'] == 2) {
-			$filArr[] = $obe;
-		}
-	}
-
-	$folArr = sort2d ($folArr, 'title', 'asc', true); 
-	$filArr = sort2d ($filArr, 'title', 'asc', true);
-	$final = array_merge($folArr, $filArr);
-
-	return $final;
+	return $finalArr;
 	
 }
 
@@ -40,29 +49,35 @@ function getHandoutChildren($contentID, $courseID) {
 
 
 // create the HTML for the dir list
-function createHandoutDirView($conID, $conObj, $secID) {
+function createSharedDirView($owner) {
 
-	// show description area if it's not the home or shared folder
-	if ($conID == '0') {
-		// do nothing
-	} else {
-
-		
-		if ($conObj['body'] !== '') {
-			$list .= '<div class="descMain"><div class="descText">' . $conObj['body'] . '</div></div>';
-		}
-		
+	$list = '';
+	// okay, now lets pull in the directory
+	$children = getSharedChildren($owner);
+	foreach ($children['private'] as $child) {
+		$list .= genDirBar($child);
 	}
 
+	$list .= '<br /><br />Public<br />';
 
-	// okay, now lets pull in the directory
-	$children = getHandoutChildren($conID, $secID);
-	$count = 0;
-	foreach ($children as $child) {
-	    $count++;
-	    //$list .= '<div style="border-bottom:1px solid #ccc;padding:7px;font-size:18px"><a class="js-pjax" href="/app/filebox/' . $child['_id'] . '">' . $child['title'] . ' - (' . $child['versions'][count($child['versions']) - 1]['timestamp'] . ')</a></div>';
+	foreach ($children['public'] as $child) {
+		$list .= genDirBar($child);
+	}
 
-	    if ($child['type'] == 1) {
+	  if (empty($children['public'])) {
+	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
+	    </div>';
+	    
+	  }
+
+
+	  return $list;
+}
+
+
+function genDirBar($child) {
+	$list = '';
+	if ($child['type'] == 1) {
 	    	$class = "fboxFolder";
 	    	$icon = '<img src="/assets/app/img/box/type/folder.png" class="conicon" />';
 	    } else {
@@ -83,7 +98,7 @@ function createHandoutDirView($conID, $conObj, $secID) {
 	    	</div>
 	    	<div class="mainarea">
 	    		<div class="contitle">
-	    		<a class="js-pjax" href="/app/course/' . $secID . '/handout/' . $child['_id'] . '">' . createConTitle($child) . '</a>
+	    		<a class="js-pjax" href="/app/filebox/' . $child['_id'] . '">' . createConTitle($child) . '</a>
 	    		</div>
 	    		<div class="conlast">
 	    		Updated ' . $lastMod . '</a>
@@ -91,17 +106,7 @@ function createHandoutDirView($conID, $conObj, $secID) {
 	    	</div>
 	    </div>
 	    </div>';
-
-	}
-
-	  if ($count == 0) {
-	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
-	    </div>';
-	    
-	  }
-
-
-	  return $list;
+	return $list;
 }
 
 ?>

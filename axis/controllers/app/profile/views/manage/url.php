@@ -2,6 +2,11 @@
 $tempUN = $_GET['url'];
 $cleanUN = preg_replace('/\W/', '', $tempUN);
 
+// if this user already has a username or isn't logged in
+if (user('user_name') != '' || !checkSession()) {
+	exit();
+}
+
 // if the regex result doens't equal the original input, return an error
 if ($tempUN != $cleanUN) {
 	echo 3;
