@@ -1,12 +1,5 @@
 <?php
-// this pulls all files shared publicly and/or shared with the logged in user
-function getSharedChildren($owner) {
-
-	global $mdb;
-
-	// select a collection (analogous to a relational database's table)
-	$collection = $mdb->fbox_content;
-
+function genSharedParams() {
 	$params = array();
 	$params[] = array('permissions.type'=>3, 'permissions.shared_id'=>1);
 	if (checkSession()) {
@@ -20,6 +13,35 @@ function getSharedChildren($owner) {
 		// add our UID to the permissions list
 		$params[] = array('permissions.type'=>1, 'permissions.shared_id'=>(int) user("id"));
 	}
+
+	return $params;
+}
+
+
+function getSharedNumber($owner) {
+	global $mdb;
+
+	// select a collection (analogous to a relational database's table)
+	$collection = $mdb->fbox_content;
+
+	$params = genSharedParams();
+	$finalq = array('$or' => $params, "owner_id" => (string) $owner);
+
+	$data = $collection->count($finalq);
+
+	return $data;
+}
+
+
+// this pulls all files shared publicly and/or shared with the logged in user
+function getSharedChildren($owner) {
+
+	global $mdb;
+
+	// select a collection (analogous to a relational database's table)
+	$collection = $mdb->fbox_content;
+
+	$params = genSharedParams();
 
 	$finalq = array('$or' => $params, "owner_id" => (string) $owner);
 	$data = $collection->find($finalq)->sort(array('last_update'=>-1));
@@ -37,8 +59,8 @@ function getSharedChildren($owner) {
 		}
 
 	} else {
-		$finalArr['public'][] = $data;
-		$finalArr['private'][] = array();
+		$finalArr['public'] = $data;
+		$finalArr['private'] = array();
 	}
 
 	return $finalArr;
@@ -52,19 +74,30 @@ function getSharedChildren($owner) {
 function createSharedDirView($owner) {
 
 	$list = '';
+
 	// okay, now lets pull in the directory
 	$children = getSharedChildren($owner);
-	foreach ($children['private'] as $child) {
-		$list .= genDirBar($child);
-	}
 
-	$list .= '<br /><br />Public<br />';
+	if (!empty($children['private'])) {
+		$list .= '<div style="margin-top:20px;margin-left:10px;margin-bottom:5px">
+	<span class="commentbox-label selecterd" style="font-size:12px;">Shared with you</span>
+	</div>';
+
+		foreach ($children['private'] as $child) {
+			$list .= genDirBar($child);
+		}
+
+		$list .= '<div style="margin-top:20px;margin-left:10px;margin-bottom:5px">
+	<span class="commentbox-label selecterd" style="font-size:12px;">Shared publicly</span>
+	</div>';
+			
+	}
 
 	foreach ($children['public'] as $child) {
 		$list .= genDirBar($child);
 	}
 
-	  if (empty($children['public'])) {
+	  if (empty($children['public']) && empty($children['private'])) {
 	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
 	    </div>';
 	    

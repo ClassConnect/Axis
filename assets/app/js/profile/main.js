@@ -100,7 +100,7 @@ $(".descTip").twipsy({
     html: true
   });
 
-function initHandout() {
+function initShared() {
   $('.fboxElement').disableSelection();
   $(".fboxElement, .sharedEl").hover(
    function() {
@@ -125,15 +125,10 @@ function initHandout() {
   $('.fboxElement, .sharedEl').click(function() {
     // if a link wasn't clicked
     if (linkClick == false) {
-      $.pjax({
-        url: '/app/course/' + secID + '/handout/' + $(this).attr('id'),
-        container: '.sectionRight'
-      });
+        window.location = "/app/filebox/" + $(this).attr('id');
     }
     // reset the link click
     linkClick = false;
   });
-
-  initCommentBars();
 
 }

@@ -99,7 +99,7 @@ if ($developerMode == true) {
           <ul class="nav"> 
           <!-- <span style="padding-top:4px" class="label important">&nbsp;1&nbsp;</span>&nbsp;&nbsp; -->
             <li<?php if ($setTab == 1) { echo ' class="active"'; } ?>><a href="/app/">Latest</a></li> 
-            <li id="filebox-tab"<?php if ($setTab == 2) { echo ' class="active"'; } ?>><a href="/app/filebox/">Filebox</a></li> 
+            <li id="filebox-tab"<?php if ($setTab == 2) { echo ' class="active"'; } ?>><a href="/app/filebox/">My Files</a></li> 
             <?php // class="active" ?>
             <li class="dropdown<?php if ($setTab == 3) { echo ' active'; } ?>">
               <a href="#" class="dropdown-toggle">Apps</a>

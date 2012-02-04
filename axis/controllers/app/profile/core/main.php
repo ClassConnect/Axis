@@ -27,7 +27,7 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 
 	            <div class="appMenu">
 	              <a href="' . $rootURL . 'latest" class="js-pjaxer" onClick="swapActive($(this).find(\'.appItem\'))"><div id="app-1" class="appItem">Latest</div></a>
-	              <a href="' . $rootURL . 'shared" class="js-pjaxer" onClick="swapActive($(this).find(\'.appItem\'))"><div id="app-2" class="appItem">Shared <span class="label" style="position:relative;bottom:1px;left:4px">300</span></div></a>
+	              <a href="' . $rootURL . 'shared" class="js-pjaxer" onClick="swapActive($(this).find(\'.appItem\'))"><div id="app-2" class="appItem">Shared <span class="label" style="position:relative;bottom:1px;left:4px">' . getSharedNumber($userData['id']) . '</span></div></a>
 	            </div>
 
 	          </div> 
@@ -128,7 +128,8 @@ function buildSharingQuery($uid) {
 	$result = array("uid" => (int) $uid);
 	// if we're logged in
 	if (checkSession()) {
-		if ($uid != user('id')) {
+		// remove UID show all for now
+		// if ($uid != user('id')) {
 			if (user('level') != 1) {
 				$result['$or'][] = array("shared_with.type" => 3, "shared_with.shareID" => (int) 1);
 			}
@@ -137,8 +138,6 @@ function buildSharingQuery($uid) {
 			foreach ($secs as $sec) {
 			  $result['$or'][] = array("shared_with.type" => 2, "shared_with.shareID" => (int)$sec['section_id']);
 			}
-
-		}
 
 	// not logged in? we can only view things shared publicly
 	} else {

@@ -1787,7 +1787,35 @@ function incStorage($inc, $userid) {
 
         // query memcached
         $key = md5('uid-' . $userid);
-        setMemKey($key, $udata, TRUE, 86400); // Store the result of the query for a day
+        setMemKey($key, $udata, TRUE, 604800); // Store the result of the query for a day
+
+    // is_numeric check
+    }
+    
+}
+
+
+
+// add (or subtract) to a user's current karma
+function incKarma($inc, $userid) {
+
+    if (is_numeric($userid) && is_numeric($inc)) {
+
+        $udata = getUser($userid);
+        $curKarma = $udata['karma'];
+        $newKarma = $curKarma + $inc;
+
+        if ($newKarma < 0) {
+            $newKarma = 1;
+        }
+
+        $udata['karma'] = $newStorage;
+
+        good_query("UPDATE users SET storage_used=$newStorage WHERE id=$userid");
+
+        // query memcached
+        $key = md5('uid-' . $userid);
+        setMemKey($key, $udata, TRUE, 604800); // Store the result of the query for a day
 
     // is_numeric check
     }
