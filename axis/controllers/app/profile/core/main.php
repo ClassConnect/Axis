@@ -51,7 +51,7 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 
 	          echo '<div class="courseCrumbs">
 	            ' . dispUser($userData['id'], 'first_name') . ' ' . dispUser($userData['id'], 'last_name') . '
-	              <span class="label important" style="position:relative;bottom:4px;font-size:12px;cursor:pointer">314</span>';
+	              <span class="label important" style="position:relative;bottom:4px;font-size:12px;cursor:pointer">' . $userData['karma'] . '</span>';
 
 	              if (isset($crumb)) {
 	              	echo '<img src="/assets/app/img/course/arr.png" style="height:16px;margin-left:5px;margin-right:5px" />' . $crumb;

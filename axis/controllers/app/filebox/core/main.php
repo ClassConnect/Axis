@@ -135,6 +135,12 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 		// insert the feed
 		insertFboxNoti(1, $permissions, $parentPermissions, $owner_id, $obj);
 
+		// check if the parent is public
+		if (verifyPublic($parentData)) {
+			// this is public, award karma
+			incKarma(1, $parentData['owner_id']);
+		}
+
 
 		// finally, lets return the new object ID
 		$retArr['conID'] = (string) $obj['_id'];
@@ -3331,7 +3337,7 @@ function actionUI($conObj, $perObj) {
 	// if this person owns the folder
 	$owner = '<div id="addBtn" class="btn success addButtonBox" onClick="">
 
-	<div class="boxTitle"><img src="/assets/app/img/box/add.png" style="height:16px;margin-right:7px;margin-bottom:-3px;" />' . say('Add Content') . '</div>
+	<div class="boxTitle"><img src="/assets/app/img/box/add.png" style="height:16px;margin-right:7px;margin-bottom:-3px;" />' . say('Add Files') . '</div>
 
 	<div class="contentPanel">
 		<div class="contentItem" style="border-top:none" onClick="addContent(\'folder\');">

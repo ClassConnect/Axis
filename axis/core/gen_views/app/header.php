@@ -65,7 +65,7 @@ if ($developerMode == true) {
 <div id="mainNavBar" class="topbar">
       <div class="topbar-inner">
         <div class="container">
-          <a class="brand" href="/"><img src="/assets/app/img/logo.png" style="float:left;height:18px;margin-top:1px" /></a> 
+          <a class="brand" href="/"><img src="/assets/app/img/logo.png" style="float:left;height:16px;margin-top:3px" /></a> 
 
           <ul class="nav secondary-nav">
             <li class="dropdown">
@@ -95,7 +95,7 @@ if ($developerMode == true) {
     <div id="mainNavBar" class="topbar"> 
       <div class="fill"> 
         <div class="container"> 
-          <a class="brand" href="/app/"><img src="/assets/app/img/logo.png" style="float:left;height:18px;margin-top:1px" /></a> 
+          <a class="brand" href="/app/"><img src="/assets/app/img/logo.png" style="float:left;height:16px;margin-top:3px" /></a> 
           <ul class="nav"> 
           <!-- <span style="padding-top:4px" class="label important">&nbsp;1&nbsp;</span>&nbsp;&nbsp; -->
             <li<?php if ($setTab == 1) { echo ' class="active"'; } ?>><a href="/app/">Latest</a></li> 
@@ -127,7 +127,7 @@ if ($developerMode == true) {
           <li><a href="#"><img src="/assets/app/img/nav/mail.png" style="height:25px;float:left;margin-top:-4px" />&nbsp;<span style="padding-top:4px" class="label important">&nbsp;3&nbsp;</span></a></li>
 
           <li><a href="#">Name Here&nbsp;&nbsp;<span style="padding-top:4px" class="label karma">&nbsp;12&nbsp;</span></a></li>-->
-          <li style="max-width:210px;height:35px;overflow:hidden"><a href="<?= userURL(user('id')); ?>"><img src="<?= iconServer(); ?>50_<?= dispUser(user('id'), 'prof_icon'); ?>" style="height:25px;float:left;border:2px solid #555;margin-top:-5px;margin-right:10px" /> <?= dispUser(user('id'), 'first_name'); ?> <?= dispUser(user('id'), 'last_name'); ?></a></li>
+          <li style="max-width:210px;height:35px;overflow:hidden"><a href="<?= userURL(user('id')); ?>"><img src="<?= iconServer(); ?>50_<?= dispUser(user('id'), 'prof_icon'); ?>" class="topbarMiniprof" /> <?= dispUser(user('id'), 'first_name'); ?> <?= dispUser(user('id'), 'last_name'); ?></a></li>
 
             <li class="dropdown imgoverride">
               <a href="#" class="dropdown-toggle"><img src="/assets/app/img/nav/settings.png" style="height:25px;float:left;margin-top:-3px" /></a>

@@ -1,5 +1,5 @@
 <div style="text-align:center">
-      <img src="/assets/public/mainlogo.png" style="width:400px;height:49px;margin-top:-20px" />
+      <img src="/assets/public/mainlogo.png" style="width:382;height:49px;margin-top:-20px" />
 </div>
 
   <div class="backRect">

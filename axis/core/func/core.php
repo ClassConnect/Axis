@@ -1809,9 +1809,9 @@ function incKarma($inc, $userid) {
             $newKarma = 1;
         }
 
-        $udata['karma'] = $newStorage;
+        $udata['karma'] = $newKarma;
 
-        good_query("UPDATE users SET storage_used=$newStorage WHERE id=$userid");
+        good_query("UPDATE users SET karma=$newKarma WHERE id=$userid");
 
         // query memcached
         $key = md5('uid-' . $userid);
