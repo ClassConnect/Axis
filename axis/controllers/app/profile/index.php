@@ -18,6 +18,29 @@ if ($this->Command->Name != 'app') {
 	$rootURL = '/app/profile/' . $usr1['id'] . '/';
 }
 
+// if we're a student trying to view a teacher profile
+if (user('level') == 1 && $usr1['level'] == 3) {
+	$authver = verifyMyTeacher($usr1['id']);
+}
+
+// if we're a teacher trying to view a student profile
+if (user('level') == 3 && $usr1['level'] == 1) {
+	$authver = verifyMyStudent($usr1['id']);
+}
+
+
+// if we're not logged in and trying to view a student, kill the page
+if (!checkSession() && $usr1['level'] == 1) {
+	$authver = false;
+}
+
+if (isset($authver)) {
+	if (!$authver) {
+		showError();
+		exit();
+	}
+}
+
 // if this user doesn't exist
 if ($usr1 == false) {
 	showError();

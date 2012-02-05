@@ -933,7 +933,46 @@ function getSectionTeachers($secID, $reset) {
 }
 
 
-// 
+// authorize that this is one of our students
+function verifyMyStudent($stud_id, $uid) {
+    if (!isset($uid)) {
+        $uid = user('id');
+    }
+
+    $mysections = getSections($uid); //section_id
+    foreach ($mysections as $sec) {
+        $studs = getSectionStudents($sec['section_id']);
+        foreach ($studs as $stud) {
+            if ($stud['student_id'] == $stud_id) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+// authorize that this is one of our teachers
+function verifyMyTeacher($teach_id, $uid) {
+    if (!isset($uid)) {
+        $uid = user('id');
+    }
+
+    $mysections = getSections($uid); //section_id
+    foreach ($mysections as $sec) {
+        $teachers = getSectionTeachers($sec['section_id']);
+        foreach ($teachers as $teach) {
+            if ($teach['teach_id'] == $teach_id) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
 function authSection($secID, $uid) {
     if (!isset($uid)) {
         $uid = user('id');
