@@ -98,7 +98,16 @@ if ($developerMode == true) {
           <a class="brand" href="/app/"><img src="/assets/app/img/logo.png" style="float:left;height:16px;margin-top:3px" /></a> 
           <ul class="nav"> 
           <!-- <span style="padding-top:4px" class="label important">&nbsp;1&nbsp;</span>&nbsp;&nbsp; -->
-            <li<?php if ($setTab == 1) { echo ' class="active"'; } ?>><a href="/app/">Latest</a></li> 
+            <li<?php if ($setTab == 1) { echo ' class="active"'; } ?>><a href="/app/">
+            Latest
+            <?php
+$notis = getNotis();
+if ($notis['data'] != 0) {
+  echo '&nbsp;<span style="padding-top:4px" class="label important">&nbsp;' . $notis['data'] . '&nbsp;</span>';
+}
+?>
+            </a></li> 
+
             <li id="filebox-tab"<?php if ($setTab == 2) { echo ' class="active"'; } ?>><a href="/app/filebox/">My Files</a></li> 
             <?php // class="active" ?>
             <li class="dropdown<?php if ($setTab == 3) { echo ' active'; } ?>">

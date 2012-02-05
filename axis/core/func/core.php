@@ -584,6 +584,14 @@ function getNotis($uid) {
     $key = md5('noti-' . $uid);
     $get_result = getMemKey($key);
 
+    if ($get_result) {
+        return $get_result;
+
+    } else {
+        return array("data" => 0);
+
+    }
+
 }
 
 // add/remove notis
@@ -595,12 +603,41 @@ function updateNotis($value, $uid) {
     $key = md5('noti-' . $uid);
     $get_result = getMemKey($key);
     if ($get_result) {
-        $get_result['data'] = $get_result['data'] + 1;
+        $get_result['data'] = (int) $get_result['data'] + 1;
+        setMemKey($key, array("data" => $get_result['data']), TRUE, 604800); // Store the result for 7 days
 
     } else {
         setMemKey($key, array("data" => 1), TRUE, 604800); // Store the result for 7 days
         return $secs;
 
+    }
+    
+}
+
+function clearNotis($uid) {
+    if (!isset($uid)) {
+        $uid = user('id');
+    }
+
+    $key = md5('noti-' . $uid);
+    setMemKey($key, array("data" => 0), TRUE, 604800);
+
+}
+
+// function takes a notis batch per and sends out notis accordingly
+function batchUpdateNotis($batchPer) {
+    // if this is a user share
+    foreach ($batchPer as $per) {
+        if ($per['type'] == 1) {
+            updateNotis(1, $per['shareID']);
+
+        // if this is a course share
+        } elseif ($per['type'] == 2) {
+            $studs = getSectionStudents($per['shareID']);
+            foreach ($studs as $stud) {
+                updateNotis(1, $stud['student_id']);
+            }
+        }
     }
     
 }
@@ -1058,6 +1095,9 @@ function insertFeedItem($appType, $notiType, $shared_first, $data, $withinInc, $
         $temp['shareID'] = (int) $share['shareID'];
         $shared_with[] = $temp;
     }
+
+    // send notis (mem version)
+    batchUpdateNotis($shared_with);
 
     $rightNow = (int) date("U");
     // set data timestamp
