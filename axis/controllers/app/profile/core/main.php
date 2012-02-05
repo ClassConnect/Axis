@@ -231,7 +231,7 @@ function buildProfOneliner($userData) {
 		}
 
 		if ($userData['id'] == user('id')) {
-			$midDiv .= '<button class="btn primary" style="margin-left:10px; padding:2px 6px 2px 6px" onclick="jQuery.facebox({ ajax: \'' . userURL($userData) . 'manage/about\' }); return false;"><img src="/assets/app/img/box/editcon.png" style="height:12px;width:12px;margin-bottom:-2px;margin-right:1px" /> Edit your profile</button>';
+			$midDiv .= '<button class="btn primary" style="margin-left:10px; padding:2px 6px 2px 6px;font-weight:bolder" onclick="jQuery.facebox({ ajax: \'' . userURL($userData) . 'manage/about\' }); return false;"><img src="/assets/app/img/box/editcon.png" style="height:12px;width:12px;margin-bottom:-2px;margin-right:1px" /> Edit your profile</button>';
 		}
 
 

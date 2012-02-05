@@ -365,6 +365,14 @@ function moveContent($target, $conIDs, $uid) {
 				$donSub[] = (string) $cObj['_id'];
 			}
 
+			// decrease this dude's karma
+			if ($cObj['type'] == 2) {
+				$incMet = 1;
+			} else {
+				$incMet = $cObj['files'];
+			}
+			incKarma(-$incMet, $cObj['owner_id']);
+
 		// if this is public -> public
 		} elseif (verifyPublic($cObj) && verifyPublic($targData)) {
 			// verify that there's enough room to do this
@@ -398,6 +406,14 @@ function moveContent($target, $conIDs, $uid) {
 				// subtract from new user
 				incStorage(-$cObj['total_size'], $targData['owner_id']);
 			}
+
+			// increase this dude's karma
+			if ($cObj['type'] == 2) {
+				$incMet = 1;
+			} else {
+				$incMet = $cObj['files'];
+			}
+			incKarma($incMet, $targData['owner_id']);
 
 
 		}
@@ -706,6 +722,10 @@ function deleteContent($conIDs, $uid) {
 			if (!$isPub) {
 				// update this user's total storage
 				incStorage($updateParams['total_size'], $conObj['owner_id']);
+
+			// this is public, subtract a karma point per file in here
+			} else {
+				incKarma($updateParams['files'], $conObj['owner_id']);
 			}
 			// update the parents
   			updateParents($final, $updateParams, $sets);
@@ -762,6 +782,7 @@ function copyContent($target, $conIDs, $uid) {
 	$sizeTot = 0;
 	$folTot = 0;
 	$filTot = 0;
+	$pubSubt = 0;
 	foreach ($batchObj as $cObj) {
 		// check if we're putting a folder in a folder
 		foreach ($targData['parents'] as $parChk) {
@@ -781,6 +802,15 @@ function copyContent($target, $conIDs, $uid) {
 			$folTot++;
 		} elseif ($cObj['type'] == 2) {
 			$filTot++;
+		}
+
+		// if this is public, add the num files to subtract from total
+		if (verifyPublic($cObj)) {
+			if ($cObj['type'] == 2) {
+				$pubSubt++;
+			} else {
+				$pubSubt += $cObj['files'];
+			}
 		}
 	}
 
@@ -808,11 +838,17 @@ function copyContent($target, $conIDs, $uid) {
 		if (!verifyPublic($targData)) {
 			// increase user's storage
 			incStorage($sizeTot, $newOwner);
+
+		// new stuff added to public. increase karma
+		} else {
+			incKarma($filTot - $pubSubt, $targData['owner_id']);
 		}
 
 		// if new owner, increase fork
 		if ($newOwner != $placeID) {
 			updateDescendantForks($batchObj, 1);
+			// award karma to the original bro
+			incKarma($filTot, $placeID);
 		}
 
 		// send update
@@ -1396,6 +1432,10 @@ function updatePermissions($conIDs, $pers, $uid) {
 				$sizeTot += $cObj['total_size'];
 				$folTot += $cObj['folders'];
 				$filTot += $cObj['files'];
+
+				if ($cObj['type'] == 2) {
+					$filTot++;
+				}
 			}
 
 			// if we're subtracting, make sure we have enough storage to do so
@@ -1404,9 +1444,12 @@ function updatePermissions($conIDs, $pers, $uid) {
 					return array("We can't remove public permissions from this content because you don't have enough storage space!");
 				}
 
+				incKarma(-$filTot, $placeID);
+
 			// if we're adding public, subtract from total
 			} else {
 				$sizeTot = -$sizeTot;
+				incKarma($filTot, $placeID);
 			}
 
 			// increment user's storage
