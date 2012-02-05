@@ -86,15 +86,17 @@ function createSharedDirView($owner) {
 		foreach ($children['private'] as $child) {
 			$list .= genDirBar($child);
 		}
-
-		$list .= '<div style="margin-top:20px;margin-left:10px;margin-bottom:5px">
-	<span class="commentbox-label selecterd" style="font-size:12px;">Shared publicly</span>
-	</div>';
 			
 	}
 
-	foreach ($children['public'] as $child) {
-		$list .= genDirBar($child);
+
+	if (!empty($children['public'])) {
+		$list .= '<div style="margin-top:20px;margin-left:10px;margin-bottom:5px">
+		<span class="commentbox-label selecterd" style="font-size:12px;">Shared publicly</span>
+		</div>';
+		foreach ($children['public'] as $child) {
+			$list .= genDirBar($child);
+		}
 	}
 
 	  if (empty($children['public']) && empty($children['private'])) {

@@ -1132,7 +1132,11 @@ function insertFeedItem($appType, $notiType, $shared_first, $data, $withinInc, $
         $temp = array();
         $temp['type'] = (int) $share['type'];
         $temp['shareID'] = (int) $share['shareID'];
-        $shared_with[] = $temp;
+
+        // don't add duplicates
+        if (!in_array($temp, $shared_with)) {
+            $shared_with[] = $temp;
+        }
     }
 
     // send notis (mem version)

@@ -35,6 +35,12 @@ $(".deleter").twipsy({
     html: true
 });
 
+$(".karmainfo").twipsy({
+    live: true,
+    placement: 'below',
+    html: true
+});
+
 
 // random unbinds and what not
 function clearPage() {

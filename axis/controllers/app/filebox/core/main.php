@@ -3925,6 +3925,8 @@ function addRecommendation($conID, $dataID, $uid) {
 				}
 			}
 
+			incKarma(1, $cObj['owner_id']);
+
 			insertFboxNoti(5, $share_permissions, array(), $cObj['owner_id'], $cObj, array("dataID" => $dataID), null, $uid);
 
 
@@ -3988,6 +3990,9 @@ function delRecommendation($conID, $dataID, $uid) {
 
 			$feed_collection = $mdb->feed;
 			$feed_collection->remove(array('appType' => 1, 'notiType' => 5, 'uid' => $uid, 'data.0.id' => $conID, 'data.0.dataID' => $dataID), array('safe' => true));
+
+			incKarma(-1, $cObj['owner_id']);
+
 			return true;
 		} else {
 			return false;
@@ -4229,6 +4234,11 @@ function addConComment($conID, $dataID, $target, $text, $optID, $uid) {
 
 	$dataID = verifyDataAuth($dataID, $cObj);
 	if ($dataID != false && $allow) {
+		// increase karma for students when they comment
+		if (user('level') == 1) {
+			incKarma(1, user('id'));
+		}
+
 		global $mdb;
 	  	$collection = $mdb->fbox_content;
 

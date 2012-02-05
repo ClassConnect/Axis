@@ -20,7 +20,7 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 	          <div class="sectionLeft">';
 
 	          if ($userData['id'] == user('id')) {
-	          	echo '<div class="logoChange" onClick="jQuery.facebox({ ajax: \'' . $rootURL . 'manage/icon\' }); return false;">Change Icon</div>';
+	          	echo '<div class="logoChange" style="margin-left:113px" onClick="jQuery.facebox({ ajax: \'' . $rootURL . 'manage/icon\' }); return false;">Change Picture</div>';
 	          }
 
 	           echo '<img src="' . iconServer() . '210_' . $userData['prof_icon'] . '" class="courseLogo" />
@@ -51,7 +51,23 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 
 	          echo '<div class="courseCrumbs">
 	            ' . dispUser($userData['id'], 'first_name') . ' ' . dispUser($userData['id'], 'last_name') . '
-	              <span class="label important" style="position:relative;bottom:4px;font-size:12px;cursor:pointer">' . $userData['karma'] . '</span>';
+	              <span class="label important karmainfo" style="position:relative;bottom:4px;font-size:12px;cursor:pointer" title="';
+
+	           if ($userData['level'] == 3) {
+	           	if ($userData['id'] == user('id')) {
+	           		echo '<div style=\'font-weight:bolder;font-size:13px\'>You have ' . $userData['karma'] . ' karma points!</div><div style=\'line-height:1.2em\'>You receive karma points when you share files publicly and when teachers use / recommend your files</div>';
+	           	} else {
+	           		echo '<div style=\'font-weight:bolder;font-size:13px\'>' . dispUser($userData['id'], 'first_name') . ' has ' . $userData['karma'] . ' karma points!</div><div style=\'line-height:1.2em\'>You receive karma points when you share files publicly and when teachers use / recommend your files</div>';
+	           	}
+	           } elseif ($userData['level'] == 1) {
+	           	if ($userData['id'] == user('id')) {
+	           		echo '<div style=\'font-weight:bolder;font-size:13px\'>You have ' . $userData['karma'] . ' karma points!</div><div style=\'line-height:1.2em\'>You receive karma points when you add comments to discussions on files</div>';
+	           	} else {
+	           		echo '<div style=\'font-weight:bolder;font-size:13px\'>' . dispUser($userData['id'], 'first_name') . ' has ' . $userData['karma'] . ' karma points!</div><div style=\'line-height:1.2em\'>You receive karma points when you add comments to discussions on files</div>';
+	           	}
+	           }
+
+	              echo '">' . $userData['karma'] . '</span>';
 
 	              if (isset($crumb)) {
 	              	echo '<img src="/assets/app/img/course/arr.png" style="height:16px;margin-left:5px;margin-right:5px" />' . $crumb;
