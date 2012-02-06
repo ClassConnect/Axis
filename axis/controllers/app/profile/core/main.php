@@ -91,6 +91,8 @@ if (user('level') == 1) {
 	foreach ($secs as $sec) {
 	  $secStr .= $sec['section_id'] . ',';
 	}
+} else {
+	$secStr = '0';
 }
 
 		echo '</div> 
