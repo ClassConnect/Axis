@@ -1300,6 +1300,28 @@ function retrieveFeedItems($queryData, $offset, $limit, $order) {
 }
 
 
+
+
+
+function determineIntelliDate($newDate, $curDate) {
+    $newDate = date("U") - $newDate;
+    $curDate = date("U") - $curDate;
+    // today, yesterday, thursda, wednesday (7 days)
+    // last week, 2 weeks ago, 3 weeks ago, 4 weeks ago
+    // 1 month ago, 2 months ago, etc
+    if ($newDate <= 86400) {
+        // date range is the same, dont return a new date
+        if ($curDate <= 86400) {
+            return false;
+        }
+
+        return 'Today';
+    }
+}
+
+
+
+
 // turn feed item into HTML. primary will force course/user as main identity
 function genFeedItem($items, $primary, $uid) {
     if (!isset($uid)) {
@@ -1321,8 +1343,28 @@ function genFeedItem($items, $primary, $uid) {
         }
     }
 
+
+    // init our current number
+    $currentNum = 0;
+
     // iterate through each of our feed items
     foreach ($items as $item) {
+
+        // detect the correct date range
+        $checkDay = determineIntelliDate($item['sent_at'], $currentNum);
+
+        // we should add a new header for the date
+        if ($checkDay) {
+            if ($miniResult != '') {
+                $finalResult .= '<div class="feedItem">' . $miniResult . '</div>';
+                $miniResult = '';
+            }
+
+            $finalResult .= '<div style="margin-left:70px;margin-bottom:-5px;color:#888;font-weight:bolder;font-size:12px">' . $checkDay . '</div>';
+            
+        }
+
+        $currentNum = $item['sent_at'];
 
         if ($uid == $item['uid']) {
             $delML = '<img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/feed/remove/' . $item['_id'] . '?' . $dType . '\' }); return false;" />';

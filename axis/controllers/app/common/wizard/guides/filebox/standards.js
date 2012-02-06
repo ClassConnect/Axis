@@ -11,7 +11,7 @@ guiders.createGuider({
 
 guiders.createGuider({
   buttons: [{name: "Close & start tagging content", onclick: guiders.hideAll }],
-  description: "Start tagging the content in your Filebox! Once you're ready to move on, click the 'Getting Started' tab on the right.",
+  description: "Start tagging your content! Once you're ready to move on, click the 'Getting Started' tab on the right.",
   id: "second",
   title: "Your turn!"
 });
