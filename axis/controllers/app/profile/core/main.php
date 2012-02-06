@@ -84,10 +84,13 @@ function genProfPage($userData, $rootURL, $rightCont, $appid, $crumb, $pageTitle
 
 
 	if (!isset($_GET['_pjax'])) {
-$secs = getSections();
-$secStr = '';
-foreach ($secs as $sec) {
-  $secStr .= $sec['section_id'] . ',';
+// only pull courses if we're a student
+if (user('level') == 1) {
+	$secs = getSections();
+	$secStr = '';
+	foreach ($secs as $sec) {
+	  $secStr .= $sec['section_id'] . ',';
+	}
 }
 
 		echo '</div> 
