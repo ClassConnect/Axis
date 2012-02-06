@@ -92,7 +92,7 @@ if (user('level') == 1) {
 	  $secStr .= $sec['section_id'] . ',';
 	}
 } else {
-	$secStr = '0';
+	$secStr = '1,2,3,';
 }
 
 		echo '</div> 
