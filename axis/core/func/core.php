@@ -1304,6 +1304,7 @@ function retrieveFeedItems($queryData, $offset, $limit, $order) {
 
 
 function determineIntelliDate($newDate, $curDate) {
+    $origDate = $newDate;
     $newDate = date("U") - $newDate;
     $curDate = date("U") - $curDate;
     // today, yesterday, thursda, wednesday (7 days)
@@ -1316,6 +1317,174 @@ function determineIntelliDate($newDate, $curDate) {
         }
 
         return 'Today';
+
+    // yesterday
+    } elseif ($newDate <= (86400 * 2) && $newDate > (86400 * 1)) {
+        if ($curDate <= (86400 * 2) && $curDate > (86400 * 1)) {
+            return false;
+        }
+
+        return 'Yesterday';
+
+
+    // 3 days ago
+    } elseif ($newDate <= (86400 * 3) && $newDate > (86400 * 2)) {
+        if ($curDate <= (86400 * 3) && $curDate > (86400 * 2)) {
+            return false;
+        }
+
+        return date("l", $origDate);
+
+    // 4 days ago
+    } elseif ($newDate <= (86400 * 4) && $newDate > (86400 * 3)) {
+        if ($curDate <= (86400 * 4) && $curDate > (86400 * 3)) {
+            return false;
+        }
+
+        return date("l", $origDate);
+
+
+    // 5 days ago
+    } elseif ($newDate <= (86400 * 5) && $newDate > (86400 * 4)) {
+        if ($curDate <= (86400 * 5) && $curDate > (86400 * 4)) {
+            return false;
+        }
+
+        return date("l", $origDate);
+
+    // 6 days ago
+    } elseif ($newDate <= (86400 * 6) && $newDate > (86400 * 5)) {
+        if ($curDate <= (86400 * 6) && $curDate > (86400 * 5)) {
+            return false;
+        }
+
+        return date("l", $origDate);
+
+
+    // 1 week ago
+    } elseif ($newDate < (604800 * 2) && $newDate > (86400 * 6)) {
+        if ($curDate < (604800 * 2) && $curDate > (86400 * 6)) {
+            return false;
+        }
+
+        return '1 week ago';
+
+
+    // 2 weeks ago
+    } elseif ($newDate < (604800 * 3) && $newDate >= (604800 * 2)) {
+        if ($curDate < (604800 * 3) && $curDate >= (604800 * 2)) {
+            return false;
+        }
+
+        return '2 weeks ago';
+
+    // 3 weeks ago
+    } elseif ($newDate < (604800 * 4) && $newDate >= (604800 * 3)) {
+        if ($curDate < (604800 * 4) && $curDate >= (604800 * 3)) {
+            return false;
+        }
+
+        return '3 weeks ago';
+
+    // 1 month ago
+    } elseif ($newDate < (2419200 * 2) && $newDate >= (2419200 * 1)) {
+        if ($curDate < (2419200 * 2) && $curDate >= (2419200 * 1)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+    // 2 months ago
+    } elseif ($newDate < (2419200 * 3) && $newDate >= (2419200 * 2)) {
+        if ($curDate < (2419200 * 3) && $curDate >= (2419200 * 2)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+    // 3 months ago
+    } elseif ($newDate < (2419200 * 4) && $newDate >= (2419200 * 3)) {
+        if ($curDate < (2419200 * 4) && $curDate >= (2419200 * 3)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+
+    // 4 months ago
+    } elseif ($newDate < (2419200 * 5) && $newDate >= (2419200 * 4)) {
+        if ($curDate < (2419200 * 5) && $curDate >= (2419200 * 4)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+    
+    // 5 months ago
+    } elseif ($newDate < (2419200 * 6) && $newDate >= (2419200 * 5)) {
+        if ($curDate < (2419200 * 6) && $curDate >= (2419200 * 5)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+    // 6 months ago
+    } elseif ($newDate < (2419200 * 7) && $newDate >= (2419200 * 6)) {
+        if ($curDate < (2419200 * 7) && $curDate >= (2419200 * 6)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+
+    // 7 months ago
+    } elseif ($newDate < (2419200 * 8) && $newDate >= (2419200 * 7)) {
+        if ($curDate < (2419200 * 8) && $curDate >= (2419200 * 7)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+
+    // 8 months ago
+    } elseif ($newDate < (2419200 * 9) && $newDate >= (2419200 * 8)) {
+        if ($curDate < (2419200 * 9) && $curDate >= (2419200 * 8)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+
+    // 9 months ago
+    } elseif ($newDate < (2419200 * 10) && $newDate >= (2419200 * 9)) {
+        if ($curDate < (2419200 * 10) && $curDate >= (2419200 * 9)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+
+    // 10 months ago
+    } elseif ($newDate < (2419200 * 11) && $newDate >= (2419200 * 10)) {
+        if ($curDate < (2419200 * 11) && $curDate >= (2419200 * 10)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+
+    // 11 months ago
+    } elseif ($newDate < (2419200 * 12) && $newDate >= (2419200 * 11)) {
+        if ($curDate < (2419200 * 12) && $curDate >= (2419200 * 11)) {
+            return false;
+        }
+
+        return date("F", $origDate);
+
+
+    // if we ever need to do it for years, do it here
+    } elseif ($newDate > 2419200 * 12) {
+        return 'Over a year ago';
     }
 }
 
@@ -1344,6 +1513,12 @@ function genFeedItem($items, $primary, $uid) {
     }
 
 
+    $totalitems = 0;
+    foreach ($items as $it) {
+        $totalitems++;
+    }
+
+
     // init our current number
     $currentNum = 0;
 
@@ -1354,13 +1529,13 @@ function genFeedItem($items, $primary, $uid) {
         $checkDay = determineIntelliDate($item['sent_at'], $currentNum);
 
         // we should add a new header for the date
-        if ($checkDay) {
+        if ($checkDay && $totalitems != 1) {
             if ($miniResult != '') {
                 $finalResult .= '<div class="feedItem">' . $miniResult . '</div>';
                 $miniResult = '';
             }
 
-            $finalResult .= '<div style="margin-left:70px;margin-bottom:-5px;color:#888;font-weight:bolder;font-size:12px">' . $checkDay . '</div>';
+            $finalResult .= '<div style="margin-left:73px;margin-bottom:-5px;color:#888;font-weight:bolder;font-size:12px;margin-top:5px">' . $checkDay . '</div>';
             
         }
 
