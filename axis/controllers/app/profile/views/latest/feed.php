@@ -17,7 +17,7 @@ if ($rcount == 0) {
 	$final['empty'] = false;
 }
 
-$final['result'] = genFeedItem($result, $primary);
+$final['result'] = genFeedItem($result, array("type" => 10, "shareID" => (int) $usr1['id']));
 echo json_encode($final);
 
 ?>

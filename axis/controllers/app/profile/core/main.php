@@ -93,8 +93,11 @@ foreach ($secs as $sec) {
 		echo '</div> 
 	        </div> 
 	      </div>
-	      <script>
-myUID = ' . user('id') . ';
+	      <script>';
+if (checkSession()) {
+	echo 'myUID = ' . user('id') . ';';
+}
+echo '
 UID = ' . $userData['id'] . ';
 mySecs = "' . $secStr . '";
 preURL = "' . $rootURL . '";
