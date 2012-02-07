@@ -25,15 +25,10 @@ if ($t1 == 1) {
 }
 
 
-// shared with a course
-$t2 = explode(',', $_GET['t2']);
-if (count($t2) > 0) {
-	foreach ($t2 as $cid) {
-		if (authSection($cid)) {
-			$idArr[] = array('shared_with.shareID' => (int) $cid, 'shared_with.type' => 2);
-		}
-	}
+if (isset($_GET['t2'])) {
+	
 }
+
 
 // take idarray and turn into mongo or statement
 $params = array('$or' => $idArr);
