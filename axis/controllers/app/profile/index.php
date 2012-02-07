@@ -58,7 +58,11 @@ require_once('axis/controllers/app/profile/views/shared/core/main.php');
 
 	if ($this->Command->Parameters[1] == 'latest' || $this->Command->Parameters[1] == '') {
 	$cappID = 1;
-	require_once('axis/controllers/app/profile/views/latest/index.php');
+	if ($this->Command->Parameters[2] == 'feed') {
+		require_once('axis/controllers/app/profile/views/latest/feed.php');
+	} else {
+		require_once('axis/controllers/app/profile/views/latest/index.php');
+	}
 		
 	} elseif ($this->Command->Parameters[1] == 'shared') {
 		$cappID = 2;
