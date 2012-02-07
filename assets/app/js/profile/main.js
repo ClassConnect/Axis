@@ -72,7 +72,7 @@ function initAnnouncements() {
       // pull in feed data
       $.ajax({  
       type: "GET",  
-      url: "/app/profile/" + UID + "/latest/feed/?limit=40&off=" + (totalPull * 40),  
+      url: preURL + "latest/feed/?limit=40&off=" + (totalPull * 40),  
       dataType: "json",
       success: function(retData) {
         if (retData['empty'] == false) {
