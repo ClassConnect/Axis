@@ -151,13 +151,6 @@ function buildSharingQuery($uid) {
 			}
 			$result['$or'][] = array("shared_with.type" => 1, "shared_with.shareID" => (int) user('id'));
 
-			if (user('level') == 1) {
-				$secs = getSections();
-				foreach ($secs as $sec) {
-				  $result['$or'][] = array("shared_with.type" => 2, "shared_with.shareID" => (int)$sec['section_id']);
-				}
-			}
-
 	// not logged in? we can only view things shared publicly
 	} else {
 		$result['$or'][] = array("shared_with.type" => 3, "shared_with.shareID" => (int) 1);

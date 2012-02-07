@@ -30,7 +30,7 @@ if (isset($_POST['submitted'])) {
 
   setTempSwap($selCourses, 'calendar');
 
-  $attempt = writeEvent(2, strtotime($_POST['start']), strtotime($_POST['end']), $_POST['entryType'], $_POST['title'], $_POST['body'], $fcourses, $calID);
+  $attempt = writeEvent(2, strtotime($_POST['start']) + 7200, strtotime($_POST['end']) + 7200, $_POST['entryType'], $_POST['title'], $_POST['body'], $fcourses, $calID);
 
 // set json header
 header('Content-type: application/json');
