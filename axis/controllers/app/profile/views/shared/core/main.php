@@ -48,20 +48,15 @@ function getSharedChildren($owner) {
 
 	$finalArr = array();
 	// if we're logged in, split up the shared items into public and private arrays
-	if (checkSession()) {
-		foreach($data as $d1) {
-			// if this isn't public, it can only be private
-			if (!verifyPublic($d1)) {
-				$finalArr['private'][] = $d1;
-			} else {
-				$finalArr['public'][] = $d1;
-			}
+	foreach($data as $d1) {
+		// if this isn't public, it can only be private
+		if (!verifyPublic($d1)) {
+			$finalArr['private'][] = $d1;
+		} else {
+			$finalArr['public'][] = $d1;
 		}
-
-	} else {
-		$finalArr['public'] = $data;
-		$finalArr['private'] = array();
 	}
+
 
 	return $finalArr;
 	
