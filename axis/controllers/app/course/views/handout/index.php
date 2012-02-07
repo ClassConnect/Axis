@@ -34,7 +34,7 @@ if (strlen($crumbs) == 571) {
   // if this is a teacher
   if (user('level') == 3) {
     $crumbs = '<div class="alert-message warning" style="margin-right:15px">
-  <p>Below is the content you have shared with this course via <a href="/app/filebox/">FileBox</a>.</p>
+  <p>Below is the content you have shared with this course via <a href="/app/filebox/">My Files</a>.</p>
 </div>';
   } elseif (user('level') == 1) {
     $crumbs = '<div class="alert-message warning" style="margin-right:15px">
