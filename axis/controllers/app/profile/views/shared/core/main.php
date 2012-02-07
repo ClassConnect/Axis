@@ -100,7 +100,7 @@ function createSharedDirView($owner) {
 	}
 
 	  if (empty($children['public']) && empty($children['private'])) {
-	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
+	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:18px;color:#666;text-align:center">' . dispUser($owner, 'first_name') . ' ' . dispUser($owner, 'last_name') . ' hasn\'t shared anything...yet.
 	    </div>';
 	    
 	  }
