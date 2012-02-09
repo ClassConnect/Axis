@@ -101,7 +101,7 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 			"title" => htmlspecialchars($title), // content title
 			"body" => htmlspecialchars($body), // content description/body
 			"format" => $format, // format (file, web link, etc)
-			"versions" => array(array("id" => $dataID, "uid" => $uid, "timestamp" => date("U"), "comments_priv" => array(), "comments_pub" => array(), "public" => 0, "size" => $sizeData, "ext" => $extData)), // versions
+			"versions" => array(array("id" => $dataID, "uid" => $uid, "timestamp" => date("U"), "comments_priv" => array(), "comments_pub" => array(), "public" => 0, "size" => $sizeData, "ext" => $extData, "forkTotal" => 0, "recs" => 0)), // versions
 			"last_update" => date("U"), // for easy access, show last update
 			"last_update_by" => $uid, // person who last updated
 			"folders" => 0, // number of folders in here

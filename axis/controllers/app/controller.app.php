@@ -49,6 +49,14 @@ class appController extends Axis_Controller
         }
 
 
+        function _search()
+        {
+                //require_once('search/core/main.php');
+                // search routing
+                require_once('search/index.php');
+        }
+
+
         function _common()
         {
                 require_once('common/index.php');

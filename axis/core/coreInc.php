@@ -28,6 +28,17 @@ require_once('site/thumbnail/ThumbLib.inc.php');
 require_once('site/mail/swift_required.php');
 
 
+// elastica autoload stuff
+function elastica_autoload($class) {
+    if (substr($class, 0, 9) == 'Elastica_') {
+        $file = str_replace('_', '/', $class) . '.php';
+        require_once('site/elastic/lib/' . $file);
+    }
+}
+
+spl_autoload_register('elastica_autoload');
+
+
 
 // signup referencer. store this in the session for use when we signup
 if (isset($_GET['uref'])) {

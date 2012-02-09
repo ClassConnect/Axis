@@ -1162,7 +1162,7 @@ textarea[readonly] {
   padding: 4px 9px;
   color: #ffffff;
   color: rgba(255, 255, 255, 0.75);
-  border: 1px solid #111;
+  border: 1px solid #666;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -1174,6 +1174,18 @@ textarea[readonly] {
   -ms-transition: none;
   -o-transition: none;
   transition: none;
+}
+.topbar .searchInput {
+  padding-top:5px;
+  padding-bottom:3px;
+  padding-left:28px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+  font-family:Varela Round;
+  position:absolute;
+  z-index:99;
+  font-size:12px;
 }
 .topbar input:-moz-placeholder {
   color: #e6e6e6;

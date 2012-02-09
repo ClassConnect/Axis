@@ -45,7 +45,7 @@ if ($perLevel > 0) {
 	if ($conID == '0') {
 	  $cObj['_id'] = 0;
 	  $cObj['type'] = 1;
-	  $cObj['title'] = 'FileBox';
+	  $cObj['title'] = 'My Files';
 	}
 	// override if this is the share view
 	if ($conID == 'shared') {
