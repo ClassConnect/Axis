@@ -127,13 +127,13 @@ if ($notis['data'] != 0) {
               </ul>
             </li>
             
-            <form class="pull-left" action="" style="width:160px;margin-left:15px;">
+            <form class="pull-left" action="/app/search/" method="GET" style="width:160px;margin-left:15px;">
 
             <span style="position:absolute;top:5px;left:6px;display:block;width:20px;height:20px">
               <img src="/assets/app/img/nav/search.png" style="width:20px;height:20px" />
             </span>
 
-            <input type="text" class="searchInput" style="width:70px" onFocus="$(this).width(90);$(this).animate({
+            <input type="text" name="query" class="searchInput" style="width:70px" onFocus="$(this).width(90);$(this).animate({
     width: 200
   }, 300, function() {});" onblur="$(this).width(180);$(this).animate({
     width: 70
