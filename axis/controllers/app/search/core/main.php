@@ -2,6 +2,9 @@
 
 function performSearch($keyQuery, $required_params) {
 
+	//clean our query
+	$keyQuery = preg_replace("/[^a-zA-Z0-9\s]/", "", strip_tags($keyQuery));
+
 	global $mdb;
 	$collection = $mdb->fbox_content;
 	$data = $collection->findOne(array('_id' => new MongoId('4f337b79498fe23117000003')));

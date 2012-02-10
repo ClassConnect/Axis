@@ -1302,6 +1302,35 @@ border:1px solid #666;
 }
 
 
+.searchTabber {
+  width:195px;
+  font-weight:bolder;
+  -webkit-border-radius:0px;
+  -moz-border-radius:0px;
+  border-radius:0px;
+
+   background-color: hsl(0, 0%, 92%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="hsl(0, 0%, 108%)", endColorStr="hsl(0, 0%, 92%)");
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(0, 0%, 108%)), to(hsl(0, 0%, 92%)));
+  background-image: -moz-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
+  background-image: -ms-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(0, 0%, 108%)), color-stop(100%, hsl(0, 0%, 92%)));
+  background-image: -webkit-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
+  background-image: -o-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
+  background-image: linear-gradient(hsl(0, 0%, 108%), hsl(0, 0%, 92%));
+  border-color: hsl(0, 0%, 92%) hsl(0, 0%, 92%) hsl(0, 0%, 88%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
+  -webkit-font-smoothing: antialiased;
+}
+.searchTabber .icimg {
+  float:left;
+  margin-right:5px;
+  margin-top:2px;
+  height:12px;
+}
+
 
 
 
