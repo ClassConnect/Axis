@@ -1301,28 +1301,33 @@ border:1px solid #666;
   color:#777;
 }
 
-
-.searchTabber {
-  width:195px;
-  font-weight:bolder;
+.searchLeftBkg {
   -webkit-border-radius:0px;
   -moz-border-radius:0px;
   border-radius:0px;
 
-   background-color: hsl(0, 0%, 92%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="hsl(0, 0%, 108%)", endColorStr="hsl(0, 0%, 92%)");
+   background-color: hsl(0, 0%, 96%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="hsl(0, 0%, 104%)", endColorStr="hsl(0, 0%, 96%)");
   background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(0, 0%, 108%)), to(hsl(0, 0%, 92%)));
-  background-image: -moz-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
-  background-image: -ms-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(0, 0%, 108%)), color-stop(100%, hsl(0, 0%, 92%)));
-  background-image: -webkit-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
-  background-image: -o-linear-gradient(top, hsl(0, 0%, 108%), hsl(0, 0%, 92%));
-  background-image: linear-gradient(hsl(0, 0%, 108%), hsl(0, 0%, 92%));
-  border-color: hsl(0, 0%, 92%) hsl(0, 0%, 92%) hsl(0, 0%, 88%);
+  background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(0, 0%, 104%)), to(hsl(0, 0%, 96%)));
+  background-image: -moz-linear-gradient(top, hsl(0, 0%, 104%), hsl(0, 0%, 96%));
+  background-image: -ms-linear-gradient(top, hsl(0, 0%, 104%), hsl(0, 0%, 96%));
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(0, 0%, 104%)), color-stop(100%, hsl(0, 0%, 96%)));
+  background-image: -webkit-linear-gradient(top, hsl(0, 0%, 104%), hsl(0, 0%, 96%));
+  background-image: -o-linear-gradient(top, hsl(0, 0%, 104%), hsl(0, 0%, 96%));
+  background-image: linear-gradient(hsl(0, 0%, 104%), hsl(0, 0%, 96%));
+  border-color: hsl(0, 0%, 96%) hsl(0, 0%, 96%) hsl(0, 0%, 94%);
   color: #333 !important;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.26);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.13);
   -webkit-font-smoothing: antialiased;
+}
+
+.searchTabber {
+  width:210px;
+  padding-left:13px;
+  padding-bottom:10px;
+  margin-top:10px;
+  border-bottom:1px solid #ddd;
 }
 .searchTabber .icimg {
   float:left;
@@ -1330,7 +1335,78 @@ border:1px solid #666;
   margin-top:2px;
   height:12px;
 }
-
+.searchTabber .selbtndef {
+  width:188px;
+  padding: 2px 2px 2px 4px;
+  margin-top:3px;
+  cursor:pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 9.75px;
+}
+.searchTabber .preselSty {
+  background:#eee;
+  color:#bbb;
+  border:1px solid #ccc;
+}
+.searchTabber .preselSty:hover {
+  background:#F5F5F5;
+  color:#aaa;
+  border:1px solid #ccc;
+}
+.searchTabber .selSty {
+  background:#fff;
+  color:#666;
+  border:1px solid #ccc;
+  -webkit-box-shadow:0 0 2px rgba(0,0,0,0.2);
+  -moz-box-shadow:0 0 2px rgba(0,0,0,0.2);
+  box-shadow:0 0 2px rgba(0,0,0,0.2);
+}
+.searchTabber .labelText {
+  font-weight:bolder;
+  text-transform: uppercase;
+}
+.searchTabber .labelPanel {
+  position:absolute;
+  width:184px;
+  margin-left:-5px;
+  margin-top:-2px;
+  padding:5px;
+  background:#fff;
+  display:none;
+  border:1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border-top:none;
+  -webkit-box-shadow:0 1px 2px rgba(0,0,0,0.2);
+  -moz-box-shadow:0 1px 2px rgba(0,0,0,0.2);
+  box-shadow:0 1px 2px rgba(0,0,0,0.2);
+  cursor:default;
+}
+.labelPanel .optListItem {
+  font-size:10px;
+  font-weight:bolder;
+  padding:3px 3px 3px 10px;
+  border-top:1px solid #eee;
+  cursor:pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.labelPanel .optListItem:hover {
+  background-color: #dddddd;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#eeeeee), to(#dddddd));
+  background-image: -moz-linear-gradient(top, #eeeeee, #dddddd);
+  background-image: -ms-linear-gradient(top, #eeeeee, #dddddd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #dddddd));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #dddddd);
+  background-image: -o-linear-gradient(top, #eeeeee, #dddddd);
+  background-image: linear-gradient(top, #eeeeee, #dddddd);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0);
+}
 
 
 

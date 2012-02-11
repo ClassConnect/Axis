@@ -36,12 +36,19 @@ function performSearch($keyQuery, $required_params) {
 	$queryTerm = new Elastica_Query_QueryString($keyQuery);
 	$queryTerm->setFuzzyMinSim(0.5);
 
-
+	// add filter terms here
 	$filter1 = new Elastica_Filter_Term();
 	$filter1->setTerm('type', 2);
 
+	// or filter
+	$orFilt = new Elastica_Filter_Or();
+	$orFilt->addFilter($filter1);
 
-	$queryFinal = new Elastica_Query_Filtered($queryTerm, $filter1);
+	$finFilt = new Elastica_Filter_And();
+	$finFilt->addFilter($orFilt);
+
+
+	$queryFinal = new Elastica_Query_Filtered($queryTerm, $finFilt);
 
 	$query = Elastica_Query::create($queryFinal);
 	$query->setSize(10)->setFrom(0);
