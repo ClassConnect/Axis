@@ -1,4 +1,5 @@
 dontDoIt = false;
+dontCheck = false;
 $(document).ready(function() {
 	$('.selbtndef').click(function() {
 		// this is the open effect
@@ -22,6 +23,45 @@ $(document).ready(function() {
 		dontDoIt = true;
 	});
 
+
+	$('.checkMePlease').click(function() {
+		dontCheck = true;
+
+		var name = $(this).val();
+		var dropz = $(this).parent().parent().find('.tokenManifest').html();
+
+		if ($(this).attr('checked')) {
+			addFilter(name, dropz);
+		} else {
+			removeFilter(name);
+		}
+		
+	});
+
+
+	$('.optListItem').click(function() {
+		if (!dontCheck) {
+			var tob = $(this).find(":checkbox");
+			if (!tob.attr('checked')) {
+				tob.attr('checked', 'checked');
+			} else {
+				tob.attr('checked', false);
+			}
+
+			var name = tob.val();
+			var dropz = $(this).parent().find('.tokenManifest').html();
+			if (tob.attr('checked')) {
+				addFilter(name, dropz);
+			} else {
+				removeFilter(name);
+			}
+
+		} else {
+			dontCheck = false;
+		}
+	});
+
+
 	$('.selbtndef').hover(
 	   function() {
 	      // do nothing
@@ -34,6 +74,17 @@ $(document).ready(function() {
 	);
 });
 
-function togglePanel() {
-	
+
+// this is a test
+function addFilter(filtername, dropzone) {
+	$('#' + dropzone).append('<div class="label filterItem">' + filtername + '<img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer;margin-top:4px" onclick="removeFilter(\'' + filtername + '\')" /></div>');
+}
+
+function removeFilter(filtername) {
+
+    $('.filterItem').each(function(){
+    	if ($(this).text() == filtername) {
+    		$(this).remove();
+    	}
+    });
 }

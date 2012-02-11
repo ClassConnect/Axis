@@ -1335,6 +1335,11 @@ border:1px solid #666;
   margin-top:2px;
   height:12px;
 }
+.searchTabber .filterItem {
+  width:168px;
+  margin-left:20px;
+  margin-top:3px;
+}
 .searchTabber .selbtndef {
   width:188px;
   padding: 2px 2px 2px 4px;
