@@ -1,7 +1,7 @@
 <?php
 
-if ($this->Command->Parameters[0] == 'x') {
-	// save for json feed loading
+if ($this->Command->Parameters[0] == 'commoncore') {
+	require_once('views/commoncore.php');
 } else {
 	require_once('views/index.php');
 }

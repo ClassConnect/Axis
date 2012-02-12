@@ -27,38 +27,33 @@ $(document).ready(function() {
 	$('.checkMePlease').click(function() {
 		dontCheck = true;
 
-		var name = $(this).val();
-		var dropz = $(this).parent().parent().find('.tokenManifest').html();
-
-		if ($(this).attr('checked')) {
-			addFilter(name, dropz);
-		} else {
-			removeFilter(name);
-		}
+		
 		
 	});
 
 
 	$('.optListItem').click(function() {
+
+		var tob = $(this).find(":checkbox");
+
 		if (!dontCheck) {
-			var tob = $(this).find(":checkbox");
 			if (!tob.attr('checked')) {
-				tob.attr('checked', 'checked');
+				tob.prop('checked', true);
 			} else {
-				tob.attr('checked', false);
+				tob.prop('checked', false);
 			}
-
-			var name = tob.val();
-			var dropz = $(this).parent().find('.tokenManifest').html();
-			if (tob.attr('checked')) {
-				addFilter(name, dropz);
-			} else {
-				removeFilter(name);
-			}
-
 		} else {
 			dontCheck = false;
 		}
+
+		var name = tob.val();
+		var dropz = $(this).parent().find('.tokenManifest').html();
+		if (tob.attr('checked')) {
+			addFilter(name, dropz);
+		} else {
+			removeFilter(name);
+		}
+
 	});
 
 
@@ -87,4 +82,34 @@ function removeFilter(filtername) {
     		$(this).remove();
     	}
     });
+
+    $('.checkMePlease').each(function(){
+    	if ($(this).val() == filtername) {
+    		$(this).prop('checked', false);
+    	}
+    });
+}
+
+
+
+// for commoncore swapper
+function swapCore(curr, grade, topic) {
+  if (curr == null) {
+    curr = '';
+  }
+  if (grade == null) {
+    grade = '';
+  }
+  if (topic == null) {
+    topic = '';
+  }
+  $("#addStandardSub").html('<center><br /><br /><img src="/assets/app/img/box/loading.gif" /><br /><br /></center>');
+  $.ajax({
+   type: "GET",
+   url: "/app/search/commoncore/?curr=" + curr + "&grade=" + grade + "&topic=" + topic,
+   success: function(msg){
+     $("#addStandardSub").html(msg);
+   }
+ });
+
 }
