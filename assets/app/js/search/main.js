@@ -1,6 +1,35 @@
 dontDoIt = false;
 dontCheck = false;
 $(document).ready(function() {
+  // pjax stuff
+  $('.pjaxLinker').pjax('#mainBox', {
+  timeout: null, error: function(xhr, err){
+    $('.error').text('Something went wrong: ' + err)
+  }});
+  $('#mainBox').bind('pjax:start', function() {
+      //$("#mainBlocker").css({cursor:"progress"});
+      $('html, body').animate({ scrollTop: 0 }, 'fast');
+      if (!asyncActive) {
+        asyncOvr = true;
+        initAsyncBar('<img src="/assets/app/img/box/miniload.gif" style="margin-right:10px;margin-bottom:-1px" /> <span style="font-weight:bolder">Loading...</span>', 'yellowBox', 95, 622); 
+      }
+    })
+    .bind('pjax:end',   function() {
+      //$("#mainBlocker").css({cursor:"auto"});
+      if (asyncOvr) {
+        destroyAsyncBar();
+        asyncOvr = false;
+      }
+    });
+
+
+    $('#searchboxForm').submit(function() {
+    	fireQuery();
+    	return false;
+    });
+
+
+
 	$('.selbtndef').click(function() {
 		// this is the open effect
 		if ($(this).hasClass('preselSty')) {
@@ -26,9 +55,6 @@ $(document).ready(function() {
 
 	$('.checkMePlease').click(function() {
 		dontCheck = true;
-
-		
-		
 	});
 
 
@@ -129,4 +155,35 @@ function swapCommonTag(name) {
     } else {
     	removeFilter(name);
     }
+}
+
+
+
+function buildQuery() {
+	finArr = new Array();
+	finStr = '';
+	$('.filterItem').each(function(){
+		if (typeof finArr[$(this).parent().attr("id")] == 'undefined') {
+			finArr[$(this).parent().attr("id")] = new Array();
+		}
+		finArr[$(this).parent().attr("id")][$(this).text()] = $(this).text();
+    });
+
+    for (arObj in finArr) {
+    	finStr += '&' + arObj + '=';
+    	for (tag in finArr[arObj]) {
+    		finStr += tag + ',';
+    	}
+    }
+
+    return finStr;
+}
+
+
+
+function fireQuery() {
+	$.pjax({
+		url: '/app/search/?query=' + escape($('.searchInput').val()) + buildQuery(),
+		container: '#mainBox'
+	});
 }

@@ -127,7 +127,7 @@ if ($notis['data'] != 0) {
               </ul>
             </li>
             
-            <form class="pull-left" action="/app/search/" method="GET" style="width:160px;margin-left:15px;">
+            <form class="pull-left" action="/app/search/" id="searchboxForm" method="GET" style="width:160px;margin-left:15px;">
 
             <span style="position:absolute;top:5px;left:6px;display:block;width:20px;height:20px">
               <img src="/assets/app/img/nav/search.png" style="width:20px;height:20px" />

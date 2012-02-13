@@ -218,6 +218,7 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 $resultSet = performSearch($keyQuery);
 echo genResults($resultSet);
 ?>
+<a href="#" onclick="buildQuery();">This is a test</a>
 	</div>
 
 	<div style="clear:both"></div>
