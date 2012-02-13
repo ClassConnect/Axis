@@ -98,7 +98,7 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 					commonstand
 					</div>
 
-					<div id="commonSwapper">
+					<div id="commonSwapper" style="font-size:11px">
 					<?php require_once('commoncore.php'); ?>
 					</div>
 					

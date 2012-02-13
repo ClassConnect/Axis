@@ -83,7 +83,7 @@ function removeFilter(filtername) {
     	}
     });
 
-    $('.checkMePlease').each(function(){
+    $('.checkMePlease, .standardCheck').each(function(){
     	if ($(this).val() == filtername) {
     		$(this).prop('checked', false);
     	}
@@ -103,13 +103,30 @@ function swapCore(curr, grade, topic) {
   if (topic == null) {
     topic = '';
   }
-  $("#addStandardSub").html('<center><br /><br /><img src="/assets/app/img/box/loading.gif" /><br /><br /></center>');
+  $("#commonSwapper").html('<center><br /><br /><img src="/assets/app/img/box/loading.gif" /><br /><br /></center>');
   $.ajax({
    type: "GET",
    url: "/app/search/commoncore/?curr=" + curr + "&grade=" + grade + "&topic=" + topic,
    success: function(msg){
-     $("#addStandardSub").html(msg);
+     $("#commonSwapper").html(msg);
    }
  });
 
+}
+
+
+
+function swapCommonTag(name) {
+	var isHere = false;
+	$("#commonstand").find('.filterItem').each(function(){
+    	if ($(this).text() == name) {
+    		isHere = true;
+    	}
+    });
+
+    if (!isHere) {
+    	addFilter(name, 'commonstand');
+    } else {
+    	removeFilter(name);
+    }
 }
