@@ -1,6 +1,14 @@
 <?php
 
-function performSearch($keyQuery, $required_params) {
+function performSearch($keyQuery, $required_params, $limit, $offset) {
+
+	if (!isset($limit)) {
+		$limit = 20;
+	}
+
+	if (!isset($offset)) {
+		$offset = 0;
+	}
 
 	//clean our query
 	$keyQuery = preg_replace("/[^a-zA-Z0-9\s]/", "", strip_tags($keyQuery));
@@ -51,7 +59,7 @@ function performSearch($keyQuery, $required_params) {
 	$queryFinal = new Elastica_Query_Filtered($queryTerm, $finFilt);
 
 	$query = Elastica_Query::create($queryFinal);
-	$query->setSize(10)->setFrom(0);
+	$query->setSize($limit)->setFrom($offset);
 	$query->setSort(array('versions.forkTotal' => array('order' => 'desc'), 'versions.recs' => array('order' => 'desc')));
 
 	$resultSet = $type->search($query);
@@ -82,7 +90,7 @@ function genResults($resultSet) {
 		{ 
 		  $result = $result->getData();
 		  $finTxt .= '<br /><br />';
-		  $finTxt .= var_dump($result);
+		  $finTxt .= $result['title'];
 		} 
 		$finTxt .= '<br /><br />' . $resultSet->count();
 	}
@@ -91,4 +99,25 @@ function genResults($resultSet) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+function genFilterBtns($filtArr) {
+	$fin = '';
+	foreach ($filtArr as $res) {
+		if ($res != '') {
+			$fin .= '<div class="label filterItem">'  . $res . '<img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer;margin-top:4px" onclick="removeFilter(\'' . $res . '\')" /></div>';
+		}
+	}
+
+	return $fin;
+}
 ?>

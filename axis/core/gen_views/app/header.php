@@ -38,6 +38,26 @@ if ($developerMode == true) {
     <link href="/assets/app/ui/ui-production.css" rel="stylesheet">
 <?php
 }
+
+
+if ((checkSession() && user('level') == 3) || !checkSession()) {
+  if ($setTab == 5) {
+    $searchVal = 'value="' .  htmlentities($_GET['query']) . '"';
+  }
+  $searchPanel = '<form class="pull-left" action="/app/search/" id="searchboxForm" method="GET" style="width:160px;margin-left:15px;">
+
+            <span style="position:absolute;top:5px;left:6px;display:block;width:20px;height:20px">
+              <img src="/assets/app/img/nav/search.png" style="width:20px;height:20px" />
+            </span>
+
+            <input type="text" name="query" ' . $searchVal . ' class="searchInput" style="width:70px" onFocus="$(this).width(90);$(this).animate({
+    width: 200
+  }, 300, function() {});" onblur="$(this).width(180);$(this).animate({
+    width: 70
+  }, 300, function() {});" placeholder="Search">
+
+          </form>';
+}
 ?>
 
     <script type="text/javascript">
@@ -66,6 +86,8 @@ if ($developerMode == true) {
       <div class="topbar-inner">
         <div class="container">
           <a class="brand" href="/"><img src="/assets/app/img/logo.png" style="float:left;height:16px;margin-top:3px" /></a> 
+
+          <?= $searchPanel; ?>
 
           <ul class="nav secondary-nav">
             <li class="dropdown">
@@ -127,19 +149,7 @@ if ($notis['data'] != 0) {
               </ul>
             </li>
             
-            <form class="pull-left" action="/app/search/" id="searchboxForm" method="GET" style="width:160px;margin-left:15px;">
-
-            <span style="position:absolute;top:5px;left:6px;display:block;width:20px;height:20px">
-              <img src="/assets/app/img/nav/search.png" style="width:20px;height:20px" />
-            </span>
-
-            <input type="text" name="query" class="searchInput" style="width:70px" onFocus="$(this).width(90);$(this).animate({
-    width: 200
-  }, 300, function() {});" onblur="$(this).width(180);$(this).animate({
-    width: 70
-  }, 300, function() {});" placeholder="Search">
-
-          </form>
+            <?= $searchPanel; ?>
 
           </ul> 
           <ul class="nav secondary-nav">

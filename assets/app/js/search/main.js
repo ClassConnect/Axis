@@ -67,6 +67,7 @@ $(document).ready(function() {
 				tob.prop('checked', true);
 			} else {
 				tob.prop('checked', false);
+				tob.removeAttr('checked');
 			}
 		} else {
 			dontCheck = false;
@@ -99,6 +100,8 @@ $(document).ready(function() {
 // this is a test
 function addFilter(filtername, dropzone) {
 	$('#' + dropzone).append('<div class="label filterItem">' + filtername + '<img src="/assets/app/img/box/rem.png" style="height:12px;float:right;cursor:pointer;margin-top:4px" onclick="removeFilter(\'' + filtername + '\')" /></div>');
+	// show new results
+	fireQuery();
 }
 
 function removeFilter(filtername) {
@@ -114,6 +117,8 @@ function removeFilter(filtername) {
     		$(this).prop('checked', false);
     	}
     });
+
+    fireQuery();
 }
 
 
@@ -155,6 +160,8 @@ function swapCommonTag(name) {
     } else {
     	removeFilter(name);
     }
+
+    fireQuery();
 }
 
 

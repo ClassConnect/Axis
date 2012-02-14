@@ -1,11 +1,23 @@
 <?php
-/*
-$keyQuery = strip_tags($_GET['query']);
+$keyQuery = $_GET['query'];
 $resultSet = performSearch($keyQuery);
-echo genResults($resultSet);
-*/
+$genQuery = genResults($resultSet);
 
-appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/main.js"></script>');
+if (isset($_GET['_pjax'])) {
+	echo $genQuery;
+	exit();
+}
+
+
+// prepare our preset filters (if any)
+$gradeArray = explode(',', $_GET['grades']);
+$subjArray = explode(',', $_GET['subjs']);
+$commonArray = explode(',', $_GET['commonstand']);
+$filesArray = explode(',', $_GET['filetypes']);
+$instArray = explode(',', $_GET['instypes']);
+
+
+appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/main.js"></script>', 5);
 ?>
 <div id="mainBlocker" class="content">
 
@@ -21,34 +33,28 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 					grades
 					</div>
 
-					<div class="optListItem">
-						<input value="Pre-Kindergarten" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Pre-Kindergarten
-					</div>
-					<div class="optListItem">
-						<input value="Lower Elementary" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Lower Elementary
-					</div>
-					<div class="optListItem">
-						<input value="Upper Elementary" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Upper Elementary
-					</div>
-					<div class="optListItem">
-						<input value="Middle School" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Middle School
-					</div>
-					<div class="optListItem">
-						<input value="High School" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						High School
-					</div>
-					<div class="optListItem">
-						<input value="College" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						College
-					</div>
+
+					<?php
+          $grades = 'Pre-Kindergarten,Lower Elementary,Upper Elementary,Middle School,High School,College';
+          $inGrade = explode(",", $grades);
+          foreach ($inGrade as $grade) {
+            if (in_array($grade, $gradeArray)) {
+              $attr = 'checked="checked"';
+            } else {
+              $attr = '';
+            }
+            echo '<div class="optListItem">
+            <input value="' . $grade . '" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" ' . $attr . ' /> ' . $grade . '
+            </div>';
+          }
+
+
+          ?>
+
 				</div>
 			</div>
 
-			<div id="grades"></div>
+			<div id="grades"><?= genFilterBtns($gradeArray); ?></div>
 
 			<div class="selbtndef preselSty">
 				<div class="labelText">Choose subjects</div>
@@ -63,13 +69,13 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
           $subjects = 'Math,Science,Social Studies,English / Language Arts,Foreign Language,Music,Physical Education,Health,Dramatic Arts,Visual Arts,Special Education,Technology and Engineering';
           $inSub = explode(",", $subjects);
           foreach ($inSub as $subject) {
-            if ($fake == true) {
-              $attr = 'checked disabled';
+            if (in_array($subject, $subjArray)) {
+              $attr = 'checked="checked"';
             } else {
               $attr = '';
             }
             echo '<div class="optListItem">
-            <input value="' . $subject . '" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" /> ' . $subject . '
+            <input value="' . $subject . '" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" ' . $attr . ' /> ' . $subject . '
             </div>';
           }
 
@@ -82,7 +88,7 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 				</div>
 			</div>
 
-			<div id="subjs"></div>
+			<div id="subjs"><?= genFilterBtns($subjArray); ?></div>
 
 		</div>
 
@@ -106,7 +112,7 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 
 			</div>
 
-			<div id="commonstand"></div>
+			<div id="commonstand"><?= genFilterBtns($commonArray); ?></div>
 
 		</div>
 
@@ -122,45 +128,28 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 					</div>
 
 
-					<div class="optListItem">
-						<input value="Website" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Website
-					</div>
+					<?php
+          $filetypes = 'Website,Embed Code,Document,Presentation,Spreadsheet,Video,Image,Audio';
+          $inType = explode(",", $filetypes);
+          foreach ($inType as $file) {
+            if (in_array($file, $filesArray)) {
+              $attr = 'checked="checked"';
+            } else {
+              $attr = '';
+            }
+            echo '<div class="optListItem">
+            <input value="' . $file . '" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" ' . $attr . ' /> ' . $file . '
+            </div>';
+          }
 
-					<div class="optListItem">
-						<input value="Embed Code" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Embed Code
-					</div>
 
-					<div class="optListItem">
-						<input value="Document" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Document
-					</div>
-					<div class="optListItem">
-						<input value="Presentation" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Presentation
-					</div>
-					<div class="optListItem">
-						<input value="Spreadsheet" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Spreadsheet
-					</div>
-					<div class="optListItem">
-						<input value="Video" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Video
-					</div>
-					<div class="optListItem">
-						<input value="Image" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Image
-					</div>
-					<div class="optListItem">
-						<input value="Audio" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Audio
-					</div>
+          ?>
+
 				</div>
 
 			</div>
 
-			<div id="filetypes"></div>
+			<div id="filetypes"><?= genFilterBtns($filesArray); ?></div>
 
 		</div>
 
@@ -176,37 +165,29 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 					</div>
 
 
-					<div class="optListItem">
-						<input value="Activity" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Activity
-					</div>
-					<div class="optListItem">
-						<input value="Assessment" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Assessment
-					</div>
-					<div class="optListItem">
-						<input value="Lab" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Lab
-					</div>
-					<div class="optListItem">
-						<input value="Lesson Plan" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Lesson Plan
-					</div>
-					<div class="optListItem">
-						<input value="Practice" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Practice
-					</div>
-					<div class="optListItem">
-						<input value="Project" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" />
-						Project
-					</div>
+					<?php
+          $instypes = 'Activity,Assessment,Lab,Lesson Plan,Practice,Project';
+          $inType = explode(",", $instypes);
+          foreach ($inType as $inst) {
+            if (in_array($inst, $instArray)) {
+              $attr = 'checked="checked"';
+            } else {
+              $attr = '';
+            }
+            echo '<div class="optListItem">
+            <input value="' . $inst . '" type="checkbox" class="checkMePlease" style="margin-right:3px;float:left" ' . $attr . ' /> ' . $inst . '
+            </div>';
+          }
+
+
+          ?>
 
 
 				</div>
 
 			</div>
 
-			<div id="instypes"></div>
+			<div id="instypes"><?= genFilterBtns($instArray); ?></div>
 		
 		</div>
 
@@ -214,10 +195,8 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 
 	<div id="mainBox" style="min-height:500px;height:auto !important">
 	<?php
-	$keyQuery = $_GET['query'];
-$resultSet = performSearch($keyQuery);
-echo genResults($resultSet);
-?>
+	echo $genQuery;
+	?>
 <a href="#" onclick="buildQuery();">This is a test</a>
 	</div>
 
