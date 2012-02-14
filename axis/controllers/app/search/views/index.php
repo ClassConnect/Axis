@@ -1,4 +1,10 @@
 <?php
+if (user('level') == 1) {
+	showError();
+	exit();
+}
+
+
 $keyQuery = $_GET['query'];
 $resultSet = performSearch($keyQuery);
 $genQuery = genResults($resultSet);
@@ -17,7 +23,7 @@ $filesArray = explode(',', $_GET['filetypes']);
 $instArray = explode(',', $_GET['instypes']);
 
 
-appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/main.js"></script>', 5);
+appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/main.js"></script><link href="/assets/app/filebox.css" rel="stylesheet">', 5);
 ?>
 <div id="mainBlocker" class="content">
 

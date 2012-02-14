@@ -87,17 +87,69 @@ function genResults($resultSet) {
 		$finTxt .= 'No matches found for that query.';
 	} else {
 		foreach ($resultSet as $result) 
-		{ 
-		  $result = $result->getData();
-		  $finTxt .= '<br /><br />';
-		  $finTxt .= $result['title'];
+		{
+		  $cobj = $result->getData();
+		  $cobj['_id'] = $result->getId();
+		  $finTxt .= genResultStripe($cobj);
 		} 
-		$finTxt .= '<br /><br />' . $resultSet->count();
+		// $resultSet->count();
 	}
 
 	return $finTxt;
 }
 
+
+function genResultStripe($child) {
+		$list = '';
+	if ($child['type'] == 1) {
+	    	$class = "fboxFolder";
+	    	$icon = '<img src="/assets/app/img/box/type/folder.png" class="conicon" />';
+	    } else {
+	    	$class = "fboxContent";
+	    	$icon = createConIcon($child);
+	    }
+
+	    $lastMod = date('F jS, Y', $child['last_update']);
+	    $lastModder = $child['last_update_by'];
+
+	    $list .= '<div id="' . $child['_id'] . '" class="fboxElement ' . $class . '">
+	    <div style="margin-left:10px">' . $icon  . '</div>
+	    <div class="conmain">
+	    	<div class="optarea">
+	    		<div style="margin-top:17px;">
+	    		<div style="float:right;margin-right:34px;height:10px"></div>
+	    			';
+
+	    $list .= '</div>
+	    	</div>
+	    	<div class="mainarea" style="margin-left:-15px">
+	    		<div class="contitle">
+	    		<a href="/app/filebox/' . $child['_id'] . '">' . createConTitle($child) . '</a>
+	    		</div>
+	    		<div class="conlast">
+	    		Updated ' . $lastMod . ' by <a href="' . userURL($lastModder) . '" class="textTogg">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>';
+
+
+	    		if ($child['files'] > 0 && $child['type'] == 1) {
+	    			$sizeData = sizeToText($child['total_size']);
+	    			$list .= '<span class="topDesc rollFalse" title="' . $child['files'] . ' files, ' . $sizeData['data'] . ' ' . $sizeData['fix'] .'"><img src="/assets/app/img/box/mini/file.png" style="margin-left:6px;margin-right:-1px;" /> ' . $child['files'] . '</span>';
+	    		}
+
+
+	    		//if this has tags, show the mini button thing
+	    		$totTags = (count($child['tags']) + count($child['parentTags']));
+	    		if ($totTags > 0) {
+	    			$list .= '<span class="topDesc rollFalse" title="' . $totTags . ' tags" onClick="jQuery.facebox({ 
+    ajax: \'/app/filebox/write/tags/?conIDs=' . $child['_id'] . '\'
+  });$(\'.twipsy\').remove();"><img src="/assets/app/img/box/mini/tag.png" style="margin-left:6px;margin-right:-1px;" /> ' . $totTags . '</span>';
+	    		}
+
+	    $list .= '</div>
+	    	</div>
+	    </div>
+	    </div>';
+	    return $list;
+}
 
 
 

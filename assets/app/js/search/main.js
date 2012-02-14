@@ -20,6 +20,7 @@ $(document).ready(function() {
         destroyAsyncBar();
         asyncOvr = false;
       }
+      initResultPane();
     });
 
 
@@ -94,7 +95,31 @@ $(document).ready(function() {
 	      $(this).find('.labelPanel').css('opacity', 1).slideUp('fast').animate({ opacity: 0 },{ queue: false, duration: 'fast'});
 	   }
 	);
+
+
+  initResultPane();
+
+
 });
+
+
+function initResultPane() {
+  $(".fboxElement").hover(
+   function() {
+      $(this).addClass('fbprogHov');
+      $(this).find('.checkBoxy').removeClass('cboxNorm').addClass('cboxHov');
+   },
+   function() {
+      $(this).removeClass('fbprogHov');
+      $(this).find('.checkBoxy').addClass('cboxNorm').removeClass('cboxHov');
+      $(this).find('.optListers').hide();
+   }
+  );
+
+  $('.fboxElement').click(function() {
+    window.location = "/app/filebox/" + $(this).attr('id');
+  });
+}
 
 
 // this is a test
