@@ -103,6 +103,18 @@ $(document).ready(function() {
 });
 
 
+$(".descTip").twipsy({
+    live: true,
+    placement: 'below',
+    html: true
+});
+$(".topDesc").twipsy({
+    live: true,
+    placement: 'above',
+    html: true
+});
+
+
 function initResultPane() {
   $(".fboxElement").hover(
    function() {
@@ -118,6 +130,10 @@ function initResultPane() {
 
   $('.fboxElement').click(function() {
     window.location = "/app/filebox/" + $(this).attr('id');
+  });
+
+  $('.rollFalse').click(function() {
+    return false;
   });
 }
 
@@ -149,7 +165,7 @@ function removeFilter(filtername) {
 
 
 // for commoncore swapper
-function swapCore(curr, grade, topic) {
+function swapCore1(curr, grade, topic) {
   if (curr == null) {
     curr = '';
   }

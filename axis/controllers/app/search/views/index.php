@@ -203,7 +203,6 @@ appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/m
 	<?php
 	echo $genQuery;
 	?>
-<a href="#" onclick="buildQuery();">This is a test</a>
 	</div>
 
 	<div style="clear:both"></div>

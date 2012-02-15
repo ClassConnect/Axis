@@ -16,7 +16,7 @@ if ($curr != '') {
 	if ($grade != '') {
 		if ($topic != '') {
 			// display crumbs
-			echo '<div style="color:#333;font-size:10px;margin-top:4px;margin-bottom:4px"><a href="#" onClick="swapCore(); return false">Common Core</a> > <a href="#" onClick="swapCore(\'' . $curr . '\'); return false">' . $curr . '</a> > <a href="#" onClick="swapCore(\'' . $curr . '\', \'' . $gradeLink . '\'); return false">' . $grade . '</a></div>';
+			echo '<div style="color:#333;font-size:10px;margin-top:4px;margin-bottom:4px"><a href="#" onClick="swapCore1(); return false">Common Core</a> > <a href="#" onClick="swapCore1(\'' . $curr . '\'); return false">' . $curr . '</a> > <a href="#" onClick="swapCore1(\'' . $curr . '\', \'' . $gradeLink . '\'); return false">' . $grade . '</a></div>';
 			// display main panel
 			foreach ($json_a[$curr][$grade][$topic] as $topic) {
 			echo '<div style="border-top:1px solid #ddd;color:#666;font-size:10px;padding:10px;line-height:1.2em">
@@ -45,19 +45,19 @@ $(document).ready(function() {
 			
 		} else {
 			// display crumbs
-			echo '<div style="color:#333;font-size:10px;margin-top:4px;margin-bottom:4px"><a href="#" onClick="swapCore(); return false">Common Core</a> > <a href="#" onClick="swapCore(\'' . $curr . '\'); return false">' . $curr . '</a> > ' . $grade . '</div>';
+			echo '<div style="color:#333;font-size:10px;margin-top:4px;margin-bottom:4px"><a href="#" onClick="swapCore1(); return false">Common Core</a> > <a href="#" onClick="swapCore1(\'' . $curr . '\'); return false">' . $curr . '</a> > ' . $grade . '</div>';
 			// display main panel
 			foreach ($json_a[$curr][$grade] as $ckey=>$curric) {
-			echo '<div class="tagMenuItem" style="font-size:10px;line-height:1.2em" onClick="swapCore(\'' . $curr . '\', \'' . $gradeLink . '\', \'' . str_replace('&', '--amp--', $ckey) . '\'); return false">&raquo; ' . $ckey . '</div>';
+			echo '<div class="tagMenuItem" style="font-size:10px;line-height:1.2em" onClick="swapCore1(\'' . $curr . '\', \'' . $gradeLink . '\', \'' . str_replace('&', '--amp--', $ckey) . '\'); return false">&raquo; ' . $ckey . '</div>';
 		}
 		}
 		
 	} else {
 		// display crumbs
-		echo '<div style="color:#333;font-size:10px;margin-top:4px;margin-bottom:4px"><a href="#" onClick="swapCore(); return false">Common Core</a> > ' . $curr . '</div>';
+		echo '<div style="color:#333;font-size:10px;margin-top:4px;margin-bottom:4px"><a href="#" onClick="swapCore1(); return false">Common Core</a> > ' . $curr . '</div>';
 		// display main panel
 		foreach ($json_a[$curr] as $ckey=>$curric) {
-			echo '<div class="tagMenuItem" style="font-size:10px;line-height:1.2em" onClick="swapCore(\'' . $curr . '\', \'' . str_replace('&', '--amp--', $ckey) . '\'); return false">&raquo; ' . $ckey . '</div>';
+			echo '<div class="tagMenuItem" style="font-size:10px;line-height:1.2em" onClick="swapCore1(\'' . $curr . '\', \'' . str_replace('&', '--amp--', $ckey) . '\'); return false">&raquo; ' . $ckey . '</div>';
 		}
 
 	}
@@ -67,8 +67,8 @@ $(document).ready(function() {
 	echo '<div style="color:#333;font-size:10px;margin-top:4px;margin-bottom:4px">Common Core</div>';
 	// display main panel
 	foreach ($json_a as $ckey=>$curric) {
-		echo '<div class="tagMenuItem" style="font-size:10px;line-height:1.2em" onClick="swapCore(\'' . $ckey . '\'); return false">&raquo; ' . $ckey . '</div>';
-		//echo '<a href="#" onClick="swapCore(\'' . $ckey . '\'); return false">' . $ckey . '</a><br />';
+		echo '<div class="tagMenuItem" style="font-size:10px;line-height:1.2em" onClick="swapCore1(\'' . $ckey . '\'); return false">&raquo; ' . $ckey . '</div>';
+		//echo '<a href="#" onClick="swapCore1(\'' . $ckey . '\'); return false">' . $ckey . '</a><br />';
 	}
 }
 

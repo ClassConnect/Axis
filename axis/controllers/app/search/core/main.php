@@ -85,7 +85,19 @@ function genResults($resultSet) {
 
 	if ($resultSet == false || $resultSet->count() == 0) {
 		$finTxt .= 'No matches found for that query.';
+
+
 	} else {
+		if ($resultSet->getTotalHits() == 1) {
+			$phrase = $resultSet->getTotalHits() . ' result found';
+		} else {
+			$phrase = $resultSet->getTotalHits() . ' results found';
+		}
+
+		$finTxt .= '<div style="padding:7px 0 7px 15px; font-size:13px;font-weight:bolder;color:#555;border-bottom:2px solid #ccc">
+		' . $phrase . '</div>';
+
+
 		foreach ($resultSet as $result) 
 		{
 		  $cobj = $result->getData();
@@ -100,6 +112,10 @@ function genResults($resultSet) {
 
 
 function genResultStripe($child) {
+	$verID = verifyDataAuth('0', $child);
+	$numLikes = genNumLikes($child, $verID);
+	$numForks = genNumForks($child, $verID);
+
 		$list = '';
 	if ($child['type'] == 1) {
 	    	$class = "fboxFolder";
@@ -118,6 +134,18 @@ function genResultStripe($child) {
 	    	<div class="optarea">
 	    		<div style="margin-top:17px;">
 	    		<div style="float:right;margin-right:34px;height:10px"></div>
+	    			
+	    			<div class="descTip" title="This has been used ' . $numForks . ' times" style="float:left;margin-right:20px">
+		    			<img src="/assets/app/img/box/fork.png" style="margin-top:5px;margin-right:3px;float:left" />
+		    			<span class="label numbero" style="background:#666;text-shadow:none">' . $numForks . '</span>
+	    			</div>
+
+	    			<div class="descTip" title="This has been recommended ' . $numLikes . ' times">
+		    			<img src="/assets/app/img/box/thumbup.png" style="margin-top:5px;margin-right:3px;float:left;height:12px" />
+		    			<span class="label numbero" style="background:#666;text-shadow:none">' . $numLikes . '</span>
+	    			</div>
+
+
 	    			';
 
 	    $list .= '</div>
