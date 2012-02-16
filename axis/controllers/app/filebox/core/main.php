@@ -3597,6 +3597,8 @@ function assocUI($conObj, $perObj) {
 		    $finalArr[3][] = $tag;
 		  } elseif ($tag['type'] == 4) {
 		    $finalArr[4][] = $tag;
+		  } elseif ($tag['type'] == 5) {
+		    $finalArr[5][] = $tag;
 		  }
 		}
 
@@ -3663,6 +3665,21 @@ function assocUI($conObj, $perObj) {
 	      	}
 	      	$barML .= '<a href="#" rel="sharedWith" data-original-title="' . $gtext . '" onClick="tagCurrent();return false">
 		      	<img src="/assets/app/img/temp/standard.png" style="float:left;margin-right:5px;margin-top:2px;height:12px" /> ' . $standText . '</a><br />';
+	      }
+	      // if we have instructional types
+	      if (!empty($finalArr[5])) {
+	      	$standText = '';
+	      	$gtext = '';
+	      	foreach ($finalArr[5] as $gradeSub) {
+		      	$gtext .= $gradeSub['title'] . '<br />';
+		    }
+		    $gtext .= '<span style=\'color:#ccc;font-size:9px\'>(click to edit)</span>';
+	      	$standText .= count($finalArr[5]) . ' instructional type';
+	      	if (count($finalArr[5]) > 1) {
+	      		$standText .= 's';
+	      	}
+	      	$barML .= '<a href="#" rel="sharedWith" data-original-title="' . $gtext . '" onClick="tagCurrent();return false">
+		      	<img src="/assets/app/img/temp/curric.png" style="float:left;margin-right:5px;margin-top:2px;height:12px" /> ' . $standText . '</a><br />';
 	      }
 	      // last, bt not least, keywords.
 	      if (!empty($finalArr[4])) {

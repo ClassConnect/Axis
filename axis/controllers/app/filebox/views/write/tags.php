@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST['submitted'])) {
   $start = 1; $tags = array();
-  while ($start <= 4) {
+  while ($start <= 5) {
     $localTags = explode("[]", $_POST['type' . $start]);
     foreach ($localTags as $local) {
       if ($local != '') {
@@ -87,11 +87,13 @@ $typeName[1] = "Grade Levels";
 $typeName[2] = "Subjects";
 $typeName[3] = "Standards";
 $typeName[4] = "Keywords";
+$typeName[5] = "Instructional Types";
 $finalArr = array();
 $finalArr[1] = array();
 $finalArr[2] = array();
 $finalArr[3] = array();
 $finalArr[4] = array();
+$finalArr[5] = array();
 
 // cycle through and sort tags
 foreach ($tags as $tag) {
@@ -103,6 +105,8 @@ foreach ($tags as $tag) {
     $finalArr[3][] = array("title"=>$tag['title'], "loc"=>$tag['loc']);
   } elseif ($tag['type'] == 4) {
     $finalArr[4][] = array("title"=>$tag['title'], "loc"=>$tag['loc']);
+  } elseif ($tag['type'] == 5) {
+    $finalArr[5][] = array("title"=>$tag['title'], "loc"=>$tag['loc']);
   }
 }
 ?>
@@ -130,6 +134,7 @@ $('#update-tags').submit(function() {
     var type2 = '';
     var type3 = '';
     var type4 = '';
+    var type5 = '';
 
     $('.type1text').each(function(index) {
       type1 += $(this).html() + "[]";
@@ -143,11 +148,14 @@ $('#update-tags').submit(function() {
     $('.type4text').each(function(index) {
       type4 += $(this).html() + "[]";
     });
+    $('.type5text').each(function(index) {
+      type5 += $(this).html() + "[]";
+    });
 
     $.ajax({  
       type: "POST",  
       url: "/app/filebox/write/tags/", 
-      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&type1=' + escape(type1) + '&type2=' + escape(type2) + '&type3=' + escape(type3) + '&type4=' + escape(type4) + '&current=' + currentCon,
+      data: 'submitted=true&conIDs=<?= $_GET['conIDs']; ?>&type1=' + escape(type1) + '&type2=' + escape(type2) + '&type3=' + escape(type3) + '&type4=' + escape(type4) + '&type5=' + escape(type5) + '&current=' + currentCon,
       dataType: "json",
       success: function(retData) {
         
@@ -366,10 +374,35 @@ if ($permLev == 2) {
         <div class="tagMenuItem" onClick="showMain('#addStandardSub', '#addTagMenu')">
           <img src="/assets/app/img/temp/standard.png" style="float:left;margin-right:5px;height:12px;margin-top:-1px" />Add state standards (common core)
         </div>
+        <div class="tagMenuItem" onClick="showMain('#addInstSub', '#addTagMenu')">
+          <img src="/assets/app/img/temp/curric.png" style="float:left;margin-right:5px;height:12px;margin-top:-1px" />Add instructional types
+        </div>
         <div class="tagMenuItem" onClick="showMain('#addKeywordSub', '#addTagMenu'); $('#keywordPut').focus();">
           <img src="/assets/app/img/temp/keywords.png" style="float:left;margin-right:5px;height:12px;margin-top:-1px" />Add keywords
         </div>
       </div>
+
+
+
+       <div id="addInstSub" class="tagMainItem tagMainItemOpt">
+       <?php
+          $grades = 'Lesson Plan,Activity,Lab,Project,Practice,Assessment';
+          $inGrades = explode(",", $grades);
+          foreach ($inGrades as $grade) {
+            if (in_array(array("title"=>$grade, "loc"=>'1'), $finalArr[5])) {
+              $attr = 'checked disabled';
+            } elseif (in_array(array("title"=>$grade, "loc"=>'2'), $finalArr[5])) {
+              $attr = 'checked';
+            } else {
+              $attr = '';
+            }
+            echo '<input id="grade-' . $grade . '" type="checkbox" onClick="swapTag(5, \'' . $grade . '\');" name="insts[]" value="' . $grade . '" ' . $attr . ' /> <span style="font-size:11px;color:#666">' . $grade . '</span><br />';
+          }
+
+
+          ?>
+
+       </div>
 
 
        <div id="addKeywordSub" class="tagMainItem tagMainItemOpt">

@@ -258,6 +258,24 @@ echo 'mapping set';
 
 				$finFilt->addFilter($torFilt);
 
+
+			} elseif ($fkey == 'instructionaltypes') {
+
+				// initialize our "or"
+				$torFilt = new Elastica_Filter_Or();
+
+				foreach ($field as $filer) {
+					$filer = strtolower(str_replace(" ", "", $filer));
+					$tfilt1 = new Elastica_Filter_Term();
+					$tfilt1->setTerm('tagstore', $filer);
+					$torFilt->addFilter($tfilt1);
+
+				}
+
+				$finFilt->addFilter($torFilt);
+
+
+
 			}
 		}
 	}
