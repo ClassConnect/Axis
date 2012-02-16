@@ -5,8 +5,17 @@ if (user('level') == 1) {
 }
 
 
+// prepare our preset filters (if any)
+$gradeArray = array_filter(explode(',', $_GET['grades']));
+$subjArray = array_filter(explode(',', $_GET['subjs']));
+$commonArray = array_filter(explode(',', $_GET['commonstand']));
+$filesArray = array_filter(explode(',', $_GET['filetypes']));
+$instArray = array_filter(explode(',', $_GET['instypes']));
+
+$reqPars = array("grades" => $gradeArray, "subjects" => $subjArray, "commoncore" => $commonArray, "filetypes" => $filesArray, "instructionaltypes" => $instArray);
+
 $keyQuery = $_GET['query'];
-$resultSet = performSearch($keyQuery);
+$resultSet = performSearch($keyQuery, $reqPars);
 $genQuery = genResults($resultSet);
 
 if (isset($_GET['_pjax'])) {
@@ -14,13 +23,6 @@ if (isset($_GET['_pjax'])) {
 	exit();
 }
 
-
-// prepare our preset filters (if any)
-$gradeArray = explode(',', $_GET['grades']);
-$subjArray = explode(',', $_GET['subjs']);
-$commonArray = explode(',', $_GET['commonstand']);
-$filesArray = explode(',', $_GET['filetypes']);
-$instArray = explode(',', $_GET['instypes']);
 
 
 appHeader('Search', '<script type="text/javascript" src="/assets/app/js/search/main.js"></script><link href="/assets/app/filebox.css" rel="stylesheet">', 5);

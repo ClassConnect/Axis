@@ -1,6 +1,7 @@
 <?php
 
-function performSearch($keyQuery, $required_params, $limit, $offset) {
+function performSearch($keyQuery, $reqpars, $limit, $offset) {
+
 
 	if (!isset($limit)) {
 		$limit = 20;
@@ -21,11 +22,48 @@ function performSearch($keyQuery, $required_params, $limit, $offset) {
 	unset($data['_id']);
 	$data['body'] = strip_tags($data['body']);
 
+	$newTags = array();
+	foreach($data['tags'] as $tkey => $tag) {
+		if ($tag['type'] == 1) {
+			$newTags[] = convGradeToString($tag['title']);
+			
+		} elseif ($tag['type'] == 3) {
+			$newTags[] = convStandardToString($tag['title']);
+
+		} else {
+			$newTags[] = strtolower(str_replace(" ", "", $tag['title']));
+		}
+	}
+
+	foreach($data['parentTags'] as $tkey => $tag) {
+		if ($tag['type'] == 1) {
+			$newTags[] = convGradeToString($tag['title']);
+			
+		} elseif ($tag['type'] == 3) {
+			$newTags[] = convStandardToString($tag['title']);
+
+		} else {
+			$newTags[] = strtolower(str_replace(" ", "", $tag['title']));
+		}
+	}
+
+
+	$data['tagstore'] = $newTags;
+
 
 	$client = new Elastica_Client();
-	$index = $client->getIndex('mongotest');
+	$index = $client->getIndex('msh');
+	//$index->clearCache();
 
-	$type = $index->getType('nocluebro');
+	$type = $index->getType('fbx');
+	/*$mapping = array(
+			'tags.title' => array('type' => 'string', 'store' => 'no'),
+			'parentTags.title' => array('type' => 'string', 'store' => 'no'),
+		);
+		$type->setMapping($mapping);
+echo 'mapping set';
+		exit();*/
+	//$type->deleteById($docID);
 
 	/*
 	$doc = new Elastica_Document($docID, $data);
@@ -44,16 +82,185 @@ function performSearch($keyQuery, $required_params, $limit, $offset) {
 	$queryTerm = new Elastica_Query_QueryString($keyQuery);
 	$queryTerm->setFuzzyMinSim(0.5);
 
-	// add filter terms here
+	// filter terms for public permissions
 	$filter1 = new Elastica_Filter_Term();
-	$filter1->setTerm('type', 2);
-
+	$filter1->setTerm('permissions.type', '3');
+	$filter2 = new Elastica_Filter_Term();
+	$filter2->setTerm('parentPermissions.type', '3');
+		
 	// or filter
 	$orFilt = new Elastica_Filter_Or();
 	$orFilt->addFilter($filter1);
+	$orFilt->addFilter($filter2);
 
 	$finFilt = new Elastica_Filter_And();
 	$finFilt->addFilter($orFilt);
+
+	foreach ($reqpars as $fkey => $field) {
+		if (!empty($field)) {
+			if ($fkey == 'grades') {
+
+				$torFilt = new Elastica_Filter_Or();
+
+				foreach ($field as $filer) {
+
+					// get the right grade levels
+					if ($filer == 'Pre-Kindergarten') {
+						$return = 'gradeprekindergarten';
+
+					} elseif ($filer == 'Lower Elementary') {
+						$return = 'gradelowerelementary';
+
+					} elseif ($filer == 'Upper Elementary') {
+						$return = 'gradeupperelementary';
+
+					} elseif ($filer == 'Middle School') {
+						$return = 'grademiddleschool';
+
+					} elseif ($filer == 'High School') {
+						$return = 'gradehighschool';
+
+					} elseif ($filer == 'College') {
+						$return = 'gradecollege';
+
+					} else {
+						$return = 'gradeother';
+					}
+
+					// set filter
+					$tfilt1 = new Elastica_Filter_Term();
+					$tfilt1->setTerm('tagstore', $return);
+					$torFilt->addFilter($tfilt1);
+
+				}
+
+				$finFilt->addFilter($torFilt);
+
+
+			} elseif ($fkey == 'subjects') {
+
+				// initialize our "or"
+
+				$torFilt = new Elastica_Filter_Or();
+
+				foreach ($field as $filer) {
+					$filer = strtolower($filer);
+					$tfilt1 = new Elastica_Filter_Term();
+					$tfilt1->setTerm('tagstore', $filer);
+					$torFilt->addFilter($tfilt1);
+
+				}
+
+				$finFilt->addFilter($torFilt);
+
+
+
+			} elseif ($fkey == 'commoncore') {
+
+				// initialize our "or"
+
+				$torFilt = new Elastica_Filter_Or();
+
+				foreach ($field as $filer) {
+					$filer = convStandardToString($filer);
+					$tfilt1 = new Elastica_Filter_Term();
+					$tfilt1->setTerm('tagstore', $filer);
+					$torFilt->addFilter($tfilt1);
+
+				}
+
+				$finFilt->addFilter($torFilt);
+
+
+			} elseif ($fkey == 'filetypes') {
+
+				// initialize our "or"
+				$torFilt = new Elastica_Filter_Or();
+
+				foreach ($field as $filer) {
+
+					if ($filer == 'Website') {
+						$tfilt1 = new Elastica_Filter_Term();
+						$tfilt1->setTerm('format', 2);
+						$torFilt->addFilter($tfilt1);
+
+					} elseif ($filer == 'Embed Code') {
+						$tfilt1 = new Elastica_Filter_Term();
+						$tfilt1->setTerm('format', 3);
+						$torFilt->addFilter($tfilt1);
+
+					} elseif ($filer == 'Document') {
+						$docTypes = array('pdf', 'ps', 'doc', 'docx', 'odt', 'sxw', 'ods', 'txt', 'rtf');
+						foreach ($docTypes as $dt) {
+							$tfilt1 = new Elastica_Filter_Term();
+							$tfilt1->setTerm('versions.ext', $dt);
+							$torFilt->addFilter($tfilt1);
+						}
+
+						// google doc
+						$tfilt1 = new Elastica_Filter_Term();
+						$tfilt1->setTerm('format', 6);
+						$torFilt->addFilter($tfilt1);
+
+					} elseif ($filer == 'Presentation') {
+						$presTypes = array('ppt', 'pps', 'pptx', 'odp', 'sxi');
+						foreach ($presTypes as $dt) {
+							$tfilt1 = new Elastica_Filter_Term();
+							$tfilt1->setTerm('versions.ext', $dt);
+							$torFilt->addFilter($tfilt1);
+						}
+
+					} elseif ($filer == 'Spreadsheet') {
+						$spreadTypes = array('ods', 'sxc', 'xls', 'xlsx');
+						foreach ($spreadTypes as $dt) {
+							$tfilt1 = new Elastica_Filter_Term();
+							$tfilt1->setTerm('versions.ext', $dt);
+							$torFilt->addFilter($tfilt1);
+						}
+
+
+					
+					} elseif ($filer == 'Video') {
+						$videoTypes = array('3gp', 'avi', 'flv', 'mpeg', 'mpg', 'mpe', 'mp4', 'swf', 'wmv');
+						foreach ($videoTypes as $dt) {
+							$tfilt1 = new Elastica_Filter_Term();
+							$tfilt1->setTerm('versions.ext', $dt);
+							$torFilt->addFilter($tfilt1);
+						}
+
+						// web video
+						$tfilt1 = new Elastica_Filter_Term();
+						$tfilt1->setTerm('format', 4);
+						$torFilt->addFilter($tfilt1);
+
+
+					} elseif ($filer == 'Audio') {
+						$audioTypes = array('wav', 'm4a', 'wma', 'mp2', 'mp3', 'aac');
+						foreach ($audioTypes as $dt) {
+							$tfilt1 = new Elastica_Filter_Term();
+							$tfilt1->setTerm('versions.ext', $dt);
+							$torFilt->addFilter($tfilt1);
+						}
+
+
+					} elseif ($filer == 'Image') {
+						$imgTypes = array('gif', 'bmp', 'ico', 'jpg', 'jpeg', 'png');
+						foreach ($imgTypes as $dt) {
+							$tfilt1 = new Elastica_Filter_Term();
+							$tfilt1->setTerm('versions.ext', $dt);
+							$torFilt->addFilter($tfilt1);
+						}
+
+
+					}
+
+				}
+
+				$finFilt->addFilter($torFilt);
+
+			}
+		}
+	}
 
 
 	$queryFinal = new Elastica_Query_Filtered($queryTerm, $finFilt);
@@ -65,16 +272,6 @@ function performSearch($keyQuery, $required_params, $limit, $offset) {
 	$resultSet = $type->search($query);
 
 	return $resultSet;
-
-	/*
-	$this->assertEquals(2, $resultSet->count());
-
-	$query->addTerm('ruflin');
-	$resultSet = $type->search($query);
-
-	$this->assertEquals(3, $resultSet->count());
-
-	*/
 	
 }
 
@@ -101,6 +298,7 @@ function genResults($resultSet) {
 		foreach ($resultSet as $result) 
 		{
 		  $cobj = $result->getData();
+		  //var_dump($cobj);
 		  $cobj['_id'] = $result->getId();
 		  $finTxt .= genResultStripe($cobj);
 		} 
@@ -152,7 +350,7 @@ function genResultStripe($child) {
 	    	</div>
 	    	<div class="mainarea" style="margin-left:-15px">
 	    		<div class="contitle">
-	    		<a href="/app/filebox/' . $child['_id'] . '">' . createConTitle($child) . '</a>
+	    		<a href="/app/filebox/' . $child['_id'] . '">' . $child['title'] . '</a>
 	    		</div>
 	    		<div class="conlast">
 	    		Updated ' . $lastMod . ' by <a href="' . userURL($lastModder) . '" class="textTogg">' . dispUser($lastModder, 'first_name') . ' ' . dispUser($lastModder, 'last_name') . '</a>';
@@ -184,6 +382,48 @@ function genResultStripe($child) {
 
 
 
+function convGradeToString($title) {
+	$title = strtolower($title);
+	if ($title == 'ps' || $title == 'pk' || $title == 'k') {
+		$return = 'gradeprekindergarten';
+
+	} elseif ($title == '1' || $title == '2' || $title == '3') {
+		$return = 'gradelowerelementary';
+
+	} elseif ($title == '4' || $title == '5') {
+		$return = 'gradeupperelementary';
+
+	} elseif ($title == '6' || $title == '7' || $title == '8') {
+		$return = 'grademiddleschool';
+
+	} elseif ($title == '9' || $title == '10' || $title == '11' || $title == '12') {
+		$return = 'gradehighschool';
+
+	} elseif ($title == 'prep' || $title == 'bs/ba' || $title == 'masters' || $title == 'phd' || $title == 'post-doc') {
+		$return = 'gradecollege';
+	} else {
+		$return = 'gradeother';
+	}
+
+	return $return;
+}
+
+
+function convStandardToString($title) {
+	$title = str_replace('.', 'dot', $title);
+	$title = str_replace('-', 'dash', $title);
+	$title = str_replace('0', 'zero', $title);
+	$title = str_replace('1', 'one', $title);
+	$title = str_replace('2', 'two', $title);
+	$title = str_replace('3', 'three', $title);
+	$title = str_replace('4', 'four', $title);
+	$title = str_replace('5', 'five', $title);
+	$title = str_replace('6', 'six', $title);
+	$title = str_replace('7', 'seven', $title);
+	$title = str_replace('8', 'eight', $title);
+	$title = str_replace('9', 'nine', $title);
+	return strtolower($title);
+}
 
 
 
