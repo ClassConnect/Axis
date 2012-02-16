@@ -1,6 +1,6 @@
 <?php
 
-function performSearch($keyQuery, $reqpars, $limit, $offset) {
+function performSearch($keyQuery, $reqpars, $offset, $limit) {
 
 
 	if (!isset($limit)) {
@@ -324,6 +324,31 @@ function genResults($resultSet) {
 	}
 
 	return $finTxt;
+}
+
+
+
+function genResFeed($resultSet) {
+	$finTxt = '';
+
+	if ($resultSet == false || $resultSet->count() == 0) {
+		$finTxt .= 'We couldn\'t find any more results<script>killLoad=true;</script>';
+
+
+	} else {
+
+		foreach ($resultSet as $result) 
+		{
+		  $cobj = $result->getData();
+		  //var_dump($cobj);
+		  $cobj['_id'] = $result->getId();
+		  $finTxt .= genResultStripe($cobj);
+		} 
+		// $resultSet->count();
+	}
+
+	return $finTxt;
+	
 }
 
 

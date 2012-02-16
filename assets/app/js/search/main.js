@@ -1,5 +1,8 @@
 dontDoIt = false;
 dontCheck = false;
+killLoad = false;
+loading = false;
+totalPull = 0;
 $(document).ready(function() {
   // pjax stuff
   $('.pjaxLinker').pjax('#mainBox', {
@@ -13,6 +16,9 @@ $(document).ready(function() {
         asyncOvr = true;
         initAsyncBar('<img src="/assets/app/img/box/miniload.gif" style="margin-right:10px;margin-bottom:-1px" /> <span style="font-weight:bolder">Loading...</span>', 'yellowBox', 95, 622); 
       }
+      loading = false;
+      killLoad = false;
+      totalPull = 0;
     })
     .bind('pjax:end',   function() {
       //$("#mainBlocker").css({cursor:"auto"});
@@ -97,6 +103,31 @@ $(document).ready(function() {
 	);
 
 
+  // infiniscroll
+  $(window).scroll(function(){
+    if (loading || killLoad) {
+      return;
+    }
+
+    if(nearBottomOfPage()) {
+      totalPull++;
+      loading=true;
+      // pull in feed data
+      $.ajax({  
+      type: "GET",  
+      url: "/app/search/retrieve?query=" + escape($('.searchInput').val()) + buildQuery() + "&marker=" + totalPull,  
+      success: function(retData) {
+          $("#mainBox").append(retData);
+          loading = false;
+      }  
+      
+      }); 
+
+
+    }
+  });
+
+
   initResultPane();
 
 
@@ -114,6 +145,11 @@ $(".topDesc").twipsy({
     html: true
 });
 
+
+// helper function
+function nearBottomOfPage() {
+  return $(window).scrollTop() > $(document).height() - $(window).height() - 200;
+}
 
 function initResultPane() {
   $(".fboxElement").hover(
