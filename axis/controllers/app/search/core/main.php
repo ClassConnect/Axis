@@ -14,63 +14,12 @@ function performSearch($keyQuery, $reqpars, $offset, $limit) {
 	//clean our query
 	$keyQuery = preg_replace("/[^a-zA-Z0-9\s]/", "", strip_tags($keyQuery));
 
-	global $mdb;
-	$collection = $mdb->fbox_content;
-	$data = $collection->findOne(array('_id' => new MongoId('4f337b79498fe23117000003')));
 
-	$docID = (string) $data['_id'];
-	unset($data['_id']);
-	$data['body'] = strip_tags($data['body']);
-
-	$newTags = array();
-	foreach($data['tags'] as $tkey => $tag) {
-		if ($tag['type'] == 1) {
-			$newTags[] = convGradeToString($tag['title']);
-			
-		} elseif ($tag['type'] == 3) {
-			$newTags[] = convStandardToString($tag['title']);
-
-		} else {
-			$newTags[] = strtolower(str_replace(" ", "", $tag['title']));
-		}
-	}
-
-	foreach($data['parentTags'] as $tkey => $tag) {
-		if ($tag['type'] == 1) {
-			$newTags[] = convGradeToString($tag['title']);
-			
-		} elseif ($tag['type'] == 3) {
-			$newTags[] = convStandardToString($tag['title']);
-
-		} else {
-			$newTags[] = strtolower(str_replace(" ", "", $tag['title']));
-		}
-	}
-
-
-	$data['tagstore'] = $newTags;
-
-
-	$client = new Elastica_Client();
+	$client = initElastica();
 	$index = $client->getIndex('msh');
 	//$index->clearCache();
 
 	$type = $index->getType('fbx');
-	/*$mapping = array(
-			'tags.title' => array('type' => 'string', 'store' => 'no'),
-			'parentTags.title' => array('type' => 'string', 'store' => 'no'),
-		);
-		$type->setMapping($mapping);
-echo 'mapping set';
-		exit();*/
-	//$type->deleteById($docID);
-
-	/*
-	$doc = new Elastica_Document($docID, $data);
-	$type->addDocument($doc);
-
-	$index->refresh();
-	*/
 
 
 

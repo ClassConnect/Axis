@@ -142,6 +142,10 @@ function insertContent($uid, $parent, $type, $title, $body, $permissions, $tags,
 		}
 
 
+		// send this to elastic
+		pushElasticDoc($obj['_id']);
+
+
 		// finally, lets return the new object ID
 		$retArr['conID'] = (string) $obj['_id'];
 		return $retArr;
@@ -210,6 +214,9 @@ function updateTitle($conID, $title, $uid) {
 			// update this
 			$collection->update(array($idStr => $conID), array('$set' => $up), array("multiple" => true));
 
+			// send this to elastic
+			pushElasticDoc($conID);
+
 
 		}
 
@@ -258,6 +265,8 @@ function updateDescendantForks($batchObj, $num, $single) {
 	$collection = $mdb->fbox_content;
 
 	$rent_ids = array();
+	$elUp = array();
+	$elDesc = array();
 
 	foreach ($batchObj as $tObj) {
 		$rent_ids[] = array('_id' => new MongoId((string) $tObj['_id']));
@@ -265,7 +274,10 @@ function updateDescendantForks($batchObj, $num, $single) {
 		if (!isset($single)) {
 			$rent_ids[] = array('parent.id' => (string) $tObj['_id']);
 			$rent_ids[] = array('parents.id' => (string) $tObj['_id']);
+			$elDesc[] = $tObj['_id'];
 		}
+
+		$elUp[] = $tObj['_id'];
 	}
 
 	$finalq = array('$or' => $rent_ids);
@@ -278,6 +290,17 @@ function updateDescendantForks($batchObj, $num, $single) {
 	$updates['$inc'] = $updateParams;
 
 	$collection->update($finalq, $updates, array("multiple" => true));
+
+
+	// throw this to elastic
+	foreach ($elUp as $el) {
+		pushElasticDoc($el);
+	}
+
+	// throw this to elastic
+	foreach ($elDesc as $de) {
+		pushElasticDocDescendants($de);
+	}
 }
 
 
@@ -640,6 +663,11 @@ function moveContent($target, $conIDs, $uid) {
 		// update the parents
 		updateParents($finalq, $updateParams, $sets);
 
+
+		// update elastic
+		pushElasticDoc($cObj['_id']);
+		pushElasticDocDescendants($cObj['_id']);
+
 		// success
 		return 1;
 
@@ -684,7 +712,12 @@ function deleteContent($conIDs, $uid) {
 				if (isset($play['forkedFrom']) && $play['forkedFrom'] != 0 && $play['forkedFrom'] != '0') {
 					$finForks[] = array("_id" => $play['forkedFrom']);
 				}
+				// update elastic
+				delElasticDoc($play['_id']);
 			}
+
+			// remove this document
+			delElasticDoc($conObj['_id']);
 
 			$isPub = verifyPublic($conObj);
 
@@ -944,6 +977,8 @@ function copyContent($target, $conIDs, $uid) {
 			$conObj = cleanCopyObj($conObj);
 			// insert object
 			$collection->insert($conObj);
+			// update this in elastic
+			pushElasticDoc($conObj['_id']);
 			// set ID swap for $current OBID
 			$idSwap[$currentOBID] = (string) $conObj['_id'];
 			// set orig tags for this obj
@@ -1013,6 +1048,8 @@ function copyContent($target, $conIDs, $uid) {
 				$final = cleanCopyObj($final);
 				// insert final
 				$collection->insert($final);
+				// update this in elastic
+				pushElasticDoc($final['_id']);
 				// set ID swap for $current OBID
 				$idSwap[(string) $fold['_id']] = (string) $final['_id'];
 
@@ -1191,6 +1228,8 @@ function updateTags($conIDs, $tags, $uid) {
 			// $curLocals is now complete. update back into the database...
 			// second, update this content
 			$collection->update(array('_id' => new MongoId($obj['_id'])), array('$set' => array("tags" => $curLocals)));
+			// update this in elastic
+			pushElasticDoc($obj['_id']);
 
 			// third, get all descendents and loop
 			$children = getDescendants($obj['_id']);
@@ -1241,6 +1280,8 @@ function updateTags($conIDs, $tags, $uid) {
 
 				// fifth, update this content
 				$collection->update(array('_id' => new MongoId($child['_id'])), array('$set' => array("tags" => $childLoc, "parentTags" => $childPar)));
+				// update this in elastic
+				pushElasticDoc($child['_id']);
 
 			}
 
@@ -1516,6 +1557,9 @@ function updatePermissions($conIDs, $pers, $uid) {
 			// second, update this content
 			$collection->update(array('_id' => new MongoId($obj['_id'])), array('$set' => array("permissions" => $curLocals)));
 
+			// update this in elastic
+			pushElasticDoc($obj['_id']);
+
 
 			// update our curAdds
 			insertFboxNoti(3, $curAdd, null, $uid, $obj);
@@ -1572,6 +1616,8 @@ function updatePermissions($conIDs, $pers, $uid) {
 
 				// fifth, update this content
 				$collection->update(array('_id' => new MongoId($child['_id'])), array('$set' => array("permissions" => $childLoc, "parentPermissions" => $childPar)));
+				// update this in elastic
+				pushElasticDoc($child['_id']);
 
 			}
 
@@ -3928,6 +3974,8 @@ function addRecommendation($conID, $dataID, $uid) {
 		  	$collection = $mdb->fbox_content;
 			// update this
 			$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+			// update this in elastic
+			pushElasticDoc($conID);
 
 			$share_permissions = array();
 			// remove all entities that are courses
@@ -4004,6 +4052,9 @@ function delRecommendation($conID, $dataID, $uid) {
 		  	$collection = $mdb->fbox_content;
 			// update this
 			$collection->update(array('_id' => new MongoId($conID)), array('$set' => $up));
+
+			// update in elastic
+			pushElasticDoc($conID);
 
 			$feed_collection = $mdb->feed;
 			$feed_collection->remove(array('appType' => 1, 'notiType' => 5, 'uid' => $uid, 'data.0.id' => $conID, 'data.0.dataID' => $dataID), array('safe' => true));
@@ -4484,5 +4535,31 @@ function insertFboxNoti($type, $pers, $parentPers, $owner_id, $conObj, $addData,
 	}
 
 
+}
+
+
+
+
+// a helper function to automate descendants into the queue
+function pushElasticDocDescendants($conID) {
+	$curDesc = getDescendants($conID);
+	foreach ($curDesc as $dec1) {
+		pushElasticDoc($dec1['_id']);
+	}
+}
+
+
+// push a document to elastic
+function pushElasticDoc($docID) {
+	$docID = (string) $docID;
+	$client = initGearmanClient();
+	$client->doBackground("pushDoc", $docID);
+}
+
+// delete an elastic document
+function delElasticDoc($docID) {
+	$docID = (string) $docID;
+	$client = initGearmanClient();
+	$client->doBackground("delDoc", $docID);
 }
 ?>
