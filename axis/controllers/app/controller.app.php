@@ -7,11 +7,27 @@ class appController extends Axis_Controller
         	if (!checkSession()) {
         		showLogin();
         	} else {
+                        if (user('level') == 3) {
+                                header('location: /app/filebox/');
+
+                        } elseif (user('level') == 1) {
+                                header('location: /app/latest/');
+                        }  
+                }
+        	
+        }
+
+
+        function _latest()
+        {
+                if (!checkSession()) {
+                        showLogin();
+                } else {
                         appHeader('Latest', '<script type="text/javascript" src="/assets/app/js/home/main.js"></script>', 1);
                         require_once('home/index.php');
                         appFooter();       
                 }
-        	
+                
         }
 
 

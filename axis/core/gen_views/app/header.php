@@ -117,10 +117,10 @@ if ((checkSession() && user('level') == 3) || !checkSession()) {
     <div id="mainNavBar" class="topbar"> 
       <div class="fill"> 
         <div class="container"> 
-          <a class="brand" href="/app/"><img src="/assets/app/img/logo.png" style="float:left;height:16px;margin-top:3px" /></a> 
+          <a class="brand" href="/app/latest/"><img src="/assets/app/img/logo.png" style="float:left;height:16px;margin-top:3px" /></a> 
           <ul class="nav"> 
           <!-- <span style="padding-top:4px" class="label important">&nbsp;1&nbsp;</span>&nbsp;&nbsp; -->
-            <li<?php if ($setTab == 1) { echo ' class="active"'; } ?>><a href="/app/">
+            <li<?php if ($setTab == 1) { echo ' class="active"'; } ?>><a href="/app/latest/">
             Latest
             <?php
 $notis = getNotis();
@@ -140,6 +140,7 @@ if ($notis['data'] != 0) {
                 <li><a href="/app/docs">Docs</a></li>
               </ul>
             </li>
+            <?php if (getSections()) { ?>
             <li id="courses-tab" class="dropdown<?php if ($setTab == 4) { echo ' active'; } ?>">
               <a href="#" class="dropdown-toggle">Courses</a>
               <ul class="dropdown-menu">
@@ -148,6 +149,7 @@ if ($notis['data'] != 0) {
                 <li id="manage-courses-tab"><a href="/app/manage/courses" style="font-size:10px">add / manage courses</a></li>
               </ul>
             </li>
+            <?php } ?>
             
             <?= $searchPanel; ?>
 

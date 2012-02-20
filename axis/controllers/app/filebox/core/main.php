@@ -1916,6 +1916,18 @@ function linkToVideo($content) {
 				$pass = true;
 			}
 
+
+		// if this is a video video
+		} elseif (strpos($content, 'vimeo.com/')) {
+			$temp =  substr($content, strpos($content, 'vimeo.com/') + 10, strlen($content));
+			if ($temp != '') {
+				$finalCon = array(
+					"vidType" => 4, // vimeo
+					"data" => $temp
+				);
+				$pass = true;
+			}
+
 		// this is just a regular old fashioned URL
 		}
 
@@ -3189,7 +3201,7 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	  	if ($perLev == 2) {
 	  		$list .= '<img src="/assets/app/img/box/nocon.png" style="margin-top:10px;margin-left:10px;float:left" />
 	    <div style="font-size:20px;color:#444;font-weight:bolder;margin-top:42px">This folder is empty.
-	    <div style="font-weight:normal;color:#666;margin-top:6px">Click "Add Content" to add files, websites, videos and more.</div>
+	    <div style="font-weight:normal;color:#666;margin-top:6px">Click "Add Files" to add files, websites, videos and more.</div>
 	    </div>';
 	  	} else {
 	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
@@ -4439,6 +4451,10 @@ function displayContent($cObj, $cData) {
 		// if it's teachertube
 		} elseif ($cData['vidType'] == 3) {
 			return '<embed src="http://teachertube.com/embed/player.swf"  width="670"  height="375"  bgcolor="undefined"  allowscriptaccess="always"  allowfullscreen="true" flashvars="file=http://teachertube.com/embedFLV.php?pg=video_' . $cData['data'] . '&menu=false&frontcolor=ffffff&lightcolor=FF0000&logo=http://teachertube.com/www3/images/greylogo.swf&skin=http://teachertube.com/embed/overlay.swf&volume=80&controlbar=over&displayclick=link&viral.link=http://www.teachertube.com/viewVideo.php?video_id=' . $cData['data'] . '&stretching=exactfit&plugins=viral-2&viral.callout=none&viral.onpause=false" class="vidView" />';
+
+		// if it's vimeo
+		} elseif ($cData['vidType'] == 4) {
+			return '<iframe src="http://player.vimeo.com/video/'. $cData['data'] . '?title=0&amp;byline=0&amp;portrait=0" width="670" height="375" frameborder="0" class="vidView" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 
 		}
 
