@@ -1,3 +1,17 @@
+html, body {
+  background-color: #eeeeee;
+  background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffffff), to(#eeeeee));
+  background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: -ms-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: linear-gradient(top, #ffffff, #eeeeee);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+}
+
 .topbarMiniprof {
   height:25px;
   float:left;
@@ -1426,95 +1440,6 @@ border:1px solid #666;
 
 
 
-
-
-
-
-
-
-
-
-
-#facebox {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  text-align: left;
-}
-
-
-#facebox .popup{
-  position:relative;
-  border:3px solid rgba(0,0,0,0);
-  -webkit-border-radius:5px;
-  -moz-border-radius:5px;
-  border-radius:5px;
-  -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
-  -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
-  box-shadow:0 0 18px rgba(0,0,0,0.4);
-}
-
-#facebox .fbcontent {
-  display:table;
-  width: 370px;
-  padding-top: 10px;
-  background: #fff;
-  -webkit-border-radius:4px;
-  -moz-border-radius:4px;
-  border-radius:4px;
-}
-
-#facebox .fbcontent > p:first-child{
-  margin-top:0;
-}
-#facebox .fbcontent > p:last-child{
-  margin-bottom:0;
-}
-
-#facebox .close{
-  position:absolute;
-  top:5px;
-  right:5px;
-  padding:2px;
-  background:#fff;
-}
-#facebox .close img{
-  opacity:0.3;
-}
-#facebox .close:hover img{
-  opacity:1.0;
-}
-
-#facebox .loading {
-  text-align: center;
-}
-
-#facebox .image {
-  text-align: center;
-}
-
-#facebox img {
-  border: 0;
-  margin: 0;
-}
-
-#facebox_overlay {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height:100%;
-  width:100%;
-}
-
-.facebox_hide {
-  z-index:-100;
-}
-
-.facebox_overlayBG {
-  background-color: #000;
-  z-index: 99;
-}
 
 
 

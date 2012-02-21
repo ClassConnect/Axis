@@ -3534,15 +3534,26 @@ function forkNotice($conObj, $perObj) {
 		if (!is_null($cObj)) {
 			$permissionObj = verifyPermissions($cObj, user('id'), $mySecs);
 			$perLevel = determinePerLevel($cObj['_id'], $permissionObj);
-			$result = '<div class="alert-message block-message warning" style="font-size:11px;margin:10px 10px 0 10px;padding:4px 4px 4px 4px">
+
+			$showForkData = true;
+
+			// if student, and not your student, dont show data
+			if (dispUser($cObj['owner_id'], 'level') == 1 && !verifyMyStudent($cObj['owner_id'])) {
+				$showForkData = false;
+			}
+
+			if ($showForkData) {
+				$result = '<div class="alert-message block-message warning" style="font-size:11px;margin:10px 10px 0 10px;padding:4px 4px 4px 4px">
 			<img src="/assets/app/img/box/fork.png" style="float:left;margin:3px 5px 5px 0px" />
 			Used from <a href="#">' . dispUser($cObj['owner_id'], 'first_name') . ' ' . dispUser($cObj['owner_id'], 'last_name') . '</a><br />';
 
-			if ($perLevel > 0) {
-				$result .= '<center><a href="/app/filebox/' . $conObj['forkedFrom'] . '" style="font-weight:bolder">Click here to view the original</a></center>';
-			}
+				if ($perLevel > 0) {
+					$result .= '<center><a href="/app/filebox/' . $conObj['forkedFrom'] . '" style="font-weight:bolder">Click here to view the original</a></center>';
+				}
 
-			$result .= '</div>';
+				$result .= '</div>';
+				
+			}
 
 			return $result;
 			

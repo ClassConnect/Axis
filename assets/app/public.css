@@ -1,3 +1,137 @@
+body
+{
+background-image:url('/assets/public/bkg.png');
+background-repeat:repeat;
+}
+
+.splashHead {
+  border-top:1px solid #ccc;
+  background:#fff;
+  margin-top:-40px;
+  border-bottom:1px solid #EBE6E6;
+}
+
+.splashHeadRight {
+  float:right;
+  width:295px;
+}
+
+.splashHeadRight .loginbox{
+  float:right;
+  margin-top:30px;
+}
+
+.splashHeadRight .uninput{
+  border-bottom-right-radius: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  -moz-border-radius-bottomleft: 0px;
+  -webkit-border-bottom-left-radius: 0px;
+  padding:7px 7px 7px 7px;
+}
+
+.splashHeadRight .passinput{
+  border-top-right-radius: 0px;
+  -moz-border-radius-topright: 0px;
+  -webkit-border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  -moz-border-radius-topleft: 0px;
+  -webkit-border-top-left-radius: 0px;
+  border-top:none;
+  padding:7px 7px 7px 7px;
+}
+
+
+
+.splashHeadLeft {
+  width:600px;
+  padding-bottom:30px;
+}
+
+.splashHeadLeft .logo {
+  margin-top:20px;
+  width:300px;
+}
+
+.splashHeadLeft .slogan {
+  margin-top:20px;
+  font-size:22px;
+}
+
+.splashHeadLeft .actionbtns {
+  margin-top:35px;
+  font-size:22px;
+}
+
+.splashHeadLeft .actionbtns .btn{
+  font-size:16px;
+  font-weight:bolder;
+  padding:7px 15px 5px 15px;
+}
+
+
+.splashDesc {
+  background: #FAF9F9;
+  background-image:url('/assets/public/descbkg.png');
+  background-repeat:repeat;
+  -webkit-box-shadow: 0 3px 4px rgba(0,0,0,.25);
+     -moz-box-shadow: 0 3px 4px rgba(0,0,0,.25);
+          box-shadow: 0 3px 4px rgba(0,0,0,.25);
+}
+
+
+
+.pubFooter {
+
+}
+
+
+.pubFooter .barBlock {
+  margin-left:100px;
+  margin-top:20px;
+  width:692px;
+  -webkit-box-shadow: 0 0px 6px rgba(0,0,0,.25);
+     -moz-box-shadow: 0 0px 6px rgba(0,0,0,.25);
+          box-shadow: 0 0px 6px rgba(0,0,0,.25);
+}
+
+
+.pubFooter .barBtn {
+  margin-left:-4px;
+  font-size:16px;
+  font-weight:bolder;
+  color: #666 !important;
+  padding:10px 50px 10px 50px;
+
+  background-color: hsl(0, 0%, 80%) !important;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(0, 0%, 92%)), to(hsl(0, 0%, 80%)));
+  background-image: -moz-linear-gradient(top, hsl(0, 0%, 92%), hsl(0, 0%, 80%));
+  background-image: -ms-linear-gradient(top, hsl(0, 0%, 92%), hsl(0, 0%, 80%));
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(0, 0%, 92%)), color-stop(100%, hsl(0, 0%, 80%)));
+  background-image: -webkit-linear-gradient(top, hsl(0, 0%, 92%), hsl(0, 0%, 80%));
+  background-image: -o-linear-gradient(top, hsl(0, 0%, 92%), hsl(0, 0%, 80%));
+  background-image: linear-gradient(hsl(0, 0%, 92%), hsl(0, 0%, 80%));
+  border-color: hsl(0, 0%, 80%) hsl(0, 0%, 80%) hsl(0, 0%, 77%);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.19);
+  -webkit-font-smoothing: antialiased;
+
+  filter: alpha(opacity=80);
+  -khtml-opacity: 0.8;
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+
+
 .backRect {
   height: 215px;
   position: absolute;

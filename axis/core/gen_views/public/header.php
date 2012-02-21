@@ -27,7 +27,6 @@ if ($developerMode == true) {
     <script src="/assets/app/js/pjax.js"></script>
     <script src="/assets/app/js/placer.js"></script>
     <link href="/assets/app/main.css" rel="stylesheet">
-    <link href="/assets/app/app.css" rel="stylesheet">
     <link href="/assets/app/public.css" rel="stylesheet">
     <link href="/assets/app/ui/ui.css" rel="stylesheet">
 
@@ -37,7 +36,6 @@ if ($developerMode == true) {
 ?>
     <script src="/assets/app/production/production.js"></script>
     <link href="/assets/app/production/main.css" rel="stylesheet">
-    <link href="/assets/app/production/app.css" rel="stylesheet">
     <link href="/assets/app/production/public.css" rel="stylesheet">
     <link href="/assets/app/ui/ui-production.css" rel="stylesheet">
 <?php
@@ -59,4 +57,4 @@ if ($developerMode == true) {
 
   <body>
 
-    <div class="container" style="">
+    
