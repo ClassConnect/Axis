@@ -6,7 +6,7 @@ class rootController extends Axis_Controller
         	if (checkSession()) {
         		header('location:/app/');
         	} else {
-        		pubHeader('Home');
+        		pubHeader('ClassConnect | Find, build and share lessons');
 	        	require_once('views/index.php');
 	        	pubFooter();
         	}

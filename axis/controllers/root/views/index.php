@@ -4,12 +4,15 @@
 
     <div class="splashHeadRight">
       <div class="loginbox">
-        <input type="text" class="uninput" placeholder="Email / Username" /><br />
-        <input type="password" class="passinput" placeholder="Password" /><br />
+      <form method="POST" action="/app/">
+        <input type="text" class="uninput" name="identity" placeholder="Email / Username" /><br />
+        <input type="password" class="passinput" name="pass" placeholder="Password" /><br />
+        <input type="hidden" name="logsubmit" value="submitted" />
         <button class="btn" style="float:right;margin-top:5px">Login</button>
         <div style="margin-top:10px;margin-left:5px">
           <a href="/app/resetpassword">Forgot password?</a>
         </div>
+        </form>
       </div>
     </div>
 
@@ -38,7 +41,9 @@
   <div class="container">
 
     <div class="descBox">
-    <br />
+      <div class="boxtitle">Build Your Lessons</div>
+      <div class="boxdesc">Add websites, online videos, Google Docs, and files. You can even find lessons that other teachers have built.</div>
+      <center><img src="/assets/public/crate.png" style="height:120px" /></center>
     </div>
 
     <div class="descBox">
@@ -47,34 +52,12 @@
       <center><img src="/assets/public/crate.png" style="height:120px" /></center>
     </div>
 
-    <div class="descBox">
-    <br />
+    <div class="descBox" style="margin-right:0px">
+    <div class="boxtitle">Share & Collaborate</div>
+      <div class="boxdesc">It takes just a click to share with students, parents & colleagues. They automatically get notified when changes are made.</div>
+      <center><img src="/assets/public/crate.png" style="height:120px" /></center>
     </div>
     
     
-  </div>
-</div>
-
-
-<div class="pubFooter">
-  <div class="container">
-    
-    <div class="barBlock">
-      <a href="#" class="btn barBtn aboutbut" style="margin-left:0">
-      About
-      </a>
-      <a href="#" class="btn barBtn blogbut">
-      Blog
-      </a>
-      <a href="#" class="btn barBtn uwtbut" style="color:#555">
-      United We Teach
-      </a>
-      <a href="#" class="btn barBtn contactbut">
-      Contact
-      </a>
-    </div>
-
-
-
   </div>
 </div>

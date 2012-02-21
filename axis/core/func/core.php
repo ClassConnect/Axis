@@ -36,7 +36,7 @@ function isFilled($str) {
 
 
 // generate headers and footers
-function pubHeader($page_title) {
+function pubHeader($page_title, $showHead) {
     require_once('axis/core/gen_views/public/header.php');
 }
 

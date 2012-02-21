@@ -1,11 +1,10 @@
 <?php
-appHeader('Our Story');
+pubHeader('Our Story', true);
 ?>
-<div class="content"> 
-	<div class="row" style="padding:20px;padding-top:0px;font-size:14px">
 
+<div style="margin-top:20px">
  
-<img src="/assets/public/eric.png" id="ericpic" class="vidView" style="margin-right:10px;margin-bottom:10px; height:300px;width:225px;float:left" title="Eric in his natural habitat" />
+<img src="/assets/public/eric.png" style="margin-right:20px;margin-bottom:20px; height:300px;width:225px;float:left" title="Eric in his natural habitat" />
 
 <div style="font-family:Varela Round;font-size:18px;text-align:center;margin-top:7px;margin-bottom:10px;font-weight:bolder">
 	As a student I was your worst nightmare.
@@ -22,22 +21,24 @@ That was the key "eureka" moment - give students the best possible content and l
 At the end of my senior year, I decided to work on ClassConnect full time instead of going to college. I moved out to Silicon Valley and got accepted into the first Imagine K12 cohort, which has been an incredible experience. I sleep on friends' couches, eat Ramen noodles, work 12-16 hours a day - and I love it. I've finally found something that I'm truly passionate about.
 <br /><br />
 Life isn't about what you have, it's about what you leave – and I want to leave education with something really incredible.
-<br /><br /><br />
-<a href="http://www.twitter.com/ericsimons40" target="_blank" class="btn large primary" style="font-weight:bolder">Follow me on Twitter!</a>
-	</div>
+<br /><br />
+
+</div>
+	
+</div>
 </div>
 
-<script>
 
-$("#ericpic").twipsy({
-    placement: 'below',
-    html: true,
-    trigger: 'manual'
-  });
-  $(document).ready(function() {
-  $("#ericpic").twipsy('show');
-});
-</script>
+
+<div class="splashDesc">
+  <div class="container" style="padding-bottom:25px;padding-top:25px">
+
+<a href="http://www.twitter.com/ericsimons40" target="_blank" class="btn large primary" style="font-weight:bolder">Follow me on Twitter!</a>
+
+
+  </div>
+</div>
+
 <?php
-appFooter();
+pubFooter();
 ?>

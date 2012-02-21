@@ -1,3 +1,44 @@
+<div class="pubFooter">
+  <div class="container">
+    
+    <div class="barBlock">
+      <a href="/about/us" class="btn barBtn aboutbut" style="margin-left:0">
+      About
+      </a>
+      <a href="http://classconnect.tumblr.com" target="_blank" class="btn barBtn blogbut">
+      Blog
+      </a>
+      <a href="/about/UnitedWeTeach" class="btn barBtn uwtbut" style="color:#555">
+      United We Teach
+      </a>
+      <a href="#" class="btn barBtn contactbut">
+      Contact
+      </a>
+    </div>
+
+
+
+  </div>
+</div>
+
+<script type="text/javascript">
+var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/B2A4E1367126848D?v=2&alt=json&callback=?';
+var videoURL= 'http://www.youtube.com/watch?v=';
+$.getJSON(playListURL, function(data) {
+    var list_data="";
+    $.each(data.feed.entry, function(i, item) {
+        var feedTitle = item.title.$t;
+        var feedDesc = item.media$group.media$description.$t.replace( /\n/g, '<br/>');
+        var feedURL = item.link[1].href;
+        var fragments = feedURL.split("/");
+        var videoID = fragments[fragments.length - 2];
+        var url = videoURL + videoID;
+        var thumb = "http://img.youtube.com/vi/"+ videoID +"/default.jpg";
+        list_data += '<li><a href="'+ url +'" title="'+ feedTitle +'"><img alt="'+ feedTitle+'" src="'+ thumb +'"</a>'+ feedTitle +'<br />'+feedDesc+'</li>';
+    });
+    //jQuery.facebox('<div>' + list_data + '</div>');
+});
+</script>
 
 
 
