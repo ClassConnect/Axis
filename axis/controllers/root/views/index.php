@@ -36,9 +36,22 @@
 
 <div class="splashDesc">
   <div class="container">
+
+    <div class="descBox">
     <br />
-    <center><img src="/assets/public/crate.png" style="height:120px" /></center>
+    </div>
+
+    <div class="descBox">
+      <div class="boxtitle">Organize & Store</div>
+      <div class="boxdesc">All of your lessons stay here until you delete them, so say goodbye to re-uploading your lessons every semester.</div>
+      <center><img src="/assets/public/crate.png" style="height:120px" /></center>
+    </div>
+
+    <div class="descBox">
     <br />
+    </div>
+    
+    
   </div>
 </div>
 
@@ -47,16 +60,16 @@
   <div class="container">
     
     <div class="barBlock">
-      <a href="#" class="btn barBtn" style="margin-left:0">
+      <a href="#" class="btn barBtn aboutbut" style="margin-left:0">
       About
       </a>
-      <a href="#" class="btn barBtn">
+      <a href="#" class="btn barBtn blogbut">
       Blog
       </a>
-      <a href="#" class="btn barBtn">
+      <a href="#" class="btn barBtn uwtbut" style="color:#555">
       United We Teach
       </a>
-      <a href="#" class="btn barBtn">
+      <a href="#" class="btn barBtn contactbut">
       Contact
       </a>
     </div>

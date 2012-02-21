@@ -80,6 +80,26 @@ background-repeat:repeat;
           box-shadow: 0 3px 4px rgba(0,0,0,.25);
 }
 
+.splashDesc .descBox{
+  padding-top:30px;
+  padding-bottom:30px;
+  float:left;
+  width:300px;
+}
+
+.splashDesc .descBox .boxtitle{
+  font-size:18px;
+  text-align:center;
+  font-weight:bolder;
+  margin-bottom:10px;
+}
+
+.splashDesc .descBox .boxdesc{
+  font-size:14px;
+  margin-bottom:10px;
+  color:#555;
+}
+
 
 
 .pubFooter {
@@ -88,9 +108,8 @@ background-repeat:repeat;
 
 
 .pubFooter .barBlock {
-  margin-left:100px;
   margin-top:20px;
-  width:692px;
+
   -webkit-box-shadow: 0 0px 6px rgba(0,0,0,.25);
      -moz-box-shadow: 0 0px 6px rgba(0,0,0,.25);
           box-shadow: 0 0px 6px rgba(0,0,0,.25);
@@ -98,11 +117,13 @@ background-repeat:repeat;
 
 
 .pubFooter .barBtn {
+  text-align:center;
   margin-left:-4px;
   font-size:16px;
   font-weight:bolder;
-  color: #666 !important;
-  padding:10px 50px 10px 50px;
+  color: #666;
+  padding-top:10px;
+  padding-bottom:10px;
 
   background-color: hsl(0, 0%, 80%) !important;
   background-repeat: repeat-x;
@@ -121,6 +142,34 @@ background-repeat:repeat;
   -khtml-opacity: 0.8;
   -moz-opacity: 0.8;
   opacity: 0.8;
+}
+
+.aboutbut {
+  width:195px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.blogbut {
+  width:195px;
+  -webkit-border-radius: 0 0 0 0;
+     -moz-border-radius: 0 0 0 0;
+          border-radius: 0 0 0 0;
+}
+
+.uwtbut {
+  width:195px;
+  -webkit-border-radius: 0 0 0 0;
+     -moz-border-radius: 0 0 0 0;
+          border-radius: 0 0 0 0;
+}
+
+.contactbut {
+  width:195px;
+  -webkit-border-radius: 0 4px 4px 0;
+     -moz-border-radius: 0 4px 4px 0;
+          border-radius: 0 4px 4px 0;
 }
 
 
