@@ -26,6 +26,7 @@ if ($developerMode == true) {
     <script src="/assets/app/js/formControl.js"></script>
     <script src="/assets/app/js/pjax.js"></script>
     <script src="/assets/app/js/placer.js"></script>
+    <script src="/assets/public/js/gen.js"></script>
     <link href="/assets/app/main.css" rel="stylesheet">
     <link href="/assets/app/public.css" rel="stylesheet">
     <link href="/assets/app/ui/ui.css" rel="stylesheet">
@@ -35,6 +36,7 @@ if ($developerMode == true) {
 } else {
 ?>
     <script src="/assets/app/production/production.js"></script>
+    <script src="/assets/public/js/gen.js"></script>
     <link href="/assets/app/production/main.css" rel="stylesheet">
     <link href="/assets/app/production/public.css" rel="stylesheet">
     <link href="/assets/app/ui/ui-production.css" rel="stylesheet">

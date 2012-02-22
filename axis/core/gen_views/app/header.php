@@ -131,7 +131,7 @@ if ($notis['data'] != 0) {
             </a></li> 
 
             <li id="filebox-tab"<?php if ($setTab == 2) { echo ' class="active"'; } ?>><a href="/app/filebox/">My Files</a></li> 
-            <?php // class="active" ?>
+            <?php if (getSections()) { ?>
             <li class="dropdown<?php if ($setTab == 3) { echo ' active'; } ?>">
               <a href="#" class="dropdown-toggle">Apps</a>
               <ul class="dropdown-menu">
@@ -142,7 +142,6 @@ if ($notis['data'] != 0) {
                 <?php } ?>
               </ul>
             </li>
-            <?php if (getSections()) { ?>
             <li id="courses-tab" class="dropdown<?php if ($setTab == 4) { echo ' active'; } ?>">
               <a href="#" class="dropdown-toggle">Courses</a>
               <ul class="dropdown-menu">

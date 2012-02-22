@@ -42,13 +42,13 @@
 
     <div class="descBox">
       <div class="boxtitle">Build Your Lessons</div>
-      <div class="boxdesc">Add websites, online videos, Google Docs, and files. You can even find lessons that other teachers have built.</div>
+      <div class="boxdesc">Add websites, online videos, Google Docs, files & more. You can even find lessons that other teachers have built.</div>
       <center><img src="/assets/public/crate.png" style="height:120px" /></center>
     </div>
 
     <div class="descBox">
       <div class="boxtitle">Organize & Store</div>
-      <div class="boxdesc">All of your lessons stay here until you delete them, so say goodbye to re-uploading your lessons every semester.</div>
+      <div class="boxdesc">All of your lessons stay here until you delete them, so say goodbye to re- uploading your lessons every semester.</div>
       <center><img src="/assets/public/crate.png" style="height:120px" /></center>
     </div>
 
