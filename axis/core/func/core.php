@@ -1739,6 +1739,7 @@ function addFriend($friendID, $uid, $autoAdd) {
         $now = date("U");
         good_query("INSERT INTO colleagues (user1, user2, status, initiated) VALUES ($uid, $friendID, $status, $now)");
         updateReqs(1, $friendID);
+        updateNotis(1, $friendID);
 
         // send an email to our new friend
         $myName = dispUser($uid, 'first_name') . ' ' . dispUser($uid, 'last_name') . ' via ClassConnect';

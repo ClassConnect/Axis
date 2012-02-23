@@ -16,7 +16,7 @@
 
   
   if ($rcount == 0) {
-    $rightCont .= '<p id="noneRM" style="text-align:center;color:#666">No activity found for this user...yet.</p>';
+    $rightCont .= '<p id="noneRM" style="margin-top:40px;font-weight:bolder;text-align:center;color:#666">No activity found for this user...yet.</p>';
   } else {
     $temp .= genFeedItem($result, array("type" => 10, "shareID" => (int) $usr1['id']));
   }

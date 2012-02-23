@@ -168,6 +168,7 @@ $('#update-tags').submit(function() {
                   $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
                 }
               restartFolUI(retData['sidebar']);
+              $('.fboxActBox').hide();
             } else if (currentType == 2) {
               restartFilUI(retData['sidebar']);
             }

@@ -23,6 +23,7 @@ $(document).ready(function() {
       //$("#mainBlocker").css({cursor:"auto"});
       if (asyncOvr) {
         destroyAsyncBar();
+        $('.fboxActBox').hide();
         asyncOvr = false;
       }
     });
@@ -183,25 +184,17 @@ function updateLeftSwap() {
   if (accessLevel == 2) {
     // if there is nothing selected...
     if ($('.fbprogSel').length === 0) {
-      $('#copyBtn').attr('disabled', 'disabled');
-      $('#moveBtn').attr('disabled', 'disabled');
-      $('#delBtn').attr('disabled', 'disabled');
-      $('#shareBtn').attr('disabled', 'disabled');
-      $('#tagBtn').attr('disabled', 'disabled');
+      $("#rwActions").hide();
     } else {
-      $('#copyBtn').removeAttr('disabled');
-      $('#moveBtn').removeAttr('disabled');
-      $('#delBtn').removeAttr('disabled');
-      $('#shareBtn').removeAttr('disabled');
-      $('#tagBtn').removeAttr('disabled');
+      $("#rwActions").show();
     }
 
   // if we only have read
   } else if (accessLevel == 1) {
     if ($('.fbprogSel').length === 0) {
-      $('#copyBtn').attr('disabled', 'disabled');
+      $("#roActions").hide();
       } else {
-        $('#copyBtn').removeAttr('disabled');
+        $("#roActions").show();
       }
   }
 }
@@ -259,28 +252,13 @@ function initFolUI() {
   });
 
 
-  // we always have copy functionality...right?
-  $('#copyBtn').click(function() {
-    copyDefault();
-  });
+  // we always have copy functionality..
   
   // if we have read/write, add draggable functionality
   if (accessLevel == 2) {
     // set click handler for buttons
     $('#addBtn').click(function() {
       addButtonToggle(this);
-    });
-    $('#moveBtn').click(function() {
-      moveDefault();
-    });
-    $('#delBtn').click(function() {
-      deleteContent();
-    });
-    $('#shareBtn').click(function() {
-      shareContent();
-    });
-    $('#tagBtn').click(function() {
-      tagContent();
     });
 
 
@@ -386,13 +364,7 @@ function restartFolUI(sidebar) {
     $("#leftSwap").html(sidebar);
   }
   $("#crumbNav").html($("#crumbNav").html());
-  if (!$(".checkBoxed").length) {
-    $('#copyBtn').attr('disabled', 'disabled');
-    $('#moveBtn').attr('disabled', 'disabled');
-    $('#delBtn').attr('disabled', 'disabled');
-    $('#shareBtn').attr('disabled', 'disabled');
-    $('#tagBtn').attr('disabled', 'disabled');
-  }
+  $('.fboxActBox').hide();
 
   if (shouldFloat) {
     var panel = $(".fboxFloater");
@@ -480,7 +452,9 @@ function swapDesc() {
             ed.onInit.add(function() { 
                 var mceTable = $("#"+ed.editorContainer+" table:first").css("height","30px"); 
                 $(".mceIframeContainer", mceTable).css("height","100px"); 
-                $(".mceIframeContainer iframe", mceTable).height("100%"); 
+                $(".mceIframeContainer iframe", mceTable).height("100%");
+                $("#mce_loading_gfx").hide();
+                $('#' + textID).tinymce().focus();
             }); 
         } 
       });

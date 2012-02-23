@@ -62,6 +62,7 @@ $('#del-con').submit(function() {
 
             sideBarSwap = retData['sidebar'];
             setTimeout("restartFolUI(sideBarSwap)",300);
+            $('.fboxActBox').hide();
             closeBox();
           }
 

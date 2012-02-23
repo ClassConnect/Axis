@@ -52,9 +52,9 @@ if ((checkSession() && user('level') == 3) || !checkSession()) {
 
             <input type="text" name="query" ' . $searchVal . ' class="searchInput" style="width:70px" onFocus="$(this).width(90);$(this).animate({
     width: 200
-  }, 300, function() {});" onblur="$(this).width(180);$(this).animate({
+  }, 300, function() {});" onblur="if ($(this).width() == 200) { $(this).width(180);$(this).animate({
     width: 70
-  }, 300, function() {});" placeholder="Search">
+  }, 300, function() {}); }" placeholder="Search">
 
           </form>';
 }

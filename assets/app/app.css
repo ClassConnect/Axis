@@ -22,6 +22,13 @@ html, body {
   -moz-border-radius: 2px;
   border-radius: 2px;
 }
+.fboxActBox {
+  display:none;
+  z-index:80;
+  position:absolute;
+  margin-top:33px;
+  margin-left:35px;
+}
 .fboxCrumb {
   cursor: pointer;
   display: inline-block;
@@ -146,8 +153,8 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   padding-top:5px;
 }
 .fboxCrumbFloat {
-  -moz-box-shadow:0 5px 5px rgba(182, 182, 182, 0.75);
-  -webkit-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
+  -moz-box-shadow:0 2px 2px rgba(182, 182, 182, 0.75);
+  -webkit-box-shadow: 0 2px 2px rgba(182, 182, 182, 0.75);
   box-shadow: 0 2px 2px rgba(182, 182, 182, 0.5);
 }
 #mainBox {
@@ -1052,6 +1059,9 @@ border:1px solid #666;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border-color: #57a957 #57a957 #3d773d;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+   -moz-box-shadow:0 2px 2px rgba(182, 182, 182, 0.75);
+  -webkit-box-shadow: 0 2px 2px rgba(182, 182, 182, 0.75);
+  box-shadow: 0 2px 2px rgba(182, 182, 182, 0.5);
 }
 .actBtnNoLeft{
   -webkit-border-radius: 0 4px 4px 0;

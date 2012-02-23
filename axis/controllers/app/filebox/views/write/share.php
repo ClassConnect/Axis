@@ -382,6 +382,7 @@ $('#update-pers').submit(function() {
             for (dataID in retData['data']) {
                 $("#" + retData['data'][dataID]['id']).replaceWith(retData['data'][dataID]['result']);
               }
+            $('.fboxActBox').hide();
             restartFolUI(retData['sidebar']);
 
           } else if (currentType == 2) {

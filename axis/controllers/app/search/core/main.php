@@ -248,7 +248,7 @@ function genResults($resultSet) {
 	$finTxt = '';
 
 	if ($resultSet == false || $resultSet->count() == 0) {
-		$finTxt .= 'No matches found for that query.';
+		$finTxt .= '<div style="margin-top:100px;text-align:center;font-size:18px;font-weight:bolder;color:#666">We couldn\'t find anything! Try another search.</div>';
 
 
 	} else {
@@ -281,7 +281,7 @@ function genResFeed($resultSet) {
 	$finTxt = '';
 
 	if ($resultSet == false || $resultSet->count() == 0) {
-		$finTxt .= 'We couldn\'t find any more results<script>killLoad=true;</script>';
+		$finTxt .= '<p style="text-align:center;color:#666; background:#efefef;padding:7px;margin:20px">No more results found!</p><script>killLoad=true;</script>';
 
 
 	} else {

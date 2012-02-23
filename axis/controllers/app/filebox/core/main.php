@@ -2346,6 +2346,22 @@ function getLatestFiles($format, $uid) {
 }
 
 
+
+// check how many files are being shared with this user
+function getNumSharedWithMe($uid) {
+	if (!isset($uid)) {
+		$uid = (string) user('id');
+	}
+	global $mdb;
+
+	// select a collection (analogous to a relational database's table)
+	$collection = $mdb->fbox_content;
+	$params = array('permissions.type'=>1, 'permissions.shared_id'=>(int) $uid);
+	$data = $collection->count($params);
+	return $data;
+}
+
+
 // get all forks of a content & dataID
 function getAllForks($conID, $dataID) {
 	global $mdb;
@@ -2807,6 +2823,25 @@ function createCrumbs($crumbs) {
 	}
 
 
+	// add our (hidden) file UI
+	$prepend .= '
+	<div id="rwActions" class="fboxActBox">
+		<button id="copyBtn" class="btn actBtn actBtnNoRight actBtnMarg" onclick="copyDefault();"><img src="/assets/app/img/box/copy.png" style="height:12px;margin-right:5px;margin-bottom:-2px;"  />' . say('Copy') . '</button>
+
+		<button id="moveBtn" class="btn actBtn actBtnMiddle actBtnMarg" onclick="moveDefault();"><img src="/assets/app/img/box/move.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Move') . '</button>
+
+		<button id="delBtn" class="btn actBtn actBtnNoLeft actBtnMarg" onclick="deleteContent();"><img src="/assets/app/img/box/del.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Delete') . '</button>
+
+		<button id="shareBtn" class="btn actBtn actBtnNoRight" style="margin-left:10px" onclick="shareContent();"><img src="/assets/app/img/box/share.png" style="float:left; height:16px;margin-right:5px;margin-top:-2px;margin-bottom:-2px" />' . say('Share') . '</button>
+
+		<button id="tagBtn" class="btn actBtn actBtnNoLeft actBtnMarg" onclick="tagContent();"><img src="/assets/app/img/box/tag.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Tag') . '</button>
+	</div>
+
+
+      <div id="roActions" class="fboxActBox">
+      	<button id="copyBtn" class="btn actBtn" onclick="copyDefault();"><img src="/assets/app/img/box/copy.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Copy selected to My Files') . '</button>
+      </div>';
+
 	// reverse crumbs array
 	$crumbs = array_reverse($crumbs);
 	// initialize append str
@@ -3148,6 +3183,7 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 		<div class="descText descTip" data-original-title="Click to edit" onClick="swapDesc()"' . $hideText . '>' . $placeText . '</div>
 
 		<div class="descHold" style="margin-bottom:-18px">
+		<div id="mce_loading_gfx" style="margin-top:80px;margin-bottom:-220px"><center><img src="/assets/app/img/box/miniload.gif" /></center></div>
 		<textarea id="' . uniqid() . '" name="desc" rows="15" cols="80" style="width: 712px" class="descBox">' . htmlspecialchars($placeText) . '</textarea>
 		<div class="actions" style="border-top:none;border-bottom:1px solid #ccc;margin-top:0px;width:703px;padding:0; padding-top:4px; padding-bottom:4px;padding-right:8px;background:#dddddd">
     <div style="float:right">
@@ -3171,13 +3207,16 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	// okay, now lets pull in the directory
 	$children = getChildren($conID);
 	if ($conID === '0') {
-	$list .= '<div id="shared" class="sharedEl">
+
+		$numSharedWithMe = getNumSharedWithMe();
+		if ($numSharedWithMe > 0) {
+			$list .= '<div id="shared" class="sharedEl">
 		<div class="optBox">&nbsp;</div>
 	    <img src="/assets/app/img/box/type/shareFolder.png" class="conicon" />
 	    <div class="conmain">
 	    	<div class="mainarea">
 	    		<div class="contitle">
-	    		<a class="js-pjax" href="/app/filebox/shared">Shared with you</a>
+	    		<a class="js-pjax" href="/app/filebox/shared">Shared with you</a> <span class="label" style="position:relative;bottom:1px;left:2px">' . $numSharedWithMe . '</span>
 	    		</div>
 	    		<div class="conlast">
 	    		Content shared with you by your ' .  dispOnly('colleagues', 3) .  dispOnly('classmates and teachers', 1) .'.
@@ -3185,6 +3224,9 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 	    	</div>
 	    </div>
 	    </div>';
+			
+		}
+
 	}
 	$count = 0;
 	foreach ($children as $child) {
@@ -3199,10 +3241,21 @@ function createDirView($conID, $conObj, $perObj, $perLev) {
 
 	  if ($count == 0) {
 	  	if ($perLev == 2) {
-	  		$list .= '<img src="/assets/app/img/box/nocon.png" style="margin-top:10px;margin-left:10px;float:left" />
-	    <div style="font-size:20px;color:#444;font-weight:bolder;margin-top:42px">This folder is empty.
+
+	  		// if this is the root, show a different message
+	  		if ($conID == '0' && $numSharedWithMe == 0) {
+	  			$list .= '<img src="/assets/app/img/box/nocon.png" style="margin-left:10px;margin-top:-15px;float:left" />
+	    <div style="font-size:20px;color:#444;font-weight:bolder;margin-top:42px">This folder is empty!
 	    <div style="font-weight:normal;color:#666;margin-top:6px">Click "Add Files" to add files, websites, videos and more.</div>
 	    </div>';
+	  		} else {
+	  			$list .= '<img src="/assets/app/img/box/nocon.png" style="margin-top:10px;margin-left:10px;float:left" />
+	    <div style="font-size:20px;color:#444;font-weight:bolder;margin-top:42px">This folder is empty!
+	    <div style="font-weight:normal;color:#666;margin-top:6px">Click "Add Files" to add files, websites, videos and more.</div>
+	    </div>';
+	  			
+	  		}
+
 	  	} else {
 	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:20px;color:#666;text-align:center">This folder is empty.
 	    </div>';
@@ -3461,23 +3514,7 @@ function actionUI($conObj, $perObj) {
 	
 
 	</div>
-
-
-
-
-
-
-
-
-      <button id="copyBtn" class="btn actBtn actBtnNoRight actBtnMarg" style="margin-left:10px;margin-top:40px" disabled><img src="/assets/app/img/box/copy.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Copy') . '</button>
-
-      <button id="moveBtn" class="btn actBtn actBtnMiddle actBtnMarg" disabled><img src="/assets/app/img/box/move.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Move') . '</button>
-
-      <button id="delBtn" class="btn actBtn actBtnNoLeft actBtnMarg" disabled><img src="/assets/app/img/box/del.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Delete') . '</button>
-
-      <button id="shareBtn" class="btn actBtn actBtnNoRight" style="margin-left:40px" disabled><img src="/assets/app/img/box/share.png" style="float:left; height:16px;margin-right:5px;margin-top:-2px;margin-bottom:-2px" />' . say('Share') . '</button>
-
-      <button id="tagBtn" class="btn actBtn actBtnNoLeft actBtnMarg" disabled><img src="/assets/app/img/box/tag.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Tag') . '</button>';
+	<div style="height:30px">&nbsp;</div>';
 
      // if this person has read/write permission
     /* $readwrite = '<button id="addBtn" class="btn"onClick="jQuery.facebox({ ajax: \'/app/filebox/write/add/folder/\' });return false">' . say('Add Content') . '</button><br />
@@ -3486,7 +3523,7 @@ function actionUI($conObj, $perObj) {
 		<button id="delBtn" class="btn" disabled>' . say('Delete') . '</button>';*/
 
 	// if this is shared as read-only or publicly
-	$readonly = '<button id="copyBtn" style="margin-left:20px" class="btn actBtn" disabled><img src="/assets/app/img/box/copy.png" style="height:12px;margin-right:5px;margin-bottom:-2px;" />' . say('Copy selected to your FileBox') . '</button>';
+	$readonly = '';
 
 	// if we own this OR this is home/shared
 	if ($perObj['isOwner'] == 1 || $conObj['_id'] === 0) {

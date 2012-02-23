@@ -121,6 +121,7 @@ function createUser($email, $username, $firstName, $lastName, $password, $passwo
 
 		if ($upsert == true) {
 			$userID = $checkMail['id'];
+			rewardInvite(1, $userID);
 			good_query("UPDATE users SET pre_name = '$title', first_name = '$firstName', last_name = '$lastName', user_name = '$username', level = $level, pass = SHA1('$password'), e_mail = '$email', reg_date = $now, mehash = '$unhash' WHERE id = $userID");
 			// set new user data
 			getUser($userID, true);
@@ -154,6 +155,7 @@ function createUser($email, $username, $firstName, $lastName, $password, $passwo
 			$udata = getUserByHash($_SESSION['uref']);
 			if ($udata != false) {
 				rewardInvite(1, $udata['id']);
+				rewardInvite(1, $userID);
 				addFriend($udata['id'], $userID);
 			}
 		}
