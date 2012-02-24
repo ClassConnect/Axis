@@ -461,7 +461,7 @@ $('#update-pers').submit(function() {
         <?php
         // no colleagues?
         if (empty($amigos)) {
-          echo '<div id="rmMe" style="color:#666;margin-top:10px;text-align:center">
+          echo '<div id="rmMe" style="color:#999;margin-top:10px;text-align:center">
           We couldn\'t find any shared colleagues...yet.
           </div>';
         // otherwise, list em out
@@ -511,13 +511,19 @@ $('#update-pers').submit(function() {
 
       </div>
       <?php
-      if (getSections() && user('level') == 3) {
+      if (user('level') == 3) {
       ?>
 
       <div style="margin-top:60px">
       <div style="font-size:13px; font-weight:bolder; color:#666; margin-bottom:5px"> Courses </div>
 
-      <?= buildCoursePicker($coursesMal,0,'','line-height:1.4'); ?>
+      <?php
+      if (getSections()) {
+        buildCoursePicker($coursesMal,0,'','line-height:1.4');
+      } else {
+        echo '<div style="color:#999;text-align:center">You haven\'t created any courses yet! <a href="/app/manage/courses/">Create a course.</a></div>';
+      }
+      ?>
 
       </div>
       <?php

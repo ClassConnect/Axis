@@ -3877,6 +3877,7 @@ function createContentView($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 		<div class="descText descTip" data-original-title="Click to edit" onClick="swapDesc()" style="width:660px' . $hideText . '">' . $placeText . '</div>
 
 		<div class="descHold" style="margin-bottom:-18px;margin-left:10px">
+		<div id="mce_loading_gfx" style="margin-top:80px;margin-bottom:-220px"><center><img src="/assets/app/img/box/miniload.gif" /></center></div>
 		<textarea id="' . uniqid() . '" name="desc" rows="15" cols="80" style="width: 668px" class="descBox">' . htmlspecialchars($placeText) . '</textarea>
 		<div class="actions" style="border-top:none;border-bottom:1px solid #ccc;margin-top:0px;width:660px;padding:0; padding-top:4px; padding-bottom:4px;padding-right:8px;background:#dddddd">
     <div style="float:right">

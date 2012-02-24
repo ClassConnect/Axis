@@ -11,7 +11,7 @@
       <a href="http://classconnect.tumblr.com" target="_blank" class="btn barBtn blogbut">
       Blog
       </a>
-      <a href="#" class="btn barBtn contactbut">
+      <a href="#" class="btn barBtn contactbut" onclick="olark('api.box.expand'); return false">
       Contact
       </a>
     </div>
