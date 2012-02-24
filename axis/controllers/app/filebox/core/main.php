@@ -3944,7 +3944,7 @@ function createFilUI($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 	}
 	$ret .= '<button class="btn fboxFilUIbtn primary" style="font-weight:bolder" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/copy/?conIDs=' . $conID . '\'
-  }); return false;"><img src="/assets/app/img/box/' . $icon . '.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> ' . $text . ' to your Filebox</button>';
+  }); return false;"><img src="/assets/app/img/box/' . $icon . '.png" style="height:14px;float:left;margin-top:2px;margin-right:4px" /> ' . $text . ' to My Files</button>';
 
   	if (didRecommend($cObj, $dataID)) {
 		$class = ' fboxFilUIbtnSel';

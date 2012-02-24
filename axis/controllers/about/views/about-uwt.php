@@ -12,6 +12,13 @@ pubHeader('United We Teach', true);
     But you're a teacher, and your goal is to share knowledge and make content come to life.
 </div>
 
+
+
+<img src="/assets/public/fist.png" style="float:left;margin-right:20px;margin-bottom:20px;height:300px" />
+
+
+
+
 <div style="font-size:14px;margin-top:30px">
 Great content. Captivating content. The problem is that ever-changing government requirements and the individual needs of dozens of students ensures that there aren't enough hours in the day to do everything you want to do effectively.
 <br /><br />

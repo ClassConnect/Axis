@@ -24,11 +24,11 @@
     <div class="wizGtx">Find amazing resources that other teachers on ClassConnect are sharing publicly and snap them into your lessons!</div>
 </div>
 
-<div class="wizDiv wzdv3 <?= dispWizComplete(4); ?>">
+<div class="wizDiv wzdv4 <?= dispWizComplete(4); ?>">
     <span class="wizBld">3.&nbsp;&nbsp;<a href="#" onClick="initWiz(4); return false">Share with students & colleagues</a></span>
     <div class="wizGtx">Allow your students & colleagues to view and/or edit the content you added - say goodbye to emailing files/links back and forth!</div>
 </div>
-<div class="wizDiv wzdv4 <?= dispWizComplete(5); ?>">
+<div class="wizDiv wzdv5 <?= dispWizComplete(5); ?>">
     <span class="wizBld">4.&nbsp;&nbsp;<a href="#" onClick="initWiz(5); return false">Edit your profile</a></span>
     <div class="wizGtx">Show the world who you are and what you're working on!</div>
 </div>

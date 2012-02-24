@@ -132,7 +132,7 @@ function fireWizard($curLoc, $step) {
 	
 	// viewing your prof
 	} elseif ($_SESSION['wizData']['target'] == 5) {
-		if ($locData[0] == 'profile' || $locData[1] == dispUser('user_name')) {
+		if ($locData[0] == 'profile' || $locData[1] == dispUser(user('id'), 'user_name')) {
 			// reset target
 			$_SESSION['wizData']['target'] = 0;
 			// set the session completion
