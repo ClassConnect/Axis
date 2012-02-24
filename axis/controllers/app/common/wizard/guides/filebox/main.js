@@ -1,17 +1,17 @@
 $(".wzdv1").addClass('wizard-crossed');
 guiders.createGuider({
-  buttons: [{name: "Done with the video? Get started!", classString: "danger", onclick: guiders.next }],
-  description: "<iframe id=\"rmGuideVid\" width=\"720\" height=\"420\" src=\"http://www.youtube.com/v/sC_tDs5bdM8?autoplay=1&hd=1\" frameborder=\"0\" allowfullscreen></iframe>",
+  xButton: true,
+  buttons: [],
+  attachTo: "#addBtn",
+  position: 3,
   id: "first",
-  next: "second",
-  overlay: true,
-  width:720,
-  title: "Learn about your Filebox!"
+  title: "Click the \"Add Files\" button!"
 }).show();
 
-guiders.createGuider({
-  buttons: [{name: "Close & get started", onclick: guiders.hideAll }],
-  description: "Start adding & organizing your content! Once you're ready to move on, click the 'Getting Started' tab on the right.",
-  id: "second",
-  title: "Your turn!"
-});
+// only do this if it hasnt been initialized before
+if (typeof addbuttontog=="undefined") {
+  addbuttontog = true;
+  $('#addBtn').click(function() {
+    guiders.hideAll();
+  }); 
+}

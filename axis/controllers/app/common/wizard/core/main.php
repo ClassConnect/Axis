@@ -93,15 +93,33 @@ function fireWizard($curLoc, $step) {
 		}
 
 
-	// sharing with colleagues
+	// search
 	} elseif ($_SESSION['wizData']['target'] == 3) {
-		if ($locData[0] == 'filebox') {
+		if ($locData[0] == 'search') {
 			// reset target
 			$_SESSION['wizData']['target'] = 0;
 			// set the session completion
 			$_SESSION['wizData']['completed'][3] = true;
 
-			return loadWizJS($groot . 'filebox/collaborate.js');
+			return loadWizJS($groot . 'search/main.js');
+
+		} else {
+			// only return this if we initialized this via JS
+			if ($forceElse) {
+				return loadWizJS($groot . 'search/direct.js');
+			}
+		}
+
+
+	// adding/sharing with colleagues & courses
+	} elseif ($_SESSION['wizData']['target'] == 4) {
+		if ($locData[0] == 'filebox') {
+			// reset target
+			$_SESSION['wizData']['target'] = 0;
+			// set the session completion
+			$_SESSION['wizData']['completed'][4] = true;
+
+			return loadWizJS($groot . 'filebox/share.js');
 
 		} else {
 			// only return this if we initialized this via JS
@@ -111,20 +129,21 @@ function fireWizard($curLoc, $step) {
 		}
 
 
-	// adding/sharing with courses
-	} elseif ($_SESSION['wizData']['target'] == 4) {
-		if ($locData[0] == 'manage' && $locData[1] == 'courses') {
+	
+	// viewing your prof
+	} elseif ($_SESSION['wizData']['target'] == 5) {
+		if ($locData[0] == 'profile' || $locData[1] == dispUser('user_name')) {
 			// reset target
 			$_SESSION['wizData']['target'] = 0;
 			// set the session completion
-			$_SESSION['wizData']['completed'][4] = true;
+			$_SESSION['wizData']['completed'][5] = true;
 
-			return loadWizJS($groot . 'courses/add.js');
+			return loadWizJS($groot . 'profile/main.js');
 
 		} else {
 			// only return this if we initialized this via JS
 			if ($forceElse) {
-				return loadWizJS($groot . 'courses/direct.js');
+				return loadWizJS($groot . 'profile/direct.js');
 			}
 		}
 
