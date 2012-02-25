@@ -519,7 +519,7 @@ $('#update-pers').submit(function() {
 
       <?php
       if (getSections()) {
-        buildCoursePicker($coursesMal,0,'','line-height:1.4');
+        echo buildCoursePicker($coursesMal,0,'','line-height:1.4');
       } else {
         echo '<div style="color:#999;text-align:center">You haven\'t created any courses yet! <a href="/app/manage/courses/">Create a course.</a></div>';
       }

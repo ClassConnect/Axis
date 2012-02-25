@@ -14,6 +14,11 @@ $(document).ready(function() {
     .bind('pjax:start', function() {
       //$("#mainBlocker").css({cursor:"progress"});
       $('html, body').animate({ scrollTop: 0 }, 'fast');
+      // remove web views if we have any open
+      if ("#webControls".length > 0) {
+        destroyWebContent();
+      }
+
       if (!asyncActive) {
         asyncOvr = true;
         initAsyncBar('<img src="/assets/app/img/box/miniload.gif" style="margin-right:10px;margin-bottom:-1px" /> <span style="font-weight:bolder">Loading...</span>', 'yellowBox', 95, 622); 

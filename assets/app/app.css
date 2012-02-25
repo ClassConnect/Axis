@@ -764,8 +764,9 @@ height:500px;
   padding:7px;
   border-top:1px solid #ccc;
   text-align:center;
-  color:#333;
+  color:#666;
   cursor:pointer;
+  font-weight:bolder;
 }
 .sectionAddBut:hover{
   background-position: 0 -15px;

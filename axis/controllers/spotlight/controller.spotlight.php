@@ -6,6 +6,11 @@ class spotlightController extends Axis_Controller
         	require_once('views/index.php');
         }
 
+        function _video()
+        {
+        	require_once('views/index.php');
+        }
+
         function _error() 
         {
         	showError();
