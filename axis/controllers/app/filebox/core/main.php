@@ -3603,6 +3603,42 @@ function forkNotice($conObj, $perObj) {
 
 // show tags & sharing info
 function assocUI($conObj, $perObj) {
+
+	return '<div style="border-top:1px solid #ddd;clear:both;padding-top:5px; margin-top:10px;padding-left:10px">
+	      <div style="font-size:12px; font-weight:bolder; color:#666">
+	      Sharing
+	      </div>
+
+
+	      <div class="userBox">
+	      <img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' . user('id') . '\' }); return false;" /> 
+	      <a style="color:#444" href="/app/profile/' . user('id') . '">
+	      <img src="' . iconServer() . '50_' . dispUser(8, 'prof_icon') . '" class="smallProfImg" />
+	      ' . user('first_name') . ' ' . user('last_name') . '
+	      </a></div>
+
+	      <div class="userBox">
+	      <img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' . user('id') . '\' }); return false;" /> 
+	      <a style="color:#444" href="/app/profile/' . user('id') . '">
+	      <img src="' . iconServer() . '50_' . dispUser(8, 'prof_icon') . '" class="smallProfImg" />
+	      ' . user('first_name') . ' ' . user('last_name') . '
+	      </a></div>
+
+	      <div class="userBox">
+	      <img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' . user('id') . '\' }); return false;" /> 
+	      <a style="color:#444" href="/app/profile/' . user('id') . '">
+	      <img src="' . iconServer() . '50_' . dispUser(8, 'prof_icon') . '" class="smallProfImg" />
+	      ' . user('first_name') . ' ' . user('last_name') . '
+	      </a></div>
+
+
+
+
+
+      </div>';
+
+
+
 	  if ($conObj['_id'] != 0) {
 
 	  // generate pemissions

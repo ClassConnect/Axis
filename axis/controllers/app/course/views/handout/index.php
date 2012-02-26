@@ -30,7 +30,7 @@ if ($conData['type'] == 1) {
 $crumbs = createCrumbs($crumbs);
 
 // if this is root
-if (strlen($crumbs) == 571) {
+if (strlen($crumbs) == 1957) {
   // if this is a teacher
   if (user('level') == 3) {
     $crumbs = '<div class="alert-message warning" style="margin-right:15px">
@@ -43,7 +43,7 @@ if (strlen($crumbs) == 571) {
   }
 
 // if this is the top level
-} elseif ($conData['type'] == 2 && strlen($crumbs) == 524) {
+} elseif ($conData['type'] == 2 && strlen($crumbs) == 1910) {
   $crumbs = '<div class="fboxNavEl"><a id="fol0" href="/app/course/' . $sectionID . '/handout" class="fboxCrumb js-pjax" onClick="chooseCrumb($(this));"><img src="/assets/app/img/box/root.png" style="height:16px;float:left" /></a></div>';
 } else {
   // clean out shared

@@ -87,7 +87,7 @@ if ($showHead) {
       <a href="/"><img src="/assets/public/mainlogo.png" class="logo" /></a>
 
       <div class="actionbtns" style="margin-top:20px">
-        <button class="btn success">
+        <button class="btn success" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">
         Sign up now - it's Free!
         </button>
       </div>

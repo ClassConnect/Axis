@@ -704,6 +704,50 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   color:#fff;
   background-color: #267BB6;
 }
+.userBox {
+  margin-left:-10px;
+  padding:5px;
+  padding-top:none;
+  border-bottom:1px solid #ededed;
+  font-size:11px;
+  color:#454545;
+  font-weight:bolder;
+  cursor:default;
+  overflow:hidden;
+  word-wrap: break-word;
+}
+.userBox .smallProfImg {
+  width:18px;
+  float:left;
+  margin-right:10px;
+}
+.userBox:hover{
+  background:#efefef;
+}
+.userBox .deleter {
+  display:none;
+  height:14px;
+  width:14px;
+  margin-top:2px;
+  position:absolute;
+  margin-left:193px;
+  cursor:pointer;
+  padding:2px;
+  margin-top:0px;
+}
+.userBox:hover .deleter {
+    display: block;
+    filter: alpha(opacity=65);
+    -khtml-opacity: 0.65;
+    -moz-opacity: 0.65;
+    opacity: 0.65;
+}
+.userBox .deleter:hover {
+  filter: alpha(opacity=95);
+  -khtml-opacity: 0.95;
+  -moz-opacity: 0.95;
+  opacity: 0.95;
+}
 
 
 

@@ -26,7 +26,7 @@
       </div>
 
       <div class="actionbtns">
-        <button class="btn success">
+        <button class="btn success" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">
         Sign up now - it's Free!
         </button>
       </div>
@@ -43,19 +43,23 @@
     <div class="descBox">
       <div class="boxtitle">Build Your Lessons</div>
       <div class="boxdesc">Add websites, online videos, Google Docs, files & more. You can even find lessons that other teachers have built.</div>
-      <center><img src="/assets/public/crate.png" style="height:120px" /></center>
+      <img src="/assets/public/files.png" style="margin-top:20px;margin-left:40px" />
+
+      <img src="/assets/public/arrow.png" style="position:absolute;margin-left:70px;margin-top:50px" />
     </div>
 
     <div class="descBox">
       <div class="boxtitle">Organize & Store</div>
       <div class="boxdesc">All of your lessons stay here until you delete them, so say goodbye to re- uploading your lessons every semester.</div>
-      <center><img src="/assets/public/crate.png" style="height:120px" /></center>
+      <img src="/assets/public/crate.png" style="height:100px; margin-top:15px; margin-left:70px" />
+
+      <img src="/assets/public/arrow.png" style="position:absolute;margin-left:90px;margin-top:50px" />
     </div>
 
     <div class="descBox" style="margin-right:0px">
     <div class="boxtitle">Share & Collaborate</div>
       <div class="boxdesc">It takes just a click to share with students, parents & colleagues. They automatically get notified when changes are made.</div>
-      <center><img src="/assets/public/crate.png" style="height:120px" /></center>
+      <img src="/assets/public/people.png" style="margin-top:20px;margin-left:70px" />
     </div>
     
     
