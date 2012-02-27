@@ -137,7 +137,7 @@ $(document).ready(function(){
 
     <legend>Share via social networks or URL</legend>
 
-    <div style="color:#666;font-size:11px;margin-bottom:10px">
+    <div style="color:#888;font-size:11px;margin-bottom:10px;line-height:1.2em">
      Share your personal link with colleagues. When they click the link and sign up, you both will be rewarded with 500mb of free storage.
      </div>
 
@@ -162,8 +162,8 @@ $(document).ready(function(){
 
     <legend>Enter the emails of your colleagues</legend>
 
-    <div style="color:#666;font-size:11px;margin-bottom:10px">
-     Enter the emails of your colleagues below. If they're already on ClassConnect, we'll add them as colleagues. If they aren't, when they sign up you both will be rewarded with 500mb of free storage.
+    <div style="color:#888;font-size:11px;margin-bottom:10px;line-height:1.2em">
+     Enter the emails of your colleagues below. If they're already on ClassConnect, they will be added to your colleagues list. If they aren't, when they sign up you both will be rewarded with 500mb of free storage.
     </div>
 
     <div class="clearfix">

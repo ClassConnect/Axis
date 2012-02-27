@@ -10,12 +10,14 @@ while ($worker->work());
 
 function deleteDocument($docID)
 {
+	global $search_index;
+	global $search_type;
 	$docID = $docID->workload();
 	$client = initElastica();
-	$index = $client->getIndex('msh');
+	$index = $client->getIndex($search_index);
 	//$index->clearCache();
 
-	$type = $index->getType('fbx');
+	$type = $index->getType($search_type);
 	$type->deleteById($docID);
 }
 
@@ -25,6 +27,8 @@ function deleteDocument($docID)
 
 
 function pushDocument($docID) {
+	global $search_index;
+	global $search_type;
 	$docID = $docID->workload();
 	global $mdb;
 	$collection = $mdb->fbox_content;
@@ -67,10 +71,10 @@ function pushDocument($docID) {
 
 
 		$client = initElastica();
-		$index = $client->getIndex('msh');
+		$index = $client->getIndex($search_index);
 		//$index->clearCache();
 
-		$type = $index->getType('fbx');
+		$type = $index->getType($search_type);
 
 		
 		$doc = new Elastica_Document($docID, $data);

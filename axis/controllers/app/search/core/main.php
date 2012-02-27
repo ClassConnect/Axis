@@ -1,6 +1,8 @@
 <?php
 
 function performSearch($keyQuery, $reqpars, $offset, $limit) {
+	global $search_index;
+	global $search_type;
 
 
 	if (!isset($limit)) {
@@ -16,10 +18,10 @@ function performSearch($keyQuery, $reqpars, $offset, $limit) {
 
 
 	$client = initElastica();
-	$index = $client->getIndex('msh');
+	$index = $client->getIndex($search_index);
 	//$index->clearCache();
 
-	$type = $index->getType('fbx');
+	$type = $index->getType($search_type);
 
 
 
