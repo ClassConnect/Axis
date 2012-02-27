@@ -62,3 +62,6 @@
     <p>QUESTIONS OR CONCERNS</p> 
     <p>If you have any questions or concerns regarding privacy at ClassConnect or www.classconnect.com, please send us a detailed message to support@classconnect.com. We will make every effort to resolve your concerns.</p> 
     <p>Effective date: Auguest 29, 2011</p>
+
+
+</div></div>

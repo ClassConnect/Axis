@@ -704,14 +704,17 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   color:#fff;
   background-color: #267BB6;
 }
+.promptBox {
+  font-size:12px;
+  margin-right:13px;
+  margin-left:10px;
+  padding:10px !important;
+}
 .userBox {
   margin-left:-10px;
   padding:5px;
   padding-top:none;
-  border-bottom:1px solid #ededed;
-  font-size:11px;
-  color:#454545;
-  font-weight:bolder;
+  font-size:12px;
   cursor:default;
   overflow:hidden;
   word-wrap: break-word;
@@ -719,7 +722,8 @@ button.fboxCrumb::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .userBox .smallProfImg {
   width:18px;
   float:left;
-  margin-right:10px;
+  margin-right:5px;
+  margin-left:5px;
 }
 .userBox:hover{
   background:#efefef;

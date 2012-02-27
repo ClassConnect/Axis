@@ -9,14 +9,14 @@ class legalController extends Axis_Controller
 
         function _tos()
         {
-                pubHeader('Terms of Service');
+                pubHeader('Terms of Service', true);
                 require_once('views/tos.php');
                 pubFooter();
         }
 
         function _privacy()
         {
-                pubHeader('Privacy');
+                pubHeader('Privacy', true);
                 require_once('views/privacy.php');
                 pubFooter();
         }

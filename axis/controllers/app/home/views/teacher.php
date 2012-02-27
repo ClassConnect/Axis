@@ -98,7 +98,7 @@ if ($rcount == 0) {
       <div class="homeRight">
       <div style="width:1px;height:500px;float:left"></div>
 
-      <div style="margin:10px;margin-top:5px;font-size:11px;line-height:1.2;color:#666">For every teacher you invite to ClassConnect, you receive 500mb of free storage space in FileBox!</div>
+      <div style="margin:10px;margin-top:5px;font-size:11px;line-height:1.2;color:#666">Every colleague you invite that signs up for ClassConnect earns you both 500mb of free storage!</div>
 
 
       <button class="btn success" style="font-weight:bolder;margin-left:7px" onClick="jQuery.facebox({ 

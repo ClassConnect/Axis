@@ -136,6 +136,11 @@ $(document).ready(function(){
 <fieldset>
 
     <legend>Share via social networks or URL</legend>
+
+    <div style="color:#666;font-size:11px;margin-bottom:10px">
+     Share your personal link with colleagues. When they click the link and sign up, you both will be rewarded with 500mb of free storage.
+     </div>
+
     <div class="clearfix">
 
     <div class="sharePop linkClicker" data-original-title="Click to copy link" style="float:left; padding-left:0px;font-weight:bolder;cursor:pointer">
@@ -156,6 +161,11 @@ $(document).ready(function(){
   <fieldset>
 
     <legend>Enter the emails of your colleagues</legend>
+
+    <div style="color:#666;font-size:11px;margin-bottom:10px">
+     Enter the emails of your colleagues below. If they're already on ClassConnect, we'll add them as colleagues. If they aren't, when they sign up you both will be rewarded with 500mb of free storage.
+    </div>
+
     <div class="clearfix">
 
     <div>

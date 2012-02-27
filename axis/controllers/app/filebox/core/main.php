@@ -3554,7 +3554,7 @@ function actionUI($conObj, $perObj) {
 
 	 }
 
-	 if (isset($barML)) {
+	 if (isset($barML) && $barML != '') {
 	 	$barML = '<div style="border-top:1px solid #ddd;clear:both;padding-top:10px">' . $barML . '</div>';
 	 }
 
@@ -3604,29 +3604,34 @@ function forkNotice($conObj, $perObj) {
 // show tags & sharing info
 function assocUI($conObj, $perObj) {
 
+	$perLev = determinePerLevel((string) $conObj['_id'], $perObj);
+
+	/*	      <div class="alert-message block-message warning">heklo</div>
+
 	return '<div style="border-top:1px solid #ddd;clear:both;padding-top:5px; margin-top:10px;padding-left:10px">
 	      <div style="font-size:12px; font-weight:bolder; color:#666">
 	      Sharing
 	      </div>
 
 
+
 	      <div class="userBox">
 	      <img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' . user('id') . '\' }); return false;" /> 
-	      <a style="color:#444" href="/app/profile/' . user('id') . '">
+	      <a href="/app/profile/' . user('id') . '">
 	      <img src="' . iconServer() . '50_' . dispUser(8, 'prof_icon') . '" class="smallProfImg" />
 	      ' . user('first_name') . ' ' . user('last_name') . '
 	      </a></div>
 
 	      <div class="userBox">
 	      <img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' . user('id') . '\' }); return false;" /> 
-	      <a style="color:#444" href="/app/profile/' . user('id') . '">
+	      <a href="/app/profile/' . user('id') . '">
 	      <img src="' . iconServer() . '50_' . dispUser(8, 'prof_icon') . '" class="smallProfImg" />
 	      ' . user('first_name') . ' ' . user('last_name') . '
 	      </a></div>
 
 	      <div class="userBox">
 	      <img src="/assets/app/img/colleagues/del.png" class="deleter" data-original-title="Remove" onClick="jQuery.facebox({ ajax: \'/app/common/colleagues/remove/' . user('id') . '\' }); return false;" /> 
-	      <a style="color:#444" href="/app/profile/' . user('id') . '">
+	      <a href="/app/profile/' . user('id') . '">
 	      <img src="' . iconServer() . '50_' . dispUser(8, 'prof_icon') . '" class="smallProfImg" />
 	      ' . user('first_name') . ' ' . user('last_name') . '
 	      </a></div>
@@ -3636,6 +3641,7 @@ function assocUI($conObj, $perObj) {
 
 
       </div>';
+      */
 
 
 
@@ -3695,7 +3701,7 @@ function assocUI($conObj, $perObj) {
 	  		$sharePend .= '<br />';
 	  	} else {
 	  		if (determinePerLevel($conObj['_id'], $perObj) == 2) {
-	  			$sharePend = '<div style="font-size:10px;color:#333">Not shared with colleagues or courses...<a href="#" onClick="shareCurrent();return false">yet.</a></div>';
+	  			//$sharePend = '<div style="font-size:11px;color:#999">Not shared with colleagues or courses...yet.</div>';
 	  		}
 	  	}
 
@@ -3715,15 +3721,21 @@ function assocUI($conObj, $perObj) {
 
 
 	  if (empty($fshar)) {
-	  	$sharePend = '<div style="font-size:10px;color:#333">Not shared with anyone...<a href="#" onClick="shareCurrent();return false">yet.</a></div>';
+	  	$sharePend = '<div style="font-size:11px;color:#999">Not shared with anyone...yet.</div>';
 	  }
 
       $barML .= '<div style="border-top:1px solid #ddd;clear:both;padding-top:5px; margin-top:10px;padding-left:10px">
 	      <div style="font-size:12px; font-weight:bolder; color:#666">
 	      Sharing
 	      </div>
-	      ' . $sharePend . '
-      </div>';
+	      ' . $sharePend;
+
+	  if ($perLev == 2) {
+	  	$barML .= '<button class="btn actBtn" style="width:200px; margin-top:5px" onClick="shareCurrent();return false"><img src="/assets/app/img/box/share.png" style="height:18px;margin-right:5px;margin-top:-5px;margin-bottom:-4px">Share this with others</button>';
+	  }
+
+
+      $barML .= '</div>';
       
       	
       
@@ -3843,11 +3855,29 @@ function assocUI($conObj, $perObj) {
 
 	      // no tags at all?
 	      if (empty($finalArr)) {
-	      	$barML .= '<div style="font-size:10px;color:#333">There are no tags here...<a href="#" onClick="tagCurrent();return false">yet.</a></div>';
+	      	$barML .= '<div style="font-size:11px;color:#999">There are no tags here...yet.</div>';
 	      }
+
+	  if ($perLev == 2) {
+	  	$barML .= '<button class="btn actBtn" style="width:200px; margin-top:5px" onClick="tagCurrent();return false"><img src="/assets/app/img/box/tag.png" style="height:12px;margin-right:5px;margin-bottom:-2px;">Add tags to this folder</button>';
+	  }
 	      
       $barML .= '</div>';
 
+  } else {
+  	if (user('level') == 3) {
+
+  		$barML .= '<div class="alert-message block-message warning promptBox" style="margin-bottom:0px">
+	<div style="font-size:13px;font-weight:bolder; line-height:1.0em;">Get Free Storage!</div>
+	<div style="color:#777; line-height:1.2em;margin-bottom:10px">Every colleague you invite that signs up for ClassConnect earns you both 500mb of free storage!</div>
+
+	<button class="btn" style="font-weight:bolder;padding-right:7px;padding-left:7px" onclick="jQuery.facebox({ ajax: \'/app/common/colleagues/add\' }); return false;"><img src="/assets/app/img/colleagues/minicard.png" style="float:left;height:16px;width:16px;margin-right:3px"> Add / Invite Colleagues</button>
+	  	</div>';
+
+  		if ($conObj['_id'] !== 'shared') {
+  			 $barML = '<div style="border-top:1px solid #ddd;clear:both;padding-top:10px; margin-top:10px;">' . $barML . '</div>';
+  		}
+	  }
   }
 
 

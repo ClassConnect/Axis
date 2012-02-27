@@ -95,8 +95,17 @@ function createSharedDirView($owner) {
 	}
 
 	  if (empty($children['public']) && empty($children['private'])) {
-	  		$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:18px;color:#666;text-align:center">' . dispUser($owner, 'first_name') . ' ' . dispUser($owner, 'last_name') . ' hasn\'t shared anything...yet.
+	  	if ($owner == user('id') && user('level') == 3) {
+      $list .= '<div id="noneRM" style="margin-top:40px;text-align:center;color:#666">
+      <div style="font-size:16px;font-weight:bolder">You haven\'t shared any files publicly from <a href="/app/filebox/">"My Files"</a> yet!</div>
+      </div>';
+      
+		} else {
+			$list .= '<div style="margin-top:20px;font-weight:bolder;font-size:18px;color:#666;text-align:center">' . dispUser($owner, 'first_name') . ' ' . dispUser($owner, 'last_name') . ' hasn\'t shared anything...yet.
 	    </div>';
+			
+
+		}
 	    
 	  }
 

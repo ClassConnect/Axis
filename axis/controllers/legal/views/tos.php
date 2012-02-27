@@ -88,3 +88,5 @@
       ). It is Company's policy to (1) block access to or remove material that it believes in good faith to be copyrighted material that has been illegally copied and distributed by any of our advertisers, affiliates, content providers, members or users; and (2) remove and discontinue service to repeat offenders.
     </p> 
     <p>Effective: August 29, 2011</p>
+
+    </div></div>

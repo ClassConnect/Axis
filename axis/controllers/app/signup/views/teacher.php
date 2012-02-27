@@ -108,7 +108,11 @@ $('#add-teacher').submit(function() {
   <fieldset>
     <legend><?= say('Teacher Sign Up'); ?></legend>
     <div class="clearfix">
-    <div id="errorBox" style="display:none"></div>
+    <div id="errorBox">
+    <div class="alert-message info" style="margin-right:20px">
+Are you a student? <a href="#" style="color:#fff;font-weight:bolder" onclick="jQuery.facebox({ ajax: '/app/signup/student' }); return false">Click here!</a>
+    </div>
+    </div>
 
     <div class="rowBut" style="margin-top:10px">
     	<div class="pendDesc"><?= say('First Name:'); ?></div>
