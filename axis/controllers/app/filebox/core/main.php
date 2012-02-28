@@ -4684,7 +4684,7 @@ function pushElasticDocDescendants($conID) {
 function pushElasticDoc($docID) {
 	$docID = (string) $docID;
 	$client = initGearmanClient();
-	$client->doBackground("pushDoc", $docID);
+	$client->doBackground("pushDoc", serialize(array("docID" => $docID, "stamp" => date("U"))));
 }
 
 // delete an elastic document

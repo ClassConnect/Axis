@@ -26,10 +26,17 @@ function deleteDocument($docID)
 
 
 
-function pushDocument($docID) {
+function pushDocument($docData) {
+	$docData = unserialize($docData->workload());
+	$docID = $docData['docID'];
+	if (($docData['stamp'] + 2) >= date("U")) {
+		$client = initGearmanClient();
+		$client->doBackground("pushDoc", serialize(array("docID" => $docID, "stamp" => $docData['stamp'])));
+		return true;
+	} 
+
 	global $search_index;
 	global $search_type;
-	$docID = $docID->workload();
 	global $mdb;
 	$collection = $mdb->fbox_content;
 	$data = $collection->findOne(array('_id' => new MongoId($docID)));
@@ -88,7 +95,7 @@ function pushDocument($docID) {
 
 
 function pushToNewsletter($arrdat) {
-	$arrdat = $arrdat->workload();
+	$arrdat = unserialize($arrdat->workload());
 	$userID = $arrdat['userID'];
 	$letterID = $arrdat['letterID'];
 	$udata = getUser($userID);
