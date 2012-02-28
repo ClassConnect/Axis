@@ -318,7 +318,7 @@ function genResultStripe($child) {
 	    }
 
 	    $lastMod = date('F jS, Y', $child['last_update']);
-	    $lastModder = $child['last_update_by'];
+	    $lastModder = $child['owner_id'];
 
 	    $list .= '<div id="' . $child['_id'] . '" class="fboxElement ' . $class . '">
 	    <div style="margin-left:10px">' . $icon  . '</div>
