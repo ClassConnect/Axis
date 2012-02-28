@@ -274,10 +274,10 @@ function updateDescendantForks($batchObj, $num, $single) {
 		if (!isset($single)) {
 			$rent_ids[] = array('parent.id' => (string) $tObj['_id']);
 			$rent_ids[] = array('parents.id' => (string) $tObj['_id']);
-			$elDesc[] = (string) $tObj['_id'];
+			$elDesc[] = $tObj['_id'];
 		}
 
-		$elUp[] = (string) $tObj['_id'];
+		$elUp[] = $tObj['_id'];
 	}
 
 	$finalq = array('$or' => $rent_ids);

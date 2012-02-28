@@ -69,6 +69,8 @@ function pushDocument($docID) {
 
 		$data['tagstore'] = $newTags;
 
+		$data['uniqid'] = uniqid();
+
 
 		$client = initElastica();
 		$index = $client->getIndex($search_index);
