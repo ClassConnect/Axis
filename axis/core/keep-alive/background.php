@@ -1,6 +1,6 @@
 <?php
-require_once('../coreInc.php');
-require_once('../../controllers/app/search/core/main.php');
+require_once('/var/www/axis/core/coreInc.php');
+require_once('/var/www/axis/controllers/app/search/core/main.php');
 $worker = initGearmanWorker();
 $worker->addFunction("pushDoc", "pushDocument");
 $worker->addFunction("delDoc", "deleteDocument");
