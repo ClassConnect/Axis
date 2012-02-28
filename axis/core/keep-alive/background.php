@@ -69,17 +69,12 @@ function pushDocument($docID) {
 
 		$data['tagstore'] = $newTags;
 
-		$data['uniqid'] = uniqid();
-
 
 		$client = initElastica();
 		$index = $client->getIndex($search_index);
 		//$index->clearCache();
 
 		$type = $index->getType($search_type);
-
-		// temp for now, delete by docID
-		$type->deleteById($docID);
 
 		
 		$doc = new Elastica_Document($docID, $data);
