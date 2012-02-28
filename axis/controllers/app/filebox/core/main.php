@@ -3859,7 +3859,12 @@ function assocUI($conObj, $perObj) {
 	      }
 
 	  if ($perLev == 2) {
-	  	$barML .= '<button class="btn actBtn" style="width:200px; margin-top:5px" onClick="tagCurrent();return false"><img src="/assets/app/img/box/tag.png" style="height:12px;margin-right:5px;margin-bottom:-2px;">Add tags</button>';
+	  	if ($conObj['type'] == 1) {
+	  		$swpTxt = 'folder';
+	  	} else {
+	  		$swpTxt = 'content';
+	  	}
+	  	$barML .= '<button class="btn actBtn" style="width:200px; margin-top:5px" onClick="tagCurrent();return false"><img src="/assets/app/img/box/tag.png" style="height:12px;margin-right:5px;margin-bottom:-2px;">Add tags to this ' . $swpTxt . '</button>';
 	  }
 	      
       $barML .= '</div>';
