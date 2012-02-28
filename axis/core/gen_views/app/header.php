@@ -136,7 +136,7 @@ if ($notis['data'] != 0) {
               <a href="#" class="dropdown-toggle">Apps</a>
               <ul class="dropdown-menu">
                 <li><a href="/app/calendar">Calendar</a></li>
-                <?php if (user('id') <= 2700) { ?>
+                <?php if (user('id') <= 8342) { ?>
                 <li><a href="/app/livelecture">LiveLecture</a></li>
                 <li><a href="/app/docs">Docs</a></li>
                 <?php } ?>
