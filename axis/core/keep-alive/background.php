@@ -76,6 +76,9 @@ function pushDocument($docID) {
 
 		$type = $index->getType($search_type);
 
+		// temp for now, delete by docID
+		$type->deleteById($docID);
+
 		
 		$doc = new Elastica_Document($docID, $data);
 		$type->addDocument($doc);
