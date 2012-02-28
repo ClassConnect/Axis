@@ -3582,7 +3582,7 @@ function forkNotice($conObj, $perObj) {
 			if ($showForkData) {
 				$result = '<div class="alert-message block-message warning" style="font-size:11px;margin:10px 10px 0 10px;padding:4px 4px 4px 4px">
 			<img src="/assets/app/img/box/fork.png" style="float:left;margin:3px 5px 5px 0px" />
-			Used from <a href="#">' . dispUser($cObj['owner_id'], 'first_name') . ' ' . dispUser($cObj['owner_id'], 'last_name') . '</a><br />';
+			Used from <a href="' . userURL($cObj['owner_id']) . '">' . dispUser($cObj['owner_id'], 'first_name') . ' ' . dispUser($cObj['owner_id'], 'last_name') . '</a><br />';
 
 				if ($perLevel > 0) {
 					$result .= '<center><a href="/app/filebox/' . $conObj['forkedFrom'] . '" style="font-weight:bolder">Click here to view the original</a></center>';
