@@ -70,7 +70,7 @@ if (empty($finForkers)) {
 
   <button class="btn primary" style="font-weight:bolder;float:right;margin:15px 5px 15px 0px" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/copy/?conIDs=' . $conID . '\'
-  }); return false;"><img src="/assets/app/img/box/addfile.png" style="height:14px;float:left;margin-top:2px;margin-right:8px" /> Add to your Filebox</button>';
+  }); return false;"><img src="/assets/app/img/box/addfile.png" style="height:14px;float:left;margin-top:2px;margin-right:8px" /> Add to My Files</button>';
 	}
 
 } else {
