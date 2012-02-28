@@ -6,7 +6,7 @@ pubHeader('Our Story', true);
  
 <img src="/assets/public/eric.png" style="margin-right:20px;margin-bottom:20px; height:300px;width:225px;float:left" title="Eric in his natural habitat" />
 
-<div style="font-size:20px;text-align:center;margin-top:7px;margin-bottom:10px;font-weight:bolder">
+<div style="font-size:20px;margin-top:7px;margin-bottom:10px;font-weight:bolder">
 	As a student I was your worst nightmare.
 </div>	
 
