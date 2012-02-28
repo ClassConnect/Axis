@@ -4,7 +4,7 @@ if ($this->Command->Parameters[3] == 'get_title') {
   $doc = new DOMDocument();
   @$doc->loadHTMLFile($theURL);
   $xpath = new DOMXPath($doc);
-  echo $xpath->query('//title')->item(0)->nodeValue;
+  echo trim($xpath->query('//title')->item(0)->nodeValue);
 
   if (is_null($xpath->query('//title')->item(0)->nodeValue)) {
     echo ' ';
