@@ -19,7 +19,7 @@ pubHeader('United We Teach', true);
 
 <img src="/assets/public/uwt.png" style="float:left;margin-right:40px;margin-bottom:40px;height:300px;" />
 
-<div style="background:#E1E1E1;width:675px;height:1px;float:right;margin-bottom:20px">&nbsp;</div>
+<div style="background:#E1E1E1;width:670px;height:1px;float:right;margin-bottom:20px">&nbsp;</div>
 
 
 <div style="width:800px">
