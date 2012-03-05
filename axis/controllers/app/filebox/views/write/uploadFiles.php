@@ -64,7 +64,7 @@ $(function () {
                 $("#successList").append('<div id="success' + file.unid + '"><img src="/assets/app/img/box/complete.gif" style="margin-right:10px;float:left;margin-top:4px;height:12px;width:12px" /><span style="font-weight:bolder">' + file.name + '</span></div>');
 
                 if (!$('#queList').html()) {
-                    $("#fbActions").html('<div style="float:right"><button type="reset" class="btn danger" onClick="softRefresh();closeBox();">Finish & add to FileBox</button></div><div style="clear:both"></div>');
+                    $("#fbActions").html('<div style="float:right"><button type="reset" class="btn danger" onClick="softRefresh();closeBox();">Finish & add to My Files</button></div><div style="clear:both"></div>');
                 }
             });
         }
