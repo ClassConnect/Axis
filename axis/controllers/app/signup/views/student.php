@@ -170,7 +170,7 @@ $('#add-student').submit(function() {
   </fieldset>
   <div id="fbActions" class="actions" style="margin-bottom:-17px">
     <div style="float:right">
-      <button type="submit" class="btn danger">Create Account</button>&nbsp;<button type="reset" class="btn" onClick="closeBox();">Cancel</button>
+      <button type="submit" class="btn success" style="font-weight:bolder">Sign Up!</button>&nbsp;<button type="reset" class="btn" onClick="closeBox();">Cancel</button>
     </div>
     <div style="clear:both"></div>
   </div>

@@ -51,9 +51,9 @@
     <div class="descBox">
       <div class="boxtitle">Organize & Store</div>
       <div class="boxdesc">All of your lessons stay here until you delete them, so say goodbye to re- uploading your lessons every semester.</div>
-      <img src="/assets/public/crate.png" style="height:100px; margin-top:15px; margin-left:70px" />
+      <img src="/assets/public/crate.png" style="height:110px; margin-top:15px; margin-left:70px;margin-bottom:-10px" />
 
-      <img src="/assets/public/arrow.png" style="position:absolute;margin-left:90px;margin-top:50px" />
+      <img src="/assets/public/arrow.png" style="position:absolute;margin-left:80px;margin-top:50px" />
     </div>
 
     <div class="descBox" style="margin-right:0px">

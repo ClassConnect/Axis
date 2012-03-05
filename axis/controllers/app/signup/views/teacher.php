@@ -109,8 +109,8 @@ $('#add-teacher').submit(function() {
     <legend><?= say('Teacher Sign Up'); ?></legend>
     <div class="clearfix">
     <div id="errorBox">
-    <div class="alert-message info" style="margin-right:20px">
-Are you a student? <a href="#" style="color:#fff;font-weight:bolder" onclick="jQuery.facebox({ ajax: '/app/signup/student' }); return false">Click here!</a>
+    <div style="margin:5px;border:1px solid #ccc;padding:5px;width:170px;color:#666;font-size:12px">
+Are you a student? <a href="#" style="font-weight:bolder" onclick="jQuery.facebox({ ajax: '/app/signup/student' }); return false">Click here!</a>
     </div>
     </div>
 
@@ -168,7 +168,7 @@ Are you a student? <a href="#" style="color:#fff;font-weight:bolder" onclick="jQ
   </fieldset>
   <div id="fbActions" class="actions" style="margin-bottom:-17px">
     <div style="float:right">
-      <button type="submit" class="btn danger">Create Account</button>&nbsp;<button type="reset" class="btn" onClick="closeBox();">Cancel</button>
+      <button type="submit" class="btn success" style="font-weight:bolder">Sign Up!</button>&nbsp;<button type="reset" class="btn" onClick="closeBox();">Cancel</button>
     </div>
     <div style="clear:both"></div>
   </div>
