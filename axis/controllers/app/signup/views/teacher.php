@@ -19,6 +19,7 @@ if (isset($_POST['submitted'])) {
   sendEmail($subj, $sendTo, $sendFrom, $body);
   // add to newsletter
   addToNewsletter($attempt, 1);
+  initWizard();
    echo 1; 
   }
 	exit();

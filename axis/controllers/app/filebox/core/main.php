@@ -3341,7 +3341,7 @@ function genConStripe($child, $perLev) {
 	}
 
   if ($perLev == 2) {
-	    $list .= '<a style="float:right" class="textTogg" onClick="jQuery.facebox({ 
+	    $list .= '<a style="float:right" class="textTogg shareLinkClasser" onClick="jQuery.facebox({ 
     ajax: \'/app/filebox/write/share/?conIDs=' . $child['_id'] . '\'
   }); return false;">Share</a>
 
@@ -3731,7 +3731,7 @@ function assocUI($conObj, $perObj) {
 	      ' . $sharePend;
 
 	  if ($perLev == 2) {
-	  	$barML .= '<button class="btn actBtn" style="width:200px; margin-top:5px" onClick="shareCurrent();return false"><img src="/assets/app/img/box/share.png" style="height:18px;margin-right:5px;margin-top:-5px;margin-bottom:-4px">Share this with others</button>';
+	  	$barML .= '<button id="shurred" class="btn actBtn" style="width:200px; margin-top:5px" onClick="shareCurrent();return false"><img src="/assets/app/img/box/share.png" style="height:18px;margin-right:5px;margin-top:-5px;margin-bottom:-4px">Share this with others</button>';
 	  }
 
 
