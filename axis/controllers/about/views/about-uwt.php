@@ -17,9 +17,41 @@ pubHeader('United We Teach', true);
 
 <div style="font-size:14px;margin-top:40px">
 
-<img src="/assets/public/uwt.png" style="float:left;margin-right:40px;margin-bottom:40px;height:300px;" />
+<div style="float:left;margin-right:40px;margin-bottom:40px">
+  <script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'search',
+  search: '#UnitedWeTeach',
+  interval: 3000,
+  title: 'ClassConnect',
+  subject: '#UnitedWeTeach',
+  width: 200,
+  height: 200,
+  theme: {
+    shell: {
+      background: '#424242',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#444444',
+      links: '#1985b5'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: true,
+    live: true,
+    behavior: 'default'
+  }
+}).render().start();
+</script>
+</div>
+<!--<img src="/assets/public/uwt.png" style="float:left;margin-right:40px;margin-bottom:40px;height:300px;" />-->
 
-<div style="background:#E1E1E1;width:670px;height:1px;float:right;margin-bottom:20px">&nbsp;</div>
+<div style="background:#E1E1E1;width:660px;height:1px;float:right;margin-bottom:20px">&nbsp;</div>
 
 
 <div style="width:800px">

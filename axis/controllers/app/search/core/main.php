@@ -250,7 +250,9 @@ function genResults($resultSet) {
 	$finTxt = '';
 
 	if ($resultSet == false || $resultSet->count() == 0) {
-		$finTxt .= '<div style="margin-top:100px;text-align:center;font-size:18px;font-weight:bolder;color:#666">We couldn\'t find anything! Try another search.</div>';
+		$finTxt .= '<div style="margin-top:100px;text-align:center;font-size:18px;font-weight:bolder;color:#666">We couldn\'t find anything - try another search!</div>
+
+		<div style="margin-top:10px;font-size:14px;color:#777;text-align:center;font-style:italic">Psst - search is still in beta!</div>';
 
 
 	} else {
