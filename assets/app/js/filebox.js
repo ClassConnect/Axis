@@ -534,6 +534,33 @@ function recommendThis(obje, conID, dataID) {
 }
 
 
+function sharePublicAct() {
+  $('#sharePubBox').html('<center><img src="/assets/app/img/box/loading.gif" style="margin-top:7px" /></center>');
+   $.ajax({  
+      type: "POST",  
+      url: "/app/filebox/write/sharepub/?conID=" + currentCon, 
+      dataType: "json",
+      success: function(retData) {
+        if (retData['success'] == 1) {
+          initAsyncBar('<img src="/assets/app/img/gen/success.png" style="height:14px;margin-bottom:-2px;margin-right:5px" /> <span style="font-weight:bolder">Sharing updated successfully</span>', 'yellowBox', 210, 527, 1500);
+
+          if (currentType == 1) {
+            restartFolUI(retData['sidebar']);
+
+          } else if (currentType == 2) {
+            restartFilUI(retData['sidebar']);
+          }
+          
+        } else {
+          alert('Oops! Looks like something went wrong. Try again!');
+        }
+        
+      }  
+      
+  });
+}
+
+
 function moveContent(target, contIDs) {
   $.ajax({
     type: "GET",
@@ -684,10 +711,6 @@ function displayWebContent(type, title, data) {
     topbar = '<div style="float:right;margin-top:2px"><button type="submit" class="btn danger" style="font-size:10px;font-weight:bolder" onclick="destroyWebContent()">Close</button></div><div class="alert-message elem" style="width:410px;font-size:12px;padding:1px;padding-left:5px;margin-top:4px"><div class="descTip" style="float:right;margin:0;padding:0;margin-top:-1px" data-original-title="Open in new window"><a href="' + data + '" target="_blank" onClick="destroyWebContent();$(\'.twipsy\').remove();"><img src="/assets/app/img/box/expand.png" /></a></div><div style="line-height:1;margin-top:3px;width:380px;overflow:hidden;height:12px;">' + title + '</div></div></div>';
 
     fsData = '<iframe allowtransparency="true" frameborder="0" id="webframe" class="webConLoader" scrolling="auto" src="' + data + '" style="width:100%;height:100%"></iframe>';
-
-    marTop = 30;
-    marHeight = 93;
-    res = 33;
 
 
   }

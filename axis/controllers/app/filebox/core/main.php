@@ -3721,7 +3721,22 @@ function assocUI($conObj, $perObj) {
 
 
 	  if (empty($fshar)) {
-	  	$sharePend = '<div style="font-size:11px;color:#999">Not shared with anyone...yet.</div>';
+	  	if ($perLev == 2 && user('level') == 3) {
+	  		if ($conObj['type'] == 1) {
+	  			$tname = 'folder';
+	  		} else {
+	  			$tname = 'file';
+	  		}
+	  		$sharePend = '<div id="sharePubBox" class="alert-message block-message warning promptBox" style="margin-bottom:0px;margin-left:0px">
+	<div style="font-size:13px;font-weight:bolder; line-height:1.0em;">Make this ' . $tname . ' public!</div>
+	<div style="color:#777; line-height:1.2em;margin-bottom:10px">All folders & files that you share publicly are free storage!</div>
+
+	<button class="btn" style="font-weight:bolder;" onclick="sharePublicAct(); return false;">Share this publicly</button>
+	  	</div>';
+		} else {
+			$sharePend = '<div style="font-size:11px;color:#999">Not shared with anyone...yet.</div>';
+		}
+
 	  }
 
       $barML .= '<div style="border-top:1px solid #ddd;clear:both;padding-top:5px; margin-top:10px;padding-left:10px">
@@ -3855,7 +3870,21 @@ function assocUI($conObj, $perObj) {
 
 	      // no tags at all?
 	      if (empty($finalArr)) {
-	      	$barML .= '<div style="font-size:11px;color:#999">There are no tags here...yet.</div>';
+	      	if ($perLev == 2 && user('level') == 3) {
+		  		if ($conObj['type'] == 1) {
+		  			$tname = 'folder';
+		  		} else {
+		  			$tname = 'file';
+		  		}
+		  		$barML .= '<div id="sharePubBox" class="alert-message block-message warning promptBox" style="margin-bottom:0px;margin-left:0px">
+		<div style="font-size:13px;font-weight:bolder; line-height:1.0em;">Keep this ' . $tname . ' organized!</div>
+		<div style="color:#777; line-height:1.2em;margin-bottom:10px">Add tags for state standards, grades/subjects, and more!</div>
+
+		  	</div>';
+			} else {
+				$barML .= '<div style="font-size:11px;color:#999">There are no tags here...yet.</div>';
+			}
+
 	      }
 
 	  if ($perLev == 2) {

@@ -62,6 +62,11 @@ if ($this->Command->Parameters[0] == 'write') {
     require_once('views/write/share.php');
 
 
+  // if we're sharing content publicly...
+  } elseif ($this->Command->Parameters[1] == 'sharepub') {
+    require_once('views/write/sharePublic.php');
+
+
   // if we're adding a description...
   } elseif ($this->Command->Parameters[1] == 'desc') {
     require_once('views/write/desc.php');

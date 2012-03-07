@@ -72,7 +72,7 @@ The problem is that finding the time to create all this incredible content and h
     <iframe allowtransparency="true" frameborder="0" marginwidth="0" scrolling="no" src="https://plusone.google.com/_/+1/fastbutton?url=http%3A%2F%2Fwww.classconnect.com/about/unitedweteach%2F&amp;size=tall&amp;count=false&amp;annotation=&amp;width=120&amp;hl=en-US&amp;jsh=m%3B%2F_%2Fapps-static%2F_%2Fjs%2Fwidget%2F__features__%2Frt%3Dj%2Fver%3DSXEYxs5FO0c.en_US.%2Fsv%3D1%2Fam%3D!KW4lzGmbF_KIhSW8Og%2Fd%3D1%2F#id=I1_1327178530968&amp;parent=http%3A%2F%2Fwww.classconnect.com/about/unitedweteach&amp;rpctoken=350075819&amp;_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe" style="border:none; overflow:hidden; width:50px; height:30px;margin-bottom:-1px;margin-right:3px" title="+1"></iframe>
 
     <iframe allowtransparency="true" frameborder="0" scrolling="no"
-    src="//platform.twitter.com/widgets/tweet_button.html?count=none&text=I'm a pioneer! %23UnitedWeTeach&via=ClassConnectInc&url=http://www.classconnect.com/about/unitedweteach"
+    src="//platform.twitter.com/widgets/tweet_button.html?count=none&text=&quot;If your job was to manage students they would call you managers. But you're a teacher.&quot; %23UnitedWeTeach&url=http://www.classconnect.com/about/unitedweteach"
     style="width:55px; height:30px;"></iframe>
 </div>
 
@@ -105,7 +105,7 @@ The problem is that finding the time to create all this incredible content and h
       <ul>
         <li><a href="#" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });return false">Create a free account</a> and share your lessons publicly for other teachers to see</li>
         <li style="margin-top:5px"><a href="/app/search/">Find</a>, use and review lessons that other teachers have built</li>
-        <li style="margin-top:5px">Tell the world how you're being a pioneer in your classroom on <a href="/spotlight">Pioneer Chat!</a></li>
+        <li style="margin-top:5px">Tell the world how you're being a pioneer inside and outside of your classroom on <a href="/spotlight">Pioneer Chat!</a></li>
       </ul>
     </div>
 

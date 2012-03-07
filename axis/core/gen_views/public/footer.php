@@ -23,7 +23,7 @@
 
   <iframe allowtransparency="true" frameborder="0" marginwidth="0" scrolling="no" src="https://plusone.google.com/_/+1/fastbutton?url=http%3A%2F%2Fwww.classconnect.com%2F&amp;size=tall&amp;count=true&amp;annotation=&amp;width=120&amp;hl=en-US&amp;jsh=m%3B%2F_%2Fapps-static%2F_%2Fjs%2Fwidget%2F__features__%2Frt%3Dj%2Fver%3DSXEYxs5FO0c.en_US.%2Fsv%3D1%2Fam%3D!KW4lzGmbF_KIhSW8Og%2Fd%3D1%2F#id=I1_1327178530968&amp;parent=http%3A%2F%2Fwww.classconnect.com&amp;rpctoken=350075819&amp;_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe" style="border:none; overflow:hidden; width:50px; height:70px;margin-bottom:-1px;margin-right:10px" title="+1"></iframe>
 
-  <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/tweet_button.html?count=vertical&text=I'm a pioneer! %23UnitedWeTeach&via=ClassConnectInc&url=http://www.classconnect.com" style="width:55px; height:70px;"></iframe>
+  <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/tweet_button.html?count=vertical&text=I'm a pioneer! %23UnitedWeTeach&url=http://www.classconnect.com" style="width:55px; height:70px;"></iframe>
 
   <a href="http://www.rackspace.com" target="_blank"><img src="/assets/rack.png" style="height:30px;margin-bottom:22px;margin-left:15px" /></a>
 </div>
