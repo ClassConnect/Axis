@@ -11,7 +11,11 @@ $(document).ready(function() {
     var videoURL= 'http://www.youtube.com/watch?v=';
     $.getJSON(playListURL, function(data) {
         var vid_data="";
-        var item = data.feed.entry[0];
+        var initDat = 0;
+        for(prop in data.feed.entry) {
+            initDat++;
+        }
+        var item = data.feed.entry[initDat - 1];
 
             var feedTitle = item.title.$t;
             var feedDesc = item.media$group.media$description.$t.substring(0, 130).replace( /\n/g, ' ') + '...';

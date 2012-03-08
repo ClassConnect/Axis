@@ -30,7 +30,7 @@ foreach ($finForkers as $uid=>$forkarr) {
 	}
 	echo '<div style="margin: 0px 10px 0px 10px; border-bottom:1px solid #eee;padding-top:5px">
 	<img src="' . iconServer() . '50_' . dispUser($uid, 'prof_icon') . '" style="float:left;margin:0px 10px 5px 0px" />
-	<div style="font-size:14px;width:290px;float:right"><a href="#" style="font-weight:bolder">' . dispUser($uid, 'first_name') . ' ' . dispUser($uid, 'last_name') . '</a> used this <strong>' . $numFork . ' ' . $fword . '</strong>';
+	<div style="font-size:14px;width:290px;float:right"><a href="' . userURL($uid) . '" style="font-weight:bolder">' . dispUser($uid, 'first_name') . ' ' . dispUser($uid, 'last_name') . '</a> used this <strong>' . $numFork . ' ' . $fword . '</strong>';
 
 	foreach ($forkarr as $conData) {
 		$permissionObj = verifyPermissions($conData, user('id'));
