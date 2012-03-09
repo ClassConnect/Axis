@@ -1380,7 +1380,7 @@ border:1px solid #666;
   border-radius:0px;
 
    background-color: hsl(0, 0%, 96%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="hsl(0, 0%, 104%)", endColorStr="hsl(0, 0%, 96%)");
+  
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(0, 0%, 104%)), to(hsl(0, 0%, 96%)));
   background-image: -moz-linear-gradient(top, hsl(0, 0%, 104%), hsl(0, 0%, 96%));
