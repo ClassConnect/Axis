@@ -1723,7 +1723,7 @@ function addFriend($friendID, $uid, $autoAdd) {
         updateNotis(1, $friendID);
 
         // send an email to our new friend
-        $myName = dispUser($uid, 'first_name') . ' ' . dispUser($uid, 'last_name') . ' via ClassConnect';
+        $myName = dispUser($uid, 'first_name') . ' ' . dispUser($uid, 'last_name');
         $subj = $myName . ' requested you as a colleague on ClassConnect';
         $sendTo = array(dispUser($friendID, 'e_mail'));
         $sendFrom = array('support@classconnect.com' => $myName);
