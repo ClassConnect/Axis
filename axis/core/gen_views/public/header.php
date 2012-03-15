@@ -36,9 +36,9 @@ if ($developerMode == true) {
 } else {
 ?>
     <script src="/assets/app/production/production.js"></script>
-    <script src="/assets/public/js/gen.js"></script>
-    <link href="/assets/app/production/main.css" rel="stylesheet">
-    <link href="/assets/app/production/public.css" rel="stylesheet">
+    <script src="/assets/public/js/gen.js?v=110"></script>
+    <link href="/assets/app/production/main.css?v=110" rel="stylesheet">
+    <link href="/assets/app/production/public.css?v=110" rel="stylesheet">
     <link href="/assets/app/ui/ui-production.css" rel="stylesheet">
 <?php
 }
