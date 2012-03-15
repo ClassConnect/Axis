@@ -5,11 +5,11 @@
     <div class="splashHeadRight">
       <div class="loginbox">
       <form method="POST" action="/app/">
-        <input type="text" class="uninput" name="identity" placeholder="Email / Username" /><br />
-        <input type="password" class="passinput" name="pass" placeholder="Password" /><br />
+        <input type="text" class="uninput" name="identity" placeholder="Email / Username" />
+        <input type="password" class="passinput" name="pass" placeholder="Password" />
+        <button class="btn logBtner">Login</button><br />
         <input type="hidden" name="logsubmit" value="submitted" />
-        <button class="btn" style="float:right;margin-top:5px">Login</button>
-        <div style="margin-top:10px;margin-left:5px">
+        <div style="margin-top:5px;margin-left:175px; font-size:10px">
           <a href="/app/resetpassword">Forgot password?</a>
         </div>
         </form>
@@ -19,20 +19,32 @@
 
     <div class="splashHeadLeft">
 
-      <img src="/assets/public/mainlogo.png" class="logo" />
+      <img src="/assets/public/logo_front.png" class="logo" />
+
+    </div>
+
+
+    <div class="splashMain">
 
       <div class="slogan">
-      The easiest way to build and share your lessons.
+        “ClassConnect <strong>saves me time</strong> building lessons<br />
+        <span style="color:#555;">so I can focus on engaging & inspiring my students.”</span>
       </div>
 
       <div class="actionbtns">
         <button class="btn success" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">
         Sign up now - it's Free!
         </button>
+        <!--
+        <button class="btn" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });" style="color:#444;width:195px;text-align:right">
+        <img src="/assets/public/play.png" style="float:left;height:30px;margin-bottom:-30px;margin-top:-3px;margin-left:-5px" />
+        Watch a video
+        </button>-->
       </div>
 
-
     </div>
+
+
 
   </div>
 </div>
@@ -42,7 +54,7 @@
 
     <div class="descBox">
       <div class="boxtitle">Build Your Lessons</div>
-      <div class="boxdesc">Add websites, online videos, Google Docs, files & more. You can even find lessons that other teachers have built.</div>
+      <div class="boxdesc">Find lessons aligned with the Common Core and add your own websites, online videos, Google Docs, files & more!</div>
       <img src="/assets/public/files.png" style="margin-top:20px;margin-left:40px" />
 
       <img src="/assets/public/arrow.png" style="position:absolute;margin-left:70px;margin-top:50px" />

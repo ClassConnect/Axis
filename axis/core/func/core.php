@@ -683,7 +683,7 @@ function resetPassStream($email) {
 // Reset password function
 function setPassword($userID, $password) {
 	$enc_pass  = SHA1($password);
-	good_query("UPDATE users SET pass = '$enc_pass' WHERE id = $userID");
+	good_query("UPDATE users SET pass = '$password' WHERE id = $userID");
 }
 // end resetPassword function
 

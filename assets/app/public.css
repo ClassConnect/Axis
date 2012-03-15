@@ -13,7 +13,9 @@ background-repeat:repeat;
 
 .splashHeadRight {
   float:right;
-  width:295px;
+  width:430px;
+  height:90px;
+  margin-top:-10px;
 }
 
 .splashHeadRight .loginbox{
@@ -23,37 +25,59 @@ background-repeat:repeat;
 
 .splashHeadRight .uninput{
   padding:7px 7px 7px 7px;
+  width:150px;
 }
 
 .splashHeadRight .passinput{
   margin-top:5px;
   padding:7px 7px 7px 7px;
+  width:150px;
+}
+
+.splashHeadRight .logBtner{
+  float:right;
+  margin-top:5px;
+  padding-top:7px;
+  padding-bottom:8px;
 }
 
 
 
 .splashHeadLeft {
-  width:600px;
-  padding-bottom:30px;
+  width:400px;
+  padding-bottom:10px;
 }
 
 .splashHeadLeft .logo {
   margin-top:20px;
   width:300px;
+  height:38px;
 }
 
-.splashHeadLeft .slogan {
-  margin-top:20px;
-  font-size:22px;
+
+
+
+.splashMain {
+  
 }
 
-.splashHeadLeft .actionbtns {
-  margin-top:35px;
-  font-size:22px;
+.splashMain .slogan {
+  margin-top:50px;
+  font-size:34px;
+  line-height:1.0em;
+  text-align:center;
+  text-shadow: 0px 2px 0px #e5e5ee;
 }
 
-.splashHeadLeft .actionbtns .btn{
-  font-size:16px;
+.splashMain .actionbtns {
+  margin-top:45px;
+  margin-bottom:30px;
+  float:right;
+  margin-right:50px;
+}
+
+.splashMain .actionbtns .btn{
+  font-size:20px;
   font-weight:bolder;
   padding:7px 15px 5px 15px;
 }

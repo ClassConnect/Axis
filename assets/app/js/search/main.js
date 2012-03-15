@@ -118,6 +118,7 @@ $(document).ready(function() {
       url: "/app/search/retrieve?query=" + escape($('.searchInput').val()) + buildQuery() + "&marker=" + totalPull,  
       success: function(retData) {
           $("#mainBox").append(retData);
+          initResultPane();
           loading = false;
       }  
       

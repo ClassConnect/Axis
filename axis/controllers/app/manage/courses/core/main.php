@@ -479,7 +479,7 @@ function dispTeachCourseView() {
 		ajax: \'/app/manage/courses/add/section?cid=' . $course['course_id'] . '\'
 		});
 		return false;">
-			<img src="/assets/app/img/box/add.png" style="position:absolute;height:16px;margin-left:170px" />
+			<img src="/assets/app/img/box/add.png" style="height:16px;margin-bottom:-3px;margin-right:5px" />
 		    Add a new section for this course
 		</div>
 		</div>';

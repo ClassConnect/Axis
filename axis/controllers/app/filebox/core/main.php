@@ -4030,7 +4030,7 @@ function createFilUI($conID, $cObj, $permissionObj, $perLevel, $dataID) {
 	        style="width:55px; height:70px;"></iframe>
 		</div>
 
-		<button class="btn" style="float:right; margin:10px" onclick="closeBox();">Close<button>
+		<button class="btn" style="float:right; margin:10px" onclick="closeBox();">Close</button>
 
 		</div>';
 	}
