@@ -18,7 +18,9 @@ if ($this->Command->Parameters[0] == '') {
 <div class="splashDesc">
   <div class="container">
 
-   <br /><br />
+  	<div id="fillMeUp" class="pioneerGallery">
+
+  	</div>
     
     
   </div>

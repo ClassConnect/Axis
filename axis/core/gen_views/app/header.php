@@ -150,6 +150,10 @@ if ($notis['data'] != 0) {
                 <li id="manage-courses-tab"><a href="/app/manage/courses" style="font-size:10px">add / manage courses</a></li>
               </ul>
             </li>
+            <?php } else { ?>
+
+            <li><a href="/app/manage/courses" style="font-size:10px">+ Add a course</a></li>
+
             <?php } ?>
             
             <?= $searchPanel; ?>

@@ -114,6 +114,42 @@ background-repeat:repeat;
 }
 
 
+.pioneerGallery {
+  overflow: auto;
+  overflow-y: hidden;
+  -ms-overflow-y: hidden;
+}
+
+.pioneerGallery .vidItem{
+  float:left;
+  margin-right:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-right:10px;
+  border-right:1px solid #ccc;
+  width:278px;
+  cursor:pointer;
+}
+
+.pioneerGallery .vidItem .vidImg{
+  float:left;
+  margin-right:10px;
+}
+
+.pioneerGallery .vidItem .vidTitle{
+  font-size:16px;
+  font-weight:bolder;
+  margin-bottom:5px;
+  color:#666;
+}
+
+
+.pioneerGallery .vidItem .vidDesc {
+  line-height:1.2em;
+  color:#888;
+}
+
+
 
 .pubFooter {
 
