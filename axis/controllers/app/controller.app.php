@@ -166,5 +166,11 @@ class appController extends Axis_Controller
         	header('location: /app/?lo=true');
         }
 
+
+        function _cstats()
+        {
+                require_once('stats/index.php');
+        }
+
 }
 ?>
