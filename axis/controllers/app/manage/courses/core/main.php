@@ -486,7 +486,17 @@ function dispTeachCourseView() {
 	}
 
 	if (empty($result)) {
-		$result = '<div style="text-align:center;margin-top:25px;margin-bottom:120px;font-size:14px">You don\'t have any courses...yet.</div>';
+		$result = '<div style="text-align:center;margin-top:25px;margin-bottom:120px;">
+
+
+		<span style="font-size:20px;font-weight:bolder;color:#333">You don\'t have any courses yet!</span><br /><br />
+
+		<span style="font-size:16px;font-weight:bolder;color:#666"><a href="#" onclick="jQuery.facebox({ div: \'#popVid\' });">Watch a video</a> showing you how to get started!</span>
+
+
+
+
+		</div>';
 	}
 
 	return $result;
