@@ -35,11 +35,22 @@
         <button class="btn success" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">
         Sign up now - it's Free!
         </button>
-        <!--
-        <button class="btn" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });" style="color:#444;width:195px;text-align:right">
+        
+        <button class="btn" onclick="jQuery.facebox({ div: '#whatisVideo' });" style="color:#444;width:195px;text-align:right">
         <img src="/assets/public/play.png" style="float:left;height:30px;margin-bottom:-30px;margin-top:-3px;margin-left:-5px" />
         Watch a video
-        </button>-->
+        </button>
+      </div>
+
+
+      <div id="whatisVideo" style="display:none">
+      <iframe width="800" height="480" src="http://www.youtube.com/embed/BZ9o0dAfXGI?autoplay=1&hd=1&modestbranding=1&rel=0" frameborder="0" style="margin-top:-10px" allowfullscreen></iframe>
+       <button class="btn large" style="float:right;margin-right:5px;margin-top:5px;margin-bottom:5px;font-weight:bolder" onclick="jQuery.facebox({ div: '#resetter' });closeBox();">Close</button>
+      <button class="btn large success" style="float:right;margin-right:10px;margin-top:5px;margin-bottom:5px;font-weight:bolder" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">Sign up now - it's Free!</button>
+      </div>
+
+      <div id="resetter" style="display:none">
+      &nbsp;
       </div>
 
     </div>
