@@ -18,10 +18,15 @@ $data = $collection->count();
 $params[] = array('permissions.type'=>3);
 $params[] = array('parentPermissions.type'=>3);
 $finalq = array('$or' => $params);
-$pubs = $collection->count($finalq);
+$pubs = $collection->find($finalq);
+$totpubs = 0;
+$pubarr = array();
+foreach ($pubs as $pubber) {
+	$totpubs++;
+	$pubarr[$pubber['owner_id']] = 1;
+}
 
 
 
-echo '<br /><br /><br /><br />fbox total: ' . $data . '<br /><br />pub total:' . $pubs;
-
+echo '<br /><br /><br /><br />fbox total: ' . $data . '<br /><br />pub total: ' . $totpubs . '<br /><br />tot pubs auths: ' . count($pubarr);
 ?>
