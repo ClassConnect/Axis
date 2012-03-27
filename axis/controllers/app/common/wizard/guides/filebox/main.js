@@ -53,7 +53,7 @@ function determineEmpty() {
         buttons: [{name: "Close & keep building your lessons!", classString: "danger", onclick: guiders.hideAll }],
         id: "uniqer",
         title: "You've got the hang of it!",
-        description: "<span style='font-size:14px'>Need some inspiration? Take a look at how <a href='http://classconnect.com/app/filebox/4f0fd10cc58216de1d00000c' target='_blank'>this teacher organized their lessons!</a></span>"
+        description: "<span style='font-size:14px'>Need some inspiration? Take a look at how <a href='http://classconnect.com/app/filebox/4f6b9fc2c58216510f000003' target='_blank'>this teacher organized their lessons!</a></span>"
       }).show();
 
     }
