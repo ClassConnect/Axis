@@ -9,7 +9,7 @@ $totToday = count(good_query_table("SELECT * FROM users WHERE reg_date >= $today
 
 $actives = count(good_query_table("SELECT * FROM users WHERE last_login >= $activenum AND (level = 3 OR level = 0)"));
 
-echo 'SU today: ' . $totToday . '<br /><br />Since init: ' . ($totTeachers - 2000) . '<br /><br />Since origin: ' . $totTeachers . '<br /><br />Act: ' . $actives . ' (out of ' . $totSU . ')';
+echo 'SU today: ' . $totToday . '<br /><br />Since init: ' . ($totTeachers - 2000) . '<br /><br />Since origin: ' . $totTeachers . '<br /><br />Act: ' . $actives . ' (out of ' . ($totSU - 2300) . ')';
 
 
 // crunch FBox nums
