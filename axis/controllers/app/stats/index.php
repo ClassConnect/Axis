@@ -2,9 +2,13 @@
 $totTeachers = count(good_query_table("SELECT * FROM users WHERE level = 3 OR level = 0"));
 $today = strtotime(date("d-m-Y"));
 
+$activenum = $today - 1209600;
+
 $totToday = count(good_query_table("SELECT * FROM users WHERE reg_date >= $today AND (level = 3 OR level = 0)"));
 
-echo 'SU today: ' . $totToday . '<br /><br />Since init: ' . ($totTeachers - 2000) . '<br /><br />Since origin: ' . $totTeachers;
+$actives = count(good_query_table("SELECT * FROM users WHERE last_login >= $activenum AND (level = 3 OR level = 0)"));
+
+echo 'SU today: ' . $totToday . '<br /><br />Since init: ' . ($totTeachers - 2000) . '<br /><br />Since origin: ' . $totTeachers . '<br /><br />Act: ' . $actives;
 
 
 // crunch FBox nums
