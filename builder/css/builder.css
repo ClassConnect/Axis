@@ -1,0 +1,57 @@
+#lesson_crumbs {
+	font-size:20px;
+	font-weight:bolder
+}
+
+#lesson_content {
+	margin-top:30px;
+}
+
+#lesson_content .tagbox{
+	float:right;
+	width:280px;
+	border:2px solid #dedede;
+	padding:10px;
+	-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+}
+
+#lesson_content .tagbox .list_line {
+	clear:both;
+	margin-bottom:15px;
+}
+
+#lesson_content .tagbox .list_line .list_item_left{
+	float:left;
+	width:100px;
+	font-weight:bolder;
+}
+
+#lesson_content .tagbox .list_line .list_item_right{
+	width:170px;
+	float:right;
+}
+
+#lesson_content .tagbox .list_line .list_item_right .label{
+	cursor:pointer;
+}
+
+
+
+
+
+#lesson_content .overview{
+	display:block;
+	width:580px;
+	padding:10px;
+}
+
+#lesson_content .overview .exp{
+	font-size:24px;
+	font-weight:bolder;
+}
+
+#lesson_content .overview .pgph{
+	margin-top:10px;
+}

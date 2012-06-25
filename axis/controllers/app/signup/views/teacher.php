@@ -1,29 +1,18 @@
 <?php
 // if the form has been submitted
 if (isset($_POST['submitted'])) {
-	$attempt = createUser($_POST['email'], '', $_POST['firstname'], $_POST['lastname'], $_POST['pass1'], $_POST['pass2'], 3, $_POST['title']);
-	if (!is_numeric($attempt)) {
-		echo '<div class="alert-message warning" style="width:300px">';
-		foreach ($attempt as $error) {
-			echo '<li>' . $error . '</li>';
-		}
-		echo '</div>';
-	} else {
-   // set the session
-   setSession($attempt);
-   // send an email to our new friend
+  $email = escape($_POST['email']);
+	good_query("INSERT INTO users (e_mail, level) VALUES ('$email', 99)");
+  echo 1;
   $subj = 'Re: Welcome to ClassConnect';
-  $sendTo = array(dispUser($attempt, 'e_mail'));
+  $sendTo = array($email);
   $sendFrom = array('eric@classconnect.com' => 'Eric Simons');
-  $body = "Hi - I saw you just signed up for classconnect.com, let me know if there is anything I can do to help!\n\n-Eric";
+  $body = "Hi - just wanted to let you know that you've been added to our beta invite list! You've also been entered to win an iPad (and other goodies) when we launch at the end of July :) \n\n-Eric";
   sendEmail($subj, $sendTo, $sendFrom, $body);
-  // add to newsletter
-  addToNewsletter($attempt, 1);
-  initWizard();
-   echo 1; 
-  }
-	exit();
+  exit();
 }
+echo '<script>window.location = "/"</script>';
+exit();
 ?>
 <style type="text/css">
 .rowPut {

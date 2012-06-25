@@ -26,32 +26,36 @@
 
     <div class="splashMain">
 
-      <div class="slogan">
-        “ClassConnect <strong>saves me time</strong> building lessons<br />
-        <span style="color:#555;">so I can focus on engaging & inspiring my students.”</span>
+      <div class="slogan" style="margin-bottom:50px">
+        Create standards aligned curriculum, <strong>collaboratively.</strong>
+        <form action="#" id="add-teacher" class="form-stacked">
+          <input type="text" name="email" style="font-size:30px;height:50px;width:500px; margin-top:40px" placeholder="enter your email for beta access" />
+          <button class="btn success large" style="font-weight:bolder; font-size:28px; position:relative; padding-top:12px; padding-bottom: 12px; top:6px">Request Invite</button>
+          <input type="hidden" name="submitted" value="true" />
+        </form>
       </div>
 
-      <div class="actionbtns">
-        <button class="btn success" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">
-        Sign up now - it's Free!
-        </button>
-        
-        <button class="btn" onclick="jQuery.facebox({ div: '#whatisVideo' });" style="color:#444;width:195px;text-align:right">
-        <img src="/assets/public/play.png" style="float:left;height:30px;margin-bottom:-30px;margin-top:-3px;margin-left:-5px" />
-        Watch a video
-        </button>
-      </div>
+<!--<img src="/assets/app/iste.png" style="height:100px;margin-top:30px" /> Attended ISTE? Sign up for our beta and you'll be entered to win a free iPad!-->
+
+      <script>
+      $('#add-teacher').submit(function() {
+        var serData = $("#add-teacher").serialize();
+        $.ajax({  
+          type: "POST",  
+          url: "/app/signup/teacher",  
+          data: serData,  
+          success: function(retData) {
+              $("#add-teacher").html('<br /><br /><center>Sweet! We\'ll let you know once your beta invite is ready :)</center>');
+
+          }
+          
+        });  
+        return false;
+      });
+
+      </script>
 
 
-      <div id="whatisVideo" style="display:none">
-      <iframe width="800" height="480" src="http://www.youtube.com/embed/BZ9o0dAfXGI?hd=1&modestbranding=1&rel=0" frameborder="0" style="margin-top:-10px" allowfullscreen></iframe>
-       <button class="btn large" style="float:right;margin-right:5px;margin-top:5px;margin-bottom:5px;font-weight:bolder" onclick="jQuery.facebox({ div: '#resetter' });closeBox();">Close</button>
-      <button class="btn large success" style="float:right;margin-right:10px;margin-top:5px;margin-bottom:5px;font-weight:bolder" onclick="jQuery.facebox({ ajax: '/app/signup/teacher' });">Sign up now - it's Free!</button>
-      </div>
-
-      <div id="resetter" style="display:none">
-      &nbsp;
-      </div>
 
     </div>
 

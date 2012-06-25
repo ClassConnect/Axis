@@ -1,0 +1,141 @@
+#top-login-btn {
+  margin-top:12px;
+  color:#fff;
+  font-weight:bolder;
+  text-shadow: 0 1px 0 #333;
+  background-color: #da4f49;
+  *background-color: #bd362f;
+  background-image: -ms-linear-gradient(top, #B01010, #850708);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#B01010), to(#850708));
+  background-image: -webkit-linear-gradient(top, #B01010, #850708);
+  background-image: -o-linear-gradient(top, #B01010, #850708);
+  background-image: -moz-linear-gradient(top, #B01010, #850708);
+  background-image: linear-gradient(top, #B01010, #850708);
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.7);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#B01010', endColorstr='#850708', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+#top-login-btn:hover,
+#top-login-btn:active,
+#top-login-btn.active,
+#top-login-btn.disabled,
+#top-login-btn[disabled] {
+  color:#fff;
+  font-weight:bolder;
+  background-color: #850708;
+  *background-color: #850708;
+}
+
+#top-login-btn:active,
+#top-login-btn.active {
+  color:#fff;
+  font-weight:bolder;
+  background-color: #942a25 \9;
+}
+
+.noclose {
+  padding: 10px;
+}
+
+.noclose .login-focus {
+  margin-top:7px;
+}
+
+.signup-opt {
+  margin-top:20px;
+  padding-bottom:10px;
+  background:#eee;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+
+.signup-opt .or-account {
+  text-align:center;
+  font-size:14px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  color:#666;
+
+  font-style: italic;
+}
+
+.signup-opt .no-account {
+  font-weight:bolder;
+  text-align: center;
+  font-size:14px;
+  margin:10px 0 10px 5px;
+  padding:10px 9px 10px 9px;
+
+  color:#745419;
+  font-weight:bolder;
+  text-shadow: 0px 1px 1px #fff;
+  background-color: #da4f49;
+  *background-color: #bd362f;
+  background-image: -ms-linear-gradient(top, #FFD356, #FEAC1A);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFD356), to(#FEAC1A));
+  background-image: -webkit-linear-gradient(top, #FFD356, #FEAC1A);
+  background-image: -o-linear-gradient(top, #FFD356, #FEAC1A);
+  background-image: -moz-linear-gradient(top, #FFD356, #FEAC1A);
+  background-image: linear-gradient(top, #FFD356, #FEAC1A);
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#FFD356', endColorstr='#FEAC1A', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+.signup-opt .no-account:hover,
+.signup-opt .no-account:active,
+.signup-opt .no-account.active,
+.signup-opt .no-account.disabled,
+.signup-opt .no-account[disabled] {
+  color:#745419;
+  font-weight:bolder;
+  background-color: #FEAC1A;
+  *background-color: #FEAC1A;
+}
+
+.signup-opt .no-account:active,
+.signup-opt .no-account.active {
+  color:#745419;
+  font-weight:bolder;
+  background-color: #FEAC1A \9;
+}
+
+.signup-opt .zocial {
+  font-size: 12px;
+}
+
+.signup-opt .facebook {
+  margin: 0 5px 0 7px;
+}
+
+
+
+
+.search-span {
+  margin-top:53px;
+  margin-left:0px;
+  z-index: 100;
+}
+
+.search-span .navbar-inner {
+  color:#745419;
+  font-weight:bolder;
+  text-shadow: 0px 1px 1px #fff;
+  background-color: #E0E0E0;
+  *background-color: #E0E0E0;
+  background-image: -ms-linear-gradient(top, #ffffff, #E0E0E0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#E0E0E0));
+  background-image: -webkit-linear-gradient(top, #ffffff, #E0E0E0);
+  background-image: -o-linear-gradient(top, #ffffff, #E0E0E0);
+  background-image: -moz-linear-gradient(top, #ffffff, #E0E0E0);
+  background-image: linear-gradient(top, #ffffff, #E0E0E0);
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#E0E0E0', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
