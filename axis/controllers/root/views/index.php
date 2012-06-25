@@ -29,8 +29,8 @@
       <div class="slogan" style="margin-bottom:50px">
         Create standards aligned curriculum, <strong>collaboratively.</strong>
         <form action="#" id="add-teacher" class="form-stacked">
-          <input type="text" name="email" style="font-size:30px;height:50px;width:500px; margin-top:40px" placeholder="enter your email for beta access" />
-          <button class="btn success large" style="font-weight:bolder; font-size:28px; position:relative; padding-top:12px; padding-bottom: 12px; top:6px">Request Invite</button>
+          <input type="text" name="email" style="font-size:30px;height:50px;width:500px; margin-top:40px;margin-left:-200px" placeholder="enter your email for beta access" />
+          <button class="btn success large" style="font-weight:bolder; font-size:28px; position:absolute; padding-top:12px; padding-bottom: 12px; margin-left:10px; top:198px">Request Invite</button>
           <input type="hidden" name="submitted" value="true" />
         </form>
       </div>
