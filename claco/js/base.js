@@ -3,7 +3,7 @@ $(document).ready(function() {
 	    e.stopPropagation();
 	});
 
-	$("#top-login-btn").on("click", function(e){
+	$("#top-notch-btn").on("click", function(e){
 		if (!$(".noclose").is(":visible")) {
 
 			setTimeout(function() {$(".login-focus").focus();},100);

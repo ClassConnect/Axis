@@ -1,4 +1,4 @@
-#top-login-btn {
+#top-notch-btn {
   margin-top:12px;
   color:#fff;
   font-weight:bolder;
@@ -12,24 +12,24 @@
   background-image: -moz-linear-gradient(top, #B01010, #850708);
   background-image: linear-gradient(top, #B01010, #850708);
   background-repeat: repeat-x;
-  border-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.7);
+  border-color: rgba(150, 8, 7, 0.99) rgba(114, 10, 9, 0.99) rgba(103, 1, 1, 0.99);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#B01010', endColorstr='#850708', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
 }
 
-#top-login-btn:hover,
-#top-login-btn:active,
-#top-login-btn.active,
-#top-login-btn.disabled,
-#top-login-btn[disabled] {
+#top-notch-btn:hover,
+#top-notch-btn:active,
+#top-notch-btn.active,
+#top-notch-btn.disabled,
+#top-notch-btn[disabled] {
   color:#fff;
   font-weight:bolder;
   background-color: #850708;
   *background-color: #850708;
 }
 
-#top-login-btn:active,
-#top-login-btn.active {
+#top-notch-btn:active,
+#top-notch-btn.active {
   color:#fff;
   font-weight:bolder;
   background-color: #942a25 \9;
@@ -120,6 +120,7 @@
   margin-top:53px;
   margin-left:0px;
   z-index: 100;
+  border-bottom:none;
 }
 
 .search-span .navbar-inner {
