@@ -15,6 +15,9 @@
 
         <link href="css/folder.css" rel="stylesheet">
 
+        <link href="css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+
+
     <style type="text/css">
       body {
         padding-top: 120px;
@@ -27,9 +30,75 @@
         margin-top:10px
       }
     </style>
-    <script src="http://localhost/claco/js/jquery.min.js"></script>
-    <script src="http://localhost/claco/js/dropdown.js"></script>
-    <script src="http://localhost/claco/js/base.js"></script>
+    <script src="/claco/js/jquery.min.js"></script>
+    <script src="/claco/js/jquery-ui-1.8.21.custom.min.js"></script>
+    <script src="/claco/js/dropdown.js"></script>
+    <script src="/claco/js/tooltip.js"></script>
+    <script src="/claco/js/popover.js"></script>
+    <script src="/claco/js/base.js"></script>
+    <script src="/claco/js/pretags.js"></script>
+    <script src="/claco/js/folder.js"></script>
+
+
+
+  <style type="text/css">
+.ui-autocomplete {
+  font-size:12px;
+  -moz-border-radius-topleft: 0; -webkit-border-top-left-radius: 0; -khtml-border-top-left-radius: 0; border-top-left-radius: 0;
+  -moz-border-radius-topright: 0; -webkit-border-top-right-radius: 0; -khtml-border-top-right-radius: 0; border-top-right-radius: 0;
+  border-color:#bbb;
+  border-top:none;
+  background-color: #eeeeee;
+  background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffffff), to(#eeeeee));
+  background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: -ms-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: linear-gradient(top, #ffffff, #eeeeee);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+
+  -moz-box-shadow:0px 0px 2px #ccc;
+  -webkit-box-shadow:0px 0px 2px #ccc;
+  box-shadow:0px 0px 2px #ccc;
+}
+.ui-autocomplete a.ui-state-hover {
+  color:#333;
+  background:none;
+}
+#ui-active-menuitem {
+  border-color:#ddd;
+  border-left:1px solid #D9E8FF;
+  border-right:1px solid #D9E8FF;
+  -moz-border-radius: 0; -webkit-border-radius: 0; -khtml-border-radius: 0; border-radius: 0;
+    background-color: #D9E8FF;
+  background-image: -webkit-linear-gradient(top, #D9E8FF, #BDD6FC);
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#D9E8FF), to(#BDD6FC));
+  background-image: -moz-linear-gradient(top, #D9E8FF, #BDD6FC);
+  background-image: -ms-linear-gradient(top, #D9E8FF, #BDD6FC);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #D9E8FF), color-stop(100%, #BDD6FC));
+  background-image: -webkit-linear-gradient(top, #D9E8FF, #BDD6FC);
+  background-image: -o-linear-gradient(top, #D9E8FF, #BDD6FC);
+  background-image: linear-gradient(top, #D9E8FF, #BDD6FC);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D9E8FF', endColorstr='#BDD6FC', GradientType=0);
+}
+
+.ui-menu-item {
+  
+}
+
+.ui-autocomplete-category {
+  color:#888;
+  text-transform: uppercase;
+  font-weight:bolder;
+  margin-left:3px;
+}
+</style>
+
+
 <!--
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
@@ -138,6 +207,7 @@ $(function() {
       <div id="list-pane">
 
         <div class="descbox">
+          <img src="/claco/img/pin.png" style="position:absolute; height:34px;margin:-20px 0 0 -10px" />
           <div class="inner">
             Welcome to the Semster 1 DES class. This is a list of the curriculum & stuff, should be interesting. If you ever have any questions, feel free to shoot me an email and I'll try to respond as soon as possible!<br /><br />Have a great year :)
           </div>
@@ -147,17 +217,17 @@ $(function() {
 
 
 
-          <div class="content-item">
+          <div id="d1" class="content-item">
 
             <div class="folder-preview">
               <div class="primary-hold" style="background-image:url('http://i4.ytimg.com/vi/7fYYPN0BdBw/default.jpg');">
-
-                <div class="thumb-wrap">
-                  <div class="thumb1" style="background-image:url('http://imgv2-3.scribdassets.com/img/word_document/98675512/129x167/dfcb220660/1340999025');"></div>
-
-                  <div class="thumb2" style="background-image:url('/claco/img/shot.jpg');"></div>
-                </div>
                
+              </div>
+
+              <div class="thumb-wrap">
+                <div class="thumb1" style="background-image:url('/claco/img/shot.jpg');"></div>
+
+                <div class="thumb2" style="background-image:url('/claco/img/shot.jpg');"></div>
               </div>
             </div>
 
@@ -177,23 +247,17 @@ $(function() {
           </div>
 
 
-          <div class="content-item">
+          <div id="d2" class="content-item">
 
             <div class="folder-preview">
-              <div class="primary-hold" style="background-image:url('/claco/img/shot.jpg');">
-
-                <div class="thumb-wrap">
-                  <div class="thumb1" style="background-image:url('http://imgv2-3.scribdassets.com/img/word_document/98675512/129x167/dfcb220660/1340999025');"></div>
-
-                  <div class="thumb2" style="background-image:url('http://i4.ytimg.com/vi/7fYYPN0BdBw/default.jpg');"></div>
-                </div>
+              <div class="single-hold" style="background-image:url('http://i1.ytimg.com/vi/lz8aU1EXkBA/0.jpg');">
                
               </div>
             </div>
 
 
 
-            <div class="titler"><a href="#">Week 2 - The Solar System</a></div>
+            <div class="titler"><a href="#">Week 2 - The Legacy of Steve Jobs</a></div>
 
             <div class="descarea">Last updated by <a href="#">Eric Simons</a> at 2:33pm</div>
 
@@ -207,16 +271,10 @@ $(function() {
           </div>
 
 
-          <div class="content-item">
+          <div id="d3" class="content-item droppable">
 
             <div class="folder-preview">
-              <div class="primary-hold" style="background-image:url('http://imgv2-3.scribdassets.com/img/word_document/98675512/129x167/dfcb220660/1340999025');">
-
-                <div class="thumb-wrap">
-                  <div class="thumb1" style="background-image:url('http://i4.ytimg.com/vi/7fYYPN0BdBw/default.jpg');"></div>
-
-                  <div class="thumb2" style="background-image:url('/claco/img/shot.jpg');"></div>
-                </div>
+              <div class="single-hold" style="background-image:url('http://i3.ytimg.com/vi/BT49AiYFV98/0.jpg');">
                
               </div>
             </div>
@@ -256,7 +314,7 @@ $(function() {
         <div class="conbox">
           <div class="headstrip">
             <div class="inner">
-            Tags
+            Tags 
 
               <button class="btn" id="addtags-btn">
               Add New
@@ -264,7 +322,9 @@ $(function() {
             </div>
           </div>
 
-          <div class="content-fill">
+          <div class="empty-tog">You haven't added any tags...yet!</div>
+
+          <div class="content-fill" style="display:none">
 
             <div class="tag-group">
               <div class="announce">
@@ -300,7 +360,7 @@ $(function() {
 
 
             <div class="add-area">
-              <input type="text" class="add-field" placeholder="Enter new tag" />
+              <input type="text" id="tag-adder" class="add-field" placeholder="Enter new tag" />
             </div>
 
           </div>
@@ -319,7 +379,9 @@ $(function() {
             </div>
           </div>
 
-          <div class="content-fill">
+          <div class="empty-tog">You haven't shared this...yet!</div>
+
+          <div class="content-fill" style="display:none">
 
             <div class="share-group">
               <img src="/claco/img/globe.png" class="ppl-image" />

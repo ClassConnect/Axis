@@ -161,7 +161,8 @@ body {
   font-size: 13px;
   line-height: 18px;
   color: #333333;
-  background-color: #ffffff;
+  background-color: #F6F6F6;
+  background: #F7F5F5 url(/claco/img/paper.jpg) repeat;
 }
 
 a {

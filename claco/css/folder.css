@@ -219,41 +219,32 @@
 
 #left-sidebar {
   margin-top:30px;
-  width:230px;
+  width:200px;
   float:left;
 }
 
 #left-sidebar .conbox{
-  margin-bottom:25px;
+  margin-bottom:15px;
+
+  border: 1px solid #ddd;
 
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;
 }
 
+.conbox .act-live {
+  -moz-box-shadow:0 1px 3px rgba(34,25,25,0.3);
+  -webkit-box-shadow:0 1px 3px rgba(34,25,25,0.3);
+  box-shadow: 0 1px 3px rgba(34,25,25,0.3);
+
+  background:#ffffff;
+
+  border: none;
+}
+
 #left-sidebar .conbox .headstrip{
-  background-color: #DBDBDB;
-  *background-color: #DBDBDB;
-  background-image: -ms-linear-gradient(top, #F3F3F3, #DBDBDB);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#F3F3F3), to(#DBDBDB));
-  background-image: -webkit-linear-gradient(top, #F3F3F3, #DBDBDB);
-  background-image: -o-linear-gradient(top, #F3F3F3, #DBDBDB);
-  background-image: -moz-linear-gradient(top, #F3F3F3, #DBDBDB);
-  background-image: linear-gradient(top, #F3F3F3, #DBDBDB);
-  background-repeat: repeat-x;
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#F3F3F3', endColorstr='#DBDBDB', GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
 
-  border: 1px solid #cccccc;
-  *border: 0;
-  border-color: rgba(223, 223, 223, 0.99) rgba(207, 207, 207, 0.99) rgba(188, 190, 189, 0.99);
-
-  -moz-border-radius-topright:4px;
-  -webkit-border-top-right-radius:4px; 
-  border-top-right-radius:4px;
-  -moz-border-radius-topleft:4px;
-  -webkit-border-top-left-radius:4px;  
-  border-top-left-radius:4px;
 }
 
 #left-sidebar .conbox .headstrip .inner{
@@ -264,11 +255,6 @@
   text-shadow: 0 1px 0 #eee;
 
 
-  border: 1px solid #cccccc;
-  *border: 0;
-  border-color: rgba(252, 252, 252, 0.99) rgba(235, 235, 235, 0.99) rgba(230, 230, 230, 0.99);
-
-
   -moz-border-radius-topright:4px;
   -webkit-border-top-right-radius:4px; 
   border-top-right-radius:4px;
@@ -277,9 +263,14 @@
   border-top-left-radius:4px;
 }
 
+#left-sidebar .conbox .empty-tog {
+  color:#777;
+  text-align:center;
+  margin:5px 0;
+  font-size:11px;
+}
 
 #left-sidebar .conbox .content-fill {
-  border: 1px solid #E7E7E7;
 
   -moz-border-radius-bottomright:4px;
   -webkit-border-bottom-right-radius:4px; 
@@ -341,7 +332,7 @@
 #left-sidebar .conbox .content-fill .add-field {
   margin-top:10px;
   margin-left:9px;
-  width:200px;
+  width:170px;
 
   -webkit-border-radius: 0px;
      -moz-border-radius: 0px;
@@ -514,30 +505,32 @@
 
 #list-pane {
   float:right;
-  width:660px;
+  width:710px;
   margin-top:30px;
 }
 
 #list-pane .descbox {
-  background: #F8F8F8;
-  border:1px solid #d8d8d8;
-  -moz-border-radius:4px;
-  -webkit-border-radius:4px;
-  border-radius:4px;
+  border:1px solid #bbb;
 
-  -moz-box-shadow:0px 1px 1px #eee;
-  -webkit-box-shadow:0px 1px 1px #eee;
-  box-shadow:0px 1px 1px #eee;
+  background-color: #FEFE86;
+
+
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);  
+    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);  
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1); 
 
   margin-bottom:20px;
 }
 
+
+
 #list-pane .descbox .inner {
-  border:2px solid #fefefe;
+  border:1px solid #FDF05B;
   -moz-border-radius:4px;
   -webkit-border-radius:4px;
   border-radius:4px;
-  padding:10px;
+  padding:15px;
+  text-shadow: 0 1px 0 #fff;
 }
 
 #list-pane .content-list {
@@ -545,33 +538,40 @@
 }
 
 #list-pane .content-list .content-item {
-  height: 90px;
-  border-bottom:1px solid #ECECEC;
-  margin-bottom:20px;
+  background: #fff;
+  height: 85px;
+  margin-bottom:15px;
   cursor:pointer;
+  padding:15px 15px 0 15px;
+
+
+
+  -moz-box-shadow:0 1px 3px rgba(34,25,25,0.4);
+  -webkit-box-shadow:0 1px 3px rgba(34,25,25,0.4);
+  box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 }
 
-#list-pane .content-list .content-item .folder-preview {
+.folder-preview {
+  margin-top:-10px;
+  margin-left:-11px;
   float:left;
-  width:115px;
-  height:70px;
+  width:180px;
+  height:91px;
   overflow:hidden;
   background-color:#fff;
-  -moz-box-shadow:0px 0px 3px #333;
-  -webkit-box-shadow:0px 0px 3px #333;
-  box-shadow:0px 0px 3px #333;
   cursor:pointer;
 }
 
-#list-pane .content-list .content-item .folder-preview:hover {
-  -moz-box-shadow:0px 0px 8px #333;
-  -webkit-box-shadow:0px 0px 8px #333;
-  box-shadow:0px 0px 8px #333;
+.folder-preview:hover {
+  -moz-box-shadow:0px 0px 6px #999;
+  -webkit-box-shadow:0px 0px 6px #999;
+  box-shadow:0px 0px 6px #999;
 }
 
-#list-pane .content-list .content-item .folder-preview .primary-hold {
-  height: 70px;
-  width:100%;
+.folder-preview .single-hold {
+  float:left;
+  height: 92px;
+  width:200px;
   display:block;
   text-align:center;
   overflow:hidden;
@@ -579,41 +579,47 @@
 
    background-repeat:no-repeat;
    background-position:center;
-   background-size:130px;
+   background-size:200px;
+}
+
+.folder-preview .primary-hold {
+  float:left;
+  height: 92px;
+  width:130px;
+  display:block;
+  text-align:center;
+  overflow:hidden;
+  position:relative;
+
+   background-repeat:no-repeat;
+   background-position:center;
+   background-size:150px;
 }
 
 
-#list-pane .content-list .content-item .folder-preview .primary-hold .thumb-wrap {
+.folder-preview .thumb-wrap {
   float:right;
 }
 
 
-#list-pane .content-list .content-item .folder-preview .primary-hold .thumb1 {
-  height:34px;
-  width:40px;
+.folder-preview .thumb1 {
+  height:46px;
+  width:49px;
   background-repeat:no-repeat;
   background-position:center;
-  background-size:70px;
-
-  -moz-box-shadow:0px 1px 1px #666;
-  -webkit-box-shadow:0px 1px 1px #666;
-  box-shadow:-1px 1px 1px #666;
+  background-size:100px;
 
 
 
 }
 
-#list-pane .content-list .content-item .folder-preview .primary-hold .thumb2 {
-  margin-top:2px;
-  height:34px;
-  width:40px;
+.folder-preview .thumb2 {
+  margin-top:1px;
+  height:46px;
+  width:49px;
   background-repeat:no-repeat;
   background-position:center;
-  background-size:70px;
-
-  -moz-box-shadow:0px 1px 1px #666;
-  -webkit-box-shadow:0px 1px 1px #666;
-  box-shadow:-1px 1px 1px #666;
+  background-size:100px;
 
 
 }
@@ -624,7 +630,7 @@
   font-weight:bolder;
   float:left;
   position:absolute;
-  margin-left:135px;
+  margin-left:185px;
   margin-top:5px;
 }
 
@@ -632,7 +638,7 @@
   font-size:12px;
   float:left;
   position:absolute;
-  margin-left:135px;
+  margin-left:185px;
   margin-top:40px;
   color:#666;
 }
@@ -690,4 +696,93 @@
   border-top:7px solid #747474;
   font-size:0px;
   line-height:0px;
+}
+
+
+.dropper-tog {
+  position:absolute;
+
+  background: #fff;
+  height: 85px;
+  margin-top:-110px;
+  margin-left:-200px;
+  width:350px;
+  cursor:pointer;
+  padding:15px 15px 0 15px;
+  z-index:1000;
+  opacity: 0.01;
+  filter: alpha(opacity=01);
+
+
+
+  -moz-box-shadow:0 1px 3px rgba(34,25,25,0.4);
+  -webkit-box-shadow:0 1px 3px rgba(34,25,25,0.4);
+  box-shadow: 0 0px 4px rgba(34,25,25,0.5);
+
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.dropper-tog .big-text {
+  margin-top:8px;
+  font-size:24px;
+  font-weight:bolder;
+  width:100px;
+  float:left;
+  line-height:1.1em;
+  margin-left:20px;
+}
+
+@-webkit-keyframes bounce {
+   from {
+      margin-top: 10px;
+   }
+   to {
+      margin-top: 0px;
+   }
+}
+
+.dropper-tog .tricontain {
+  float:right;
+  margin-right:15px;
+  margin-top:7px;
+
+  -webkit-animation-name: bounce;
+   -webkit-animation-duration: 0.7s;
+   -webkit-animation-iteration-count: 200;
+   -webkit-animation-direction: alternate;
+}
+
+.dropper-tog .tricontain .fattie{
+  width:24px;
+  height:35px;
+  background-color:#444;
+}
+
+.dropper-tog .tricontain .pointy{
+  position:absolute;
+  width:0px; 
+  height:0px; 
+  border-left:20px solid transparent;
+  border-right:20px solid transparent;
+  border-top:20px solid #444;
+  font-size:0px;
+  line-height:0px;
+  margin-left:-8px;
+}
+
+.placeBorder {
+  position:absolute;
+  margin-top:-115px;
+  height: 77px;
+  width:673px;
+  margin-bottom:15px;
+  padding:15px 15px 0 15px;
+
+  border:4px dotted #ccc;
+}
+
+.dropperblue {
+  background:#EBF3FF !important;
 }

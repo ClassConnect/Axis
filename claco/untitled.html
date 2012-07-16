@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Pure CSS3 Paper Curls Without Images</title>
+<script src="http://localhost/claco/js/jquery.min.js"></script>
+<script src="/assets/app/ui/ui.js"></script>
+<style type="text/css">
+body
+{
+	font-family: arial, helvetica, freesans, sans-serif;
+	font-size: 100%;
+	color: #333;
+	background-color: #ddd;
+}
+
+.box
+{
+	position: relative;
+	width: 500px;
+	padding: 50px;
+	margin: 0 auto;
+	background-color: #fff;
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+.box .xyz:before, .box .xyz:after
+{
+	display:none;
+	position: absolute;
+	width: 40%;
+	height: 10px;
+	content: ' ';
+	left: 12px;
+	bottom: 12px;
+	background: transparent;
+	-webkit-transform: skew(-5deg) rotate(-5deg);
+	-moz-transform: skew(-5deg) rotate(-5deg);
+	-ms-transform: skew(-5deg) rotate(-5deg);
+	-o-transform: skew(-5deg) rotate(-5deg);
+	transform: skew(-5deg) rotate(-5deg);
+	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+	-moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+	box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+	z-index: 1000;
+	boder:1px solid #ccc;
+} 
+
+.box .xyz:after
+{
+	left: auto;
+	right: 12px;
+	-webkit-transform: skew(5deg) rotate(5deg);
+	-moz-transform: skew(5deg) rotate(5deg);
+	-ms-transform: skew(5deg) rotate(5deg);
+	-o-transform: skew(5deg) rotate(5deg);
+	transform: skew(5deg) rotate(5deg);
+} 
+
+h1, h2
+{
+	font-size: 1.6em;
+	font-weight: normal;
+	margin: 0;
+}
+
+h2
+{
+	font-size: 1.3em;
+	margin-top: 1.5em;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box" onmouseover="$('.xyz').fadeIn(300)" onmouseout="$('.xyz').fadeOut(300)">
+<div class="xyz">sdsds</div>
+<h1>Pure CSS3 Paper Curls Without Images</h1>
+
+<p>No images or additional elements are used to create this curled box effect.</p>
+
+<p>For more information, please please refer to:<br />
+<a href="http://blogs.sitepoint.com/pure-css3-paper-curl/">Pure CSS3 Paper Curls Without Images</a></p>
+
+<h2>No Restrictions</h2>
+
+<p>This example code was developed by <a href="http://twitter.com/craigbuckler">Craig Buckler</a> of <a href="http://optimalworks.net/">OptimalWorks.net</a> for <a href="http://sitepoint.com/">SitePoint.com</a>.</p>
+
+<p>It can be used without any restrictions but please don't expect 24/7 support! A link back to <a href="http://www.sitepoint.com/">SitePoint.com</a> is appreciated.</p>
+
+</div>
+
+</body>
+</html>
