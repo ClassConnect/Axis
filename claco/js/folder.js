@@ -10,6 +10,41 @@
 hovBool = false;
 
 $(document).ready(function() {
+
+  // init notepad stuff
+  var editor = new wysihtml5.Editor("textarea", {
+    toolbar:      "wysitoolbar",
+    stylesheets:  "css/stylesheet.css",
+    parserRules:  wysihtml5ParserRules
+  });
+
+  // if we click the notepad, open the editor
+  $(".real-text").click(function() {
+    
+  });
+
+  var keyFrame = function() {
+    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
+  }
+
+  var blurFrame = function() {
+    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
+  }
+
+  var focusFrame = function() {
+    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
+  }
+
+  editor.on("load", function() {
+    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
+    editor.composer.element.addEventListener("keyup", keyFrame, false)
+    editor.composer.element.addEventListener("blur", blurFrame, false)
+    editor.composer.element.addEventListener("focus", focusFrame, false)
+  })
+
+
+
+
     $( ".content-list" ).sortable({
       refreshPositions: true,
       opacity: 0.90,
@@ -69,9 +104,16 @@ $(document).ready(function() {
         topfin = pos1.top - pos2.top + 15;
         leftfin = pos1.left - pos2.left + 15;
 
-        $('.dropper-tog').find('.folder-preview').css({position: 'absolute'}).animate({ top: topfin, left: leftfin }, 200);
+        $('.dropper-tog').find('.folder-preview').css({position: 'absolute'}).animate({ top: topfin, left: leftfin }, 100);
 
-        $('.dropper-tog').css('opacity', 1).animate({ opacity: 0.01 },{ queue: false, duration: 400});
+        $('.dropper-tog').css('opacity', 1).animate({ opacity: 0.01 },{ queue: false, duration: 300});
+
+
+        // okay, now lets remove the dropped folder from the DOM
+        rmBx = $('.ui-sortable-helper');
+        $('.ui-sortable-helper').animate({ opacity: 0.01 },{ queue: false, duration: 1}).slideUp(500);
+        setTimeout('$(\'.dropper-tog\').remove(); rmBx.remove()', 400);
+        //$('.ui-sortable-helper').remove();
 
       }
     });
@@ -84,31 +126,39 @@ $(document).ready(function() {
 
 
 
-// helper methods
-    function dropHover() {
+// helper methods for drag & dropping files/folders
+function dropHover() {
 
-      if (hovBool == true) {
+  if (hovBool == true) {
 
-        $('.placeBorder').fadeOut(200);
+    $('.placeBorder').fadeOut(200);
 
-        $('.dropper-tog').css('opacity', 0.01).animate({ opacity: 1 },{ queue: false, duration: 'fast'});
+    $('.dropper-tog').css('opacity', 0.01).animate({ opacity: 1 },{ queue: false, duration: 'fast'});
 
-        // animate the fadeout of the actual div
-        $('.ui-sortable-helper').css('opacity', 1).slideDown('fast').animate({ opacity: 0.01 },{ queue: false, duration: 'fast'});
-
-
-      }
-    
-    }
+    // animate the fadeout of the actual div
+    $('.ui-sortable-helper').css('opacity', 1).slideDown('fast').animate({ opacity: 0.01 },{ queue: false, duration: 'fast'});
 
 
-    function killHover() {
+  }
 
-      $('body').unbind('mousemove');
-      $('.dropper-tog').remove();
+}
 
-    }
 
+function killHover() {
+
+  $('body').unbind('mousemove');
+  $('.dropper-tog').remove();
+
+}
+
+
+
+// this is for toggling the notepad functionality
+function toggleNotepad() {
+  if ($('.real-text').is(':visible')) {
+    alert(1);
+  }
+}
 
 
 

@@ -38,6 +38,8 @@
     <script src="/claco/js/base.js"></script>
     <script src="/claco/js/pretags.js"></script>
     <script src="/claco/js/folder.js"></script>
+    <script src="/claco/js/wy5/advanced.js"></script>
+    <script src="/claco/js/wy5/wysi5.js"></script>
 
 
 
@@ -165,6 +167,8 @@ $(function() {
       </div>
     </div>
 
+    <div class="async-pop alert"></div>
+
 
     <div class="content-header">
       <div class="con-inner">
@@ -184,11 +188,11 @@ $(function() {
 
           <div class="buttonbox">
 
-            <button id="upload-btn" class="btn">
+            <button id="upload-btn" class="btn" onClick="initAsyc('<img src=\'/claco/img/miniload.gif\' style=\'float:left; margin-right:15px;margin-top:4px\' /> Loading content...')">
             Upload
             </button>
 
-            <button id="newcreate-btn" class="btn">
+            <button id="newcreate-btn" class="btn" onClick="destroyAsyc()">
             New
             </button>
 
@@ -202,14 +206,60 @@ $(function() {
     <div class="container">
 
 
-
-
       <div id="list-pane">
 
         <div class="descbox">
           <img src="/claco/img/pin.png" style="position:absolute; height:34px;margin:-20px 0 0 -10px" />
           <div class="inner">
-            Welcome to the Semster 1 DES class. This is a list of the curriculum & stuff, should be interesting. If you ever have any questions, feel free to shoot me an email and I'll try to respond as soon as possible!<br /><br />Have a great year :)
+
+            <div class="real-text">
+              Welcome to the Semster 1 DES class. This is a list of the curriculum & stuff, should be interesting. If you ever have any questions, feel free to shoot me an email and I'll try to respond as soon as possible!<br /><br />Have a great year :)
+            </div>
+
+
+
+            <div class="wysi-edit">
+              <div id="wysitoolbar" style="display: none;">
+                <a data-wysihtml5-command="bold" title="CTRL+B"></a>
+                <a data-wysihtml5-command="italic" title="CTRL+I"></a>
+                <a data-wysihtml5-command="createLink"></a>
+                <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1"></a>
+                <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2"></a>
+                <a data-wysihtml5-command="insertUnorderedList"></a>
+                <a data-wysihtml5-command="insertOrderedList"></a>
+                <a data-wysihtml5-command="insertSpeech"></a>
+                
+                <div data-wysihtml5-dialog="createLink" style="display: none;">
+                  <label>
+                    Link:
+                    <input data-wysihtml5-dialog-field="href" value="http://">
+                  </label>
+                  <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+                </div>
+                
+                <div data-wysihtml5-dialog="insertImage" style="display: none;">
+                  <label>
+                    Image:
+                    <input data-wysihtml5-dialog-field="src" value="http://">
+                  </label>
+                  <label>
+                    Align:
+                    <select data-wysihtml5-dialog-field="className">
+                      <option value="">default</option>
+                      <option value="wysiwyg-float-left">left</option>
+                      <option value="wysiwyg-float-right">right</option>
+                    </select>
+                  </label>
+                  <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+                </div>
+                
+              </div>
+              <textarea id="textarea" class="danotepad">
+                        Welcome to the Semster 1 DES class. This is a list of the curriculum & stuff, should be interesting. If you ever have any questions, feel free to shoot me an email and I'll try to respond as soon as possible!<br /><br />Have a great year :)</textarea>
+            </div>
+
+
+
           </div>
         </div>
 
@@ -217,7 +267,7 @@ $(function() {
 
 
 
-          <div id="d1" class="content-item">
+          <div id="d1" class="content-item droppable">
 
             <div class="folder-preview">
               <div class="primary-hold" style="background-image:url('http://i4.ytimg.com/vi/7fYYPN0BdBw/default.jpg');">
@@ -271,7 +321,7 @@ $(function() {
           </div>
 
 
-          <div id="d3" class="content-item droppable">
+          <div id="d3" class="content-item">
 
             <div class="folder-preview">
               <div class="single-hold" style="background-image:url('http://i3.ytimg.com/vi/BT49AiYFV98/0.jpg');">

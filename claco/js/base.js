@@ -13,3 +13,15 @@ $(document).ready(function() {
 	});
 
 });
+
+
+
+
+function initAsyc(content) {
+	$('.async-pop').html(content).slideDown(100);
+}
+
+function destroyAsyc() {
+	$('.async-pop').slideUp(100);
+}
+
