@@ -8,39 +8,72 @@
 
   $( ".content-list" ).sortable();*/
 hovBool = false;
+noteClick = false;
+noteInit = false;
 
 $(document).ready(function() {
 
-  // init notepad stuff
-  var editor = new wysihtml5.Editor("textarea", {
-    toolbar:      "wysitoolbar",
-    stylesheets:  "css/stylesheet.css",
-    parserRules:  wysihtml5ParserRules
+
+  // JS for tags related stuff
+  $('#addtags-btn').click(function() {
+    container = $(this).parent().parent().parent();
+
+    if (container.hasClass('act-live')) {
+      container.removeClass('act-live');
+      $(this).removeClass('btn-primary savebtn').html('Add New');
+
+
+      container.find('.content-fill').css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
+      container.find('.empty-tog').css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+
+    } else {
+      container.addClass('act-live');
+      $(this).addClass('btn-primary savebtn').html('&nbsp;&nbsp;Save&nbsp;&nbsp;');
+
+
+      container.find('.empty-tog').css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
+      container.find('.content-fill').css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+
+      setTimeout(function() {$("#tag-adder").focus();},150);
+
+      //$('#tag-adder').focus();
+    }
+
+
   });
 
   // if we click the notepad, open the editor
-  $(".real-text").click(function() {
-    
+  $(".descbox").click(function() {
+    if ($('.real-text').is(':visible') && noteClick == false) {
+      if (noteInit == false) {
+        // init notepad stuff
+        editor = new wysihtml5.Editor("notearea", {
+          toolbar:      "wysitoolbar",
+          stylesheets:  "css/stylesheet.css",
+          parserRules:  wysihtml5ParserRules
+        });
+
+        noteInit = true;
+      }
+      $(editor.composer.element).html($('.real-text').html());
+      $('.real-text').hide();
+      $('.wysi-edit').show();
+      editor.composer.element.focus();
+
+    } else if (noteClick == true) {
+      noteClick = false;
+
+    }
   });
 
-  var keyFrame = function() {
-    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
-  }
+  $(".save-wysi").click(function() {
+      editor.composer.element.blur();
+      $('.real-text').html($(editor.composer.element).html());
+      $('.wysi-edit').hide();
+      $('.real-text').show();
+      noteClick = true;
+  });
 
-  var blurFrame = function() {
-    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
-  }
-
-  var focusFrame = function() {
-    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
-  }
-
-  editor.on("load", function() {
-    editor.composer.iframe.style.height = (editor.composer.element.scrollHeight + 20) + "px";
-    editor.composer.element.addEventListener("keyup", keyFrame, false)
-    editor.composer.element.addEventListener("blur", blurFrame, false)
-    editor.composer.element.addEventListener("focus", focusFrame, false)
-  })
 
 
 
@@ -153,12 +186,6 @@ function killHover() {
 
 
 
-// this is for toggling the notepad functionality
-function toggleNotepad() {
-  if ($('.real-text').is(':visible')) {
-    alert(1);
-  }
-}
 
 
 
