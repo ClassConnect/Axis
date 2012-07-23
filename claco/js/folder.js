@@ -13,6 +13,9 @@ noteInit = false;
 
 $(document).ready(function() {
 
+  // init our folder autocomplete
+  initAutoTagger('#folder-tags');
+
 
   // JS for tags related stuff
   $('#addtags-btn').click(function() {
@@ -23,18 +26,50 @@ $(document).ready(function() {
       $(this).removeClass('btn-primary savebtn').html('Add New');
 
 
-      container.find('.content-fill').css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
-      container.find('.empty-tog').css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+      // how should we close this?
+      if ($('.tags li').length > 0) {
+        // we're doing a custom close up
+        $('.tag-group').each(function(index) {
+            if ($(this).find('.tags li').length == 0) {
+              $(this).css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
+            }
+        });
+
+
+        $('.tagenter').css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
+
+
+      } else {
+        container.find('.content-fill').css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
+      container.find('.fortags').css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+      }
+      
+
+
 
     } else {
       container.addClass('act-live');
       $(this).addClass('btn-primary savebtn').html('&nbsp;&nbsp;Save&nbsp;&nbsp;');
 
 
-      container.find('.empty-tog').css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
-      container.find('.content-fill').css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+      // how should we open this?
+      if ($('.tags li').length > 0) {
+        // we're doing a custom open up
+        $('.tag-group').each(function(index) {
+            if ($(this).find('.tags li').length == 0) {
+              $(this).css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+            }
+        });
 
-      setTimeout(function() {$("#tag-adder").focus();},150);
+        $('.tagenter').css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+
+
+      } else {
+        container.find('.fortags').css('opacity', 1).slideUp(150).animate({ opacity: 0 },{ queue: false, duration: 150});
+      container.find('.content-fill').css('opacity', 0).slideDown(150).animate({ opacity: 1 },{ queue: false, duration: 150});
+      }
+
+      //setTimeout(function() {$("#tag-adder").focus();},150);
 
       //$('#tag-adder').focus();
     }
@@ -183,87 +218,3 @@ function killHover() {
   $('.dropper-tog').remove();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  $.widget( "custom.catcomplete", $.ui.autocomplete, {
-    _renderMenu: function( ul, items ) {
-      var self = this,
-        currentCategory = "";
-      $.each( items, function( index, item ) {
-        if ( item.category != currentCategory ) {
-          ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
-          currentCategory = item.category;
-        }
-        self._renderItem( ul, item );
-      });
-    }
-  });
-
-  $(function() {
-
-    $( "#tag-adder" ).catcomplete({
-      autoFocus: true,
-      delay: 0,
-      source: tag_data,
-      select: function( event, ui ) {
-        $("#tag-adder").val(ui.item.title)
-        return false;
-      },
-      focus: function(event, ui) {
-        $('.tooltip').remove();
-
-        if (ui.item.category == "Common Core") {
-          $('.ui-state-hover').tooltip({
-            placement: 'right',
-            title: ui.item.label,
-            trigger: 'manual'
-          });
-          $('.ui-state-hover').tooltip("show");
-        }
-        return false;
-      }
-    })
-    .data("catcomplete")._renderItem = function(ul, item) {
-      return $( "<li></li>" )
-      .data( "item.autocomplete", item )
-      .append( "<a style='padding-left:10px'>" + item.title + "</a>")
-      .appendTo( ul );
-    };
-  });

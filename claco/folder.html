@@ -11,6 +11,7 @@
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
+    <link href="css/facebox.css" rel="stylesheet">
     <link href="css/buttons/buttons.css" rel="stylesheet">
 
         <link href="css/folder.css" rel="stylesheet">
@@ -33,11 +34,13 @@
     <script src="/claco/js/jquery.min.js"></script>
     <script src="/claco/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="/claco/js/dropdown.js"></script>
+    <script src="/claco/js/facebox.js"></script>
     <script src="/claco/js/tooltip.js"></script>
     <script src="/claco/js/popover.js"></script>
     <script src="/claco/js/base.js"></script>
     <script src="/claco/js/pretags.js"></script>
     <script src="/claco/js/folder.js"></script>
+    <script src="/claco/js/taginit.js"></script>
     <script src="/claco/js/wy5/advanced.js"></script>
     <script src="/claco/js/wy5/wysi5.js"></script>
 
@@ -188,13 +191,18 @@ $(function() {
 
           <div class="buttonbox">
 
-            <button id="upload-btn" class="btn" onClick="initAsyc('<img src=\'/claco/img/miniload.gif\' style=\'float:left; margin-right:15px;margin-top:4px\' /> Loading content...')">
-            Upload
-            </button>
+            <div class="btn-group">
+              <button id="newcreate-btn" data-toggle="dropdown" class="btn dropdown-toggle">
+              <div class="plusser">+</div> Add
 
-            <button id="newcreate-btn" class="btn" onClick="destroyAsyc()">
-            New
-            </button>
+
+              </button>
+              <ul class="dropdown-menu" style="margin-left:-95px">
+                <li><a href="#">Web bookmark / Embed</a></li>
+                <li><a href="#" onClick="jQuery.facebox({ div: '#jack' }); return false">Upload File</a></li>
+                <li><a href="#">New Folder</a></li>
+              </ul>
+            </div>
 
           </div>
 
@@ -204,6 +212,25 @@ $(function() {
 
 
     <div class="container">
+
+      <div id="jack" style="display:none">
+        <div class="headtitle">
+          Upload File
+        </div>
+
+        <div class="bodcon">
+          <div class="conitem">
+            <div class="lablr">Choose a file</div>
+            <input type="file" />
+          </div>
+
+          <div class="buttonbar">
+             <button class="btn btn-primary">Upload File!</button>
+             <button class="btn" onClick="closefBox()">Cancel</button>
+          </div>
+
+        </div>
+      </div>
 
 
       <div id="list-pane">
@@ -277,7 +304,7 @@ $(function() {
               </div>
 
               <div class="thumb-wrap">
-                <div class="thumb1" style="background-image:url('/claco/img/shot.jpg');"></div>
+                <div class="thumb1" style="background-image:url('http://api.url2png.com/v3/P4DEAF304741DB/96e72d38b488286ebc2366e2e365f2cf/460x460/cnn.com');"></div>
 
                 <div class="thumb2" style="background-image:url('/claco/img/shot.jpg');"></div>
               </div>
@@ -302,7 +329,7 @@ $(function() {
           <div id="d2" class="content-item">
 
             <div class="folder-preview">
-              <div class="single-hold" style="background-image:url('http://i1.ytimg.com/vi/lz8aU1EXkBA/0.jpg');">
+              <div class="single-hold" style="background-image:url('http://i1.ytimg.com/vi/lz8aU1EXkBA/default.jpg');">
                
               </div>
             </div>
@@ -363,7 +390,7 @@ $(function() {
 
       <div id="left-sidebar">
         
-        <div class="conbox">
+        <div id="folder-tags" class="conbox">
           <div class="headstrip">
             <div class="inner">
             Tags 
@@ -374,36 +401,78 @@ $(function() {
             </div>
           </div>
 
-          <div class="empty-tog">You haven't added any tags...yet!</div>
+          <div class="empty-tog fortags">You haven't added any tags...yet!</div>
 
           <div class="content-fill" style="display:none">
 
-            <div class="tag-group">
+            <div class="tag-group tagged-grades">
               <div class="announce">
                 Grade Levels
               </div>
 
               <div class="taggers">
                 <ul class="tags">
-                  <li><a href="#">9th</a> <span class="delcir">x</soan></li>
-                  <li><a href="#">10th</a> <div class="delcir">x</div></li>
-                  <li><a href="#">11th</a> <div class="delcir">x</div></li>
-                  <li><a href="#">12th</a> <div class="delcir">x</div></li>
+                  
                 </ul>
                 <div style="clear:both"></div>
               </div>
             </div>
 
 
-            <div class="tag-group">
+            <div id="grade-addarea" class="add-area tagenter">
+              <input type="text" class="add-field grade-addfield" placeholder="Ex: '1st', 'Second Grade'" />
+              <div class="empty-auto-hold">Hit enter to add tag...</div>
+            </div>
+
+
+            <div class="tag-group tagged-subjects">
               <div class="announce">
                 Subjects
               </div>
 
               <div class="taggers">
                 <ul class="tags">
-                  <li><a href="#">Math</a> <div class="delcir">x</div></li>
-                  <li><a href="#">Science</a> <div class="delcir">x</div></li>
+                  
+                </ul>
+                <div style="clear:both"></div>
+              </div>
+            </div>
+
+
+            <div id="subject-addarea" class="add-area tagenter">
+              <input type="text" class="add-field subject-addfield" placeholder="Ex: 'Math', 'History'" />
+              <div class="empty-auto-hold">Hit enter to add tag...</div>
+            </div>
+
+
+            <div class="tag-group tagged-standards">
+              <div class="announce">
+                Standards
+              </div>
+
+              <div class="taggers">
+                <ul class="tags">
+                  
+                </ul>
+                <div style="clear:both"></div>
+              </div>
+            </div>
+
+            <div id="standards-addarea" class="add-area tagenter">
+              <input type="text" class="add-field standards-addfield" placeholder="Ex: 'RL.K.1'" />
+              <div class="empty-auto-hold">Hit enter to add tag...</div>
+            </div>
+
+
+            <div class="tag-group tagged-other">
+              <div class="announce">
+                Other
+              </div>
+
+
+              <div class="taggers">
+                <ul class="tags">
+                  
                 </ul>
                 <div style="clear:both"></div>
               </div>
@@ -411,8 +480,9 @@ $(function() {
 
 
 
-            <div class="add-area">
-              <input type="text" id="tag-adder" class="add-field" placeholder="Enter new tag" />
+            <div id="other-addarea" class="add-area tagenter">
+              <input type="text" class="add-field other-addfield" placeholder="Ex: 'California', 'edchat'" />
+              <div class="empty-auto-hold">Hit enter to add tag...</div>
             </div>
 
           </div>
