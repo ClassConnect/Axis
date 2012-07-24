@@ -101,12 +101,25 @@ $(document).ready(function() {
     }
   });
 
+  // we're performing a save
   $(".save-wysi").click(function() {
       editor.composer.element.blur();
       $('.real-text').html($(editor.composer.element).html());
       $('.wysi-edit').hide();
       $('.real-text').show();
       noteClick = true;
+
+      noteSon = { 'text': $(editor.composer.element).html() };
+
+      $.ajax({
+        url: "post.php",
+        data: noteSon,
+        type: 'post',
+        success: function(data) {
+          alert(data);
+        }
+      });
+
   });
 
 
@@ -126,6 +139,31 @@ $(document).ready(function() {
       },
       stop: function(event, ui) {
         $('.placeBorder').remove();
+
+        olist = [];
+        // save these changes
+
+        $('.content-item').each(function(index) {
+          olist[index] = $(this).attr('id');
+
+        });
+
+        console.log(olist)
+
+        olist = { data: olist };
+
+        // send final data to server
+        $.ajax({
+          url: "post.php",
+          data: olist,
+          type: 'post',
+          success: function(data) {
+            alert(data);
+          }
+        });
+
+
+
       }
     });
 
