@@ -270,6 +270,66 @@ function initAutoTagger(identifier) {
 
 
 
+////////////////////////////////////////////////////////////////////////////////////
+//    helper function for turning tags into JSON
+////////////////////////////////////////////////////////////////////////////////////
+
+function tagsToJSON(identifier) {
+  var finTags = { "standards": [], "grades": [], "subjects": [], "other": [] };
+
+  // standards
+  $(identifier).find('.tagged-standards').find('.tags li').each(function(index) {
+
+    finTags["standards"].push({"title": $(this).clone().find('.delcir').remove().end().text()});
+
+  });
+
+
+  // grades
+  $(identifier).find('.tagged-grades').find('.tags li').each(function(index) {
+
+    finTags["grades"].push({"title": $(this).clone().find('.delcir').remove().end().text()});
+
+  });
+
+  // subjects
+  $(identifier).find('.tagged-subjects').find('.tags li').each(function(index) {
+
+    finTags["subjects"].push({"title": $(this).clone().find('.delcir').remove().end().text()});
+
+  });
+
+  // other
+  $(identifier).find('.tagged-other').find('.tags li').each(function(index) {
+
+    finTags["other"].push({"title": $(this).clone().find('.delcir').remove().end().text()});
+
+  });
+
+
+  console.log(finTags);
+
+  $.ajax({
+  url: "post.php",
+  data: finTags,
+  type: 'post',
+  success: function(data) {
+    alert(data);
+  }
+});
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
